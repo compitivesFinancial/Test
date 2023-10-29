@@ -1,0 +1,22 @@
+<div class="tab-background col-md-12">
+    <div class="table-responsive">
+        <table id="borrowers" class="display nowrap table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>{{LANG.Due_Date}}</th>
+                    <th>{{LANG.Principle_Amount}}</th>
+                    <th>{{LANG.Profit_Amount}}</th>
+                    <th>{{LANG.Total_Amount}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of profit_list; let i=index;">
+                    <td>{{data.date | date:'mediumDate'}}</td>
+                    <td>{{data.principle}}</td>
+                    <td>{{data.profit}}</td>
+                    <td>{{data.total}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

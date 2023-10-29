@@ -1,0 +1,38 @@
+.country-wrapper input{
+    margin-left: 25%;
+    width: 75%;
+}
+.login-pad{
+    background-color: #ffffff;
+}
+.country-code{
+    position: absolute;
+    width: 20%;
+}
+
+.country-code input,.country-code select{ 
+    margin: 0;
+    width: 100%;
+}
+
+.country-code select{
+    padding: 0;
+}
+
+.otp-field{
+    display: flex;
+    justify-content: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -webkit-box-pack: justify;
+    direction: ltr;
+}
+.otp-field input{
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 10px;
+    text-align: center;
+    border: none;
+    padding: 0;
+}

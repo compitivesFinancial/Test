@@ -1,0 +1,235 @@
+<section class="login-pad">
+  <div class="form-sec step2-1" *ngIf="show_otp">
+    <ng-container>
+      <div class="heading  text-center">
+        <h2>{{LANG.Verify_OTP}}</h2>
+        <span>{{LANG.A_verification_code_has_been_sent_to}} ({{email}})
+        </span>
+      </div>
+      <form>
+        <div class="row">
+          <div class="col-md-12 p-0">
+            <div class="otp-field">
+                <input type="text" name="o1" id="codeBox1" maxlength="1" [(ngModel)]="otp1" #codeBox1 (keyup)="onKeyUpEvent(1,$event)" (onfocus)="onFocusEvent(1)" (keypress)="keyPressed($event,1)" autocomplete="off">
+                <input type="tel" name="o2" id="codeBox2" maxlength="1" [(ngModel)]="otp2" #codeBox2 (keyup)="onKeyUpEvent(2,$event)" (onfocus)="onFocusEvent(2)" (keypress)="keyPressed($event,2)" autocomplete="off">
+                <input type="tel" name="o3" id="codeBox3" maxlength="1" [(ngModel)]="otp3" #codeBox3 (keyup)="onKeyUpEvent(3,$event)" (onfocus)="onFocusEvent(3)" (keypress)="keyPressed($event,3)" autocomplete="off">
+                <input type="tel" name="o4" id="codeBox4" maxlength="1" [(ngModel)]="otp4" #codeBox4 (keyup)="onKeyUpEvent(4,$event)" (onfocus)="onFocusEvent(4)" (keypress)="keyPressed($event,4)" autocomplete="off">
+            </div>
+            <div class="otp-error">
+              <span class="error" *ngIf="registration_error.otp">{{LANG.Please_Enter_valid_OTP}}</span>
+            </div>
+          </div>
+          <div class="row w-100 justify-content-center mt-3">
+              <div class="col-md-12">
+                  <div class="submit-button text-center">
+                      <button class="btn w-50" [class.loading]="load" (click)="registerUser()">
+                          <ng-container *ngIf="load;else otp_loader;">
+                              <loader></loader>
+                          </ng-container>
+                          <ng-template #otp_loader>
+                             {{LANG.Verify_OTP}}
+                          </ng-template>
+                      </button>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  <div class="form-sec step2-1" *ngIf="!show_otp">
+        <!-- <p>{{LANG.I_am_a}}</p> -->
+        <!-- <div class="form-tab">
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item" (click)="changeUserType('3')">
+                    <a class="nav-link active" data-toggle="tab" href="#borrower">
+                    <span class="tab-border">
+                        <span></span>
+                    </span>
+                    {{LANG.Borrower}}
+                    </a>
+                </li>
+                <li class="nav-item" (click)="changeUserType('2')">
+                    <a class="nav-link" data-toggle="tab" href="#invester">
+                        <span class="tab-border">
+                        <span></span>
+                    </span>
+                    {{LANG.Invester}}
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+
+        <div class="form-group">
+            <label *ngIf="role_type === '3'" name="registration_type" for="yes">{{LANG.Register_as_Borrower}}</label>
+            <label *ngIf="role_type === '2'" name="registration_type" for="yes">{{LANG.Register_as_Investor}}</label>
+        </div>
+
+        <div class="row campaign-row">
+            <div class="form-check">
+                <div class="radio-1" *ngIf="role_type === '2'">
+                    <input type="radio" class="radio-buttons" id="yes" name="registration_type" value="1"
+                        [(ngModel)]="registration_type.registration_type">
+                    <label name="registration_type" for="yes">{{LANG.Individual}}</label>
+                </div>
+                <div class="radio-2">
+                    <input type="radio" class="radio-buttons" id="no" name="registration_type" value="2"
+                        [(ngModel)]="registration_type.registration_type">
+                    <label name="registration_type" for="no">{{LANG.Corporate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{LANG.Full_Name}}" name="first_name"
+                [(ngModel)]="first_name">
+            <span class="error" *ngIf="registration_error.first_name">{{LANG.This_field_is_required}}</span>
+        </div>
+        <!-- <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{LANG.Last_name}} ({{LANG.Optional}})" name="last_name" [(ngModel)]="last_name">
+        </div> -->
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{LANG.Email}}" name="email" [(ngModel)]="email"
+                [disabled]="email_disable">
+            <span class="error" *ngIf="registration_error.email_id">{{LANG.This_field_is_required}}</span>
+            <span class="error" *ngIf="registration_error.email_id_valid">{{LANG.Enter_valid_Email_Id}}</span>
+        </div>
+        <!-- <div class="form-group">
+            <input type="text" placeholder="{{LANG.Mobile_Number}}" class="form-control" name="mobile_number" [(ngModel)]="display_mobile_number" disabled>
+        </div> -->
+        <div class="form-group">
+            <div class="country-wrapper position-relative">
+                <div class="country-code">
+                    <select name="country_code" [(ngModel)]="country_code" (change)="changeCountryCode()">
+                        <option value="+966">+966</option>
+                    </select>
+                </div>
+                <input type="text" placeholder="{{LANG.Mobile_Number}} (5xxxxxxxxx)" class="form-control" name="mobile_number"
+                    [(ngModel)]="mobile_number" (keypress)="onlyNumbers($event)" maxlength="10">
+            </div>
+            <span class="error" *ngIf="registration_error.mobile_number">{{LANG.This_field_is_required}}</span>
+            <span class="error" *ngIf="registration_error.mobile_number_valid && country_code == '+966'">{{LANG.Enter_Valid_Mobile_Number_Ex}}</span>
+            <span class="error" *ngIf="registration_error.mobile_number_valid && country_code != '+966'">{{LANG.Enter_Valid_Mobile_Number_Ex}} </span>
+
+        </div>
+
+        <!-- <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{LANG.User_Name}}" name="user_name"
+                [(ngModel)]="user_name">
+            <span class="error" *ngIf="registration_error.user_name">{{LANG.This_field_is_required}}</span>
+        </div> -->
+
+
+
+        <div class="form-group">
+            <input type="password" id="password" class="form-control" placeholder="{{LANG.Password}}" name="password"
+                (input)="checkPasswordValidation()" [(ngModel)]="password">
+            <a class="show-pwd" (click)="passwordVisibility('password','eye1')"><i class="fa fa-eye" id="eye1"
+                    aria-hidden="true"></i></a>
+
+        </div>
+        <ng-container *ngIf="registration_error.password || password">
+            <div class="password-detail">
+                <p class="pwd-txt-left">{{LANG.Password_Must_contain}}</p>
+                <p>{{LANG.Weak}}</p>
+            </div>
+            <div class="password-detail password-gap">
+                <div class="pwd-val">
+                    <p [class.text-danger]="registration_error.password_length"
+                        [class.text-success]="!registration_error.password_length">- {{LANG.At_Least_Character}}</p>
+                    <p [class.text-danger]="registration_error.password_upper_case"
+                        [class.text-success]="!registration_error.password_upper_case">- {{LANG.A_capital_letter}}</p>
+                    <p [class.text-danger]="registration_error.password_lower_case"
+                        [class.text-success]="!registration_error.password_lower_case">- {{LANG.A_small_letter}}</p>
+                    <p [class.text-danger]="registration_error.password_number"
+                        [class.text-success]="!registration_error.password_number">- {{LANG.A_number}}</p>
+                    <p [class.text-danger]="registration_error.password_special"
+                        [class.text-success]="!registration_error.password_special">- {{LANG.A_special_character}}</p>
+                </div>
+                <p>
+                    <ng-container *ngFor="let data of number;">
+                        <span class="pass-weak" [class.active]="weakness >= data"></span>
+                    </ng-container>
+                </p>
+            </div>
+        </ng-container>
+        <div class="form-group">
+            <input type="password" id="confirm_password" class="form-control" placeholder="{{LANG.Confirm_Password}}"
+                name="confirm_password" [(ngModel)]="confirm_password">
+            <a class="show-pwd" (click)="passwordVisibility('confirm_password','eye2')"><i class="fa fa-eye" id="eye2"
+                    aria-hidden="true"></i></a>
+            <span class="error" *ngIf="registration_error.confirm_password">{{LANG.This_field_is_required}}</span>
+            <span class="error" *ngIf="registration_error.password_match">{{LANG.Password_doesnt_matched}}</span>
+        </div>
+        <!-- <div class="form-group"> -->
+        <!-- <select class="form-control" name="registration_type" [(ngModel)]="registration_type">
+                <option value="">{{LANG.select_registration_type}}</option>
+                <option value="1">{{LANG.Individual}}</option>
+                <option value="2">{{LANG.Corporate}}</option>
+            </select> -->
+        <!-- <form [formGroup]="registrationForm">
+            <input class="form-check-input" type="radio" [(ngModel)]="registration_type"  name="reportInjury" id='check1' value="yes"  (onchange)="onItemchange($event)" formControlName="reportInjury"/>
+            <label for="check1" class="radio-inline">{{LANG.Individual}} </label>
+              <input class="form-check-input" type="radio" [(ngModel)]="registration_type" name="reportInjury" id='check2' value="no" (onchange)="onItemchange($event)" formControlName="reportInjury"/>
+              <label for="check2" class="radio-inline">{{LANG.Corporate}} </label>
+            </form> -->
+
+
+
+        <!-- </div> -->
+        <div class="form-group checkbox-wrapper">
+            <input type="checkbox" id="terms" name="terms" [(ngModel)]="terms">
+            <label data-toggle="modal" data-target="#termsModal" (click)="termsConditionOutside()"> {{LANG.I_accept_all}}
+                <b>{{LANG.terms_conditions}}</b></label>
+
+            <!-- Button trigger modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{LANG.terms_conditions}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <p [innerHTML]="termsandconditionborower?.description"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit-button text-center">
+            <button class="btn" [class.loading]="load" (click)="register()" [disabled]="!terms ">
+                {{LANG.CREATE_ACCOUNT}}
+                <ng-container *ngIf="load;else no_loader;">
+                    <loader></loader>
+                </ng-container>
+                <ng-template #no_loader>
+
+                </ng-template>
+            </button>
+        </div>
+        <!-- <div class="back-next">
+            <button class="btn btn-danger">Back</button>
+            <button class="btn btn-success">Next</button>
+        </div> -->
+    </div>
+
+    <div class="form-last">
+        <img src="assets/images/tick.svg">
+        <p>
+            <b>{{LANG.bit}}</b> {{LANG.Secured_payment}}
+        </p>
+    </div>
+    <div class="form-footer">
+        <p>{{LANG.Copyrights}}</p>
+    </div>
+</section>

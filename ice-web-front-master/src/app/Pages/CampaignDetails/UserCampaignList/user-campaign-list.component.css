@@ -1,0 +1,128 @@
+.tab-background {
+    padding: 50px;
+    background-color: #fff;
+    margin-bottom: 50px
+}
+
+
+/* ================ New Design ==================== */
+
+.campaign-tab li a {
+    font-size: 16px;
+    color: #0D0D0D;
+    font-family: 'maison-med';
+    padding: 9px 10px 9px 0;
+    border: 0;
+    margin-right: 50px;
+}
+
+.campaign-tab ul {
+    border: 0;
+    margin-bottom: 20px;
+}
+
+.campaign-tab ul li a.active {
+    background-color: transparent;
+    border-bottom: 2px solid #0D0D0D;
+}
+
+.campaign-tab-detail {
+    background: #fff;
+    border-radius: 21px;
+    padding: 27px 47px 40px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.image-flo {
+    width: 80px;
+    height: 80px;
+    background: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 29px;
+}
+
+.sar-rup {
+    display: flex;
+    align-items: center;
+}
+
+.tempest {
+    display: flex;
+}
+
+.weather-flo h5 {
+    font-size: 16px;
+    color: #0D0D0D;
+}
+
+.weather-flo p {
+    font-size: 12px;
+    color: #0D0D0D;
+    padding: 4px 0 13px;
+}
+
+.weather-flo button {
+    background: #E8E8E8;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #525252;
+    padding: 4px 10px;
+    font-family: 'pop-reg';
+}
+
+.right-arrow {
+    background: transparent;
+    color: #160034;
+    padding: 0;
+}
+
+.sar-rup h4 {
+    font-size: 16px;
+    color: #0D0D0D;
+}
+
+.sar-rup p {
+    color: #525252;
+    padding: 0;
+    margin-left: 11px;
+}
+
+.pledged {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.pledged p {
+    color: #525252;
+    padding: 0;
+    margin-right: 34px;
+}
+
+.pledged button {
+    color: #160034;
+    background: #D7B8FA;
+    border-radius: 5px;
+}
+
+.campaign-last {
+    border-left: 1px solid #E9E4F0;
+    padding-left: 40px;
+}
+
+.campaign-last h6 {
+    font-size: 14px;
+    color: #0D0D0D;
+}
+
+.campaign-last p {
+    font-size: 12px;
+    color: #525252;
+}

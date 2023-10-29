@@ -1,0 +1,158 @@
+<section class="container-fluid weather bg-white">
+    <div class="container">
+        <div class="row campaign-row-btn">
+            <div class="campaign-blue">
+                <span class="black-img"><img src="assets/images/lotus.png" alt=""></span>
+                <div>
+                    <h2>{{campaign_details?.tagline}}</h2>
+                    <!-- <h6>Controlling the Cost of Weather</h6> -->
+                    <!-- <div>
+                        <span class="globe-img"><img src="assets/images/globe.png" alt="">www.weatherflow.temp</span>
+                        <span class="globe-img"><img src="assets/images/map.png" alt="">Riyadh, Saudi Arabia</span>
+                    </div> -->
+                </div>
+            </div>
+            <div class="submit-button" *ngIf="user_data?.role_type == 2">
+                <button class="btn" (click)="openInvestModal()">{{LANG.Invest}}</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 pl-0 rate-left">
+                <img src="{{main_image}}"  class="w-100 add-img-wrapper" alt="" />
+                <p>{{campaign_details?.company_bio}}</p>
+            </div>
+            <div class="col-md-4 rate-right">
+                <div class="rate">
+                    <!-- <div>
+                        <h4>SAR 6550</h4>
+                        <p>75% Funded</p>
+                    </div> -->
+                    <!-- <span><i class="fa fa-heart-o"></i></span> -->
+                </div>
+                <!-- <div class="progress1">
+                    <p>Pledged Of SAR 6,000 Goal</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                            <span class="sr-only">70% Complete</span>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="row invest-row">
+                    <div class="col-md-6">
+                        <div class="invest">
+                            <p>{{LANG.Investers}}</p>
+                            <h6>123</h6>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <div class="invest">
+                            <p>Raised</p>
+                            <h6>SAR 90,000</h6>
+                        </div>
+                    </div> -->
+                    <div class="col-md-6">
+                        <div class="invest">
+                            <p>{{LANG.Price_Per_Share}}</p>
+                            <h6>SAR {{campaign_details?.share_price}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="invest">
+                            <p>{{LANG.Valuation}}</p>
+                            <h6>SAR {{campaign_details?.total_valuation}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="invest">
+                            <p>{{LANG.Min_Investment}}</p>
+                            <h6>SAR {{campaign_details?.min_investment}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="invest">
+                            <p>{{LANG.Max_Investment}}</p>
+                            <h6>SAR {{campaign_details?.max_investment}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row allocation">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#about">{{LANG.About}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="tab" href="#team">{{LANG.Team}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="tab" href="#term">{{LANG.Terms}}</a>
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="tab-content">
+            <div class="tab-pane active " id="about">
+
+            </div>
+        </div> -->
+    </div>
+</section>
+<section class="container-fluid invest-sec">
+    <div class="container">
+        <div class="fund-allocation tab-content">
+            <div class="funds-all tab-pane active" id="about">
+                <h2>{{LANG.Reasons_to_Invest}}</h2>
+                <p>{{campaign_details?.reason_to_invest}}</p>
+            </div>
+            <div class="funds-all tab-pane" id="team">
+                <h2>Team</h2>
+                <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-6" *ngFor="let data of campaign_details?.team">
+                            <div class="team-img">
+                                <img src="{{data.image}}" alt="" />
+                                <h4>{{data.name}}</h4>
+                                <span>{{data.designation}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="funds-all tab-pane" id="term">
+                <h2>{{LANG.Terms}}</h2>
+                <p>{{campaign_details?.terms}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="modal fade" id="invest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reject">{{LANG.Invest}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                    <div class="form-group col-md-12">
+                        <label>{{LANG.Enter_Amount}}</label>
+                        <input type="text" class="form-control" placeholder="Amount"  name="amount" [(ngModel)]="amount" />
+                    </div>
+            </div>
+        </div>
+        <div class="modal-footer submit-button">
+          <!-- <button type="button" class="btn btn-secondary loader-btn" data-dismiss="modal" [disabled]="load">Close</button> -->
+          <button type="button" class="btn" *ngIf="!load" (click)="invest()" data-dismiss="modal">{{LANG.Invest}}</button>
+          <button type="button" *ngIf="load" class="btn"><loader></loader></button>
+
+
+        </div>
+      </div>
+    </div>
+</div>

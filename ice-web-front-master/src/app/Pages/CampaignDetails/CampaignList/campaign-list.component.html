@@ -1,0 +1,73 @@
+<section class="container-fluid investor bg-white">
+    <div class="col-md-8 mx-auto">
+        <!-- <h2 class="text-center" *ngIf="user_data.role_type == 2">Find a company. Become its next investor.</h2> -->
+        <div class="investor-tab">
+            <ul class="nav nav-tabs" *ngIf="user_data.role_type == 2">
+                <li class="nav-item" (click)="changeTabs(1)">
+                    <a class="nav-link active" data-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
+                </li>
+                <li class="nav-item" (click)="changeTabs(2)">
+                    <a class="nav-link" data-toggle="tab" href="#trending">{{LANG.My_Opportunities}}</a>
+                </li>
+                <li class="nav-item" (click)="changeTabs(3)">
+                    <a class="nav-link" data-toggle="tab" href="#returns">{{LANG.Closed_Opportunities}}</a>
+                </li>
+            </ul>
+            <ul class="nav nav-tabs" *ngIf="user_data.role_type == 3">
+                <li class="nav-item" (click)="changeTabs(1)">
+                    <a class="nav-link active" data-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
+                    <!-- <a class="nav-link active" data-toggle="tab" href="#newest">Active Opportunities</a> -->
+                </li>
+                 <!--<li class="nav-item" (click)="changeTabs(3)">
+                    <a class="nav-link" data-toggle="tab" href="#trending">Inactive Opportunities</a>
+                </li>
+                <li class="nav-item" (click)="changeTabs(3)">
+                    <a class="nav-link" data-toggle="tab" href="#returns">Rejected Opportunities</a>
+                </li> -->
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane col-md-12 active" id="newest">
+                    <div class="row investor-row">
+                        <div class="col-md-4" *ngFor="let list of campaign_list;">
+                            <div class="owl-carousel owl-theme " id="carousel-1"  class="item">
+                                <div>
+                                    <div class="carousel-content" >
+                                        <div class="caro-img carousel-slide">
+                                            <!-- <img  src="{{list.campaign_images[0].image}}" class="w-100" alt="" > -->
+                                            <img  src="assets/images/main-logo1-ar.png" class="w-100" alt="" >
+                                            <!-- <span>2 days left</span> -->
+                                        </div>
+                                        <div class="pad-carousel">
+                                            <h6 >{{list.tagline}}</h6>
+                                            <p>{{LANG.Sukuk_Murabaha}} - <strong>{{list.program_number}} -{{list.version_number}}</strong></p>
+                                            <div>
+                                                <div class="fund-rate">
+                                                    <h6>{{list.raised}} </h6><br/>
+                                                    <p>{{LANG.Pledged_Of_SAR}} : {{list.total_valuation}}</p>
+                                                    <p>{{LANG.Annual_return_rate}} : {{list.APR}}%</p>
+                                                    <p>{{LANG.Open_Date}}      : {{list.open_date != null ? list.open_date:'Not Entered yet'}}</p>
+                                                    <p>{{LANG.Close_Date}}     : {{list.close_date != null ? list.close_date:'Not Entered yet'}}</p>
+                                                </div>
+                                                <div class="fund-investers">
+                                                    <button class="btn btn-primary custom" (click)="navTo(list)" *ngIf="user_data?.role_type == 2 && user_data?.kyc_approved_status == 1">{{LANG.View_Details}}</button>
+                                                </div>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="campaign_list.length == 0 && data_loaded">
+                            <div class="col-md-12 pb-5 pl-3">
+                                <h3>{{LANG.Sorry_No_data_to_display}}</h3>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <!-- <div class="col-md-4 mx-auto">
+                        <button class="btn w-100 load-more">LOAD MORE</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

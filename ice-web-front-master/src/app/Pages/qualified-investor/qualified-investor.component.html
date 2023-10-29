@@ -1,0 +1,96 @@
+<div class="campaign-tab">
+  <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" *ngIf="user_data?.role_type == 2" data-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}} </a>
+    </li>
+      <li class="nav-item">
+          <a class="nav-link" *ngIf="user_data?.role_type == 2" data-toggle="tab" routerLink="/campaign-list">{{LANG.View_Opportunity}}</a>
+      </li>
+      <li class="nav-item" *ngIf="user_data?.role_type == 3">
+        <a class="nav-link" data-toggle="tab" routerLink="/add-campaign"
+            *ngIf="profileDetails.kyc_approved_status==1"> {{LANG.Add_Opportunity}}</a>
+    </li>
+  </ul>
+</div>
+<div class="form-sec step2-1">
+   <h6 class="mb-5">{{LANG.Be_Qualified_Investor}}</h6>
+  <table class="table  " dir="rtl">
+    <tbody>
+      <tr>
+        <th scope="row">1.</th>
+        <td><strong>أرفق ملف يثبت انه سبق لك العمل مدة لا تقل عن ثلاث سنوات في القطاع المالي.</strong></td>
+        <td>
+          <div class="add-image">
+            <input style="display: none" type="file" (change)="changeImageFile($event,1)" id="min3WorkYear">
+            <span (click)="showFileInput(1)"><i class="fa fa-plus"></i>{{LANG.Upload_Files}}</span>
+            <span *ngIf="min3WorkYear != null && netOrigin?.extension != 'pdf'"><a href="{{min3WorkYear.image}}" target="_blank"><img src="{{min3WorkYear.image}}" class=""></a></span>
+            <span *ngIf="min3WorkYear != null && netOrigin?.extension == 'pdf'"><img src="assets/images/pdf-logoS.png" class=""></span>
+          </div>
+        </td>
+        <td><span class="error mt-2 mb-5" *ngIf="errors?.min3WorkYear">{{LANG.This_field_is_required}}</span></td>
+      </tr>
+      <tr>
+        <th scope="row">2.</th>
+        <td><strong>أرفق شهادتك المعتمدة للتعامل في الاوراق المالية من قبل الهيئة (CME-1).</strong></td>
+        <td>
+            <div class="add-image">
+              <input style="display: none" type="file" (change)="changeImageFile($event,2)" id="certificateCME1">
+              <span  (click)="showFileInput(2)"><i class="fa fa-plus"></i>{{LANG.Upload_Files}}</span>
+              <span *ngIf="certificateCME1 != null && certificateCME1?.extension != 'pdf'"><a href="{{certificateCME1.image}}" target="_blank"><img src="{{certificateCME1.image}}" class=""></a></span>
+              <span *ngIf="certificateCME1 != null && certificateCME1?.extension == 'pdf'"><img src="assets/images/pdf-logoS.png" class=""></span>
+            </div>
+        </td>
+        <td><span class="error mt-2 mb-5" *ngIf="errors?.certificateCME1">{{LANG.This_field_is_required}}</span></td>
+      </tr>
+      <tr>
+        <th scope="row">3.</th>
+        <td><strong>أرفق شهادتك المهنية المتخصصة في مجال أعمال الاوراق المالية شريطة ان تكون معتمدة من جهة دولية معترف بها.</strong></td>
+        <td>
+          <div class="add-image">
+            <input style="display: none" type="file" (change)="changeImageFile($event,3)" id="professionalCertificate">
+            <span  (click)="showFileInput(3)"><i class="fa fa-plus"></i>{{LANG.Upload_Files}}</span>
+            <span *ngIf="professionalCertificate != null && professionalCertificate?.extension != 'pdf'"><a href="{{professionalCertificate.image}}" target="_blank"><img src="{{professionalCertificate.image}}" class=""></a></span>
+            <span *ngIf="professionalCertificate != null && professionalCertificate?.extension == 'pdf'"><img src="assets/images/pdf-logoS.png" class=""></span>
+          </div>
+        </td>
+        <td><span class="error mt-2 mb-5" *ngIf="errors?.professionalCertificate">{{LANG.This_field_is_required}}</span></td>
+      </tr>
+      <tr>
+        <th scope="row">4.</th>
+        <td><strong>أرفق اثبات انك قمت بعمل صفقات في اسواق الاوراق المالية لا يقل مجموع قيمها عن اربعين مليون ريال سعودي ولا تقل عن عشر صفقات في كل ربع سنة خلال الاثني عشرة شهرا الماضية.</strong></td>
+        <td>
+          <div class="add-image">
+            <input style="display: none" type="file" (change)="changeImageFile($event,4)" id="investTenOpport">
+            <span  (click)="showFileInput(4)"><i class="fa fa-plus"></i>{{LANG.Upload_Files}}</span>
+            <span *ngIf="investTenOpport != null && investTenOpport?.extension != 'pdf'"><a href="{{investTenOpport.image}}" target="_blank"><img src="{{investTenOpport.image}}" class=""></a></span>
+            <span *ngIf="investTenOpport != null && investTenOpport?.extension == 'pdf'"><img src="assets/images/pdf-logoS.png" class=""></span>
+          </div>
+        </td>
+        <td><span class="error mt-2 mb-5" *ngIf="errors?.investTenOpport">{{LANG.This_field_is_required}}</span></td>
+      </tr>
+      <tr>
+        <th scope="row">5.</th>
+        <td><strong>أرفق إثبات بقيمة صافي الأصول شريطة ان لا تقل عن خمسة ملايين ريال سعودي.</strong></td>
+        <td>
+          <div class="add-image">
+            <input style="display: none" type="file" (change)="changeImageFile($event,5)" id="netOrigin">
+            <span   (click)="showFileInput(5)"><i class="fa fa-plus"></i>{{LANG.Upload_Files}}</span>
+            <span *ngIf="netOrigin != null && netOrigin?.extension != 'pdf'"><a href="{{netOrigin.image}}" target="_blank"><img src="{{netOrigin.image}}" class=""></a></span>
+            <span *ngIf="netOrigin != null && netOrigin?.extension == 'pdf'"><img src="assets/images/pdf-logoS.png" class=""></span>
+          </div>
+        </td>
+        <td><span class="error mt-2 mb-5" *ngIf="errors?.netOrigin">{{LANG.This_field_is_required}}</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+
+  <button  class=" btn btn-primary"  (click)="upgradeToQualified()"> Save</button>
+
+</div>

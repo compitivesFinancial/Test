@@ -1,0 +1,63 @@
+
+
+
+
+
+<div class="form-sec step2-1">
+    <h6 class="mb-5">{{LANG.MyProfile}}</h6>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Full Name"  name="first_name" [(ngModel)]="first_name" disabled >
+    </div>
+    <!-- <div class="form-group">
+        <input type="text" class="form-control" placeholder="Last name" name="last_name" [(ngModel)]="last_name" disabled>
+    </div> -->
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Email"name="email" [(ngModel)]="email" disabled>
+    </div>
+    <div class="form-group">
+        <input type="text" placeholder="Mobile Number" class="form-control" name="mobile_number" [(ngModel)]="mobile_number" disabled>
+    </div>
+    <!-- <button (click)="updateProfile()" class=" btn btn-success"> Update</button> -->
+    <button  class=" btn btn-primary"  data-toggle="modal" data-target="#forgetpassword"> {{LANG.change_password}}</button>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="forgetpassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <title>{{LANG.Old_Passsword}}</title>
+                <input type="password" placeholder="Old Password" class="form-control" name="old_password" [(ngModel)]="old_password" >
+            </div>
+            <div class="form-group">
+                <title>{{LANG.New_Password}}</title>
+                <input type="password" placeholder="New Password " class="form-control" name="new_password" [(ngModel)]="new_password" >
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
+          <button type="button" class="btn btn-primary"(click)="changePassword()">{{LANG.Save}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-last">
+    <img src="assets/images/tick.svg">
+    <p>
+        <b>128bit</b>
+       {{LANG.Secured_payment}}
+    </p>
+</div>
+<div class="form-footer">
+    <p>{{LANG.CopyWrightCfC}}</p>
+</div>

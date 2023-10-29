@@ -1,0 +1,117 @@
+<div class="campaign-tab">
+  <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" routerLink="/user-wallet">{{LANG.My_Wallet}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" routerLink="/user-statement">user-statement</a>
+    </li>
+  </ul>
+
+
+<div class="tab-content">
+  <div class="tab-pane active">
+      <div class="container-fluid">
+          <div class="container">
+            <div class="tab-background col-md-12">
+              <div class="table-responsive">
+                <h2>User Statement</h2><br/>
+                <table id="borrowerStatement" *ngIf="user_data.role_type==3"
+                      class="table display nowrap table table-hover table-striped table-bordered">
+                      <thead>
+                          <tr>
+                            <th>id</th>
+                            <th>campaign_id</th>
+                            <th>campaign Name</th>
+                            <th>due_date</th>
+                            <th>principle_expected</th>
+                            <th>interest_expected</th>
+                            <th>fees_expected</th>
+                            <th>tax_expected</th>
+                            <th>total_expected</th>
+                            <th>organiser_profit_expected</th>
+                            <th>invester_profit_expected</th>
+                            <th>principle_paid</th>
+                            <th>interest_paid</th>
+                            <th>fees_paid</th>
+                            <th>total_paid</th>
+                            <th>paid_date</th>
+                            <th>principle_due</th>
+                            <th>interest_due</th>
+                            <th>fees_due</th>
+                            <th>total_due</th>
+                            <th>status</th>
+                            <th>created_at</th>
+                            <th>updated_at</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let data of borrowerStatement">
+                              <td>{{data.id}}</td>
+                              <td>{{data.campaign_id}}</td>
+                              <td>{{data.tagline}}</td>
+                              <td>{{data.due_date}}</td>
+                              <td>{{data.principle_expected}}</td>
+                              <td>{{data.interest_expected}}</td>
+                              <td>{{data.fees_expected}}</td>
+                              <td>{{data.tax_expected}}</td>
+                              <td>{{data.total_expected}}</td>
+                              <td>{{data.organiser_profit_expected}}</td>
+                              <td>{{data.invester_profit_expected}}</td>
+                              <td>{{data.principle_paid}}</td>
+                              <td>{{data.interest_paid}}</td>
+                              <td>{{data.fees_paid}}</td>
+                              <td>{{data.total_paid}}</td>
+                              <td>{{data.paid_date}}</td>
+                              <td>{{data.principle_due}}</td>
+                              <td>{{data.interest_due}}</td>
+                              <td>{{data.fees_due}}</td>
+                              <td>{{data.total_due}}</td>
+                              <td>{{data.status}}</td>
+                              <td>{{data.created_at}}</td>
+                              <td>{{data.updated_at}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                <table id="investorStatement" *ngIf="user_data.role_type==2"
+                class="table display nowrap table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                          <th>id</th>
+                          <th>campaign_id</th>
+                          <th>campaign Name</th>
+                          <th>invester_id</th>
+                          <th>date</th>
+                          <th>principle</th>
+                          <th>profit</th>
+                          <th>tax</th>
+                          <th>fees</th>
+                          <th>total</th>
+                          <th>updated_at</th>
+                          <th>created_at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of investorStatement">
+                          <td>{{data.id}}</td>
+                          <td>{{data.campaign_id}}</td>
+                          <td>{{data.tagline}}</td>
+                          <td>{{data.invester_id}}</td>
+                          <td>{{data.date}}</td>
+                          <td>{{data.principle}}</td>
+                          <td>{{data.profit}}</td>
+                          <td>{{data.tax}}</td>
+                          <td>{{data.fees}}</td>
+                          <td>{{data.total}}</td>
+                          <td>{{data.updated_at}}</td>
+                          <td>{{data.created_at}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

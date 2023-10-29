@@ -1,0 +1,381 @@
+body{
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: 'tajawal-reg';
+    src: url(./assets/fonts/Tajawal-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'tajawal-med';
+    src: url(./assets/fonts/Tajawal-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'tajawal-bold';
+    src: url(./assets/fonts/Tajawal-Bold.ttf);
+}
+
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.error{
+    color: red;
+    font-size: 12px;
+}
+
+.footer-row2 a{
+    color: #fff !important;
+    cursor: pointer;
+}
+
+
+button.loading{
+    animation: animate-width .7s linear  0.1s 1 normal forwards;
+}
+
+@keyframes animate-width {
+    0% {
+      width: 100%;
+    }
+    10% {
+      width: 90%;
+    }
+    20% {
+        width: 80%;
+    }
+    30% {
+        width: 70%;
+    }
+    40% {
+        width: 60%;
+    }
+    50% {
+        width: 50%;
+    }
+    60%{
+        width: 40%;
+    }
+    70%{
+        width: 30%;
+    }
+    80%{
+        width: 20%;
+    }
+    90%{
+        width: 20%;
+    }
+    100%{
+        width: 20%;
+    }
+}
+
+
+.add-member{
+    margin:10px 0 50px 15px;
+    font-size: 18px;
+    color: #00C48A !important;
+    font-family: 'maison-med';
+    cursor: pointer;
+  }
+
+  .form-group{
+    text-align: left;
+  }
+
+ .contact{
+    background: #F7F7F7;
+ }
+
+ /* .sec4 .font-42{
+    font-size: 26px;
+ } */
+
+ .sec4 .font-42 {
+    color: #160034;
+    line-height: 36px;
+    letter-spacing: -1.68px;
+    font-size: 32px;
+    padding: 31px 159px 60px 0;
+}
+
+.sec4-row {
+    padding: 0;
+    padding-bottom: 109px;
+    border-bottom: 1px solid #D5D5D5;
+    justify-content: space-between;
+}
+
+.sec4-row p {
+    font-size: 18px;
+    color: #525252;
+    padding-left: 0;
+}
+
+.sec4 .product{
+    padding: 0;
+}
+/* =========================arabic======================= */
+
+
+.ar{
+    direction: rtl;
+    overflow-x: hidden;
+    font-family: 'tajawal-reg';
+
+}
+
+.ar body,.ar html{
+    font-family: 'tajawal-reg';
+}
+
+.ar h1,.ar h2,.ar h3,.ar h4,.ar h5,.ar h6{
+    font-family: 'tajawal-bold';
+}
+
+.ar .header a,.ar .globe-img,.ar .upload-sec h5{
+    font-family: 'tajawal-med';
+}
+
+.ar footer h5{
+    text-align: right;
+}
+
+.ar .footer a{
+    margin-left: 68px;
+    margin-right: 0 !important;
+}
+
+.ar .padd h4{
+    text-align: right;
+}
+
+.ar .head-button-wrap,.ar .head-button .dropdown a{
+    font-family: 'tajawal-bold';
+}
+
+.ar .form-group{
+    text-align: right;
+}
+
+.ar .comp p,.ar .count h4,.ar .form-sec h2,.ar .sub-head{
+    font-family: 'tajawal-med';
+}
+
+.ar .fund,.ar .sec6-1 h6,.ar .id-verify-sec span{
+    font-family: 'tajawal-med';
+}
+
+.ar .sec4-center p,.ar .murabhak h6,.ar .form-group label{
+    font-family: 'tajawal-med';
+}
+
+.ar .sec5-p,.ar .sec6-first p,.ar .footer-row2 p,.ar .footer-row2 h6,.ar .footer-row2 a{
+    font-family: 'tajawal-reg';
+}
+.ar .blue-sec h5,.ar .form-last p,.ar .form-tab .nav-link{
+    font-family: 'tajawal-med';
+}
+
+.ar .form-sec p,.ar .form-sec input,.ar .form-sec select.ar .form-head  p{
+    font-family: 'tajawal-med';
+}
+.ar .submit-button button,.ar .form-last p b,.ar .sub-head,.ar .allocation .nav-link.active{
+    font-family: 'tajawal-bold';
+
+}
+
+.ar .step p,.ar .password-detail p,.ar .drag p b,.ar .upload-sec h6,.ar .upload-logo small{
+    font-family: 'tajawal-reg';
+}
+.ar .checkbox-wrapper label,.ar .mobile-cont{
+    font-family: 'tajawal-reg' !important;
+}
+
+.ar .drag p{
+    font-family: 'tajawal-med' !important;
+}
+
+.ar .campaign .upload-sec small,.ar .rate p,.ar .progress1 p,.ar .invest p,.ar .rate-left p{
+    font-family: 'tajawal-reg';
+}
+
+.ar .add-image span,.ar .add-member,.ar .campaign-blue h6,.ar .allocation .nav-link{
+    font-family: 'tajawal-med';
+}
+.ar .funds-all p{
+    font-family: 'tajawal-reg';
+
+}
+
+.ar .funds-all:nth-child(2) h5,.ar .funds-all:nth-child(4) h5,.ar .team-img h4,.ar .team-img p{
+    font-family: 'tajawal-med';
+}
+
+.ar input[type="radio"]:checked + label,
+.ar input[type="radio"]:not(:checked) + label{
+    font-family: 'tajawal-med';
+}
+
+.ar .investor-tab .nav-tabs .nav-link{
+    font-family: 'tajawal-med';
+}
+
+.ar .load-more{
+    font-family: 'tajawal-bold';
+
+}
+
+.ar .upload-sec .skip{
+    right: auto !important;    
+    left: 0;
+}
+
+.ar .upload-sec .skip div.text-warning{
+    display: inline;
+}
+
+.ar .upload-sec{
+    text-align: right;
+}
+
+.ar .dropdown-menu{
+    text-align: right;
+}
+
+.ar .personal-info{
+    text-align: right;
+}
+
+
+.ar .personal-info .skip{
+    margin-left: 0;
+    margin-right: 50px
+}
+
+.ar .personal-info .main .img a i{
+    margin-left: 20px;
+    margin-right: 0 !important;
+}
+
+
+.ar .form-group{
+    text-align: right;
+}
+
+.ar .tab-border{
+    margin-left: 12px;
+    margin-right: 0;
+}
+
+.ar .country-wrapper input{
+    margin-left: 0 !important;
+    margin-right: 25%;
+}
+
+.ar .checkbox-wrapper label{
+    padding-left: 0;
+    padding-right: 23px;
+}
+
+.ar .pwd-txt-left{
+    text-align: right !important;
+}
+
+.ar .form-sec{
+    text-align: center;
+}
+
+.ar .form-last img{
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.ar .language{
+    text-align: left !important;
+}
+
+.ar .details{
+    text-align: right;
+}
+
+.ar .man-row{
+    flex-direction: row-reverse;
+}
+
+.ar .sec4-center{
+    padding-left: 0 !important;
+    padding-right: 76px;
+    text-align: right;
+}
+
+.ar .sec4-center .fund{
+    text-align: right;
+}
+
+.ar .sec2{
+    text-align: right; 
+}
+
+.ar .man-img img{
+    right: 0;
+    left: auto !important;
+}
+
+
+.ar .sec3-det.active .details p{
+    padding-left: 34px;
+    padding-right: 0 !important;
+}
+.ar .details p{
+    padding-left: 34px;
+    padding-right: 0;
+}
+
+.ar .fist-p-foot{
+    padding: 18px 0 64px 139px !important;
+}
+
+.ar .footer-row2 p{
+    text-align: right;
+}
+
+.ar .footer-row2 h6{
+    text-align: right;
+}
+
+.ar .footer-row1 h5{
+    text-align: right;
+}
+
+.ar .sec7 .accordion .card-header:after{
+    float: left;
+}
+
+.ar .sec7 .card-header{
+    text-align: right;
+}
+.ar .sec7 .collapse p{
+    text-align: right;
+}
+
+.ar .sec4 .font-42{
+    text-align: right;
+    padding-right: 0;
+    padding-left: 159px;
+}
+
+.ar .sec4-row p{
+    text-align: right;
+}
+
+.ar .sec3-left,.ar .sec4 .product,.ar .sec10,.ar .footer-row1{
+    text-align: right;
+}
+
+.ar .sec10 .accordion .card-header:after{
+    float: left;
+}

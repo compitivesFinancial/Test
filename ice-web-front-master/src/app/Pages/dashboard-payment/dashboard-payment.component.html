@@ -1,0 +1,25 @@
+<!-- <head>
+     //INCLUDE SESSION.JS JAVASCRIPT LIBRARY 
+    <script src="https://test-anb.mtf.gateway.mastercard.com/api/rest/version/69/merchant/1050/session.js"></script>
+     //APPLY CLICK-JACKING STYLING AND HIDE CONTENTS OF THE PAGE 
+    <style id="antiClickjack">body{display:none !important;}</style>
+    </head>  -->
+    
+    
+    <!-- CREATE THE HTML FOR THE PAYMENT PAGE -->
+    
+    <div>{{LANG.Please_enter_your_payment_details}}:</div>
+    <h3>{{LANG.Credit_Card}}</h3>
+    <div>{{LANG.Card_Number}}: <input type="text" id="card-number" class="input-field" title="card number" aria-label="enter your card number" value="" tabindex="1" ></div>
+    <div>{{LANG.Expiry_Month}}:<input type="text" id="expiry-month" class="input-field" title="expiry month" aria-label="two digit expiry month" value="" tabindex="2" ></div>
+    <div>{{LANG.Expiry_Year}}:<input type="text" id="expiry-year" class="input-field" title="expiry year" aria-label="two digit expiry year" value="" tabindex="3" ></div>
+    <div>{{LANG.Security_Code}}:<input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" ></div>
+    <div>{{LANG.Cardholder_Name}}:<input type="text" id="cardholder-name" class="input-field" title="cardholder name" aria-label="enter name on card" value="" tabindex="5" ></div>
+    <!-- <div><button id="payButton" (click)="pay();">Pay Now</button></div> -->
+    
+    <!-- JAVASCRIPT FRAME-BREAKER CODE TO PROVIDE PROTECTION AGAINST IFRAME CLICK-JACKING -->
+    <!-- <script type="text/javascript">
+    
+    </script> -->
+   
+   

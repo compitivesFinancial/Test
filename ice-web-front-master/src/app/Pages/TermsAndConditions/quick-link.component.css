@@ -1,0 +1,19 @@
+.padd{
+    padding: 50px;
+    background-color: white;
+    margin-bottom: 25px;
+    margin-top: 70px;
+    direction: rtl;
+    text-align: right;
+}
+
+.padd h4{
+    font-weight: 600;
+}
+
+.details{
+    padding: 15px 0;
+}
+.details h5{
+    color: black;
+}

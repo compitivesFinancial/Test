@@ -1,0 +1,496 @@
+<div>
+  <div class="campaign-tab">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" routerLink="/add-kyc">{{
+          LANG.Kyc_Details
+        }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" routerLink="/my-profile">{{
+          LANG.Edit_Profile
+        }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="user_data?.role_type == 2" data-toggle="tab" routerLink="/qualified-investor">
+          {{LANG.Be_Qualified_Investor}}
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="user_data?.role_type == 2">
+        <a class="nav-link" data-toggle="tab" routerLink="/campaign-list">{{
+          LANG.View_Opportunity
+        }}</a>
+      </li>
+      <li class="nav-item" *ngIf="user_data?.role_type == 3">
+        <a
+          class="nav-link"
+          data-toggle="tab"
+          routerLink="/add-campaign"
+          *ngIf="profileDetails.kyc_approved_status == 1"
+        >
+          {{ LANG.Add_Opportunity }}</a
+        >
+      </li>
+    </ul>
+  </div>
+    <section class="container-fluid campaign">
+        <div class="col-md-5 mx-auto">
+            <!-- <div class="row step-row">
+            <div class="step active verified">
+                <span>1</span>
+                <p>Basic Info</p>
+            </div>
+            <div class="step active">
+                <span>2</span>
+                <p>ID verification</p>
+            </div>
+            <div class="step ">
+                <span>3</span>
+                <p>Personal Info</p>
+            </div>
+        </div> -->
+            <ul class="nav nav-tabs justify-content-center" role="tablist">
+                <ng-container *ngFor="let data of kyc_form;let i=index;">
+                    <li class="nav-item">
+                        <a class="nav-link step verified" [class.active]="tab_index == i">
+                            <span>{{i+1}}</span>
+                            <p>{{data.title}}</p>
+                            <!-- <p *ngIf="tab_index=="></p> -->
+                        </a>
+                    </li>
+
+                </ng-container>
+                <!-- <li class="nav-item">
+                <a class="nav-link step verified" data-toggle="tab" href="#" role="tab">
+                    <span>3</span>
+                    <p>Personal Info</p>
+                </a>
+            </li> -->
+            </ul>
+        </div>
+        <div class="container">
+            <div class="container bg-white border-sec">
+                <ng-container *ngFor="let data of kyc_form;let i=index;">
+                    <div class="upload-sec" *ngIf="i == tab_index">
+                        <div class="skip" *ngIf="i == 0">
+                            <span class="status">{{LANG.Status}}: <span class="text-success"
+                                    *ngIf="disabled_inputs;else pending">{{LANG.Approved}}</span>
+                                <ng-template #pending><span class="text-warning">{{LANG.Pending}}</span></ng-template>
+                            </span>
+                        </div>
+                        <div class="skip link" *ngIf="i == 0 && user_type == '2'">
+                            <a routerLink="/campaign-list">{{LANG.Skip}}</a>
+                        </div>
+                        <h3>{{data.title}}</h3>
+                        <ng-container *ngFor="let item of data.info_type;let j=index;">
+
+                            <p style="font-weight: 600;" *ngIf="item.detail.length != ''">{{item.title}}</p>
+                            <!-- <p style="font-weight: 600;"*ngIf="tab_index==1">{{data.info_type[1].title}}</p> -->
+
+                            <div class="row campaign-row">
+                                <ng-container *ngFor="let fields of item.detail;let k=index;">
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == field_types.Email || fields.type == field_types.Mobile || fields.type == field_types.Characters || fields.type == field_types.Number && fields.id != 112 && fields.id != 113 && fields.id != 114 && fields.id != 115 && fields.id != 116 && fields.id != 135  && fields.id != 137 && fields.id != 138">
+                                        <label
+                                            *ngIf="fields.id !='112' && fields.id !='114' && fields.id !=138 && fields.id !=137">{{fields.title}}</label>
+                                        <input type="text"
+                                            *ngIf="fields.id !='112' && fields.id !='114' && fields.id !=138 && fields.id !=137"
+                                            class="form-control" placeholder="{{fields.title}}"
+                                            name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value"
+                                            (keypress)="onlyNumbers($event,fields)"
+                                            [maxLength]="fields.type == field_types.Mobile ? '10' : '50'"
+                                            [disabled]="disabled_inputs || fields.id == 6 || fields.id == 8 || fields.id == 100">
+                                        <span class="error"
+                                            *ngIf="fields.required && fields.id !='112' && fields.id !='114' && fields.id !=138 && fields.id !=137">{{LANG.This_field_is_required}}</span>
+                                        <span class="error"
+                                            *ngIf="fields.invalid && fields.id !='112' && fields.id !='114' && fields.id !=138 && fields.id !=137">{{fields.error_message}}</span>
+
+                                    </div>
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == field_types.Date &&  fields.id != 136 &&  fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135  && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <input type="date" class="form-control" placeholder="{{fields.title}}"
+                                            name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value"
+                                            [disabled]="disabled_inputs">
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+
+                                    </div>
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == 9 && fields.id != 112 && fields.id != 113 && fields.id != 114 && fields.id != 115 && fields.id != 116 && fields.id != 135  && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <input type="text" class="form-control" placeholder="{{fields.title}}"
+                                            name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value"
+                                            (input)="change($event)" [disabled]="disabled_inputs"
+                                            (keyup.enter)="verifyCrNumber(fields.value)">
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                        <a (click)="verifyCrNumber(fields.value)" class="pointer"
+                                            hidden>{{LANG.verify}}</a>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.id == 135 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <input type="text" class="form-control" placeholder="{{fields.title}}"
+                                            (keypress)="onlyNumbers($event,fields)" name="field{{i}}{{j}}{{k}}"
+                                            [(ngModel)]="yaqeenIdNumber" [disabled]="disabled_inputs" maxlength="10"
+                                            minlength="10">
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.id == 112 || fields.id == 113 ||fields.id == 114 ||fields.id == 115 ||fields.id == 116">
+                                        <label>{{fields.title}}</label>
+                                        <input type="text" *ngIf="fields.id == 112 && fields.value== null"
+                                            class="form-control" [(ngModel)]="crname" disabled>
+                                        <input type="text" *ngIf="fields.id == 112 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="fields.value" disabled>
+
+                                        <input type="text" *ngIf="fields.id == 113 && fields.value== null"
+                                            class="form-control" [(ngModel)]="crEntityNumber" disabled>
+                                        <input type="text" *ngIf="fields.id == 113 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="fields.value" disabled>
+
+                                        <input type="text" *ngIf="fields.id == 114 && fields.value== null"
+                                            class="form-control" [(ngModel)]="businessType" disabled>
+                                        <input type="text" *ngIf="fields.id == 114 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="fields.value" disabled>
+
+                                        <input type="text" *ngIf="fields.id == 115 && fields.value== null"
+                                            class="form-control" [(ngModel)]="issueDate" disabled>
+                                        <input type="text" *ngIf="fields.id == 115 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="fields.value" disabled>
+
+                                        <input type="text" *ngIf="fields.id == 116 && fields.value== null"
+                                            class="form-control" [(ngModel)]="expiryDate" disabled>
+                                        <input type="text" *ngIf="fields.id == 116 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="fields.value" disabled>
+
+
+                                    </div>
+                                    <!-- addedd By qaysar for new list of items -->
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == 10 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            (change)="onChangeIdentity()" [disabled]="disabled_inputs"
+                                            [(ngModel)]="identityStr">
+                                            <option *ngFor="let ident of identityList;" selected value="{{ident.id}}">
+                                                {{ident.nameAr}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-4"
+                                        *ngIf="fields.type == 11 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="fields.value">
+                                            <option *ngFor="let gend of genderList;" value="{{gend.id}}">{{gend.nameAr}}
+                                            </option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == 12 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="fields.value">
+                                            <option *ngFor="let bank of banksList;" value="{{bank.id}}">{{bank.nameAr}}
+                                            </option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == 13 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="fields.value">
+                                            <option *ngFor="let fundUse of fundUseList;" value="{{fundUse.id}}">
+                                                {{fundUse.nameAr}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == 14 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="fields.value">
+                                            <option *ngFor="let marital of maritalStatusList;" value="{{marital.id}}">
+                                                {{marital.nameAr}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == 15 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="fields.value">
+                                            <option *ngFor="let education of educationList;" value="{{education.id}}">
+                                                {{education.nameAr}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == 16 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="fields.value">
+                                            <option *ngFor="let jobSts of jobStatusList;" value="{{jobSts.id}}">
+                                                {{jobSts.nameAr}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+                                    <div class="form-group col-md-6"
+                                        *ngIf="fields.type == field_types.GrossIncome && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="fields.value">
+                                            <option *ngFor="let income of grossIncomeList;" value="{{income}}">
+                                                {{income}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+                                    <div class="form-group col-md-6"
+                                        *ngIf="identityStr == '1' && fields.type == 17 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="yearsHStr">
+                                            <option *ngFor="let year of yearsHijri;" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="identityStr == '1' && fields.type == 18 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="monthStr">
+                                            <option *ngFor="let month of monthsHijri;" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6"
+                                        *ngIf="identityStr == '1' && fields.type == 19 && fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <select class="form-control" name="field{{i}}{{j}}{{k}}"
+                                            [disabled]="disabled_inputs" [(ngModel)]="dayStr">
+                                            <option *ngFor="let day of days;" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                        <div class="buttons">
+                                          <button class="btn link-yaqeen pointer"  (click)="checkYaqeenService()">{{LANG.Check_Data}}</button>
+                                      </div>
+                                        <!-- <a style="border: ridge;background-color: #58C18E;"  (click)="checkYaqeenService()" class="pointer">{{LANG.Check_Data}}</a> -->
+                                    </div>
+                                    <div class="form-group col-md-6"
+                                        *ngIf="identityStr != '1' && fields.type == field_types.Date &&  fields.id == 136 &&  fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135 && fields.id != 137 && fields.id != 138">
+                                        <label>{{fields.title}}</label>
+                                        <input type="date" class="form-control" placeholder="{{fields.title}}"
+                                            name="field{{i}}{{j}}{{k}}" [(ngModel)]="iqamaDOB"
+                                            [disabled]="disabled_inputs">
+                                        <span class="error"
+                                            *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                        <div class="buttons">
+                                          <button class="btn link-yaqeen pointer"  (click)="checkYaqeenService()">{{LANG.Check_Data}}</button>
+                                      </div>
+                                        <!-- <a style="border: ridge;background-color: #58C18E;" (click)="checkYaqeenService()" class="pointer">{{LANG.Check_Data}}</a> -->
+                                    </div>
+                                    <div class="form-group col-md-6" *ngIf="fields.id == 137 || fields.id == 138">
+                                        <label>{{fields.title}}</label>
+                                        <input type="text" *ngIf="fields.id == 137 && fields.value== null"
+                                            class="form-control" [(ngModel)]="yaqeenArName" disabled>
+                                        <input type="text" *ngIf="fields.id == 137 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="fields.value" disabled>
+
+                                        <input type="text" *ngIf="fields.id == 138 && fields.value== null"
+                                            class="form-control" [(ngModel)]="yaqeenEnName" disabled>
+                                        <input type="text" *ngIf="fields.id == 138 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="fields.value" disabled>
+                                    </div>
+                                    <!-- End Add By qaysar -->
+
+
+
+                                </ng-container>
+                                <!-- <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Company’s share price *"  name="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Total Valuation *"  name="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Min. Investment per investor *"  name="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Max Investment per investor *"  name="">
+                            </div> -->
+                            </div>
+                            <ng-container *ngFor="let fields of item.detail;let k=index;">
+                                <ng-container *ngIf="fields.type == field_types.Fileupload">
+                                    <h5>{{LANG.Upload_pictures_for}} {{fields.title}}</h5>
+                                    <!-- <small>Supported Format: Jpeg, Png, Jpg, Max Size 50Kb</small> -->
+                                    <div class="add-image" [class.mb-0]="fields.required">
+                                        <input style="display: none" type="file" (change)="changeImage($event,fields)"
+                                            id="fileInput{{i}}{{j}}{{k}}" [disabled]="disabled_inputs">
+                                        <span *ngIf="fields.value">
+                                          <a href="{{fields.value}}" target="_blank">  <img src="../../../../assets/images/open_file.png" alt="Open File"></a>
+                                            <!-- <img src="{{fields.value}}" class="" *ngIf="fields.ext != 'pdf' && fields.ext != 'docx'">
+                                            <img src="../../../../assets/images/pdf-logo.png" class="" *ngIf="fields.ext == 'pdf'">
+                                            <img src="../../../../assets/images/words-logo.png" class="" *ngIf="fields.ext == 'docx'"> -->
+                                            <ng-container *ngIf="fields.progress && fields.progress !== 100">
+                                                <div class="text-center mt-2">
+                                                    <progress max="100" [value]="fields.progress"></progress>
+                                                </div>
+                                            </ng-container>
+                                        </span>
+                                        <span (click)="showFileInput(i,j,k)"><i
+                                                class="fa fa-plus"></i>{{LANG.Add_image}}</span>
+                                    </div>
+                                    <span class="error mt-2 mb-5"
+                                        *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+
+                                </ng-container>
+                                <!-- <h5>Fundraise campaign details</h5>
+                            <div class="row campaign-row">
+                                <div class="form-group col-md-12">
+                                    <input type="text" class="form-control" placeholder="How much amount you are expecting to raise?"  name="">
+                                </div>
+                            </div> -->
+                                <ng-container *ngIf="fields.type == field_types.Textarea">
+                                    <h5>{{LANG.About}} {{fields.title}}</h5>
+                                    <div class="row campaign-row">
+
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control"
+                                                placeholder="{{LANG.Tell_about_your}} {{fields.title}}"
+                                                name="textarea{{i}}{{j}}{{k}}" [(ngModel)]="fields.value"
+                                                [disabled]="disabled_inputs"></textarea>
+                                            <span class="error"
+                                                *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="fields.type == field_types.Yes_No">
+                                    <h5>{{fields.title}}</h5>
+                                    <div class="row campaign-row">
+                                        <div>
+                                            <div class="form-check">
+                                                <div class="radio-1">
+                                                    <input type="radio" class="radio-buttons" id="yes{{i}}{{j}}{{k}}"
+                                                        name="field{{i}}{{j}}{{k}}" value="1"
+                                                        [checked]="fields.value == 1" [(ngModel)]="fields.value"
+                                                        [disabled]="disabled_inputs">
+                                                    <label name="gender" for="yes{{i}}{{j}}{{k}}">{{LANG.Yes}}</label>
+                                                </div>
+                                                <div class="radio-2">
+                                                    <input type="radio" class="radio-buttons" id="no{{i}}{{j}}{{k}}"
+                                                        name="field{{i}}{{j}}{{k}}" value="0"
+                                                        [checked]="fields.value == 0" [(ngModel)]="fields.value"
+                                                        [disabled]="disabled_inputs">
+                                                    <label name="gender" for="no{{i}}{{j}}{{k}}">{{LANG.No}}</label>
+                                                </div>
+                                            </div>
+                                            <span class="error pl-4"
+                                                *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                            <!-- <div class="upload-logo">
+                            <span>
+                                <img src="assets/images/gallery.svg" alt="">
+                            </span>
+                            <div>
+                                <button class="btn head-button-wrap start"><span>UPLOAD DP</span></button>
+                                <small>Supported Format: Jpeg, Png, Jpg, Max Size 50Kb</small>
+                            </div>
+                        </div> -->
+                            <!-- <div class="row border-bot">
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Employee name"  name="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Designation"  name="">
+                            </div>
+                            <a href="#" class="add-member">+ add more team member</a>
+                        </div>
+                        <h5>Terms & Conditions</h5>
+                        <div class="row campaign-row">
+                            <div class="form-group col-md-12 camp-text">
+                                <textarea class="form-control" placeholder="Write your Terms & Conditions here"  ></textarea>
+                            </div>
+                        </div>
+                        <div class="row camp-button">
+                            <div class="col-md-6">
+                                <button class="btn head-button-wrap start w-100">PREVIEW CAMPAIGN</button>
+                            </div>
+                            <div class="col-md-6 submit-button">
+                                <button class="btn w-100"> SUBMIT & START CAMPAIGN</button>
+                            </div>
+                        </div> -->
+                        </ng-container>
+
+                        <div class="buttons">
+                            <button class="btn back" *ngIf="i != 0" (click)="back(i)">{{LANG.Back}}</button>
+                            <button class="btn next" (click)="next(i)"
+                                *ngIf="i != kyc_form.length-1">{{LANG.Next}}</button>
+                        </div>
+
+                    </div>
+                </ng-container>
+                <div class="row camp-button justify-content-center"
+                    *ngIf="data_loaded && !disabled_inputs && tab_index == kyc_form.length-1">
+                    <div class="col-md-6 submit-button text-center">
+                        <button class="btn" [class.loading]="load" (click)="addKYCDetails(kyc_form.length-1)">
+                            <ng-container *ngIf="load;else noLoader;">
+                                <loader></loader>
+                            </ng-container>
+                            <ng-template #noLoader>
+                                {{type == 1 && !disabled_inputs ? LANG.UPDATE : LANG.SUBMIT}}
+                            </ng-template>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title">Modal title</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<p>One fine body&hellip;</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>

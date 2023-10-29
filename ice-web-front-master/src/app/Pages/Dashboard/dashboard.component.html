@@ -1,0 +1,238 @@
+<section class="container-fluid weather sec6 bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 rate-left">
+                <div class="campaign-blue ">
+                    <div>
+                        <h2>{{opertunityDetailList?.tagline}}</h2>
+                    </div>
+                </div>
+                <div class="col-9">
+                <img   src="{{opertunityDetailList?.campaign_images[0].image}}" class="w-100 add-img-wrapper" alt="" />
+                  <!-- <img   src="assets/images/add-img.png" class="w-100 add-img-wrapper" alt="" /> -->
+                </div>
+                <br>
+                <div class="progress">
+                  <div class="progress-bar progress-easy" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" [style.width]=" investPercentage + '%'">
+                  </div>
+              </div>
+              <span>{{investPercentage}}% Complete</span>
+              <br>
+              <hr>
+                <!-- <p>{{opertunityDetailList?.company_bio}}</p> -->
+            </div>
+
+            <div class="col-md-8 rate-right">
+                <div class="rate">
+                    <div>
+                        <h4>SAR {{opertunityDetailList?.total_valuation}}</h4>
+                    </div>
+                    <!-- <span><i class="fa fa-heart-o"></i></span> -->
+                </div>
+                <div class="row invest-row">
+                    <div class="col-md-4">
+                        <div class="invest">
+                            <p>{{LANG.Investers}}</p>
+                            <h6>{{opertunityDetailList?.investers}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="invest">
+                            <p>{{LANG.Raised}}</p>
+                            <h6>SAR {{opertunityDetailList?.raised}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="invest">
+                            <p>{{LANG.Price_Per_Share}}</p>
+                            <h6>SAR {{opertunityDetailList?.share_price}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="invest">
+                            <p>{{LANG.Valuation}}</p>
+                            <h6>SAR {{opertunityDetailList?.total_valuation}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="invest">
+                            <p>{{LANG.Max_Investment}}</p>
+                            <h6>SAR {{opertunityDetailList?.max_investment}}</h6>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary" *ngIf="user_data.role_type==2 && disabled_inputs" data-toggle="modal" data-target="#investmentModal"> {{LANG.investment}}</button>
+                    <!-- Button trigger modal -->
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="investmentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="tab-header" id="exampleModalLongTitle">{{LANG.Modal_title}}</h5>
+                        <button type="button" #closebutton class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                            <app-investmentagreement></app-investmentagreement>
+                          <form [formGroup]="amountForm">
+                            <div class="control">
+                              <input type="checkbox" id="agreement" name="agreement" formControlName="agreement">
+                              <label style="margin-left: 10px;">I agree to the</label>
+                            </div>
+                            <span class="error" *ngIf="errors?.agreement">{{LANG.This_field_is_required}}</span>
+                            <input type="text" class="form-control" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
+                            <span class="error" *ngIf="errors?.amount">{{LANG.This_field_is_required}}</span>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
+                    <button type="button" *ngIf="disabled_inputs" class="btn btn-primary" (click)="onPay()">{{LANG.Pay}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Button trigger modal -->
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="mastercardModal" tabindex="-1" role="dialog" aria-labelledby="mastercardModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
+                        <button type="button" class="btn btn-primary" >{{LANG.Save_changes}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-menue allocation">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-team-tab" data-toggle="tab" href="#nav-team" role="tab" aria-controls="nav-team" aria-selected="true">{{LANG.Team}}</a>
+              <a class="nav-item nav-link" id="nav-campainAttach-tab" data-toggle="tab" href="#nav-campainAttach" role="tab" aria-controls="nav-campainAttach" aria-selected="false">{{LANG.Campaign_Attachements}}</a>
+              <a class="nav-item nav-link" id="nav-mustanad-tarh-tab" data-toggle="tab" href="#nav-mustanad-tarh" role="tab" aria-controls="nav-mustanad-tarh" aria-selected="false">{{LANG.MustanadAltarh}}</a>
+              <a class="nav-item nav-link" id="nav-invest_agree-tab" data-toggle="tab" href="#nav-invest_agree" role="tab" aria-controls="nav-invest_agree" aria-selected="false">{{LANG.Investment_Agreement}}</a>
+              <a class="nav-item nav-link" id="nav-prog-info-tab" data-toggle="tab" href="#nav-prog-info" role="tab" aria-controls="nav-prog-info" aria-selected="false">{{LANG.Program_Information}}</a>
+              <a class="nav-item nav-link" id="nav-invest_wallet-tab" data-toggle="tab" href="#nav-invest_wallet" role="tab" aria-controls="nav-invest_wallet" aria-selected="false">Investor Statement</a>
+            </div>
+          </nav>
+        </div>
+        <br/>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade" id="nav-invest_agree" role="tabpanel" aria-labelledby="nav-invest_agree-tab">
+            <app-investmentagreement></app-investmentagreement>
+          </div>
+          <div class="tab-pane fade" id="nav-prog-info" role="tabpanel" aria-labelledby="nav-prog-info-tab">
+            <p class="tab-header">{{LANG.Program_Information}}</p>
+            <app-program-info></app-program-info>
+          </div>
+          <div class="tab-pane fade show active" id="nav-team" role="tabpanel" aria-labelledby="nav-team-tab">
+              <p class="tab-header">{{LANG.Team}}</p>
+              <div class="table-responsive table-section">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr *ngFor="let team of teams">
+                            <td>
+                              <div class="date-name">
+                                <span>{{LANG.ID}}</span>
+                              </div>
+                                   {{team.id}}
+                            </td>
+                            <td>
+                              <div class="date-name">
+                                <span>{{LANG.Name}}</span>
+                              </div>
+                                {{team.name}}
+                          </td>
+                          <td>
+                            <div class="detail-name">
+                              <span>{{LANG.Designation}}</span>
+                            </div>
+                              {{team.designation}}
+                          </td>
+                          <td>
+                            <span>{{LANG.Attachment}}</span>
+                            <div class="detail-name">
+                              <a href="{{team.image}}" target="_blank">
+                                  <img src="assets/images/flower-1.png">
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+     <!-- <div class="tab-pane fade" id="nav-updates" role="tabpanel" aria-labelledby="nav-updates-tab">
+            <p>Updates Tab content here .</p>
+          </div>
+          <div class="tab-pane fade" id="nav-terms" role="tabpanel" aria-labelledby="nav-terms-tab">
+            <p>Terms Tab content here .</p>
+          </div> -->
+          <div class="tab-pane fade" id="nav-campainAttach" role="tabpanel" aria-labelledby="nav-campainAttach-tab">
+              <div class="table-responsive table-section">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr *ngFor="let attach of campaignAttachements">
+                                <td>
+                                  <div class="date-name">
+                                    <span>{{LANG.ID}}</span>
+                                   </div>
+                                      {{attach.id}}
+                                </td>
+                                <td>
+                                  <div class="date-name">
+                                    <span>Compaign</span>
+                                  </div>
+                                    {{attach.campaign_id}} - {{opertunityDetailList?.tagline}}
+                              </td>
+                              <td>
+                                <div class="date-name">
+                                  <span>{{LANG.Status}}</span>
+                                </div>
+                                {{attach.status == 'A'?LANG.Approved:LANG.Pending}}
+                              </td>
+                              <td>
+                                <div class="date-name">
+                                <span>{{LANG.Attachment}}</span>
+                                </div>
+                                  <a href="{{attach.attachment}}" target="_blank">
+                                      <!-- <img src="../../../../assets/images/open_file.png" alt="Open File"> -->
+                                      <img src="assets/images/flower-1.png" class="" *ngIf="attach.ext != 'pdf' && attach.ext != 'docx'">
+                                      <img src="assets/images/pdf-logoS.png" class="" *ngIf="attach.ext == 'pdf'">
+                                      <img src="assets/images/flower-1.png" class="" *ngIf="attach.ext == 'docx'">
+                                  </a>
+                              </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-first">
+                  <h4>{{campaignAttachements.message}}</h4>
+                </div>
+
+          </div>
+          <div class="tab-pane fade" id="nav-mustanad-tarh" role="tabpanel" aria-labelledby="nav-mustanad-tarh-tab">
+           <app-tar7-document></app-tar7-document>
+          </div>
+          <div class="tab-pane fade" id="nav-invest_wallet" role="tabpanel" aria-labelledby="nav-invest_wallet-tab">
+            <app-investor-wallet-list></app-investor-wallet-list>
+           </div>
+        </div>
+    </div>
+</section>
+<br/>
+<br/>
+<br/>
+<br/>

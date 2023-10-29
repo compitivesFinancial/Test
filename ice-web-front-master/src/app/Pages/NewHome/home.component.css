@@ -1,0 +1,351 @@
+button:disabled,
+button:hover:disabled {
+    cursor: not-allowed;
+    background: lightgray;
+}
+
+.black {
+    width: 67%;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    position: absolute;
+    top: 16%;
+    flex-direction: column;
+}
+
+.custom {
+    height: 40px;
+}
+
+.center {
+    width: 95%;
+    margin: 0 auto !important;
+}
+
+.carousel {
+    background: #F4F4F4;
+    padding: 82px 0px 55px;
+}
+
+.carousel-first h2 {
+    font-size: 44px;
+    color: #0D0D0D;
+    text-align: center;
+    width: 662px;
+    margin: auto;
+    letter-spacing: -1.76px;
+}
+
+.third-craousel h2 {
+    padding-bottom: 44px;
+}
+
+.carousel-first p {
+    text-align: center;
+    font-size: 18px;
+    color: #0D0D0D;
+    padding: 8px 0 52px;
+}
+
+.sec1 {
+    height: 603px;
+}
+
+.sec1 video {
+    object-fit: fill;
+}
+
+.sec10 .collapse p {
+    width: auto;
+}
+
+.carousel-slide img {
+    border-radius: 32px;
+}
+
+.carousel-content {
+    /* border-radius: 32px;
+    background: #fff; */
+    border-radius: 32px;
+    background: rgb(227, 227, 227);
+}
+
+.pad-carousel h6 {
+    font-size: 18px;
+    font-family: 'maison-bold';
+    color: #0D0D0D;
+}
+
+.pad-carousel p {
+    font-size: 14px;
+    color: #525252;
+}
+
+.pad-carousel {
+    padding: 18px;
+}
+
+.progress {
+    margin: 23px 0;
+}
+
+.progress-bar {
+    background: #58C18E;
+}
+
+.fund-rate h5 {
+    font-size: 16px;
+    color: #0D0D0D;
+    font-family: 'maison-bold';
+    display: flex;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.fund-rate h5 span {
+    font-size: 12px;
+    color: #525252;
+    font-family: 'maison-book';
+    margin-left: 4px;
+}
+
+.fund-rate {
+    border-right: 3px solid #707070;
+    padding-right: 20px;
+    margin-right: 7px;
+}
+
+.fund-rate p {
+    font-size: 12px;
+}
+
+.pad-carousel h4 {
+    font-size: 12px;
+}
+
+.container .o-cls {
+    padding: 0px 0px 0px 950px;
+}
+
+.fund-investers p {
+    color: #0D0D0D;
+    font-family: 'maison-bold';
+}
+
+.caro-width {
+    margin-left: auto;
+    padding: 0;
+}
+
+.pointer {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pointer-title {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.explore {
+    display: block;
+    margin: 48px auto 0;
+    border: 1px solid #130132;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #130132;
+    font-family: 'maison-bold';
+    background: transparent;
+    padding: 18px 59px
+}
+
+.bg-caro {
+    background-color: #E9E3F0;
+}
+
+.caro-img {
+    position: relative;
+}
+
+.caro-img span {
+    position: absolute;
+    background: #D7B8FA;
+    border-radius: 6px 0 0 6px;
+    color: #160034;
+    font-size: 12px;
+    font-family: 'maison-med';
+    padding: 7px 10px;
+    right: 0;
+    bottom: 0;
+}
+
+.caro-img img {
+    /* height: 238px;
+    object-fit: cover; */
+    height: 100px;
+    object-fit: fill;
+}
+
+.slide2 {
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    padding: 26px 49px;
+    left: 0;
+    right: 0;
+}
+
+.slide2 p {
+    font-size: 14px;
+    font-family: 'maison-bold';
+    color: #130132;
+    background: #F9DEAE;
+    width: max-content;
+    max-width: 100%;
+    padding: 9px 27px;
+    border-radius: 32px;
+}
+
+.slide3-img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.slide2 h2 {
+    font-size: 42px;
+    color: #0D0D0D;
+    font-family: 'maison-bold';
+    line-height: 43px;
+    letter-spacing: -0.84px;
+    padding: 20px 0 12px;
+    width: 324px;
+}
+
+.slide2 h4 {
+    font-size: 22px;
+    color: #0D0D0D;
+    font-family: 'maison-light';
+    width: 324px;
+    padding-bottom: 18px;
+}
+
+.slide2 span {
+    font-size: 18px;
+    color: #20BA5E;
+    font-family: 'maison-bold';
+}
+
+.circle-arrow {
+    background: transparent;
+    padding: 0;
+    position: absolute;
+    bottom: 40px;
+    right: 87px;
+    color: #fff;
+    font-size: 30px;
+}
+
+@media only screen and (max-width:576px) {
+    .sec1 {
+        height: 475px;
+    }
+    .sec1 h2 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .carousel {
+        padding: 40px 0px;
+    }
+
+    .carousel-first h2 {
+        font-size: 27px;
+        width: 100%;
+    }
+    .carousel-first p {
+        font-size: 11px;
+        padding: 3px 0 22px;
+    }
+    .caro-img img {
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .pad-carousel h6 {
+        font-size: 15px;
+    }
+
+    .pad-carousel {
+        padding: 10px 15px;
+    }
+
+    .pad-carousel p {
+        font-size: 10px;
+    }
+
+    .progress {
+        margin: 10px 0;
+    }
+
+    .fund-rate h5 {
+        font-size: 11px;
+    }
+
+    .fund-rate h5 span {
+        font-size: 9px;
+        margin-left: 8px;
+    }
+
+    .fund-rate p {
+        font-size: 8px;
+    }
+
+    .fund-rate {
+        padding-right: 36px;
+        border-right: 1px solid #707070;
+    }
+    .explore {
+        margin: 24px auto 0;
+        padding: 11px 37px;
+    }
+    .slide2 p {
+        font-size: 9px;
+        padding: 5px 15px;
+    }
+
+    .slide2 {
+        padding: 18px 19px;
+    }
+
+    .slide2 h2 {
+        font-size: 21px;
+        line-height: 1;
+        padding: 9px 0 5px;
+        width: 100%;
+    }
+    .slide2 h4 {
+        font-size: 14px;
+        width: 100%;
+        padding-bottom: 6px;
+    }
+
+    .slide2 span {
+        font-size: 13px;
+    }
+
+    .circle-arrow {
+        bottom: 14px;
+        right: 15px;
+        font-size: 18px;
+    }
+    .slide3-img {
+        height: 249px;
+    }
+}
+
+.pad-carousel button {
+    padding: 10px;
+    font-size: 13px;
+}

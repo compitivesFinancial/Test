@@ -1,0 +1,156 @@
+<div class="campaign-details container-fluid">
+    <div class="container">
+        <button class="btn back"><i class="fa fa-chevron-left" aria-hidden="true"></i>{{LANG.Back}}</button>
+        <div class="row campaign-row-btn">
+            <div class="campaign-blue">
+                <img class="black-img" src="{{investmentDetailsList?.campaign_images[0].image}}" alt="">
+                <div>
+                    <h2>{{investmentDetailsList?.tagline}}</h2>
+                    <h6>{{investmentDetailsList?.company_bio}}</h6>
+                    <!-- <div>
+                        <span class="globe-img"><img src="assets/images/globe.png" alt="">www.weatherflow.temp</span>
+                        <span class="globe-img"><img src="assets/images/map.png" alt="">Riyadh, Saudi Arabia</span>
+                    </div> -->
+                </div>
+            </div>
+            <div class=" submit-button">
+                <button class="btn" (click)="navTo()">{{LANG.PREVIEW}}</button>
+                <!-- <button class="btn ">EDIT DETAILS</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid detail-2">
+    <div class="container">
+        <div class="row detail2-row">
+            <div class="col-md-7">
+                <div class="table-first">
+                    <p>{{LANG.Received_Investment}}</p>
+                    <div class="dropdown">
+                        <!-- <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                            Sort By : Recent
+                        </button> -->
+                        <!-- <div class="dropdown-menu">
+                            <a class="dropdown-item">Recent</a>
+                            <a class="dropdown-item">Recent</a>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="table-responsive table-section">
+                    <table class="table table-borderless ">
+                        <tbody>
+                            <tr class="campaign-tab-detail" *ngFor="let details of investorDetails" >
+                                <td class="detail-name">
+                                    <img src="../../../../assets/images/contact_image.png" alt="">
+                                    <div class="date-name">
+                                        <h4>{{details?.name}}</h4>
+                                        <p>{{LANG.Date}} : {{details?.created_at}}</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>{{LANG.Transaction_ID}}</span>
+                                    <p>{{details?.invester_id}}</p>
+                                </td>
+                                <td class="invest">
+                                    <span>{{LANG.Invested}}</span>
+                                    <p> SAR {{details?.amount}}</p>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td class="detail-name">
+                                    <img src="assets/images/flower-1.png" alt="">
+                                    <div class="date-name">
+                                        <h4>Mohammad Abdullah</h4>
+                                        <p>Date : 22 Oct 2020, 10:pm</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>Transaction ID</span>
+                                    <p>86738468293694</p>
+                                </td>
+                                <td class="invest">
+                                    <span>Invested</span>
+                                    <p> SAR 10,000</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="detail-name">
+                                    <img src="assets/images/flower-1.png" alt="">
+                                    <div class="date-name">
+                                        <h4>Mohammad Abdullah</h4>
+                                        <p>Date : 22 Oct 2020, 10:pm</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>Transaction ID</span>
+                                    <p>86738468293694</p>
+                                </td>
+                                <td class="invest">
+                                    <span>Invested</span>
+                                    <p> SAR 10,000</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="detail-name">
+                                    <img src="assets/images/flower-1.png" alt="">
+                                    <div class="date-name">
+                                        <h4>Mohammad Abdullah</h4>
+                                        <p>Date : 22 Oct 2020, 10:pm</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>Transaction ID</span>
+                                    <p>86738468293694</p>
+                                </td>
+                                <td class="invest">
+                                    <span>Invested</span>
+                                    <p> SAR 10,000</p>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="detail-right">
+                    <div class="sar-rup">
+                        <h4>SAR {{investmentDetailsList?.total_valuation}}</h4>
+                        <p>{{percantageInvestment(investmentDetailsList.raised,investmentDetailsList.total_valuation)}}% Funded</p>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" [style.width.%]="percantageInvestment(investmentDetailsList.raised,investmentDetailsList.total_valuation)"></div>
+                    </div>
+                    <div class="pledged">
+                        <p>{{LANG.Pledged_Of_SAR}} {{investmentDetailsList?.raised}} {{LANG.Goal}}</p>
+                        <!-- <button class="btn">2 days left</button> -->
+                    </div>
+                    <!-- <div class="top-invest">
+                        <p>Top Investors</p>
+                        <div>
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                        </div>
+                    </div> -->
+                    <div class="amount-raised">
+                        <p>{{LANG.Raised_amount}}</p>
+                        <p>SR {{investmentDetailsList?.raised}}</p>
+                    </div>
+                    <!-- <div class="amount-raised">
+                        <p>Convenience fee</p>
+                        <p>SR {{investmentDetailsList?.Convenience_fee}}</p>
+                    </div> -->
+                    <div class="amount-raised total">
+                        <p>{{LANG.Pending_amount}}</p>
+                        <p>SR {{investmentDetailsList?.available_amount}}</p>
+                    </div>
+                    <!-- <div class=" button-amount">
+                        <button class="btn">WITHDRAWAL</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

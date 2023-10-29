@@ -1,0 +1,120 @@
+<header class="container-fluid header">
+    <div class="version">
+        <img src="assets/images/version.svg" alt="">
+    </div>
+    <nav class="navbar navbar-expand-lg p-0">
+        <a class="navbar-brand p-0" (click)="goHome()">
+            <img src="{{logo}}" class="w-100" alt="" />
+        </a>
+        <a class="navbar-brand p-0 header-logo" (click)="goHome()">
+            <img src="{{logo_1}}" class="w-100" alt="" />
+        </a>
+        <button class="navbar-toggler" (click)="togglePhoneMenu()" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="phoneMenuToggle== true">
+            <ul class="navbar-nav align-items-center">
+                <ng-container *ngIf="logged_in;else no_logged_in">
+                    <li class="nav-item phoneLi active">
+                        <button class="btn btn-primary"  routerLink="/dashboard">{{LANG.Dashboard}}
+                            <span class="hov-border"></span>
+                        </button>
+                    </li>
+                    <li class="nav-item phoneLi active" *ngIf="user_data?.role_type == 2">
+                        <button class="btn btn-primary" routerLink="/investment">{{LANG.Investment}}
+                            <span class="hov-border"></span>
+                        </button>
+                    </li>
+                    <li class="nav-item phoneLi active">
+                        <button class=" btn btn-primary" routerLink="/setting">{{LANG.Operations}}
+                            <span class="hov-border"></span>
+                        </button>
+                    </li>
+                    <!-- <li class="nav-item active" *ngIf="user_data?.role_type == 3">
+                        <a class="nav-link" routerLink="/add-campaign">{{LANG.Add_Opportunity}}
+                            <span class="hov-border"></span>
+                        </a>
+                    </li> -->
+                    <!-- <li class="nav-item active" *ngIf="user_data?.role_type == 3">
+                        <a class="nav-link" routerLink="/my-profile/user-campaigns">{{LANG.My_Opportunities}}
+                            <span class="hov-border"></span>
+                        </a>
+                    </li> -->
+
+                </ng-container>
+
+                <ng-template #no_logged_in>
+                    <li class="nav-item active">
+                        <button class="btn btn-primary btn-c" (click)="goToLogin('3')">{{LANG.Register_as_Borrower}}
+                            <span class="hov-border"></span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary btn-c" (click)="goToLogin('2')">{{LANG.Register_as_Investor}}
+                            <span class="hov-border"></span>
+
+                        </button>
+                    </li>
+                </ng-template>
+                <li class="dropdown">
+                    <button type="button" class="btn BG" data-toggle="dropdown">
+                        {{selected_language}}
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" (click)="changeLanguage()">{{optional_language}}</a>
+                    </div>
+                </li>
+                <li class="nav-item" *ngIf="!logged_in;else logged_out" routerLink="/login" (click)="close()">
+                    <button class="btn login-btn hov-btn"><span><i class="fa fa-user" aria-hidden="true"></i> {{LANG.LOGIN}}</span></button>
+                </li>
+                <ng-template #logged_out>
+                    <div class=" head-button">
+                        <li class="nav-item dropdown">
+                            <button (click)="toggleMenu()" class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                <span class="hidden-md-down ml-3">{{user_data?.name}} &nbsp;</span>
+                            </button>
+                            <div class="headMenu animated flipInY head-drop" [class.menuAppear]="menuToggle== false">
+                                <!-- <button class="dropdown-item cursor-pointer" routerLink="/my-profile">My Profile</button>
+                                <button class="dropdown-item cursor-pointer" (click)="logout()">{{LANG.LOGOUT}}</button> -->
+                                <div class="row drop-row">
+                                    <div class="col-md-6">
+                                        <h5>{{LANG.My_Opportunities}}</h5>
+                                        <a routerLink="/campaign-list">{{LANG.Opportunity_List}}</a>
+                                        <!-- <a href="#">Push Updates</a>
+                                        <a href="#">Push Updates</a> -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>{{LANG.MyProfile}}</h5>
+                                        <a routerLink="/my-profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{LANG.Edit_Profile}}</a>
+                                        <!-- <a href="#">Bank Details</a> -->
+                                        <a routerLink="/kyc-details" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{LANG.Kyc_Details}}</a>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <h5>My Documents</h5>
+                                        <a href="#">Sukuk Docs</a>
+                                        <a href="#">Shares Sheet</a>
+                                    </div> -->
+                                    <div class="col-md-6">
+                                      <h5>{{LANG.Account}}</h5>
+                                        <!-- <a href="#">Settings</a> -->
+                                        <a (click)="logout()">{{LANG.Sign_Out}}</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <h5>{{LANG.Wallet}}</h5>
+                                      <a href="#">{{LANG.Payments}}</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </div>
+
+                </ng-template>
+                <button class="btn  close" (click)="close()"><i class="fa fa-times"></i></button>
+
+            </ul>
+        </div>
+    </nav>
+</header>

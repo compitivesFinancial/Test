@@ -1,0 +1,242 @@
+<section class="sec1">
+    <div class="container">
+        <div class=" sec2 col-md-6 px-0">
+            <h1>{{LANG.Great_things_need_funds_We_know_you_do_too}}</h1>
+            <p>{{LANG.great_things_cfc}}</p>
+            <!-- <button class="btn head-button-wrap start"><span>START FUNDRAISER</span></button> -->
+        </div>
+    </div>
+</section>
+
+<section class="container sec3">
+    <div class="row sec3-row">
+        <div class="col-md-4 col-6">
+            <div class="comp">
+                <span><img src="assets/images/moon.svg" alt="" /></span>
+                <p>{{LANG.Shariah_Compliance}}</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="comp comp1">
+                <span><img src="assets/images/moon-2.svg" alt="" /></span>
+                <p>{{LANG.Free_promotion_for_your_campaign}}</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="comp comp2">
+                <span><img src="assets/images/moon-3.svg" alt="" /></span>
+                <p>{{LANG.withdraw_your_amount_instantly}}</p>
+            </div>
+        </div>
+    </div>
+    <h2 class="fund">{{LANG.How_to_start_your}} <span class="d-block"> {{LANG.fundraiser_on_Compp_Fintect}}</span></h2>
+    <p class="easy-fund">{{LANG.Easy_Just_Follow}}</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div  class="sec3-det active">
+                <span></span>
+                <img src="assets/images/sec3-1.svg" alt="" />
+                <div class="details ">
+                    <h5>{{LANG.Enter_Details}}</h5>
+                    <p>{{LANG.kyc_answer}}</p>
+                </div>
+            </div>
+            <div  class="sec3-det ">
+                <span></span>
+                <img src="assets/images/sec3-2.svg" alt="" />
+                <div class="details ">
+                    <h5>{{LANG.Verify_by_KYC}}</h5>
+                    <p>{{LANG.verify_answer}}</p>
+                </div>
+            </div>
+            <div  class="sec3-det ">
+                <span></span>
+                <img src="assets/images/sec3-3.svg" alt="" />
+                <div class="details ">
+                    <h5>{{LANG.Get_Approval}}</h5>
+                    <p>{{LANG.approval_answer}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 sec3-right">
+            <img src="assets/images/sec3-right.svg" class="w-100" alt="" />
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec4">
+    <div class="container man-img h-100">
+        <img src="assets/images/man.png" class="w-100" alt="" />
+        <div class="row man-row h-100">
+            <div class="col-md-3 ">
+            </div>
+            <div class="col-md-6 sec4-center">
+               <h3 class="fund">{{LANG.ready_to_start}}</h3>
+               <p>{{LANG.Get_approval_in_minutes}}</p>
+            </div>
+            <!-- <div class="col-md-3 sec4-text text-right pr-0">
+                <button class="btn head-button-wrap start"><span>START FUNDRAISER</span></button>
+            </div> -->
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec5">
+    <div class="container">
+        <h2 class="fund">{{LANG.Easy_Funding_options_For_you}}</h2>
+        <!-- <p class="sec5-p">Donec Aliquet Leo Non Massa Maximus Imperdiet. Curabitur Dignissim Nibh Pulvinar <span class="d-block"> Euismod Eleifend.</span></p> -->
+        <div class="row">
+            <ng-container *ngFor="let data of product_list;let i=index;">
+                <div class="col-md-3 col-6 murabhak" [class.active]="i == 1">
+                    <img src="assets/images/star-1.svg" alt="" />
+                    <h6>{{data.title}}
+                        <!-- <span class="d-block"> Sukuk</span> -->
+                    </h6>
+                    <span class="retail">{{LANG.Retail_And_Sophisticated_Investors}}</span>
+                    <p *ngFor="let item of data.product_attribute_detail;let j=index;">{{item.value}}</p>
+                </div>
+
+            </ng-container>
+            <!-- <div class="col-md-3 col-6 murabhak active">
+                <img src="assets/images/star-2.svg" alt="" />
+                <h6>Ijara  <span class="d-block"> Sukuk</span></h6>
+                <span class="retail">Retail And Sophisticated Investors (Only Saudis & Iqama Holders)</span>
+                <p>Up To 10,00,00,000 Sar Working Capital &Capital Expenses Up To ….% Yield Circulated Payments At Maturity / Installments Promissory Note</p>
+            </div>
+            <div class="col-md-3 col-6 murabhak ">
+                <img src="assets/images/star-4.svg" alt="" />
+                <h6>P2P debt  <span class="d-block"> loan murabaha </span></h6>
+                <span class="retail">Retail And Sophisticated Investors (Only Saudis & Iqama Holders)</span>
+                <p>Up To 10,00,00,000 Sar Working Capital &Capital Expenses Up To ….% Yield Circulated Payments At Maturity / Installments Promissory Note</p>
+            </div>
+            <div class="col-md-3 col-6 murabhak ">
+                <img src="assets/images/star-3.svg" alt="" />
+                <h6>Equity<span class="d-block"> Shares </span></h6>
+                <span class="retail">Retail And Sophisticated Investors (Only Saudis & Iqama Holders)</span>
+                <p>Up To 10,00,00,000 Sar Working Capital &Capital Expenses Up To ….% Yield Circulated Payments At Maturity / Installments Promissory Note</p>
+            </div> -->
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec6">
+    <div class="container">
+        <div class="sec6-first">
+            <h3 class="fund">{{LANG.Funding_made_simple}}</h3>
+            <!-- <p>Donec Aliquet Leo Non Massa Maximus Imperdiet. Curabitur Dignissim Nibh Pulvinar Euismod Eleifend.</p> -->
+        </div>
+        <div class="row sec6-row">
+            <div class="col-md-6 col-6">
+                <div class="sec6-dtl">
+                    <img src="assets/images/sec6-1.svg" alt="" />
+                    <div class="sec6-1">
+                        <h6>{{LANG.Shariah_Compliance}}</h6>
+                        <!-- <p>Etiam At Fringilla Lacus, Vel Aliquet Lectus. Fusce Placerat Congue Nibh, Non Ullamcorper Ante</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-6">
+                <div class="sec6-dtl">
+                    <img src="assets/images/sec6-2.svg" alt="" />
+                    <div class="sec6-1">
+                        <h6>{{LANG.Loan_terms}}</h6>
+                        <!-- <p>Donec Aliquet Leo Non Massa Maximus Imperdiet. Curabitur Dignissim Nibh Pulvinar Euismod Eleifend.</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-6">
+                <div class="sec6-dtl">
+                    <img src="assets/images/sec6-3.svg" alt="" />
+                    <div class="sec6-1">
+                        <h6>{{LANG.Financing}}</h6>
+                        <!-- <p>Cras Ullamcorper Sagittis Aliquam. Duis Nec Mauris Pretium Tellus Tincidunt Mattis. Fusce Tristique.</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-6">
+                <div class="sec6-dtl">
+                    <img src="assets/images/sec6-4.svg" alt="" />
+                    <div class="sec6-1">
+                        <h6>{{LANG.Customised_loan}}</h6>
+                        <!-- <p>Aliquam. Duis Nec Mauris Pretium Tellus Tincidunt Mattis. Fusce Tristique Faucibus Ligula.</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sec6-first sec6-second">
+            <h3 class="fund">{{LANG.Saudi_top_crowdfunding_platform}}</h3>
+            <p>{{LANG.We_Know_Your_Needs_Trusted_By}}</p>
+        </div>
+        <div class="col-md-8 project mx-auto">
+            <div class="row project-row">
+                <div class="col-md-4 col-6">
+                    <div class="count">
+                        <h4>256</h4>
+                        <p>{{LANG.Projects}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="count count1">
+                        <h4>SAR 20,000</h4>
+                        <p>{{LANG.Total_Raised}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="count count2">
+                        <h4>5,000</h4>
+                        <p>{{LANG.Investers}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec7">
+    <div class="container">
+        <h3>{{LANG.faq}}</h3>
+        <div id="accordion" class="accordion">
+            <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                <a class="card-title">
+                    {{LANG.faq_one}}
+                </a>
+            </div>
+            <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
+                <p>{{LANG.CFC_answer}}</p>
+            </div>
+            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                <a class="card-title">
+                    {{LANG.faq_two}}
+
+                </a>
+            </div>
+            <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
+                <p>{{LANG.CFC_answer}}</p>
+
+            </div>
+            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                <a class="card-title">
+                    {{LANG.faq_three}}
+
+                </a>
+            </div>
+            <div id="collapseThree" class="collapse" data-parent="#accordion" >
+                <div class="card-body">
+                <p>{{LANG.CFC_answer_three}}</p>
+
+                </div>
+            </div>
+            <div class="card-header collapsed collapse-four" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                <a class="card-title">
+                  {{LANG.faq_four}}
+                </a>
+            </div>
+            <div id="collapseFour" class="collapse" data-parent="#accordion" >
+                <div class="card-body">
+                    <p>{{LANG.CFC_answer_four}}</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="blue-sec">
+            <h5>{{LANG.Give_your_dreams_a_boost}} <span class="d-block"> {{LANG.Start_your_crowdfunding_today}}</span></h5>
+            <!-- <button class="btn head-button-wrap start"><span>START FUNDRAISER</span></button> -->
+        </div>
+    </div>
+</section>

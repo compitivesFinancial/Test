@@ -1,0 +1,156 @@
+<div class="campaign-details container-fluid">
+    <div class="container">
+        <button class="btn back"><i class="fa fa-chevron-left" aria-hidden="true"></i>Back</button>
+        <div class="row campaign-row-btn">
+            <div class="campaign-blue">
+                <span class="black-img"><img src="assets/images/flower-1.png" alt=""></span>
+                <div>
+                    <h2>{{campaign_details?.campaign?.tagline}}</h2>
+                    <h6>{{campaign_details?.campaign?.company_bio}}</h6>
+                    <div>
+                        <span class="globe-img"><img src="assets/images/globe.png" alt="">www.weatherflow.temp</span>
+                        <span class="globe-img"><img src="assets/images/map.png" alt="">Riyadh, Saudi Arabia</span>
+                    </div>
+                </div>
+            </div>
+            <div class=" submit-button">
+                <button class="btn">PREVIEW</button>
+                <button class="btn ">EDIT DETAILS</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid detail-2">
+    <div class="container">
+        <div class="row detail2-row">
+            <div class="col-md-7">
+                <div class="table-first">
+                    <p>Received Investment</p>
+                    <div class="dropdown">
+                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                            Sort By : Recent
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item">Recent</a>
+                            <a class="dropdown-item">Recent</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive table-section">
+                    <table class="table table-borderless ">
+                        <tbody>
+                            <tr>
+                                <td class="detail-name">
+                                    <img src="assets/images/flower-1.png" alt="">
+                                    <div class="date-name">
+                                        <h4>Mohammad Abdullah</h4>
+                                        <p>Date : 22 Oct 2020, 10:pm</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>Transaction ID</span>
+                                    <p>86738468293694</p>
+                                </td>
+                                <td class="invest">
+                                    <span>Invested</span>
+                                    <p> SAR 10,000</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="detail-name">
+                                    <img src="assets/images/flower-1.png" alt="">
+                                    <div class="date-name">
+                                        <h4>Mohammad Abdullah</h4>
+                                        <p>Date : 22 Oct 2020, 10:pm</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>Transaction ID</span>
+                                    <p>86738468293694</p>
+                                </td>
+                                <td class="invest">
+                                    <span>Invested</span>
+                                    <p> SAR 10,000</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="detail-name">
+                                    <img src="assets/images/flower-1.png" alt="">
+                                    <div class="date-name">
+                                        <h4>Mohammad Abdullah</h4>
+                                        <p>Date : 22 Oct 2020, 10:pm</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>Transaction ID</span>
+                                    <p>86738468293694</p>
+                                </td>
+                                <td class="invest">
+                                    <span>Invested</span>
+                                    <p> SAR 10,000</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="detail-name">
+                                    <img src="assets/images/flower-1.png" alt="">
+                                    <div class="date-name">
+                                        <h4>Mohammad Abdullah</h4>
+                                        <p>Date : 22 Oct 2020, 10:pm</p>
+                                    </div>
+                                </td>
+                                <td class="invest">
+                                    <span>Transaction ID</span>
+                                    <p>86738468293694</p>
+                                </td>
+                                <td class="invest">
+                                    <span>Invested</span>
+                                    <p> SAR 10,000</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="detail-right">
+                    <div class="sar-rup">
+                        <h4>SAR {{campaign_details?.campaign?.total_valuation}}</h4>
+                        <p>75% Funded</p>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:70%"></div>
+                    </div>
+                    <div class="pledged">
+                        <p>Pledged Of SAR {{campaign_details?.campaign?.total_valuation}} Goal</p>
+                        <button class="btn">2 days left</button>
+                    </div>
+                    <div class="top-invest">
+                        <p>Top Investors</p>
+                        <div>
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                            <img src="assets/images/flower-1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="amount-raised">
+                        <p>Raised amount</p>
+                        <p>SR 20,000</p>
+                    </div>
+                    <div class="amount-raised">
+                        <p>Convenience fee</p>
+                        <p>SR 1,000</p>
+                    </div>
+                    <div class="amount-raised total">
+                        <p>Available amount</p>
+                        <p>SR 19,000</p>
+                    </div>
+                    <div class=" button-amount">
+                        <button class="btn">WITHDRAWAL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+a.skip {
+    color: #0000EE;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#borrowers{
+    margin-top: 150px;
+}

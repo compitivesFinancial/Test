@@ -1,0 +1,104 @@
+.wrap {
+    margin-top: 107px;
+    background: #F5F7F8;
+    padding: 50px 15px 150px;
+}
+
+.form-sec {
+    padding: 50px;
+}
+
+.form-sec h6 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#myProfile {
+    display: block;
+}
+.campaign-tab {
+    margin-top: 107px;
+}
+
+.campaign-tab .nav-tabs {
+    justify-content: center;
+    background: #3c0d7c;
+}
+
+.campaign-tab .nav-tabs a {
+    border-radius: 0;
+    font-size: 14px;
+    color: #FFFFFF;
+    border: 0;
+    font-family: 'maison-med';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 31px;
+}
+
+.campaign-tab .nav-tabs a.active {
+    background: #F3F5F7;
+    color: #310075;
+}
+
+.campaign-tab .tab-content {
+    background: #F2F5F7;
+    padding: 80px 15px 145px;
+}
+
+#myProfile.nav-tabs .nav-link {
+    color: #525252;
+    font-family: 'maison-med';
+    font-size: 14px;
+    padding: 5px 23px;
+    margin-bottom: 25px;
+}
+
+#myProfile.nav-tabs .nav-item.show .nav-link,
+#myProfile.nav-tabs .nav-link.active {
+    border: 0;
+    border-left: 2px solid #00C48A;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+}
+
+.nav-tabs {
+    border-bottom: 0px;
+}
+
+.company-fund h2 {
+    font-size: 24px;
+    color: #000000;
+}
+
+.company-fund p {
+    font-size: 14px;
+    color: #525252;
+    padding: 11px 0 49px;
+}
+
+.company-fund {
+    border-right: 1px solid #c9c9c9;
+}
+.nav nav-tabs{
+  justify-content: center;
+  background: #3c0d7c;
+}
+.campaign-tab .nav-tabs  .nav-link {
+  border-radius: 0;
+  font-size: 16px;
+  color: #FFFFFF;
+  border: 0;
+  font-family: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 31px;
+  font-weight: bold;
+}

@@ -1,0 +1,151 @@
+<table id="borrowers" class="table table-hover table-striped table-bordered" *ngIf="user_data.role_type == 3">
+    <thead>
+      <tr>
+        <th></th>
+        <th>{{LANG.Name}}</th>
+        <th>{{LANG.Share_Price}}</th>
+        <th>{{LANG.Minimum_Investment}}</th>
+        <th>{{LANG.Maximum_Investment}}</th>
+        <th>{{LANG.Total_Valuation}}</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container  *ngFor="let data of wallet_statement; let i=index;">
+
+     
+
+      <tr>
+        <td><a class="skip" (click)="view(data)">{{LANG.View_Details}}</a></td>
+        <td>{{data.tagline}}</td>
+        <td>{{data.share_price}}</td>
+        <td>{{data.min_investment}}</td>
+        <td>{{data.max_investment}}</td>
+        <td>{{data.total_valuation}}</td>
+      </tr>
+      
+      
+    
+      </ng-container>
+
+      <ng-container *ngIf="wallet_statement.length == 0 && data_loaded">
+        <tr class="text-center">
+          <td colspan="4">{{LANG.Sorry_No_data_to_display}}</td>
+        </tr>
+      </ng-container>
+        
+      
+    </tbody>
+</table>
+
+<table id="borrowers" class="display nowrap table table-hover table-striped table-bordered" *ngIf="user_data.role_type == 2">
+  <thead>
+    <tr>
+      <th></th>
+      <th>{{LANG.Name}}</th>
+      <th>{{LANG.Invested_Date}}</th>
+      <th>{{LANG.Invested_Amount}}</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let data of wallet_statement; let i=index;">
+      <td><a class="skip" (click)="viewInvestorData(data)">{{LANG.View_Details}}</a></td>
+      <td>{{data.campaign_name}}</td>
+      <td>{{data.invested_date | date:'mediumDate'}}</td>
+      <td>{{data.invested_amount}}</td>
+    </tr>
+
+    <ng-container *ngIf="wallet_statement.length == 0 && data_loaded">
+      <tr class="text-center">
+        <td colspan="4">{{LANG.Sorry_No_data_to_display}}</td>
+      </tr>
+    </ng-container>
+      
+    
+  </tbody>
+</table>
+
+
+
+<div class="tab-background col-md-12" *ngIf="data_loaded_borrower && user_data.role_type == 3">
+  <div class="table-responsive">
+      <table id="borrowers_statement"
+          class="display nowrap table table-hover table-striped table-bordered">
+          <thead>
+              <tr>
+                  <th>{{LANG.Due_Date}}</th>
+                  <th>{{LANG.Principle_Expected}}</th>
+                  <th>{{LANG.Interest_Expected}}</th>
+                  <th>{{LANG.Fees_Expected}}</th>
+                  <th>{{LANG.Total_Expected}}</th>
+                  <th>{{LANG.Principle_Paid}}</th>
+                  <th>{{LANG.Interest_Paid}}</th>
+                  <th>{{LANG.Fees_Paid}}</th>
+                  <th>{{LANG.Total_Paid}}</th>
+                  <th>{{LANG.Paid_Date}}</th>
+                  <th>{{LANG.Principle_Due}}</th>
+                  <th>{{LANG.Interest_Due}}</th>
+                  <th>{{LANG.Fees_Due}}</th>
+                  <th>{{LANG.Total_Due}}</th>
+                  <th>{{LANG.Status}}</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let data of borrower_statement_details; let i=index;">
+                  <td>{{data.due_date | date:'mediumDate'}}</td>
+                  <td>{{data.principle_expected}}</td>
+                  <td>{{data.interest_expected}}</td>
+                  <td>{{data.fees_expected}}</td>
+                  <td>{{data.total_expected}}</td>
+                  <td>{{data.principle_paid ? data.principle_paid : '-'}}</td>
+                  <td>{{data.interest_paid ? data.interest_paid : '-'}}</td>
+                  <td>{{data.fees_paid ? data.fees_paid : '-'}}</td>
+                  <td>{{data.total_paid ? data.total_paid : '-'}}</td>
+                  <td>{{data.paid_date ?  (data.paid_date | date:'mediumDate') : '-'}}</td>
+                  <td>
+                      {{data.principle_due ? data.principle_due : '-'}}
+                      <div class="text-center" *ngIf="+data.show_pay_btn">
+                          <button type="button" class="btn btn-primary" (click)="payLoan(data,i)">{{LANG.Pay}}</button>
+                      </div> 
+                  </td>
+                  <td>{{data.interest_due ? data.interest_due : '-'}}</td>
+                  <td>{{data.fees_due ? data.fees_due : '-'}}</td>
+                  <td>{{data.total_due ? data.total_due : '-'}}</td>
+                  <td>{{data.status == '0' ? 'Pending' : 'Paid'}}</td>
+                  
+              </tr>   
+          
+          </tbody>
+      </table>
+  </div>
+</div>
+
+<div class="tab-background col-md-12" *ngIf="data_loaded_investor && user_data.role_type == 2">
+  <div class="table-responsive">
+      <table id="investors_statement"
+          class="display nowrap table table-hover table-striped table-bordered">
+          <thead>
+              <tr>
+                  <th></th>
+                  <th>{{LANG.Date}}</th>
+                  <th>{{LANG.Profit}}</th>
+                  <th>{{LANG.Priciple}}</th>
+                  <th>{{LANG.Total}}</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of investor_statement_details; let j=index;">
+                  <td></td>
+                  <td>{{item.date | date:'mediumDate'}}</td>
+                  <td>{{item.profit}}</td>
+                  <td>{{item.principle}}</td>
+                  <td>{{item.total}}</td>
+              </tr>
+              <tr class="text-center" *ngIf="data_loaded_investor && investor_statement_details.length == 0">
+                <td colspan="5">{{LANG.Sorry_No_data_to_display}}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="campaign-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#wallet">{{LANG.My_Wallet}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" routerLink="/user-statement">user-statement</a>
+      </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#bank">Bank Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#kyc">KYC Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#profile">Edit Profile</a>
+        </li> -->
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="wallet">
+            <div class="container-fluid wallet-list">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="wallet-left" *ngIf="user_data?.role_type==3">
+                                <i class="fa fa-film" aria-hidden="true"></i>
+                                <h6>{{LANG.amountYetToPay}}</h6>
+                                <!-- <h1>SR {{roundOF(walletFundBorower?.wallet_amount)}}</h1> -->
+                                <h1>{{walletBorrowerSum?.walletBalance}} SR</h1>
+                                <!-- <button class="btn add-amount">ADD AMOUNT</button> -->
+                            </div>
+                            <div class="wallet-left" *ngIf="user_data?.role_type==2">
+                                <i class="fa fa-film" aria-hidden="true"></i>
+                                <h6>{{LANG.amountYetToPay}}</h6>
+                                <!-- <h6>{{LANG.Available_cash_in_your_CFC_wallet}}</h6> -->
+                                <h1>{{walletInvestorSum?.walletBalance}} SR</h1>
+                                <!-- <button class="btn add-amount" data-toggle="modal" data-target="#addmoney">{{LANG.add-amount}}</button> -->
+                            </div>
+                        </div>
+                        <div *ngIf="user_data.role_type==3" class="col-md-9 wallet-right">
+                          <div class="wallet-right1" *ngIf="!walletBorrower.status">
+                            <p>{{walletBorrower.response.data}}</p>
+                          </div>
+                          <div class="wallet-right1" *ngIf="walletBorrower.status">
+                              <div class="container">
+                                <h2>{{LANG.Your_active_funds}}</h2>
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>opportunity_id</th>
+                                      <th>investor_statement_id</th>
+                                      <th>type</th>
+                                      <th>wallet_before</th>
+                                      <th>debit_amount</th>
+                                      <th>credit_amount</th>
+                                      <th>wallet_after</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let wallet of walletBorrower.response">
+                                      <td>{{wallet.opportunity_id}}</td>
+                                      <td>{{wallet.investor_statement_id}}</td>
+                                      <td>{{wallet.type}}</td>
+                                      <td>{{wallet.wallet_before}}</td>
+                                      <td>{{wallet.debit_amount}}</td>
+                                      <td>{{wallet.credit_amount}}</td>
+                                      <td>{{wallet.wallet_after}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="user_data?.role_type == 2" class="col-md-9 wallet-right">
+                          <div class="wallet-right1" *ngIf="!walletInvestor.status">
+                            <p>{{walletBorrower.response.data}}</p>
+                          </div>
+                          <div class="table-responsive table-section" *ngIf="walletInvestor.status">
+                            <div class="container">
+                            <h2>{{LANG.Your_active_funds}}</h2>
+                              <table class="table table-borderless ">
+                                <thead>
+                                  <tr>
+                                    <th>id</th>
+                                    <th>opportunity_id</th>
+                                    <th>investor_statement_id</th>
+                                    <th>type</th>
+                                    <th>wallet_before</th>
+                                    <th>debit_amount</th>
+                                    <th>credit_amount</th>
+                                    <th>wallet_after</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let wallet of walletInvestor.response">
+                                      <td>{{wallet.id}}</td>
+                                      <td>{{wallet.opportunity_id}}</td>
+                                      <td>{{wallet.investor_statement_id}}</td>
+                                      <td>{{wallet.type}}</td>
+                                      <td>{{wallet.wallet_before}}</td>
+                                      <td>{{wallet.debit_amount}}</td>
+                                      <td>{{wallet.credit_amount}}</td>
+                                      <td>{{wallet.wallet_after}}</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+  <div class="modal fade" id="addmoney" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog Modalsize" role="document" >
+      <div class="modal-content ModalWidth">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{LANG.Modal_title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <title>{{LANG.Enter_the_Amount}}</title>
+          <input type="text" placeholder="enter the amount" class="form-control" [(ngModel)]="amount">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="addmoney()">{{LANG.Save}}</button>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,660 @@
+<!-- <button href="../render.html">render</button> -->
+
+
+<section class="col-md-12 sec1 " *ngFor="let data of home_data?.section0">
+    <video id="myVideo" src="{{data.image}}" class="w-100" playsinline loop autoplay [muted]="true">
+        <source src="" type="">
+    </video>
+
+    <div class="sec1-cont ">
+        <div class="black">
+
+           <h2  >{{data.title}}</h2>
+            <p>{{data.description}}</p>
+            <!-- <button class="btn login hov-btn"><span>START FUNDRAISER</span></button> -->
+        </div>
+    </div>
+</section>
+<section class="container sec2 wow animated fadeInUp">
+    <div class="row comp-row">
+        <div class="col-md-4 col-9 mx-auto" *ngFor="let data of home_data?.section1">
+            <div class="comp" *ngIf="data.id==15"><a class="pointer"  (click)="goToLogin('3')">
+                <span *ngIf="data.id==15"><a class="pointer"  (click)="goToLogin('3')"><img src="{{data.image}}" alt=""></a></span>
+
+                <h6 *ngIf="data.id==15"><a class="pointer-title"  (click)="goToLogin('3')">{{data.title}}</a></h6>
+
+                <p [innerHTML]="data.description"></p>
+            </a>
+            </div>
+            <div class="comp" *ngIf="data.id==16"><a class="pointer"  (click)="goToLogin('2')">
+                <span *ngIf="data.id==16"><a class="pointer"  (click)="goToLogin('3')"><img src="{{data.image}}" alt=""></a></span>
+
+                <h6 *ngIf="data.id==16"><a class="pointer-title" (click)="goToLogin('2')">{{data.title}}</a></h6>
+
+                <p [innerHTML]="data.description"></p>
+            </a>
+            </div>
+            <div class="comp" *ngIf="data.id==17"><a class="pointer"  >
+                <span *ngIf="data.id==17"><img src="{{data.image}}" alt=""></span>
+                <h6 *ngIf="data.id==17"><a class="pointer-title" >{{data.title}}</a></h6>
+
+                <p [innerHTML]="data.description"></p>
+            </a>
+            </div>
+        </div>
+        <!-- <div class="col-md-4 col-9 mx-auto">
+            <div class="comp comp1">
+                <span><img src="assets/images/moon-2.svg" alt=""></span>
+                <h6>{{LANG.Investor}}</h6>
+                <p>{{LANG.invest}}</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-9 mx-auto">
+            <div class="comp comp2">
+                <span><img src="assets/images/moon-3.svg" alt=""></span>
+                <h6>{{LANG.General}}</h6>
+                <p>{{LANG.Explore}}</p>
+            </div>
+        </div> -->
+    </div>
+</section>
+<section class="container-fluid sec3 wow animated fadeInUp">
+    <div class="container">
+        <p class="product" *ngIf="namechange == false">{{LANG.PRODUCT_FEATURES}}</p>
+        <p class="product o-cls" *ngIf="namechange == true">{{LANG.PRODUCT_FEATURES}}</p>
+
+        <!-- <p class="product">{{LANG.PRODUCT_FEATURES}}</p> -->
+        <div class="row sec3-row">
+            <div class="col-md-4 sec3-left">
+                <h5 class="font-42">{{home_data?.section2?.title}}</h5>
+                <p [innerHTML]="home_data?.section2?.description"></p>
+            </div>
+            <div class="col-md-7">
+                <div class="row icon-row">
+                    <div class="col-md-4 icons col-6" *ngFor="let data of home_data?.section3">
+                        <span><img src="{{data.image}}" alt="" /></span>
+                        <h6>{{data.title}}</h6>
+                    </div>
+                    <!-- <div class="col-md-4 icons col-6">
+                        <span><img src="assets/images/feature-2.svg" alt="" /></span>
+                        <h6>{{LANG.Free_promotion_for_your_campaign}}</h6>
+                    </div>
+                    <div class="col-md-4 icons col-6">
+                        <span><img src="assets/images/feature-3.svg" alt="" /></span>
+                        <h6>{{LANG.withdraw_your_amount_instantly}}</h6>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec4 wow animated fadeInUp">
+    <div class="container">
+        <p class="product">{{LANG.ABOUT_US}}</p>
+        <ng-container *ngFor="let data of home_data?.section4">
+            <h5 class="font-42">{{data.title}}</h5>
+
+            <div class="row sec4-row">
+                <div class="col-md-6 sec4-left">
+                    <p [innerHTML]="data.description" class="text-justify"></p>
+                </div>
+                <div class="col-md-5">
+                    <img src="{{data.image}}" class="w-100" alt="">
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+</section>
+<section class="container-fluid sec5 wow animated fadeInUp">
+    <div class="container">
+        <ng-container *ngFor="let data of home_data?.section5">
+            <h2 class="font-42" *ngIf="data.flag == 1">{{data.title}}</h2>
+        </ng-container>
+        <div class="row">
+            <div class="col-md-6">
+                <ng-container *ngFor="let data of home_data?.section5">
+                    <div class="sec5-det active" *ngIf="data.flag != 1">
+                        <span></span>
+                        <img src="{{data.image}}" alt="">
+                        <div class="details ">
+                            <h5>{{data.title}}</h5>
+                            <p [innerHTML]="data.description"></p>
+                        </div>
+                    </div>
+                </ng-container>
+                <!-- <div class="sec5-det ">
+                <span></span>
+                <img src="assets/images/sec3-2.svg" alt="">
+                <div class="details ">
+                    <h5>{{LANG.Verify_by_KYC}}</h5>
+                    <p>{{LANG.Provide_your_national_ID}}</p>
+                </div>
+            </div>
+            <div class="sec5-det ">
+                <span></span>
+                <img src="assets/images/sec3-3.svg" alt="">
+                <div class="details ">
+                    <h5>{{LANG.Get_Approval}}</h5>
+                    <p>{{LANG.Submit_your_KYC}}</p>
+                </div>
+            </div> -->
+            </div>
+            <div class="col-md-6 sec5-right">
+                <img src="assets/images/sec3-right.png" class="w-100" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec6 wow animated fadeInUp">
+    <div class="container ">
+        <div class="row man-row h-100" *ngFor="let data of home_data?.section6">
+            <div class="col-md-5 col-6 mx-auto man-row-left">
+                <img src="{{data.image}}" class="w-100" alt="">
+                <!-- <h6><span>100%</span> Sharia compliant</h6> -->
+            </div>
+            <div class="col-md-6 sec6-center">
+                <h3 class="font-42">{{data.title}}</h3>
+                <div class="line">
+                    <div>
+                        <p [innerHTML]="data.description"></p>
+                        <!-- <button class="btn  start hov-btn"><span>START FUNDRAISER</span></button> -->
+                    </div>
+                    <img src="assets/images/line.svg" alt="" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <img src="assets/images/dots.png" class="dots" alt="" />
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec7 wow animated fadeInUp">
+    <div class="row murabhak-row">
+        <ng-container *ngFor="let data of home_data?.section10;let i=index;">
+
+            <div class="col-md-3 col-10 mb-2 mt-2">
+                <div class="murabhak">
+                    <img src="assets/images/star-1.svg" alt="">
+                    <h6 *ngIf="namechange==false"namechange>{{data.title}}</h6>
+                    <h6 *ngIf="namechange==true">{{data.ar_title}}</h6>
+                    <!-- <span class="retail">Retail And Sophisticated Investors (Only Saudis &amp; Iqama Holders)</span> -->
+                    <p *ngFor="let item of data.product_attribute_detail;let j=index;">{{item.value}}</p>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- <div class="col-md-3 col-6  ">
+                <div class="murabhak active">
+                    <img src="assets/images/star-2.svg" alt="">
+                    <h6>Ijara  <span class="d-block"> Sukuk</span></h6>
+                    <span class="retail">Retail And Sophisticated Investors (Only Saudis &amp; Iqama Holders)</span>
+                    <p>Up To 10,00,00,000 Sar Working Capital &amp;Capital Expenses Up To ….% Yield Circulated Payments At Maturity / Installments Promissory Note</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6  ">
+                <div class="murabhak">
+                    <img src="assets/images/star-4.svg" alt="">
+                    <h6>P2P debt  <span class="d-block"> loan murabaha </span></h6>
+                    <span class="retail">Retail And Sophisticated Investors (Only Saudis &amp; Iqama Holders)</span>
+                    <p>Up To 10,00,00,000 Sar Working Capital &amp;Capital Expenses Up To ….% Yield Circulated Payments At Maturity / Installments Promissory Note</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6  ">
+                <div class="murabhak">
+                    <img src="assets/images/star-3.svg" alt="">
+                    <h6>Equity<span class="d-block"> Shares </span></h6>
+                    <span class="retail">Retail And Sophisticated Investors (Only Saudis &amp; Iqama Holders)</span>
+                    <p>Up To 10,00,00,000 Sar Working Capital &amp;Capital Expenses Up To ….% Yield Circulated Payments At Maturity / Installments Promissory Note</p>
+                </div>
+            </div> -->
+    </div>
+</section>
+<section class="container-fluid sec8 wow animated fadeInUp">
+    <div class="container">
+        <div class="sec8-first ">
+        <ng-container *ngFor="let data of home_data?.section7">
+            <h3 class="fund">{{data.title}}</h3>
+            <p>{{data.description}}</p>
+        </ng-container>
+        </div>
+        <div class="col-md-9 project mx-auto">
+            <div class="row project-row" id="counter-box">
+                <div class="col-md-4 mb-2 mt-2 col-10 mx-auto">
+                    <div class="count">
+                        <!-- <img src="assets/images/infi.svg" alt="" /> -->
+                        <h4 id="shiva"><span class="count1" data-from="50" data-to="15065421">{{home_data?.section11?.projects}}</span></h4>
+                        <p>{{LANG.Projects}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2 mt-2 col-10 mx-auto">
+                    <div class="count">
+                        <!-- <img src="assets/images/infi.svg" alt="" /> -->
+                        <h4 id="shiva">SAR <span class="count1">{{home_data?.section11?.total_raised}}</span></h4>
+                        <p>{{LANG.Total_Raised}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2 mt-2 col-10 mx-auto">
+                    <div class="count">
+                        <!-- <img src="assets/images/infi.svg" alt="" /> -->
+                        <h4 id="shiva"><span class="count1">{{home_data?.section11?.investors}}</span></h4>
+                        <p>{{LANG.Investor}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ <section class="container-fluid carousel">
+    <div class="carousel-first ">
+        <h2>{{LANG.Investment_opportunities}}</h2>
+        <p>{{LANG.Open_and_ongoing_popular_croudfungings_for_you_to_choose_from}}</p>
+    </div>
+    <div class="row center">
+    <div class="col-md-2" *ngFor="let list of investmentOppertunityList">
+    <div  >
+        <div class="owl-carousel owl-theme " id="carousel-1"  class="item">
+            <div>
+                <div class="carousel-content" >
+                    <div class="caro-img carousel-slide">
+                        <img  src="assets/images/main-logo1-ar.png" class="w-100" alt="" >
+                        <!-- <span>2 days left</span> -->
+                    </div>
+                    <div class="pad-carousel">
+                        <h6 >{{list.tagline}}</h6>
+                        <p>{{list.reason_to_invest}}</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [style.width.%]="percantageInvestment(list.raised,list.total_valuation)">
+                                <span class="sr-only">{{percantageInvestment(list.raised,list.total_valuation)}}% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between ">
+                            <div class="fund-rate">
+                                <h5>SAR {{list.raised}} </h5>
+                                <p>{{LANG.Pledged_Of_SAR}} {{list.total_valuation}} {{LANG.Goal}}</p>
+                                <h5>{{LANG.Close_Date}}</h5>
+                                <p>{{list.close_date != null ? list.close_date:'----'}}</p>
+                            </div>
+                            <div class="fund-investers">
+                                <!-- <h4>{{LANG.Investers}}</h4>
+                                <p>{{list.investers}}</p> -->
+                                <button class="btn btn-primary custom" (click)="navTo(list)">{{LANG.View_Details}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+</div>
+    <button class="btn explore hov-btn" routerLink="/campaign-list"><span>{{LANG.EXPLORE_ALL}}</span></button>
+</section>
+<section class="container-fluid carousel bg-caro">
+    <div class="carousel-first ">
+        <h2>{{LANG.Upcoming_opportunities}}</h2>
+        <!-- <p>Comming soon on CFC, Investments you might wanna give a thought.</p> -->
+    </div>
+    <div class="col-md-10 caro-width" >
+        <div class="owl-carousel owl-theme carousel-slide" id="carousel-2">
+            <div class="item">
+                <div class="carousel-content" *ngFor="let list of upcomingInvestmentOppertunityList">
+                    <div class="caro-img">
+                        <img src="assets/images/add-img.png" class="w-100" alt="">
+                        <!-- <span>2 days left</span> -->
+                    </div>
+                    <div class="pad-carousel" >
+                        <h6>{{list.tagline}}</h6>
+                        <p>{{list.reason_to_invest}}</p>
+                        <!-- <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div> -->
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR {{list.raised}} </h5>
+                                <p>{{LANG.Pledged_Of_SAR}} {{list.total_valuation}} {{LANG.Goal}}</p>
+                            </div>
+                            <!-- <div class="fund-investers">
+                                <h4>{{LANG.Investers}}</h4>
+                                <p>{{list.investers}}</p>
+                            </div> -->
+                        </div>
+                        <button class="btn btn-primary" (click)="navTo(list)">{{LANG.View_Details}}</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="carousel-content">
+                    <div class="caro-img">
+                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
+                        <span>2 days left</span>
+                    </div>
+                    <div class="pad-carousel">
+                        <h6>WeatherFlow-Tempest, Inc.</h6>
+                        <p>Controlling The Cost Of Weather</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="fund-rate">
+                                <h5>SAR 6550 <span>75% Funded</span></h5>
+                                <p>Pledged Of SAR 9,500 Goal</p>
+                            </div>
+                            <div class="fund-investers">
+                                <h4>Investers</h4>
+                                <p>123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <button class="btn explore hov-btn" routerLink="/campaign-list"><span>{{LANG.EXPLORE_ALL}}</span></button>
+</section>
+<!--<section class="container-fluid carousel  third-craousel">
+    <div class="carousel-first ">
+        <h2>Announcements, events & news you don’t wanna miss.</h2>
+    </div>
+    <div class="col-md-10 caro-width">
+        <div class="owl-carousel owl-theme carousel-slide" id="carousel-3">
+            <div class="item pose-re">
+                <img src="assets/images/caro-slide2.png" class="slide3-img" alt="">
+                <div class="slide2">
+                    <p>PRE-INVESTMENT STARTED</p>
+                    <h2>Introducing SpaceX on CFC</h2>
+                    <h4>We embrace your dreams of financial growth</h4>
+                    <span>12% Pre Invested</span>
+                </div>
+                <button class="btn circle-arrow"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
+            </div>
+            <div class="item pose-re">
+                <img src="assets/images/caro-slide2.png" class="slide3-img" alt="">
+                <div class="slide2">
+                    <p>PRE-INVESTMENT STARTED</p>
+                    <h2>Introducing SpaceX on CFC</h2>
+                    <h4>We embrace your dreams of financial growth</h4>
+                    <span>12% Pre Invested</span>
+                </div>
+                <button class="btn circle-arrow"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+</section> -->
+<section class="container-fluid sec9 wow animated fadeInUp">
+    <div class="container">
+        <div class="sec9-first">
+            <ng-container *ngFor="let data of home_data?.section8">
+                <h3 *ngIf="data.flag == 1">{{data.title}}</h3>
+            </ng-container>
+            <!-- <p>Donec Aliquet Leo Non Massa Maximus Imperdiet. Curabitur Dignissim Nibh Pulvinar Euismod Eleifend.</p> -->
+        </div>
+        <div class="row sec9-row">
+            <ng-container *ngFor="let data of home_data?.section8">
+
+                <div class="col-md-6" *ngIf="data.flag != 1">
+                    <div class="sec9-dtl">
+                        <img src="{{data.image}}" alt="">
+                        <div class="sec9-1">
+                            <h6>{{data.title}}</h6>
+                            <!-- <p>Etiam At Fringilla Lacus, Vel Aliquet Lectus. Fusce Placerat Congue Nibh, Non Ullamcorper Ante</p> -->
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec10 wow animated fadeInUp">
+    <div class="container">
+        <h3>{{LANG.faq}}</h3>
+        <div id="accordion" class="accordion">
+            <ng-container *ngFor="let data of home_data?.section9;let i=index;">
+                <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" attr.href="#collapse{{i}}">
+                    <a class="card-title">
+                        {{data.title}}
+                    </a>
+                </div>
+                <div id="collapse{{i}}" class="card-body collapse" data-parent="#accordion">
+                    <p [innerHTML]="data.description"></p>
+                </div>
+
+            </ng-container>
+
+        </div>
+    </div>
+</section>
+<section class="container-fluid sec11 wow animated fadeInUp">
+    <div class="container">
+        <div class="form-sec contact">
+            <h2>{{LANG.Lets_get_in_touch}}</h2>
+            <div class="col-md-7 mx-auto">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" placeholder="{{LANG.First_name}}" [(ngModel)]="first_name">
+                        <span class="error" *ngIf="form_error.first_name">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" placeholder="{{LANG.Last_name}}" [(ngModel)]="last_name">
+                        <span class="error" *ngIf="form_error.last_name">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" placeholder="{{LANG.Email}}" [(ngModel)]="email">
+                        <span class="error" *ngIf="form_error.email_id">{{LANG.This_field_is_required}}</span>
+                        <span class="error" *ngIf="form_error.email_id_valid">{{LANG.Enter_valid_Email_Id}}</span>
+
+
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" placeholder="{{LANG.Mobile_Number}}" [(ngModel)]="mobile_number" (keypress)="onlyNumbers($event)" maxlength="10">
+                        <span class="error" *ngIf="form_error.mobile_number">{{LANG.This_field_is_required}}</span>
+                        <span class="error" *ngIf="form_error.mobile_number_valid">{{LANG.Enter_valid_Mobile_Number}}</span>
+
+
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <textarea class="form-control" placeholder="{{LANG.Type_your_message_here}}" [(ngModel)]="message"></textarea>
+                        <span class="error" *ngIf="form_error.message">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                </div>
+                <button class="btn  start hov-btn" (click)="submit()" [disabled]="load"><span>{{LANG.SUBMIT}}</span></button>
+            </div>
+        </div>
+    </div>
+</section>

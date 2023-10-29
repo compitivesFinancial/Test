@@ -1,0 +1,26 @@
+.table-bordered thead td, .table-bordered thead th {
+  border-bottom-width: 2px;
+  text-align: center;
+}
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+table {
+  border-collapse: collapse;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  text-align: right;
+  direction: rtl;
+}
+.col-title {
+  width: 20%;
+  max-width: 25%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  text-align: right;
+  direction: rtl;
+}

@@ -1,0 +1,14 @@
+.footer a:hover {
+    color: #00c48a;
+}
+
+.img-size{
+    height: 57px !important;
+    object-fit: contain;
+    margin: -8px;
+}
+
+.footer-logo{
+    height: 40px;
+    object-fit: contain ;
+}

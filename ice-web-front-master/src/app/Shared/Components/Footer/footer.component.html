@@ -1,0 +1,131 @@
+<!-- <footer class="container-fluid footer">
+        <div class="container">
+            <div class="footer-row1">
+                <div class="row footer-row">
+                    <img src="assets/images/footer-img.png" alt="" />
+                    <h5>{{LANG.Give_your_dreams_a_boost}} <span class="d-block"> {{LANG.Start_your_crowdfunding_today}}</span></h5>
+                </div>
+            </div>
+            <div class="footer-row2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a ><img src="assets/images/footer-logo.svg" alt="" /></a>
+                        <p class="fist-p-foot">{{LANG.Give_your_dreams_a_boost}} {{LANG.Start_your_crowdfunding_today}}</p>
+                        <p>{{LANG.Copyrights}}</p>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <h6>Quick Links</h6>
+                        <a *ngFor="let data of pages_list;" (click)="goToDetails(data)">{{data.title}}</a>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <h6>Raise</h6>
+                        <a >Raise Funds</a>
+                        <a >From The Crowd</a>
+                        <a >From Private Investor</a>
+                        <a >Secondary Liquidity</a>
+                        <a >Equity Services</a>
+                        <a >Partnnership</a>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <h6>Legal</h6>
+                        <a >Risk Warnings</a>
+                        <a >Privacy Notice </a>
+                        <a >Security </a>
+                        <a >Terms Of Service</a>
+                        <a > Secondary Market Terms</a>
+                        <a >Introduction Terms</a>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <h6>Compp.</h6>
+                        <a >About</a>
+                        <a >Careers </a>
+                        <a >Contact Us  </a>
+                        <a >Blog </a>
+                        <a >Help </a>
+                        <a >Centre </a>
+                        <a >Feedback </a>
+                        <a >FAQ’s</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+
+
+
+
+<footer class="container-fluid footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <h5>{{LANG.Investment}}</h5>
+                <div *ngFor="let item of investfooterDetails">
+                    <a (click)="goToDetails(item)" *ngIf="item.type === 1">{{item.title}}</a>
+                </div>
+                <!-- <a >Raising Now</a> -->
+                <!-- <a >Secondary Marketplace</a>
+                <a >Private Deal Room</a> -->
+                <!-- <a >How To Invest</a> -->
+                <!-- <a >Due Diligence Charter</a> -->
+            </div>
+            <div class="col-md-3 col-6">
+                <h5>{{LANG.Raise}}</h5>
+                <div *ngFor="let item of investfooterDetails">
+                    <a (click)="goToDetails(item)" *ngIf="item.type === 2">{{item.title}}</a>
+                </div>
+                <!-- <a >From The Crowd</a>
+                <a >From Private Investor</a>
+                <a >Secondary Liquidity</a>
+                <a >Equity Services</a>
+                <a >Partnnership</a> -->
+            </div>
+            <div class="col-md-3 col-6">
+                <h5>{{LANG.Legal}}</h5>
+                <!-- <a >Risk Warnings</a>
+                <a >Privacy Notice</a>
+                <a >User Agreement</a>
+                <a >Secondary Market Terms</a>
+                <a  routerLink="/terms-&-conditions">Terms Of Service</a> -->
+                <!-- <a *ngFor="let data of pages_list;" (click)="goToDetails(data)">{{data.title}}</a> -->
+                <div *ngFor="let item of investfooterDetails">
+                    <a (click)="goToDetails(item)" *ngIf="item.type === 3">{{item.title}}</a>
+                </div>
+
+                <!-- <a routerLink="/privacy-policy">Privacy Policies</a> -->
+                <!-- <a >Legal</a> -->
+            </div>
+            <div class="col-md-3 col-6">
+                <h5>{{LANG.Competitiveness_Financial}}</h5>
+                <div *ngFor="let item of investfooterDetails">
+                    <a (click)="goToDetails(item)" *ngIf="item.type === 4">{{item.title}}</a>
+                </div>
+                <!-- <a >Careers</a>      -->
+
+            </div>
+        </div>
+        <div class="footer-row1">
+            <h6>{{LANG.Risk_warning}}</h6>
+            <p>{{LANG.Risk_warning_answer}}</p>
+            <!-- <h6>User agreement</h6> -->
+            <!-- <p>Aliquam. Duis nec mauris pretium tellus tincidunt mattis. Fusce tristique faucibus ligula Cras ullamcorper sagittis aliquam. Duis nec mauris pretium tellus tincidunt mattis. Fusce tristique. Cras ullamcorper sagittis aliquam. Duis nec mauris pretium tellus tincidunt mattis. Fusce tristique. aliquam. Duis nec mauris pretium tellus tincidunt mattis. Fusce tristique faucibus ligula Cras ullamcorper sagittis aliquam. Duis nec mauris pretium tellus tincidunt mattis. Fusce tristique. Cras ullamcorper sagittis aliquam. Duis nec mauris pretium tellus tincidunt mattis. Fusce tristique.</p> -->
+            <div class="foot-logo-img">
+                <!-- <a  class="footer-logo">
+                    <img src="assets/images/logo.svg" class="w-100" alt="" />
+                </a> -->
+                <a class="footer-logo ">
+                    <img src="assets/images/footer-logo2.png" class="w-100" alt="" />
+                </a>
+                <!-- <a class="footer-logo" >
+                    <img src="{{logo}}" class="w-100" alt="" />
+                </a> -->
+                <a class="footer-logo ">
+                    <img src="{{logo_1}}" class="w-100 img-size" alt="" />
+                </a>
+            </div>
+        </div>
+        <div class="footer-row2">
+            <p>{{LANG.Copyrights}}</p>
+            <!-- <p>{{LANG.crafted}}</p> -->
+        </div>
+    </div>
+</footer>

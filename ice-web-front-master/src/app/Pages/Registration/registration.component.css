@@ -1,0 +1,105 @@
+.country-wrapper input {
+  margin-left: 25%;
+  width: 75%;
+}
+
+.country-code {
+  position: absolute;
+  width: 20%;
+}
+
+.country-code input,
+.country-code select {
+  margin: 0;
+  width: 100%;
+}
+
+.login-pad{
+  background-color: #ffffff;
+}
+.change-type{
+  position: fixed;
+
+}
+
+#yes{
+  position: fixed;
+}
+#no{
+  position: fixed;
+}
+.country-code select {
+  padding: 0;
+}
+
+.form-sec {
+  padding: 50px;
+}
+
+.form-tab ul {
+  margin-bottom: 30px;
+}
+
+.password-detail p:first-child {
+  width: 100%;
+}
+
+.pass-weak {
+  margin: 0 2px;
+}
+
+.pwd-val p {
+  text-align: left;
+}
+
+.pass-weak.active:nth-child(3),
+.pass-weak.active:nth-child(4) {
+  background: #ffdd00;
+}
+
+.pass-weak.active:nth-child(5),
+.pass-weak.active:nth-child(6) {
+  background: #00C48A;
+}
+
+input:disabled {
+  background: #ffffff;
+}
+
+.show-pwd i {
+  color: #000000;
+}
+
+.show-pwd {
+  cursor: pointer;
+}
+
+.pwd-txt-left {
+  text-align: left;
+}
+
+@media only screen and (max-width:576px) {
+  .form-sec {
+      padding: 20px;
+  }
+  .country-code select {
+      width: 58px;
+  }
+}
+.otp-field{
+display: flex;
+justify-content: center;
+display: -webkit-box;
+display: -ms-flexbox;
+-webkit-box-pack: justify;
+direction: ltr;
+}
+.otp-field input{
+width: 50px;
+height: 50px;
+border-radius: 8px;
+margin-right: 10px;
+text-align: center;
+border: none;
+padding: 0;
+}

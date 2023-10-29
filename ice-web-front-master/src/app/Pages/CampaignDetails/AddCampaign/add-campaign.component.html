@@ -1,0 +1,168 @@
+<section class="container-fluid campaign">
+    <div class="container">
+        <!-- <div class="campaign-blue">
+            <span class="black-img"><img src="assets/images/lotus.png" alt="" /></span>
+            <div>
+                <h2>WeatherFlow-Tempest, Inc.</h2>
+                <div>
+                    <span class="globe-img"><img src="assets/images/globe.png" alt="" />www.weatherflow.temp</span>
+                    <span class="globe-img"><img src="assets/images/map.png" alt="" />Riyadh, Saudi Arabia</span>
+                </div>
+            </div>
+        </div> -->
+        <div class="container bg-white border-sec">
+        <div class="upload-sec">
+            <h5>{{LANG.Opportunity_details}}</h5>
+            <div class="row campaign-row">
+              <div class="form-group col-md-12">
+                <label>Financing Type</label>
+                <select class="form-control" name="financingType" [(ngModel)]="campaign_details.financing_type">
+                    <option *ngFor="let item of financingType | keyvalue" value="{{item.key}}">
+                      {{item.value}}</option>
+                </select>
+                <span class="error" *ngIf="errors?.financing_type">{{LANG.This_field_is_required}}</span><br/>
+                <span class="error" *ngIf="campaign_details.financing_type == 3">في حال أن استخدام متحصلات الطرح سيتم استخدامه في تمويل رأس المال العامل يجب ارفاق معززات بذلك</span>
+              </div>
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control" placeholder="{{LANG.Company_tagline_Slogan}} *"  name="tagline" [(ngModel)]="campaign_details.tagline">
+                    <span class="error" *ngIf="errors?.tagline">{{LANG.This_field_is_required}}</span>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="{{LANG.Total_Valuation}} *"  name="total_valuation" [(ngModel)]="campaign_details.total_valuation" (keypress)="onlyNumbers($event)">
+                    <span class="error" *ngIf="errors?.total_valuation">{{LANG.This_field_is_required}}</span>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Fund Use</label>
+                  <select class="form-control" name="fundUse" [(ngModel)]="campaign_details.fund_use">
+                      <option *ngFor="let item of fundUseList" value="{{item.id}}">{{item.nameAr}}</option>
+                  </select>
+                  <span class="error" *ngIf="errors?.fund_use">{{LANG.This_field_is_required}}</span>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Financing Period (Month)</label>
+                  <select class="form-control" name="financingPeriod" [(ngModel)]="campaign_details.financing_period">
+                      <option *ngFor="let item of financingPeriod | keyvalue" value="{{item.key}}">
+                        {{item.value}}</option>
+                  </select>
+                  <span class="error" *ngIf="errors?.financing_period">{{LANG.This_field_is_required}}</span>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>expected date of obtaining the financing</label>
+                  <input type="date" class="form-control  form-size" placeholder="expected date of obtaining the financing" [(ngModel)]="campaign_details.obtain_finance_dt">
+                    <span class="error" *ngIf="errors?.obtain_finance_dt">{{LANG.This_field_is_required}}</span>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>expected date of financing repayment</label>
+                    <input type="date" class="form-control  form-size" placeholder="expected date of financing repayment" [(ngModel)]="campaign_details.finance_repayment_dt">
+                    <span class="error" *ngIf="errors?.finance_repayment_dt">{{LANG.This_field_is_required}}</span>
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="{{LANG.Companys_share_price}} *" hidden="true" value="1000" name="share_price" [(ngModel)]="campaign_details.share_price" (keypress)="onlyNumbers($event)">
+                    <span class="error" *ngIf="errors?.share_price">{{LANG.This_field_is_required}}</span>
+                </div>
+            </div>
+            <h5>{{LANG.Upload_pictures_for_the_Opportunity}}</h5>
+            <small>{{LANG.Supported_Format}}</small>
+            <div class="add-image" [class.mb-0]="errors?.campaign_image_error">
+                <input style="display: none" type="file" (change)="changeImageFile($event)" id="file_type_campaign" multiple>
+                <span *ngFor="let data of campaign_images;"><img src="{{data.image}}" class=""></span>
+                <span (click)="showFileInput('file_type_campaign')"><i class="fa fa-plus"></i>{{LANG.Upload_Files}}</span>
+            </div>
+            <span class="error mt-2 mb-5" *ngIf="errors?.campaign_image_error">{{LANG.This_field_is_required}}</span>
+
+
+            <h5>{{LANG.Fundraise_Opportunity_details}}</h5>
+            <div class="row campaign-row">
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control" placeholder="{{LANG.How_much_amount_you_are_expecting_to_raise}}"  name="">
+                    <!-- <span class="error" *ngIf="errors?.tagline">{{LANG.This_field_is_required}}</span> -->
+                </div>
+            </div>
+            <h5>{{LANG.About_company}}</h5>
+            <div class="row campaign-row">
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control" placeholder="{{LANG.Write_Short_Bio_about_your_company}}"  name="company_bio" [(ngModel)]="campaign_details.company_bio">
+                    <span class="error" *ngIf="errors?.company_bio">{{LANG.This_field_is_required}}</span>
+                </div>
+                <div class="form-group col-md-12">
+                    <textarea class="form-control" placeholder="{{LANG.Reason_to_invest}}" name="reason_to_invest"  [(ngModel)]="campaign_details.reason_to_invest"></textarea>
+                    <span class="error" *ngIf="errors?.reason_to_invest">{{LANG.This_field_is_required}}</span>
+
+                </div>
+                <div class="form-group col-md-12">
+                    <textarea class="form-control" placeholder="{{LANG.Where_are_you_planning_to_allocate_the_funds}}" name="investment_planning"  [(ngModel)]="campaign_details.investment_planning"></textarea>
+                    <span class="error" *ngIf="errors?.investment_planning">{{LANG.This_field_is_required}}</span>
+
+                </div>
+            </div>
+            <h5>{{LANG.Do_you_want_to_introduce_your_team}}</h5>
+            <div class="row campaign-row">
+                <div class="form-check">
+                    <div class="radio-1">
+                        <input type="radio" class="radio-buttons" id="yes" name="introduce_teamY" value="1" [(ngModel)]="campaign_details.introduce_team">
+                        <label name="introduce_teamYLbl" for="yes">{{LANG.Yes}}</label>
+                    </div>
+                    <div class="radio-1">
+                        <input type="radio" class="radio-buttons" id="no" name="introduce_teamN" value="2" [(ngModel)]="campaign_details.introduce_team">
+                        <label name="introduce_teamNLbl" for="no">{{LANG.No}}</label>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngFor="let data of teams;let i=index">
+                <div class="upload-logo">
+                    <span>
+                        <input style="display: none" type="file" (change)="changeImage($event,data)" id="file_type{{i}}">
+                        <img class="employee-img" [src]="data.image ? data.image : 'assets/images/gallery.svg'">
+                    </span>
+                    <div>
+                        <button class="btn head-button-wrap start" (click)="showFileInput('file_type'+i)"><span>{{LANG.UPLOAD_DP}}</span></button>
+                        <small>{{LANG.Supported_Format}}</small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" placeholder="{{LANG.Employee_name}}"  name="employee_name{{i}}" [(ngModel)]="data.name">
+                        <span class="error" *ngIf="data?.name_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" placeholder="{{LANG.Designation}}"  name="employee_designation{{i}}" [(ngModel)]="data.designation">
+                        <span class="error" *ngIf="data?.designation_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                </div>
+            </ng-container>
+            <div class="border-bot">
+                <a class="add-member" (click)="addEmployees()">+ {{LANG.add_more_team_member}}</a>
+            </div>
+
+            <h5>{{LANG.Terms_Conditions}}</h5>
+            <div class="row campaign-row">
+                <div class="form-group col-md-12 camp-text">
+                    <textarea class="form-control" placeholder="{{LANG.Write_your_Terms_Conditions_here}}"  name="terms" [(ngModel)]="campaign_details.terms"></textarea>
+                    <span class="error" *ngIf="errors?.terms">{{LANG.This_field_is_required}}</span>
+
+                </div>
+            </div>
+            <div class="row camp-button justify-content-center">
+                <!-- <div class="col-md-6">
+                    <button class="btn head-button-wrap start w-100">PREVIEW CAMPAIGN</button>
+                </div> -->
+                <div class="col-md-6 submit-button text-center" >
+                    <button class="btn" [class.loading]="load" (click)="addCampaign()">
+
+                        <ng-container *ngIf="load;else noLoader;">
+                            <loader></loader>
+                        </ng-container>
+                        <ng-template #noLoader>
+                            {{LANG.SUBMIT_START_OPPORTUNITY}}
+                        </ng-template>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
