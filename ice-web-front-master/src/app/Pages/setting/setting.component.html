@@ -1,19 +1,19 @@
 <div class="campaign-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#wallet">{{LANG.My_Wallet}}</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#wallet">{{LANG.My_Wallet}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" routerLink="/user-statement">user-statement</a>
+          <a class="nav-link" data-bs-toggle="tab" routerLink="/user-statement">user-statement</a>
       </li>
         <!-- <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#bank">Bank Details</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#bank">Bank Details</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#kyc">KYC Details</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#kyc">KYC Details</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#profile">Edit Profile</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#profile">Edit Profile</a>
         </li> -->
     </ul>
     <div class="tab-content">
@@ -34,7 +34,7 @@
                                 <h6>{{LANG.amountYetToPay}}</h6>
                                 <!-- <h6>{{LANG.Available_cash_in_your_CFC_wallet}}</h6> -->
                                 <h1>{{walletInvestorSum?.walletBalance}} SR</h1>
-                                <!-- <button class="btn add-amount" data-toggle="modal" data-target="#addmoney">{{LANG.add-amount}}</button> -->
+                                <!-- <button class="btn add-amount" data-bs-toggle="modal" data-bs-target="#addmoney">{{LANG.add-amount}}</button> -->
                             </div>
                         </div>
                         <div *ngIf="user_data.role_type==3" class="col-md-9 wallet-right">
@@ -118,7 +118,7 @@
       <div class="modal-content ModalWidth">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">{{LANG.Modal_title}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -127,8 +127,8 @@
           <input type="text" placeholder="enter the amount" class="form-control" [(ngModel)]="amount">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
-          <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="addmoney()">{{LANG.Save}}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
+          <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="addmoney()">{{LANG.Save}}</button>
         </div>
       </div>
     </div>

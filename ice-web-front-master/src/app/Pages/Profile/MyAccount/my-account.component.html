@@ -18,7 +18,7 @@
         <input type="text" placeholder="Mobile Number" class="form-control" name="mobile_number" [(ngModel)]="mobile_number" disabled>
     </div>
     <!-- <button (click)="updateProfile()" class=" btn btn-success"> Update</button> -->
-    <button  class=" btn btn-primary"  data-toggle="modal" data-target="#forgetpassword"> {{LANG.change_password}}</button>
+    <button  class=" btn btn-primary"  data-bs-toggle="modal" data-bs-target="#forgetpassword"> {{LANG.change_password}}</button>
 
 
   <!-- Modal -->
@@ -27,7 +27,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
           <button type="button" class="btn btn-primary"(click)="changePassword()">{{LANG.Save}}</button>
         </div>
       </div>

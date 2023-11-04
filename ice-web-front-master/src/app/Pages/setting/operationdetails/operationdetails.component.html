@@ -22,18 +22,18 @@
         </div>
         <ul class="nav nav-tabs wallet-tab" *ngIf="user_data.role_type==3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#history">{{LANG.Transaction_History}}</a>
+                <a class="nav-link active" data-bs-toggle="tab" href="#history">{{LANG.Transaction_History}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Upcoming_Payments}}</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Upcoming_Payments}}</a>
             </li>
         </ul>
         <ul class="nav nav-tabs wallet-tab" *ngIf="user_data.role_type==2">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#history">{{LANG.Debit_History}}</a>
+                <a class="nav-link active" data-bs-toggle="tab" href="#history">{{LANG.Debit_History}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Credit_History}}</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Credit_History}}</a>
             </li>
         </ul>
     </div>
@@ -47,7 +47,7 @@
                         <div class="table-first">
                             <p>{{LANG.Transaction_History}}</p>
                             <!-- <div class="dropdown">
-                                <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
                                     Sort By : Recent
                                 </button>
                                 <div class="dropdown-menu">
@@ -154,7 +154,7 @@
                         <div class="table-first">
                             <p>{{LANG.Upvoming_Transaction_History}}</p>
                             <!-- <div class="dropdown">
-                                <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
                                     Sort By : Recent
                                 </button>
                                 <div class="dropdown-menu">
@@ -265,7 +265,7 @@
                         <div class="table-first">
                             <!-- <p>Transaction History</p> -->
                             <!-- <div class="dropdown">
-                                <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
                                     Sort By : Recent
                                 </button>
                                 <div class="dropdown-menu">
@@ -381,7 +381,7 @@
                         <div class="table-first">
                             <!-- <p>Upvoming Transaction History</p> -->
                             <!-- <div class="dropdown">
-                                <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
                                     Sort By : Recent
                                 </button>
                                 <div class="dropdown-menu">

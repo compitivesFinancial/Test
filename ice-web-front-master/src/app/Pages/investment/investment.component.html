@@ -1,10 +1,10 @@
 <div class="campaign-tab">
     <ul class="nav nav-tabs" *ngIf="user_data.role_type==3">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#total">{{LANG.Total_Opportunities}}</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#total">{{LANG.Total_Opportunities}}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#closed" (click)="closedOpertunity()">{{LANG.Closed_Opportunities}}</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#closed" (click)="closedOpertunity()">{{LANG.Closed_Opportunities}}</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -97,10 +97,10 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#total" (click)="openOppertunity()">{{LANG.Total_Opportunities}}</a>
+                    <a class="nav-link active" data-bs-toggle="tab" href="#total" (click)="openOppertunity()">{{LANG.Total_Opportunities}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#closed" (click)="closedOpertunity()">{{LANG.Closed_Opportunities}}</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#closed" (click)="closedOpertunity()">{{LANG.Closed_Opportunities}}</a>
                 </li>
             </ul>
             <div class="tab-content">

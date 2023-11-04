@@ -80,13 +80,13 @@
         <div class="row allocation">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#about">{{LANG.About}}</a>
+                    <a class="nav-link active" data-bs-toggle="tab" href="#about">{{LANG.About}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#team">{{LANG.Team}}</a>
+                    <a class="nav-link " data-bs-toggle="tab" href="#team">{{LANG.Team}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#term">{{LANG.Terms}}</a>
+                    <a class="nav-link " data-bs-toggle="tab" href="#term">{{LANG.Terms}}</a>
                 </li>
             </ul>
         </div>
@@ -134,7 +134,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="reject">{{LANG.Invest}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -147,8 +147,8 @@
             </div>
         </div>
         <div class="modal-footer submit-button">
-          <!-- <button type="button" class="btn btn-secondary loader-btn" data-dismiss="modal" [disabled]="load">Close</button> -->
-          <button type="button" class="btn" *ngIf="!load" (click)="invest()" data-dismiss="modal">{{LANG.Invest}}</button>
+          <!-- <button type="button" class="btn btn-secondary loader-btn" data-bs-dismiss="modal" [disabled]="load">Close</button> -->
+          <button type="button" class="btn" *ngIf="!load" (click)="invest()" data-bs-dismiss="modal">{{LANG.Invest}}</button>
           <button type="button" *ngIf="load" class="btn"><loader></loader></button>
 
 

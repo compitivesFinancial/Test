@@ -1,123 +1,123 @@
-<div class="text-center">
-  <h2>
-  {{LANG.investment_agency_agreement_title}}
-  </h2>
+  <div class="text-center">
+    <h2>
+    {{LANG.investment_agency_agreement_title}}
+    </h2>
+    <br />
+  </div>
+  <div class="text-right">
+    <h3>
+    {{LANG.inves_agency_intruduction}}
+    </h3>
+  </div>
+  <div class="border"> <br>
+    <dl class="row text-right">
+      <dd class="col-sm-12">
+        <p dir="rtl">
+         {{LANG.inves_agency_ThanksGod}},<br>
+         {{LANG.inves_agency_inDay}}({{myDate}})هـ {{LANG.inves_agency_in}} ({{myDate}})مـ {{LANG.inves_agency_doingThis}}<br/>
+         {{LANG.inves_agency_Competitiveness_info}}<br/>
+         {{LANG.inves_agency_Mr}} {{session_user.name}} {{LANG.inves_agency_Saudi}} {{LANG.inves_agency_national_id}} ({{session_user.mobile_number}}) {{LANG.inves_agency_in_date}} ({{myDate}})مـ {{LANG.inves_agency_invester_address}} ({{investorAddress?.value}})<br/>
+         {{LANG.inves_agency_indicate_data}}
+        </dd>
+    </dl>
+  </div>
+  <hr />
   <br />
-</div>
-<div class="text-right">
-  <h3>
-  {{LANG.inves_agency_intruduction}}
-  </h3>
-</div>
-<div class="border"> <br>
-  <dl class="row text-right">
-    <dd class="col-sm-12">
-      <p dir="rtl">
-       {{LANG.inves_agency_ThanksGod}},<br>
-       {{LANG.inves_agency_inDay}}({{myDate}})هـ {{LANG.inves_agency_in}} ({{myDate}})مـ {{LANG.inves_agency_doingThis}}<br/>
-       {{LANG.inves_agency_Competitiveness_info}}<br/>
-       {{LANG.inves_agency_Mr}} {{session_user.name}} {{LANG.inves_agency_Saudi}} {{LANG.inves_agency_national_id}} ({{session_user.mobile_number}}) {{LANG.inves_agency_in_date}} ({{myDate}})مـ {{LANG.inves_agency_invester_address}} ({{investorAddress?.value}})<br/>
-       {{LANG.inves_agency_indicate_data}}
+  <!-- This work for Daynamic design for investment agreement -->
+  <div class="border"> <br>
+    <dl class="row text-right">
+      <dd class="col-sm-12">
+        <p [innerHTML]="pageDetail?.description" dir="rtl"></p>
       </dd>
-  </dl>
-</div>
-<hr />
-<br />
-<!-- This work for Daynamic design for investment agreement -->
-<div class="border"> <br>
-  <dl class="row text-right">
-    <dd class="col-sm-12">
-      <p [innerHTML]="pageDetail?.description" dir="rtl"></p>
-    </dd>
-  </dl>
-</div>
-<!-- This work for static design for investment agreement -->
-
-<!-- <h3 class="text-right">{{LANG.inves_agency_definition_appendex}}</h3>
-<h6 class="text-right">{{LANG.inves_agency_definition_appendex_word}}</h6>
-<div class="border">
-  <dl class="row text-right">
-    <dd class="col-sm-12">
-      <p dir="rtl">1-  {{LANG.inves_agency_defin_appen_1}} </p>
-      <p dir="rtl">2-  {{LANG.inves_agency_defin_appen_2}}</p>
-      <p dir="rtl">3-  {{LANG.inves_agency_defin_appen_3}}</p>
-      <p dir="rtl">4-  {{LANG.inves_agency_defin_appen_4}}</p>
-      <p dir="rtl">5-  {{LANG.inves_agency_defin_appen_5}}</p>
-      <p dir="rtl">6-  {{LANG.inves_agency_defin_appen_6}}</p>
-      <p dir="rtl">7-  {{LANG.inves_agency_defin_appen_7}}</p>
-      <p dir="rtl">8-  {{LANG.inves_agency_defin_appen_8}}</p>
-      <p dir="rtl">9-  {{LANG.inves_agency_defin_appen_9}}</p>
-      <p dir="rtl">10- {{LANG.inves_agency_defin_appen_10}}</p>
-      <p dir="rtl">11- {{LANG.inves_agency_defin_appen_11}}</p>
-      <p dir="rtl">12- {{LANG.inves_agency_defin_appen_12}}</p>
-      <p dir="rtl">13- {{LANG.inves_agency_defin_appen_13}}</p>
-      <p dir="rtl">14- {{LANG.inves_agency_defin_appen_14}}</p>
-      <p dir="rtl">15- {{LANG.inves_agency_defin_appen_15}}</p>
-      <p dir="rtl">16- {{LANG.inves_agency_defin_appen_16}}</p>
-      <p dir="rtl">17- {{LANG.inves_agency_defin_appen_17}}</p>
-      <p dir="rtl">18- {{LANG.inves_agency_defin_appen_18}}</p>
-      <p dir="rtl">19- {{LANG.inves_agency_defin_appen_19}}</p>
-      <p dir="rtl">20- {{LANG.inves_agency_defin_appen_20}}</p>
-    </dd>
-  </dl>
-</div>
-<hr />
-<br /> -->
-<!-- <h3 class="text-right">{{LANG.inves_agency_preface_title}}</h3> -->
-<!-- <div class="border">
-  <dl class="row text-right">
-    <dd class="col-sm-12">
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_preface_title}}</p>
-      <p dir="rtl">{{LANG.inves_agency_preface_1}} </p>
-      <p dir="rtl">{{LANG.inves_agency_preface_2}}</p>
-      <p dir="rtl">{{LANG.inves_agency_preface_3}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article1_1}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article2}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article2_1}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article3}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article3_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article3_2}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article3_3}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article3_4}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article3_5}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article4}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article4_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article4_2}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article5}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article5_1}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article6}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article6_1}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article7}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article7_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article7_2}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article7_3}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article8}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article8_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article8_2}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article8_3}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article8_4}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article9}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article9_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article9_2}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article9_3}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article10}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article10_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article10_2}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article11}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article11_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article11_2}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article12}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article12_1}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article12_2}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article12_3}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article12_4}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article12_5}}</p>
-
-      <p dir="rtl">{{LANG.inves_agency_article12_6}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article12_7}}</p>
-      <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article13}}</p>
-      <p dir="rtl">{{LANG.inves_agency_article13_1}}</p>
-    </dd>
-  </dl>
-</div> -->
+    </dl>
+  </div>
+  <!-- This work for static design for investment agreement -->
+  
+  <!-- <h3 class="text-right">{{LANG.inves_agency_definition_appendex}}</h3>
+  <h6 class="text-right">{{LANG.inves_agency_definition_appendex_word}}</h6>
+  <div class="border">
+    <dl class="row text-right">
+      <dd class="col-sm-12">
+        <p dir="rtl">1-  {{LANG.inves_agency_defin_appen_1}} </p>
+        <p dir="rtl">2-  {{LANG.inves_agency_defin_appen_2}}</p>
+        <p dir="rtl">3-  {{LANG.inves_agency_defin_appen_3}}</p>
+        <p dir="rtl">4-  {{LANG.inves_agency_defin_appen_4}}</p>
+        <p dir="rtl">5-  {{LANG.inves_agency_defin_appen_5}}</p>
+        <p dir="rtl">6-  {{LANG.inves_agency_defin_appen_6}}</p>
+        <p dir="rtl">7-  {{LANG.inves_agency_defin_appen_7}}</p>
+        <p dir="rtl">8-  {{LANG.inves_agency_defin_appen_8}}</p>
+        <p dir="rtl">9-  {{LANG.inves_agency_defin_appen_9}}</p>
+        <p dir="rtl">10- {{LANG.inves_agency_defin_appen_10}}</p>
+        <p dir="rtl">11- {{LANG.inves_agency_defin_appen_11}}</p>
+        <p dir="rtl">12- {{LANG.inves_agency_defin_appen_12}}</p>
+        <p dir="rtl">13- {{LANG.inves_agency_defin_appen_13}}</p>
+        <p dir="rtl">14- {{LANG.inves_agency_defin_appen_14}}</p>
+        <p dir="rtl">15- {{LANG.inves_agency_defin_appen_15}}</p>
+        <p dir="rtl">16- {{LANG.inves_agency_defin_appen_16}}</p>
+        <p dir="rtl">17- {{LANG.inves_agency_defin_appen_17}}</p>
+        <p dir="rtl">18- {{LANG.inves_agency_defin_appen_18}}</p>
+        <p dir="rtl">19- {{LANG.inves_agency_defin_appen_19}}</p>
+        <p dir="rtl">20- {{LANG.inves_agency_defin_appen_20}}</p>
+      </dd>
+    </dl>
+  </div>
+  <hr />
+  <br /> -->
+  <!-- <h3 class="text-right">{{LANG.inves_agency_preface_title}}</h3> -->
+  <!-- <div class="border">
+    <dl class="row text-right">
+      <dd class="col-sm-12">
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_preface_title}}</p>
+        <p dir="rtl">{{LANG.inves_agency_preface_1}} </p>
+        <p dir="rtl">{{LANG.inves_agency_preface_2}}</p>
+        <p dir="rtl">{{LANG.inves_agency_preface_3}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article1_1}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article2}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article2_1}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article3}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article3_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article3_2}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article3_3}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article3_4}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article3_5}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article4}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article4_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article4_2}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article5}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article5_1}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article6}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article6_1}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article7}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article7_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article7_2}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article7_3}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article8}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article8_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article8_2}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article8_3}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article8_4}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article9}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article9_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article9_2}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article9_3}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article10}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article10_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article10_2}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article11}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article11_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article11_2}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article12}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article12_1}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article12_2}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article12_3}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article12_4}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article12_5}}</p>
+  
+        <p dir="rtl">{{LANG.inves_agency_article12_6}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article12_7}}</p>
+        <p dir="rtl" style="font-weight: bold;">{{LANG.inves_agency_article13}}</p>
+        <p dir="rtl">{{LANG.inves_agency_article13_1}}</p>
+      </dd>
+    </dl>
+  </div> -->

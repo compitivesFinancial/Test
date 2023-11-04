@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from 'src/app/Shared/Services/login.service';
 import { Subscription } from 'rxjs';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
@@ -22,6 +22,7 @@ import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { SettingService } from '../setting/setting.service';
 import { BankapiService } from 'src/app/Shared/Services/bankapi.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
+import jsPDF from 'jspdf';
 // import { Toast } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
@@ -52,7 +53,9 @@ export class DashboardComponent implements OnInit {
   disabled_inputs: boolean = false;
   investPercentage: any;
   walletInvestorSum :any;
-
+  checkedBtn:boolean=false;
+  printPage:any;
+  
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -77,7 +80,7 @@ export class DashboardComponent implements OnInit {
     }
   
     this.amountForm = this.formBuilder.group({
-      amount: ['', Validators.required],
+      amount: ['', [Validators.required,Validators.min(1000),Validators.max(20000)]],
       agreement: ['', Validators.required],
     });
 
@@ -98,6 +101,23 @@ export class DashboardComponent implements OnInit {
       this.walletInvestorSum = res.response;
     });
   }
+  makePdf(tab:string){
+      var prtContent = document.getElementById(tab);
+      var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+      if(!!WinPrint && !!prtContent) {
+      var totalContent='';
+      totalContent+="<div style='text-align:right;display:flex;flex-direction:column;justify-content:center'>"
+      +"<img src='https://firebasestorage.googleapis.com/v0/b/royal-stallion.appspot.com/o/Kyc%2Fmain-logo1.png1675837471662?alt=media&token=32bbfe33-003e-4d47-9931-0e06d237183d' alt='broken image' style='margin:0 auto' width='195' height='78'>"
+      +prtContent.innerHTML+
+      "</div>"
+        WinPrint.document.write(totalContent);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+      }
+     
+    }
   ngOnInit(): void {
     if (this.user_data.role_type == 2) {
       this.getProfileDetails(1);

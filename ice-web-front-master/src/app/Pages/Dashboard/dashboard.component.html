@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-primary" *ngIf="user_data.role_type==2 && disabled_inputs" data-toggle="modal" data-target="#investmentModal"> {{LANG.investment}}</button>
+                    <button class="btn btn-primary" *ngIf="user_data.role_type==2 && disabled_inputs" data-bs-toggle="modal" data-bs-target="#investmentModal"> {{LANG.investment}}</button>
                     <!-- Button trigger modal -->
                 </div>
 
@@ -71,23 +71,25 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="tab-header" id="exampleModalLongTitle">{{LANG.Modal_title}}</h5>
-                        <button type="button" #closebutton class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" #closebutton class="close" data-bs-dismiss="modal">&times;</button>
                       </div>
                       <div class="modal-body">
                             <app-investmentagreement></app-investmentagreement>
                           <form [formGroup]="amountForm">
                             <div class="control">
-                              <input type="checkbox" id="agreement" name="agreement" formControlName="agreement">
-                              <label style="margin-left: 10px;">I agree to the</label>
+                              <input type="checkbox" [(ngModel)]="checkedBtn" id="agreement" name="agreement" formControlName="agreement">
+                              <label style="margin-left: 10px;">{{LANG.Agree_To_terms}}</label>
                             </div>
                             <span class="error" *ngIf="errors?.agreement">{{LANG.This_field_is_required}}</span>
-                            <input type="text" class="form-control" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
-                            <span class="error" *ngIf="errors?.amount">{{LANG.This_field_is_required}}</span>
+                            <input type="text" class="form-control" [min]="1000" required [max]="20000" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
+                            <span class="error" *ngIf="amountForm.controls['amount'].hasError('required') && amountForm.controls['amount'].touched">{{LANG.This_field_is_required}}</span>
+                            <span class="error" *ngIf="amountForm.controls['amount'].hasError('min')">{{LANG.minInvestValue}}</span>
+                            <span class="error" *ngIf="amountForm.controls['amount'].hasError('max')">{{LANG.maxInvestValue}}</span>
                           </form>
                       </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
-                    <button type="button" *ngIf="disabled_inputs" class="btn btn-primary" (click)="onPay()">{{LANG.Pay}}</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
+                    <button type="button" *ngIf="disabled_inputs && checkedBtn" class="btn btn-primary" (click)="onPay()">{{LANG.Pay}}</button>
                       </div>
                     </div>
                   </div>
@@ -102,13 +104,13 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
 
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{LANG.Close}}</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
                         <button type="button" class="btn btn-primary" >{{LANG.Save_changes}}</button>
                       </div>
                     </div>
@@ -119,27 +121,29 @@
         <div class="row-menue allocation">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-team-tab" data-toggle="tab" href="#nav-team" role="tab" aria-controls="nav-team" aria-selected="true">{{LANG.Team}}</a>
-              <a class="nav-item nav-link" id="nav-campainAttach-tab" data-toggle="tab" href="#nav-campainAttach" role="tab" aria-controls="nav-campainAttach" aria-selected="false">{{LANG.Campaign_Attachements}}</a>
-              <a class="nav-item nav-link" id="nav-mustanad-tarh-tab" data-toggle="tab" href="#nav-mustanad-tarh" role="tab" aria-controls="nav-mustanad-tarh" aria-selected="false">{{LANG.MustanadAltarh}}</a>
-              <a class="nav-item nav-link" id="nav-invest_agree-tab" data-toggle="tab" href="#nav-invest_agree" role="tab" aria-controls="nav-invest_agree" aria-selected="false">{{LANG.Investment_Agreement}}</a>
-              <a class="nav-item nav-link" id="nav-prog-info-tab" data-toggle="tab" href="#nav-prog-info" role="tab" aria-controls="nav-prog-info" aria-selected="false">{{LANG.Program_Information}}</a>
-              <a class="nav-item nav-link" id="nav-invest_wallet-tab" data-toggle="tab" href="#nav-invest_wallet" role="tab" aria-controls="nav-invest_wallet" aria-selected="false">Investor Statement</a>
+              <a class="nav-item nav-link active" id="nav-team-tab" data-bs-toggle="tab" href="#nav-team" role="tab" aria-controls="nav-team" aria-selected="true">{{LANG.Team}}</a>
+              <a class="nav-item nav-link" id="nav-campainAttach-tab" data-bs-toggle="tab" href="#nav-campainAttach" role="tab" aria-controls="nav-campainAttach" aria-selected="false">{{LANG.Campaign_Attachements}}</a>
+              <a class="nav-item nav-link" id="nav-mustanad-tarh-tab" data-bs-toggle="tab" href="#nav-mustanad-tarh" role="tab" aria-controls="nav-mustanad-tarh" aria-selected="false">{{LANG.MustanadAltarh}}</a>
+              <a class="nav-item nav-link" id="nav-invest_agree-tab" data-bs-toggle="tab" href="#nav-invest_agree" role="tab" aria-controls="nav-invest_agree" aria-selected="false">{{LANG.Investment_Agreement}}</a>
+              <a class="nav-item nav-link" id="nav-prog-info-tab" data-bs-toggle="tab" href="#nav-prog-info" role="tab" aria-controls="nav-prog-info" aria-selected="false">{{LANG.Program_Information}}</a>
+              <a class="nav-item nav-link" id="nav-invest_wallet-tab" data-bs-toggle="tab" href="#nav-invest_wallet" role="tab" aria-controls="nav-invest_wallet" aria-selected="false">Investor Statement</a>
             </div>
           </nav>
         </div>
         <br/>
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade" id="nav-invest_agree" role="tabpanel" aria-labelledby="nav-invest_agree-tab">
-            <app-investmentagreement></app-investmentagreement>
+            <app-investmentagreement id="investmentagreement"></app-investmentagreement>
+            <button id="saveToPdf" (click)="makePdf('investmentagreement')">Save to PDF</button>
           </div>
           <div class="tab-pane fade" id="nav-prog-info" role="tabpanel" aria-labelledby="nav-prog-info-tab">
             <p class="tab-header">{{LANG.Program_Information}}</p>
-            <app-program-info></app-program-info>
+            <app-program-info id="program-info"></app-program-info>
+            <button id="saveToPdf" (click)="makePdf('program-info')">Save to PDF</button>
           </div>
           <div class="tab-pane fade show active" id="nav-team" role="tabpanel" aria-labelledby="nav-team-tab">
               <p class="tab-header">{{LANG.Team}}</p>
-              <div class="table-responsive table-section">
+              <div class="table-responsive table-section" id="team-section">
                 <table class="table table-striped">
                     <tbody>
                         <tr *ngFor="let team of teams">
@@ -173,6 +177,7 @@
                     </tbody>
                 </table>
             </div>
+            <button id="saveToPdf" (click)="makePdf('team-section')">Save to PDF</button>
           </div>
      <!-- <div class="tab-pane fade" id="nav-updates" role="tabpanel" aria-labelledby="nav-updates-tab">
             <p>Updates Tab content here .</p>
@@ -181,7 +186,7 @@
             <p>Terms Tab content here .</p>
           </div> -->
           <div class="tab-pane fade" id="nav-campainAttach" role="tabpanel" aria-labelledby="nav-campainAttach-tab">
-              <div class="table-responsive table-section">
+              <div class="table-responsive table-section" id="campainAttach">
                     <table class="table table-striped">
                         <tbody>
                             <tr *ngFor="let attach of campaignAttachements">
@@ -221,13 +226,15 @@
                 <div class="table-first">
                   <h4>{{campaignAttachements.message}}</h4>
                 </div>
-
+                <button *ngIf="campaignAttachements.length>0" id="saveToPdf" (click)="makePdf('team-section')">Save to PDF</button>
           </div>
           <div class="tab-pane fade" id="nav-mustanad-tarh" role="tabpanel" aria-labelledby="nav-mustanad-tarh-tab">
-           <app-tar7-document></app-tar7-document>
+           <app-tar7-document id="tar7"></app-tar7-document>
+           <button id="saveToPdf" (click)="makePdf('tar7')">Save to PDF</button>
           </div>
           <div class="tab-pane fade" id="nav-invest_wallet" role="tabpanel" aria-labelledby="nav-invest_wallet-tab">
-            <app-investor-wallet-list></app-investor-wallet-list>
+            <app-investor-wallet-list id="investor-wallet"></app-investor-wallet-list>
+            <button id="saveToPdf" (click)="makePdf('investor-wallet')">Save to PDF</button>
            </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import jsPDF from 'jspdf';
 import { Subscription } from 'rxjs';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
@@ -12,12 +13,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./investmentagreement.component.css'],
 })
 export class InvestmentagreementComponent implements OnInit {
+  @ViewChild('navContent',{static:false}) navContent!:ElementRef;
   public pageDetail: any = {};
   subscriptions: Subscription[] = [];
   LANG = environment.english_translations;
   session_user: any = {};
   investorAddress: any;
   myDate: any;
+  pagePrint:any;
   /*****************************************************************/
   constructor(
     private datePipe: DatePipe,

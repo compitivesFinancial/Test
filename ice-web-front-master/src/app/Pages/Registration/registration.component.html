@@ -42,7 +42,7 @@
         <!-- <div class="form-tab">
             <ul class="nav nav-tabs justify-content-center">
                 <li class="nav-item" (click)="changeUserType('3')">
-                    <a class="nav-link active" data-toggle="tab" href="#borrower">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#borrower">
                     <span class="tab-border">
                         <span></span>
                     </span>
@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li class="nav-item" (click)="changeUserType('2')">
-                    <a class="nav-link" data-toggle="tab" href="#invester">
+                    <a class="nav-link" data-bs-toggle="tab" href="#invester">
                         <span class="tab-border">
                         <span></span>
                     </span>
@@ -178,7 +178,7 @@
         <!-- </div> -->
         <div class="form-group checkbox-wrapper">
             <input type="checkbox" id="terms" name="terms" [(ngModel)]="terms">
-            <label data-toggle="modal" data-target="#termsModal" (click)="termsConditionOutside()"> {{LANG.I_accept_all}}
+            <label data-bs-toggle="modal" data-bs-target="#termsModal" (click)="termsConditionOutside()"> {{LANG.I_accept_all}}
                 <b>{{LANG.terms_conditions}}</b></label>
 
             <!-- Button trigger modal -->
@@ -191,7 +191,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">{{LANG.terms_conditions}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -199,7 +199,7 @@
                             <p [innerHTML]="termsandconditionborower?.description"></p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                         </div>
                     </div>

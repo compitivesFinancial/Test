@@ -9,7 +9,7 @@
         <a class="navbar-brand p-0 header-logo" (click)="goHome()">
             <img src="{{logo_1}}" class="w-100" alt="" />
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
         </button>
 
@@ -58,7 +58,7 @@
                     </li>
                 </ng-template>
                 <li class="dropdown">
-                    <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
                         {{selected_language}}
                     </button>
                     <div class="dropdown-menu">
@@ -71,7 +71,7 @@
                 <ng-template #logged_out>
                     <div class=" head-button">
                         <li class="nav-item dropdown">
-                            <button class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                 <span class="hidden-md-down ml-10">{{user_data?.name}} &nbsp;</span>
                             </button>

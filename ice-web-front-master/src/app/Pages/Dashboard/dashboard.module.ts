@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { NgImageSliderModule } from 'ng-image-slider/public_api';
 // import { DashboardPaymentComponent } from '../dashboard-payment/dashboard-payment.component';
 import { Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { FormsModule } from '@angular/forms';
 // import { DashboardComponent } from './dashboard.component';
 
@@ -21,8 +22,10 @@ import { Routes } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    // FormsModule
+     FormsModule,
+     ReactiveFormsModule
     // NgImageSliderModule
-  ]
+  ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DashboardModule { }

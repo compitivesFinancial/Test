@@ -4,25 +4,25 @@
         <div class="investor-tab">
             <ul class="nav nav-tabs" *ngIf="user_data.role_type == 2">
                 <li class="nav-item" (click)="changeTabs(1)">
-                    <a class="nav-link active" data-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
+                    <a class="nav-link active" data-bs-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
                 </li>
                 <li class="nav-item" (click)="changeTabs(2)">
-                    <a class="nav-link" data-toggle="tab" href="#trending">{{LANG.My_Opportunities}}</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#trending">{{LANG.My_Opportunities}}</a>
                 </li>
                 <li class="nav-item" (click)="changeTabs(3)">
-                    <a class="nav-link" data-toggle="tab" href="#returns">{{LANG.Closed_Opportunities}}</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#returns">{{LANG.Closed_Opportunities}}</a>
                 </li>
             </ul>
             <ul class="nav nav-tabs" *ngIf="user_data.role_type == 3">
                 <li class="nav-item" (click)="changeTabs(1)">
-                    <a class="nav-link active" data-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
-                    <!-- <a class="nav-link active" data-toggle="tab" href="#newest">Active Opportunities</a> -->
+                    <a class="nav-link active" data-bs-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
+                    <!-- <a class="nav-link active" data-bs-toggle="tab" href="#newest">Active Opportunities</a> -->
                 </li>
                  <!--<li class="nav-item" (click)="changeTabs(3)">
-                    <a class="nav-link" data-toggle="tab" href="#trending">Inactive Opportunities</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#trending">Inactive Opportunities</a>
                 </li>
                 <li class="nav-item" (click)="changeTabs(3)">
-                    <a class="nav-link" data-toggle="tab" href="#returns">Rejected Opportunities</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#returns">Rejected Opportunities</a>
                 </li> -->
             </ul>
             <div class="tab-content">

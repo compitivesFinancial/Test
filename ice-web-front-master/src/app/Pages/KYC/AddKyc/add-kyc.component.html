@@ -2,29 +2,29 @@
   <div class="campaign-tab">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" routerLink="/add-kyc">{{
+        <a class="nav-link active" data-bs-toggle="tab" routerLink="/add-kyc">{{
           LANG.Kyc_Details
         }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" routerLink="/my-profile">{{
+        <a class="nav-link" data-bs-toggle="tab" routerLink="/my-profile">{{
           LANG.Edit_Profile
         }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="user_data?.role_type == 2" data-toggle="tab" routerLink="/qualified-investor">
+        <a class="nav-link" *ngIf="user_data?.role_type == 2" data-bs-toggle="tab" routerLink="/qualified-investor">
           {{LANG.Be_Qualified_Investor}}
         </a>
       </li>
       <li class="nav-item" *ngIf="user_data?.role_type == 2">
-        <a class="nav-link" data-toggle="tab" routerLink="/campaign-list">{{
+        <a class="nav-link" data-bs-toggle="tab" routerLink="/campaign-list">{{
           LANG.View_Opportunity
         }}</a>
       </li>
       <li class="nav-item" *ngIf="user_data?.role_type == 3">
         <a
           class="nav-link"
-          data-toggle="tab"
+          data-bs-toggle="tab"
           routerLink="/add-campaign"
           *ngIf="profileDetails.kyc_approved_status == 1"
         >
@@ -61,7 +61,7 @@
 
                 </ng-container>
                 <!-- <li class="nav-item">
-                <a class="nav-link step verified" data-toggle="tab" href="#" role="tab">
+                <a class="nav-link step verified" data-bs-toggle="tab" href="#" role="tab">
                     <span>3</span>
                     <p>Personal Info</p>
                 </a>

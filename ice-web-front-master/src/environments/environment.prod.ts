@@ -19,6 +19,9 @@ export const environment = {
     iv:""
   },
   english_translations: {
+    minInvestValue:"You are not allowed to invest less than 1000 SR",
+    maxInvestValue:"You are not allowed to invest over 20000 SR",
+    Agree_To_terms:"I agree to the terms and conditions",
     Login_your_account: "Login your account",
     Please_enter_your_details_below: "Please enter your details below",
     This_field_is_required: "This field is required",
@@ -551,6 +554,9 @@ export const environment = {
   },
   //******************************************************* Start Arabic array *******************************************//
   arabic_translations: {
+    "minInvestValue":"لا يجوز لك استثمار أقل من 1000 ريال سعودي",
+    "maxInvestValue":"لا يسمح لك باستثمار ما يزيد عن 20000 ريال سعودي",
+    "Agree_To_terms":"أوافق على الشروط و الأحكام",
     "Login_your_account": "تسجيل الدخول",
     "Please_enter_your_details_below": "الرجاء إدخال تفاصيل بياناتك",
     "This_field_is_required": "هذه الخانة مطلوبة",
