@@ -3,7 +3,7 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
-  Input,
+  Inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
@@ -32,6 +32,7 @@ import { YaqeenData } from 'src/app/Shared/Models/YaqeenData';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { DashboardService } from '../../Dashboard/dashboard.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-add-kyc',
@@ -109,9 +110,19 @@ export class AddKycComponent implements OnInit, OnChanges {
   sexDescAr: string = '';
   idExpirationDate: string = '';
   subTribeName: string = ''; // for sudi only
+
+  //change the regitration with OTP variables
+  show_otp: boolean = false;
+  showResend: boolean = false;
+  otp_error: any = {};
+  otp1: string = '';
+  otp2: string = '';
+  otp3: string = '';
+  otp4: string = '';
   //End add by qaysar
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private campaign_service: CampaignService,
     private shared: SharedService,
     private loginService: LoginService,
@@ -120,7 +131,8 @@ export class AddKycComponent implements OnInit, OnChanges {
     private router: Router,
     private lkservice: LkServiceService,
     private yaqeenService: YaqeenService,
-    public dashBoardService: DashboardService,public decryptAES:decryptAesService
+    public dashBoardService: DashboardService,
+    public decryptAES: decryptAesService
   ) {
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -128,7 +140,13 @@ export class AddKycComponent implements OnInit, OnChanges {
         atob(atob(localStorage.getItem(user_data) || '{}'))
       );
     }
-  
+    if (isNaN(this.user_data.id)) {
+      this.user_data.id = decryptAES.decryptAesCbc(
+        this.user_data.id,
+        environment.decryptionAES.key,
+        environment.decryptionAES.iv
+      );
+    }
     if (this.router.url == '/kyc-details') {
       this.type = 1;
     }
@@ -175,9 +193,76 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.getProfileDetails();
   }
 
+  onKeyUpEvent(index: number, event: any) {
+    const eventCode = event.which || event.keyCode;
+    const id = `codeBox${index}`;
+    if (this.getOtpReference(id)!.value.length === 1) {
+      if (index !== 6) {
+        const next_id = `codeBox${index + 1}`;
+        this.getOtpReference(next_id)!.focus();
+      } else {
+        if (index == 6) {
+          return;
+        }
+        this.getOtpReference(id)!.blur();
+      }
+    }
+    if (eventCode === 8 && index !== 1) {
+      const prev_id = `codeBox${index - 1}`;
+      this.getOtpReference(prev_id).focus();
+    }
+  }
+  getOtpReference(id: any) {
+    return this.document.getElementById(id) as HTMLInputElement;
+  }
+  keyPressed(event: any, index: number) {
+    let keycode = event.which ? event.which : event.keyCode;
+    if (((keycode < 48 || keycode > 57) && keycode !== 13) || keycode == 46) {
+      event.preventDefault();
+      return false;
+    }
+    if (this.getOtpReference('codeBox1').value.length === 1 && index == 1) {
+      return false;
+    }
+    if (this.getOtpReference('codeBox2').value.length === 1 && index == 2) {
+      return false;
+    }
+    if (this.getOtpReference('codeBox3').value.length === 1 && index == 3) {
+      return false;
+    }
+    if (this.getOtpReference('codeBox4').value.length === 1 && index == 4) {
+      return false;
+    }
+    return;
+  }
+  onFocusEvent(index: number) {
+    for (let item = 1; item < index; item++) {
+      const id = `codeBox${item}`;
+      const currentElement = this.getOtpReference(id);
+      if (currentElement) {
+        currentElement.focus();
+        break;
+      }
+    }
+  }
+  sendOTP() {
+    if (this.load) return;
+    this.err = false;
+    if (!this.err) {
+      this.load = false;
+      this.show_otp = true;
+      // alert(`THE ID NUMBER IS --- ${this.yaqeenIdNumber}`);
+      this.dashBoardService
+        .sendOtpKyc(this.yaqeenIdNumber)
+        .subscribe((response) => {
+          console.log(JSON.stringify(response));
+        });
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     // changes.prop contains the old and the new value...
-   // console.log('Changes detected');
+    // console.log('Changes detected');
   }
 
   changeLanguage() {
@@ -277,7 +362,7 @@ export class AddKycComponent implements OnInit, OnChanges {
           alert(
             'please fill Identity Type and the ID number and birthdate in Hijri to retrieve tha data'
           );
-       //   console.log(`the error says ${this.err}`);
+          //   console.log(`the error says ${this.err}`);
           if (this.err) return;
         } else {
           this.getYaqeenSaudiData();
@@ -295,15 +380,20 @@ export class AddKycComponent implements OnInit, OnChanges {
         alert(
           'please fill Identity Type and the ID number and birthdate to retrieve tha data'
         );
-       // console.log(`the error says ${this.err}`);
+        // console.log(`the error says ${this.err}`);
         if (this.err) return;
       } else {
-       // console.log(`the Date Of birth iqama service ${this.iqamaDOB}`);
+        // console.log(`the Date Of birth iqama service ${this.iqamaDOB}`);
+        let month = (new Date(this.iqamaDOB).getMonth() + 1).toString().slice(-2);
+        if(parseInt(month) < 10){
+          month = `0${month}`
+        }
+        // alert(`the month Of birth iqama service ${month}`);
         const monthYear =
           new Date(this.iqamaDOB).getFullYear().toString() +
-          '-' +
-          (new Date(this.iqamaDOB).getMonth() + 1).toString().slice(-2);
-      //  console.log(`the Date Of birth iqama service ${monthYear}`);
+          '-' + month;
+         console.log(`the Date Of birth iqama service ${monthYear}`);
+        //  alert(`the Date Of birth iqama service ${monthYear}`);
         this.getYaqeenIqamaData(monthYear);
         hasData = true;
       }
@@ -326,7 +416,7 @@ export class AddKycComponent implements OnInit, OnChanges {
             const hasData = this.getSafe(
               () => res.response.personBasicInfo.birthDateG
             );
-         //   console.log(`THE VLUE NOT EXIST ${hasData}`);
+            //   console.log(`THE VLUE NOT EXIST ${hasData}`);
             if (hasData === 'undefined') {
               this.toast.error('The Id number not exist ');
               return;
@@ -382,7 +472,7 @@ export class AddKycComponent implements OnInit, OnChanges {
             const hasData = this.getSafe(
               () => res.response.personBasicInfo.birthDateG
             );
-       //     console.log(`THE VLUE NOT EXIST ${hasData}`);
+            //     console.log(`THE VLUE NOT EXIST ${hasData}`);
             if (hasData === 'undefined') {
               this.toast.error('The Id number not exist ');
               return;
@@ -443,7 +533,7 @@ export class AddKycComponent implements OnInit, OnChanges {
     };
     this.dashBoardService.profileDetails(data).subscribe((res: any) => {
       this.profileDetails = res.response;
-     // console.log(this.profileDetails);
+      // console.log(this.profileDetails);
     });
   }
   //end add By Qaysar For updating the page with dynamic list
@@ -578,7 +668,6 @@ export class AddKycComponent implements OnInit, OnChanges {
         );
       }
     });
-
   }
 
   onlyNumbers(event: any, data: any) {
@@ -735,31 +824,59 @@ export class AddKycComponent implements OnInit, OnChanges {
     }
   }
   add() {
-    if (this.verifyCR == null && this.verifyCR == '') {
+    const otp = this.otp1 + this.otp2 + this.otp3 + this.otp4;
+
+    if (this.otp1 == null || this.otp1 == '' || this.otp1 == undefined) {
+      this.toast.error('Fill OTP ');
+      this.load = false;
+      return;
+    }
+    if (this.otp2 == null || this.otp2 == '' || this.otp2 == undefined) {
+      this.toast.error('Fill OTP ');
+      this.load = false;
+      return;
+    }
+    if (this.otp3 == null || this.otp3 == '' || this.otp3 == undefined) {
+      this.toast.error('Fill OTP ');
+      this.load = false;
+      return;
+    }
+    if (this.otp4 == null || this.otp4 == '' || this.otp4 == undefined) {
+      this.toast.error('Fill the OTP ');
+      this.load = false;
+      return;
+    }
+    if (otp == null || otp == '' || otp == undefined) {
+      this.toast.error('WROOOONG OTP ');
+      this.load = false;
       return;
     } else {
-      const data = {
-        field: this.post_data,
-        crnumber: JSON.stringify(this.verifyCR),
-      };
-      this.subscriptions.push(
-        this.campaign_service.addKyc(data).subscribe((res: any) => {
-          this.load = false;
-          if (res.status) {
-            this.toast.success('Kyc added successfully!');
-            if (this.user_type == '3') {
-              // this.router.navigate(["/add-campaign"]);
+      if (this.verifyCR == null && this.verifyCR == '') {
+        return;
+      } else {
+        const data = {
+          field: this.post_data,
+          crnumber: JSON.stringify(this.verifyCR),
+        };
+        this.subscriptions.push(
+          this.campaign_service.addKyc(data).subscribe((res: any) => {
+            this.load = false;
+            if (res.status) {
+              this.toast.success('Kyc added successfully!');
+              if (this.user_type == '3') {
+                // this.router.navigate(["/add-campaign"]);
+                this.router.navigate(['/dashboard']);
+                return;
+              }
               this.router.navigate(['/dashboard']);
+
+              // this.router.navigate(["/thank-you"]);
               return;
             }
-            this.router.navigate(['/dashboard']);
-
-            // this.router.navigate(["/thank-you"]);
-            return;
-          }
-          this.toast.warning(res.response.message);
-        })
-      );
+            this.toast.warning(res.response.message);
+          })
+        );
+      }
     }
   }
 
@@ -845,7 +962,7 @@ export class AddKycComponent implements OnInit, OnChanges {
   change(event: any) {
     let crName = event.target.value;
     if (crName.length === 10) {
-    //  console.log(`the value from user is ${event.target.value}`);
+      //  console.log(`the value from user is ${event.target.value}`);
       this.verifyCrNumber(crName);
     }
   }

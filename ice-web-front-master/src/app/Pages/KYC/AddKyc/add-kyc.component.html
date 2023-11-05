@@ -34,7 +34,45 @@
     </ul>
   </div>
     <section class="container-fluid campaign">
-        <div class="col-md-5 mx-auto">
+        <div class="form-sec step2-1" *ngIf="show_otp">
+          <ng-container>
+            <div class="heading  text-center">
+              <h2>{{LANG.Verify_OTP}}</h2>
+              <span>{{LANG.A_verification_code_has_been_sent_to}} ()
+              </span>
+            </div>
+            <form>
+              <div class="row">
+                <div class="col-md-12 p-0">
+                  <div class="otp-field">
+                      <input type="text" name="o1" id="codeBox1" maxlength="1" [(ngModel)]="otp1" #codeBox1 (keyup)="onKeyUpEvent(1,$event)" (onfocus)="onFocusEvent(1)" (keypress)="keyPressed($event,1)" autocomplete="off">
+                      <input type="tel" name="o2" id="codeBox2" maxlength="1" [(ngModel)]="otp2" #codeBox2 (keyup)="onKeyUpEvent(2,$event)" (onfocus)="onFocusEvent(2)" (keypress)="keyPressed($event,2)" autocomplete="off">
+                      <input type="tel" name="o3" id="codeBox3" maxlength="1" [(ngModel)]="otp3" #codeBox3 (keyup)="onKeyUpEvent(3,$event)" (onfocus)="onFocusEvent(3)" (keypress)="keyPressed($event,3)" autocomplete="off">
+                      <input type="tel" name="o4" id="codeBox4" maxlength="1" [(ngModel)]="otp4" #codeBox4 (keyup)="onKeyUpEvent(4,$event)" (onfocus)="onFocusEvent(4)" (keypress)="keyPressed($event,4)" autocomplete="off">
+                  </div>
+                  <div class="otp-error">
+                    <span class="error" *ngIf="otp_error.otp">{{LANG.Please_Enter_valid_OTP}}</span>
+                  </div>
+                </div>
+                <div class="row w-100 justify-content-center mt-3">
+                    <div class="col-md-12">
+                        <div class="submit-button text-center">
+                            <button class="btn w-50" [class.loading]="load" (click)="addKYCDetails(kyc_form.length-1)">
+                                <ng-container *ngIf="load;else otp_loader;">
+                                    <loader></loader>
+                                </ng-container>
+                                <ng-template #otp_loader>
+                                  {{LANG.Verify_OTP}}
+                                </ng-template>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </form>
+          </ng-container>
+        </div>
+        <div class="col-md-5 mx-auto" *ngIf="!show_otp">
             <!-- <div class="row step-row">
             <div class="step active verified">
                 <span>1</span>
@@ -68,7 +106,7 @@
             </li> -->
             </ul>
         </div>
-        <div class="container">
+        <div class="container" *ngIf="!show_otp">
             <div class="container bg-white border-sec">
                 <ng-container *ngFor="let data of kyc_form;let i=index;">
                     <div class="upload-sec" *ngIf="i == tab_index">
@@ -467,7 +505,8 @@
                 <div class="row camp-button justify-content-center"
                     *ngIf="data_loaded && !disabled_inputs && tab_index == kyc_form.length-1">
                     <div class="col-md-6 submit-button text-center">
-                        <button class="btn" [class.loading]="load" (click)="addKYCDetails(kyc_form.length-1)">
+                        <!-- <button class="btn" [class.loading]="load" (click)="addKYCDetails(kyc_form.length-1)"> -->
+                          <button class="btn" [class.loading]="load" (click)="sendOTP()">
                             <ng-container *ngIf="load;else noLoader;">
                                 <loader></loader>
                             </ng-container>

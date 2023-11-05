@@ -13,6 +13,10 @@ export class DashboardService {
 
   constructor(public api:apiServiceComponent, public http:HttpClient) { }
 
+
+  sendOtpKyc(nationality: string) {
+    return this.api.getAbsherOTP(nationality);
+  }
   opertunityDetails(id:any){
     this.url="opportunity_detail/"+id;
     return this.api.get(this.url,"")
