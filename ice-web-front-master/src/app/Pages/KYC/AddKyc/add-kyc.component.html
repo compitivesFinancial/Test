@@ -113,7 +113,9 @@
                         <div class="skip" *ngIf="i == 0">
                             <span class="status">{{LANG.Status}}: <span class="text-success"
                                     *ngIf="disabled_inputs;else pending">{{LANG.Approved}}</span>
-                                <ng-template #pending><span class="text-warning">{{LANG.Pending}}</span></ng-template>
+                                <ng-template #pending><span class="text-warning" *ngIf="this.isApproved===false">{{LANG.Pending}}</span>
+                                    <span class="text-warning" style="color: #00d06b !important;" *ngIf="this.isApproved===true">{{LANG.Approved}}</span>
+                                </ng-template>
                             </span>
                         </div>
                         <div class="skip link" *ngIf="i == 0 && user_type == '2'">

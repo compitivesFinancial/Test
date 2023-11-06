@@ -120,7 +120,7 @@ export class AddKycComponent implements OnInit, OnChanges {
   otp3: string = '';
   otp4: string = '';
   //End add by qaysar
-
+isApproved:boolean=false;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private campaign_service: CampaignService,
@@ -556,6 +556,10 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.subscriptions.push(
       this.campaign_service.getUserKycList().subscribe((res: any) => {
         this.kyc_form = res.response;
+        this.isApproved=this.kyc_form[0].status==="1";
+
+        console.log("this.kyc_form",this.kyc_form);
+        console.log("this.isApproved",this.isApproved);
         this.kyc_form.map((data: any) => {
           data.info_type.map((item: any) => {
             item.detail.map((fields: any) => {
