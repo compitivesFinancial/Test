@@ -15,7 +15,7 @@
             <h5>{{LANG.Opportunity_details}}</h5>
             <div class="row campaign-row">
               <div class="form-group col-md-12">
-                <label>Financing Type</label>
+                <label>{{LANG.Financing_Type}}</label>
                 <select class="form-control" name="financingType" [(ngModel)]="campaign_details.financing_type">
                     <option *ngFor="let item of financingType | keyvalue" value="{{item.key}}">
                       {{item.value}}</option>
@@ -32,14 +32,14 @@
                     <span class="error" *ngIf="errors?.total_valuation">{{LANG.This_field_is_required}}</span>
                 </div>
                 <div class="form-group col-md-12">
-                  <label>Fund Use</label>
+                  <label>{{LANG.Fund_Use}}</label>
                   <select class="form-control" name="fundUse" [(ngModel)]="campaign_details.fund_use">
                       <option *ngFor="let item of fundUseList" value="{{item.id}}">{{item.nameAr}}</option>
                   </select>
                   <span class="error" *ngIf="errors?.fund_use">{{LANG.This_field_is_required}}</span>
                 </div>
                 <div class="form-group col-md-12">
-                  <label>Financing Period (Month)</label>
+                  <label>{{LANG.Financing_Period_Month}}</label>
                   <select class="form-control" name="financingPeriod" [(ngModel)]="campaign_details.financing_period">
                       <option *ngFor="let item of financingPeriod | keyvalue" value="{{item.key}}">
                         {{item.value}}</option>
@@ -47,13 +47,13 @@
                   <span class="error" *ngIf="errors?.financing_period">{{LANG.This_field_is_required}}</span>
                 </div>
                 <div class="form-group col-md-6">
-                  <label>expected date of obtaining the financing</label>
-                  <input type="date" class="form-control  form-size" placeholder="expected date of obtaining the financing" [(ngModel)]="campaign_details.obtain_finance_dt">
+                  <label>{{LANG.xpected_date_of_obtaining_the_financing}}</label>
+                  <input type="date" class="form-control  form-size" placeholder="{{LANG.xpected_date_of_obtaining_the_financing}}" [(ngModel)]="campaign_details.obtain_finance_dt">
                     <span class="error" *ngIf="errors?.obtain_finance_dt">{{LANG.This_field_is_required}}</span>
                 </div>
                 <div class="form-group col-md-6">
-                  <label>expected date of financing repayment</label>
-                    <input type="date" class="form-control  form-size" placeholder="expected date of financing repayment" [(ngModel)]="campaign_details.finance_repayment_dt">
+                  <label>{{LANG.expected_date_of_financing_repayment}}</label>
+                    <input type="date" class="form-control  form-size" placeholder="{{LANG.expected_date_of_financing_repayment}}" [(ngModel)]="campaign_details.finance_repayment_dt">
                     <span class="error" *ngIf="errors?.finance_repayment_dt">{{LANG.This_field_is_required}}</span>
 
                 </div>

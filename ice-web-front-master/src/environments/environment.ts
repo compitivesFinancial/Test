@@ -19,6 +19,11 @@ export const environment = {
     iv:""
   },
   english_translations: {
+    Financing_Type:"Financing Type",
+    Fund_Use:"Fund Use",
+    Financing_Period_Month:"Financing Period (Month)",
+    expected_date_of_obtaining_the_financing:"expected date of obtaining the financing",
+    expected_date_of_financing_repayment:"expected date of financing repayment",
     minInvestValue:"You are not allowed to invest less than 1000 SR",
     maxInvestValue:"You are not allowed to invest over 20000 SR",
     Agree_To_terms:"I agree to the terms and conditions",
@@ -572,6 +577,11 @@ export const environment = {
   },
   //******************************************************* Start Arabic array *******************************************//
   arabic_translations: {
+    "Financing_Type":"نوع التمويل",
+    "Fund_Use":"استخدام التمويل",
+    "Financing_Period_Month":"مدة التمويل بالاشهر",
+    "expected_date_of_obtaining_the_financing":"التاريخ المتوقع للحصول على التمويل",
+    "expected_date_of_financing_repayment":"لتاريخ المتوقع للسداد",
     "minInvestValue":"لا يجوز لك استثمار أقل من 1000 ريال سعودي",
     "maxInvestValue":"لا يسمح لك باستثمار ما يزيد عن 20000 ريال سعودي",
     "Agree_To_terms":"أوافق على الشروط و الأحكام",
