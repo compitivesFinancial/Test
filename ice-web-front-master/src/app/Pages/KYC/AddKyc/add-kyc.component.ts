@@ -556,8 +556,7 @@ isApproved:boolean=false;
     this.subscriptions.push(
       this.campaign_service.getUserKycList().subscribe((res: any) => {
         this.kyc_form = res.response;
-        this.isApproved=this.kyc_form[0].status==="1";
-
+        this.kyc_form[0].status==="1"?this.isApproved=true:this.isApproved=false;
         console.log("this.kyc_form",this.kyc_form);
         console.log("this.isApproved",this.isApproved);
         this.kyc_form.map((data: any) => {
