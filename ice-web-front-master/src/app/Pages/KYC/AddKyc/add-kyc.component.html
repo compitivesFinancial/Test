@@ -38,17 +38,17 @@
           <ng-container>
             <div class="heading  text-center">
               <h2>{{LANG.Verify_OTP}}</h2>
-              <span>{{LANG.A_verification_code_has_been_sent_to}} ()
+              <span>{{LANG.A_verification_code_has_been_sent_to}} ({{' '+this.user_data?.email?this.user_data?.email: ' you'}}) 
               </span>
             </div>
             <form>
               <div class="row">
                 <div class="col-md-12 p-0">
                   <div class="otp-field">
-                      <input type="text" name="o1" id="codeBox1" maxlength="1" [(ngModel)]="otp1" #codeBox1 (keyup)="onKeyUpEvent(1,$event)" (onfocus)="onFocusEvent(1)" (keypress)="keyPressed($event,1)" autocomplete="off">
-                      <input type="tel" name="o2" id="codeBox2" maxlength="1" [(ngModel)]="otp2" #codeBox2 (keyup)="onKeyUpEvent(2,$event)" (onfocus)="onFocusEvent(2)" (keypress)="keyPressed($event,2)" autocomplete="off">
-                      <input type="tel" name="o3" id="codeBox3" maxlength="1" [(ngModel)]="otp3" #codeBox3 (keyup)="onKeyUpEvent(3,$event)" (onfocus)="onFocusEvent(3)" (keypress)="keyPressed($event,3)" autocomplete="off">
-                      <input type="tel" name="o4" id="codeBox4" maxlength="1" [(ngModel)]="otp4" #codeBox4 (keyup)="onKeyUpEvent(4,$event)" (onfocus)="onFocusEvent(4)" (keypress)="keyPressed($event,4)" autocomplete="off">
+                      <input type="password" name="o1" id="codeBox1" maxlength="1" [(ngModel)]="otp1" #codeBox1 (keyup)="onKeyUpEvent(1,$event)" (onfocus)="onFocusEvent(1)" (keypress)="keyPressed($event,1)" autocomplete="off">
+                      <input type="password" name="o2" id="codeBox2" maxlength="1" [(ngModel)]="otp2" #codeBox2 (keyup)="onKeyUpEvent(2,$event)" (onfocus)="onFocusEvent(2)" (keypress)="keyPressed($event,2)" autocomplete="off">
+                      <input type="password" name="o3" id="codeBox3" maxlength="1" [(ngModel)]="otp3" #codeBox3 (keyup)="onKeyUpEvent(3,$event)" (onfocus)="onFocusEvent(3)" (keypress)="keyPressed($event,3)" autocomplete="off">
+                      <input type="password" name="o4" id="codeBox4" maxlength="1" [(ngModel)]="otp4" #codeBox4 (keyup)="onKeyUpEvent(4,$event)" (onfocus)="onFocusEvent(4)" (keypress)="keyPressed($event,4)" autocomplete="off">
                   </div>
                   <div class="otp-error">
                     <span class="error" *ngIf="otp_error.otp">{{LANG.Please_Enter_valid_OTP}}</span>
@@ -113,8 +113,8 @@
                         <div class="skip" *ngIf="i == 0">
                             <span class="status">{{LANG.Status}}: <span class="text-success"
                                     *ngIf="disabled_inputs;else pending">{{LANG.Approved}}</span>
-                                <ng-template #pending><span class="text-warning" *ngIf="!this.isApproved">{{LANG.Pending}}</span>
-                                    <span class="text-warning" style="color: #00d06b !important;" *ngIf="this.isApproved">{{LANG.Approved}}</span>
+                                <ng-template #pending><span class="text-warning" *ngIf="this.isApproved">{{LANG.Pending}}</span>
+                                    <span class="text-warning" style="color: #00d06b !important;" *ngIf="!this.isApproved">{{LANG.Approved}}</span>
                                 </ng-template>
                             </span>
                         </div>

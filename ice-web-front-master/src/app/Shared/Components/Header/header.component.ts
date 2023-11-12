@@ -39,16 +39,21 @@ export class HeaderComponent implements OnInit {
     }
     if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
       this.LANG = environment.arabic_translations;
+      this.shared.setLang('ar');
       this.selected_language = "Ar";
       this.optional_language = "English";
       document.documentElement.classList.add('ar');
+    
     }
     else {
+      this.shared.setLang('en');
       this.LANG = environment.english_translations;
       this.selected_language = "En";
-      this.optional_language = "Arabic"
+      this.optional_language = "Arabic";
       document.documentElement.classList.remove('ar');
+     
     }
+   
   }
 
   ngOnInit(): void {}
@@ -66,6 +71,7 @@ export class HeaderComponent implements OnInit {
     if (this.optional_language == "Arabic") {
       localStorage.setItem("arabic", "true");
       this.LANG = environment.arabic_translations;
+      this.shared.setLang('ar');
       document.documentElement.classList.add('ar');
       this.selected_language = "Ar";
       this.optional_language = "English";
@@ -75,6 +81,7 @@ export class HeaderComponent implements OnInit {
       return
     }
     localStorage.setItem("arabic", "false");
+    this.shared.setLang('en');
     this.LANG = environment.english_translations;
     document.documentElement.classList.remove('ar');
     this.selected_language = "En";

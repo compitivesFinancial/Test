@@ -82,12 +82,13 @@ export class apiServiceComponent {
 				catchError(this._errorHandler));
 	}
   getAbsherOTP(nationality:string) {
-		this.type = "GET";
+		this.type = "POST";
     let url = `https://api.cfc.sa/api/sendOtpAbsher?nationality=${nationality}`;
 		let headers = this.getHeaders(url);
-		return this.http.get(url, { headers: headers, withCredentials: true })
+		return this.http.post(url, { headers: headers, withCredentials: true })
 			.pipe(map((response: Object) => response),
 				catchError(this._errorHandler));
+				
 	}
 	getFooter(url: string, pagination: string): Observable<Footer[]> {
 		this.type = "GET";

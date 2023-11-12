@@ -545,6 +545,7 @@ isApproved:boolean=false;
         if (res.status) {
           this.user_details = res.response;
           if (res.response.kyc_approved_status == 1) {
+            res.response.kyc_approved_status===1?this.isApproved=true:this.isApproved=false;
             this.disabled_inputs = true;
           }
         }
@@ -950,6 +951,8 @@ isApproved:boolean=false;
     this.campaign_service.verifyCrNumber(number).subscribe((res: any) => {
       let status = res.status;
       this.verifyCR = res.response;
+      console.log("status",status);
+      console.log("this.verifyCR",this.verifyCR);
       if (status) {
         this.toast.success('verified');
         this.crname = this.verifyCR.crName;

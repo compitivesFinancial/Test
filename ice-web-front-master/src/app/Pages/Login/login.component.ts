@@ -47,17 +47,25 @@ export class LoginComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 
   changeLanguage() {
-    if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
+    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") != null) {
       this.LANG = environment.arabic_translations;
     }
     else {
       this.LANG = environment.english_translations;
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
 
 
