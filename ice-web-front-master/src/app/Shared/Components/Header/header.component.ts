@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   logo_1: string = "assets/images/main-logo1.png";
   menuToggle: boolean = false;
   phoneMenuToggle: boolean = false;
+  disabledUI:boolean=true;
   constructor(private shared: SharedService, private router: Router, private toast: ToastrService,public decryptAES:decryptAesService) {
     this.subscriptions.push(this.shared.currentUserStatus.subscribe(user => this.logged_in = user));
     this.subscriptions.push(this.shared.currentUserData.subscribe(user => { this.user_data = user }));
@@ -56,7 +57,10 @@ export class HeaderComponent implements OnInit {
    
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(localStorage.getItem('availableContent')==='1')
+    this.disabledUI=false;
+  }
 
   close() {
     $(".navbar-collapse").removeClass("show");

@@ -3,7 +3,7 @@
         <img src="assets/images/version.svg" alt="">
     </div>
     <nav class="navbar navbar-expand-lg p-0">
-        <a class="navbar-brand p-0" (click)="goHome()">
+        <a  class="navbar-brand p-0" (click)="goHome()">
             <img src="{{logo}}" class="w-100" alt="" />
         </a>
         <a class="navbar-brand p-0 header-logo" (click)="goHome()">
@@ -46,27 +46,27 @@
 
                 <ng-template #no_logged_in>
                     <li class="nav-item active">
-                        <button class="btn btn-primary btn-c" (click)="goToLogin('3')">{{LANG.Register_as_Borrower}}
+                        <button [disabled]="disabledUI" class="btn btn-primary btn-c" (click)="goToLogin('3')">{{LANG.Register_as_Borrower}}
                             <span class="hov-border"></span>
                         </button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-primary btn-c" (click)="goToLogin('2')">{{LANG.Register_as_Investor}}
+                        <button [disabled]="disabledUI" class="btn btn-primary btn-c" (click)="goToLogin('2')">{{LANG.Register_as_Investor}}
                             <span class="hov-border"></span>
 
                         </button>
                     </li>
                 </ng-template>
                 <li class="dropdown">
-                    <button type="button" class="btn BG" data-bs-toggle="dropdown">
+                    <button [disabled]="disabledUI" type="button" class="btn BG" data-bs-toggle="dropdown">
                         {{selected_language}}
                     </button>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" [hidden]="disabledUI">
                         <a class="dropdown-item" (click)="changeLanguage()">{{optional_language}}</a>
                     </div>
                 </li>
                 <li class="nav-item" *ngIf="!logged_in;else logged_out" routerLink="/login" (click)="close()">
-                    <button class="btn login-btn hov-btn"><span><i class="fa fa-user" aria-hidden="true"></i> {{LANG.LOGIN}}</span></button>
+                    <button [disabled]="disabledUI" class="btn login-btn hov-btn"><span><i class="fa fa-user" aria-hidden="true"></i> {{LANG.LOGIN}}</span></button>
                 </li>
                 <ng-template #logged_out>
                     <div class=" head-button">

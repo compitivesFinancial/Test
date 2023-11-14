@@ -45,7 +45,7 @@ export class NewHomeComponent implements OnInit {
     this.getHomeData();
     new WOW().init();
     this.investMentOppertunity()
-    this.upcomingInvestmentOppertunity()
+    //this.upcomingInvestmentOppertunity()
 
 
     $("#carousel-1").owlCarousel({
@@ -267,14 +267,14 @@ $("#carousel-3").owlCarousel({
     })
   }
 
-  upcomingInvestmentOppertunity(){
-    this.campaignService.upcomingInvesmentOppertunity().subscribe((res:any)=>{
-      this.upcomingInvestmentOppertunityList = res.response
-      // console.log(this.upcomingInvestmentOppertunityList);
+  // upcomingInvestmentOppertunity(){
+  //   this.campaignService.upcomingInvesmentOppertunity().subscribe((res:any)=>{
+  //     this.upcomingInvestmentOppertunityList = res.response
+  //     // console.log(this.upcomingInvestmentOppertunityList);
 
 
-    })
-  }
+  //   })
+  // }
 
   navTo(list:any){
     // console.log('outer')

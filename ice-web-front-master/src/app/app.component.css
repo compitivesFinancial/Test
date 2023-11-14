@@ -1,0 +1,26 @@
+.notAvaliable{
+    filter: blur(25px); 
+}
+.dialogMask {
+     position: fixed;
+     display: flex;
+     flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+     align-items: center;
+     justify-content: center;
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    height: 20%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    border-radius: 20px;
+    font-size: 40px;
+    color: white;
+    z-index: 1; 
+    
+}
+.available {
+    display: none !important;
+}
