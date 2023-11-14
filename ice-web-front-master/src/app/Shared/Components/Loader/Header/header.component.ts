@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   optional_language: string = "";
   logo: string = "assets/images/main-logo.png";
   logo_1: string = "assets/images/main-logo1.png";
-
+  disabledUI:boolean=true;
 
   constructor(private shared: SharedService, private router: Router, private toast: ToastrService,public decryptAES:decryptAesService) {
     this.subscriptions.push(this.shared.currentUserStatus.subscribe(user => this.logged_in = user));
@@ -53,6 +53,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('availableContent')==='1')
+    this.disabledUI=false;
   }
 
   close() {

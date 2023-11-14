@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   logo_1: string = "assets/images/main-logo1.png";
   menuToggle: boolean = false;
   phoneMenuToggle: boolean = false;
+  disabledUI:boolean=true;
   constructor(private shared: SharedService, private router: Router, private toast: ToastrService,public decryptAES:decryptAesService) {
     this.subscriptions.push(this.shared.currentUserStatus.subscribe(user => this.logged_in = user));
     this.subscriptions.push(this.shared.currentUserData.subscribe(user => { this.user_data = user }));
@@ -39,19 +40,27 @@ export class HeaderComponent implements OnInit {
     }
     if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
       this.LANG = environment.arabic_translations;
+      this.shared.setLang('ar');
       this.selected_language = "Ar";
       this.optional_language = "English";
       document.documentElement.classList.add('ar');
+    
     }
     else {
+      this.shared.setLang('en');
       this.LANG = environment.english_translations;
       this.selected_language = "En";
-      this.optional_language = "Arabic"
+      this.optional_language = "Arabic";
       document.documentElement.classList.remove('ar');
+     
     }
+   
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(localStorage.getItem('availableContent')==='1')
+    this.disabledUI=false;
+  }
 
   close() {
     $(".navbar-collapse").removeClass("show");
@@ -66,6 +75,7 @@ export class HeaderComponent implements OnInit {
     if (this.optional_language == "Arabic") {
       localStorage.setItem("arabic", "true");
       this.LANG = environment.arabic_translations;
+      this.shared.setLang('ar');
       document.documentElement.classList.add('ar');
       this.selected_language = "Ar";
       this.optional_language = "English";
@@ -75,6 +85,7 @@ export class HeaderComponent implements OnInit {
       return
     }
     localStorage.setItem("arabic", "false");
+    this.shared.setLang('en');
     this.LANG = environment.english_translations;
     document.documentElement.classList.remove('ar');
     this.selected_language = "En";

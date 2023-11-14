@@ -80,11 +80,11 @@ public campaignDetail:any;
     return this.api.get(this.url, '');
   }
 
-  upcomingInvesmentOppertunity() {
-    this.url = 'list_withoutpublishoutside';
-    // this.url = 'get_campagin_outside';
-    return this.api.get(this.url, '');
-  }
+  // upcomingInvesmentOppertunity() {
+  //   this.url = 'list_withoutpublishoutside';
+  //   // this.url = 'get_campagin_outside';
+  //   return this.api.get(this.url, '');
+  // }
 
   verifyCrNumber(id: any) {
     this.url = `commercialregistration/${id}`;

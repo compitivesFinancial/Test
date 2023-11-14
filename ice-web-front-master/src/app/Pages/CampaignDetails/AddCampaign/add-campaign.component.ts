@@ -229,7 +229,7 @@ export class AddCampaignComponent implements OnInit {
     const filePath = `Kyc/${path}`;
     this.load = true;
     this.shared.currentUserStatus.subscribe((isLoggedIn) => {
-      if (isLoggedIn == true && this.loginService.getToken() !== null) {
+      if (isLoggedIn == true) { //  && this.loginService.getToken() !== null REMOVED BY RASHED
         const uploadTask =
           firebase.storage().ref().child(`${filePath}`).put(data.file);
         uploadTask.on(

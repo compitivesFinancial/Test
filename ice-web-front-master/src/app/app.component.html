@@ -1,4 +1,7 @@
-
+<div class="dialogMask" [class.available]="availableContent">
+  launching soon. . .
+</div>
+<div [class.notAvaliable]="!availableContent">
 <section [class.login]="path == '/login' || path == '/register'">
   <app-header [path]="path"></app-header>
     <router-outlet></router-outlet>
@@ -6,3 +9,5 @@
 <app-footer *ngIf="path != '/login' && path != '/register'"></app-footer>
 
 
+
+</div>

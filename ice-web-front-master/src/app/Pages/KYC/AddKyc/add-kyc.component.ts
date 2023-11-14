@@ -120,7 +120,7 @@ export class AddKycComponent implements OnInit, OnChanges {
   otp3: string = '';
   otp4: string = '';
   //End add by qaysar
-
+isApproved:boolean=false;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private campaign_service: CampaignService,
@@ -545,6 +545,7 @@ export class AddKycComponent implements OnInit, OnChanges {
         if (res.status) {
           this.user_details = res.response;
           if (res.response.kyc_approved_status == 1) {
+            res.response.kyc_approved_status===1?this.isApproved=true:this.isApproved=false;
             this.disabled_inputs = true;
           }
         }
@@ -556,6 +557,9 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.subscriptions.push(
       this.campaign_service.getUserKycList().subscribe((res: any) => {
         this.kyc_form = res.response;
+        this.kyc_form[0].status==="1"?this.isApproved=true:this.isApproved=false;
+        console.log("this.kyc_form",this.kyc_form);
+        console.log("this.isApproved",this.isApproved);
         this.kyc_form.map((data: any) => {
           data.info_type.map((item: any) => {
             item.detail.map((fields: any) => {
@@ -947,6 +951,8 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.campaign_service.verifyCrNumber(number).subscribe((res: any) => {
       let status = res.status;
       this.verifyCR = res.response;
+      console.log("status",status);
+      console.log("this.verifyCR",this.verifyCR);
       if (status) {
         this.toast.success('verified');
         this.crname = this.verifyCR.crName;
