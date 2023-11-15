@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
+import { LoginService } from 'src/app/Shared/Services/login.service';
 
 @Component({
   selector: 'app-dashboarddetails',
@@ -19,9 +20,10 @@ export class DashboarddetailsComponent implements OnInit {
   public dashDetailsList: any = ''
   public profileDetails: any = ''
   public invesorDashDetails: any = ''
+  disabled_inputs: boolean=false;
 
 
-  constructor(public dashBoardService: DashboardService, private shared: SharedService,public decryptAES:decryptAesService) {
+  constructor(public dashBoardService: DashboardService, private shared: SharedService,public decryptAES:decryptAesService,  private loginService: LoginService) {
     const user_data = btoa(btoa("user_info_web"));
     // console.log("btoa('user_info_web')",btoa(btoa("user_info_web")))
     if (localStorage.getItem(user_data) != undefined) {
@@ -41,6 +43,15 @@ export class DashboarddetailsComponent implements OnInit {
     else {
       this.LANG = environment.english_translations;
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
 
  
@@ -56,6 +67,12 @@ export class DashboarddetailsComponent implements OnInit {
       this.dashDetails()
       this.profile()
     }
+    const data = { id: this.user_data.id };
+    this.loginService.getProfileDetails(data, undefined).subscribe((res: any) => {
+      if (res.response.kyc_approved_status == 1) {
+        this.disabled_inputs = true;
+      }
+    })
   }
   dashDetails() {
     let data = {

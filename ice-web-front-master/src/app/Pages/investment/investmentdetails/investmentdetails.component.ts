@@ -58,6 +58,15 @@ export class InvestmentdetailsComponent implements OnInit {
     else {
       this.LANG = environment.english_translations;
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
 }
 

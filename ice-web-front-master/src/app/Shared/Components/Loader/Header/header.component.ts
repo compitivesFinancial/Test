@@ -14,7 +14,7 @@ declare const $: any;
 })
 export class HeaderComponent implements OnInit {
   logged_in: boolean = false;
-  user_data: any = {};
+  user_data: any = {name:""};
   subscriptions: Subscription[] = [];
   @Input() path!: string;
   LANG = environment.english_translations;
@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   logo: string = "assets/images/main-logo.png";
   logo_1: string = "assets/images/main-logo1.png";
   disabledUI:boolean=true;
+  usernameTemp:any='';
 
   constructor(private shared: SharedService, private router: Router, private toast: ToastrService,public decryptAES:decryptAesService) {
     this.subscriptions.push(this.shared.currentUserStatus.subscribe(user => this.logged_in = user));
@@ -37,7 +38,10 @@ export class HeaderComponent implements OnInit {
      
       this.shared.changeUserData(this.user_data)
     }
-
+    if(!localStorage.getItem("USERNAME"))
+    this.usernameTemp=this.user_data.name;
+  else
+    this.usernameTemp=localStorage.getItem("USERNAME");
     if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
       this.LANG = environment.arabic_translations;
       this.selected_language = "Ar";
@@ -50,11 +54,26 @@ export class HeaderComponent implements OnInit {
       this.optional_language = "Arabic"
       document.documentElement.classList.remove('ar');
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+        this.selected_language = "Ar";
+        this.optional_language = "English";
+        document.documentElement.classList.add('ar');
+      }
+      else {
+        this.LANG = environment.english_translations;
+        this.selected_language = "En";
+        this.optional_language = "Arabic"
+        document.documentElement.classList.remove('ar');
+      }
+    });
   }
 
   ngOnInit(): void {
     if(localStorage.getItem('availableContent')==='1')
     this.disabledUI=false;
+    this.usernameTemp=localStorage.getItem("USERNAME");
   }
 
   close() {

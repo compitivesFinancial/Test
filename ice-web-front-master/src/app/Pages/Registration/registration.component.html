@@ -37,6 +37,9 @@
       </form>
     </ng-container>
   </div>
+  <div *ngIf="role_type === '3'" class="note">
+    {{LANG.borrower_Register_note}}
+</div>
   <div class="form-sec step2-1" *ngIf="!show_otp">
         <!-- <p>{{LANG.I_am_a}}</p> -->
         <!-- <div class="form-tab">
@@ -73,8 +76,8 @@
                     <label name="registration_type" for="yes">{{LANG.Individual}}</label>
                 </div>
                 <div class="radio-2">
-                    <input type="radio" class="radio-buttons" id="no" name="registration_type" value="2"
-                        [(ngModel)]="registration_type.registration_type">
+                    <input type="radio" checked class="radio-buttons" id="no" name="registration_type" value="2"
+                        [(ngModel)]="registration_type.registration_type" ng-reflect-model="2">
                     <label name="registration_type" for="no">{{LANG.Corporate}}</label>
                 </div>
             </div>
@@ -223,12 +226,6 @@
         </div> -->
     </div>
 
-    <div class="form-last">
-        <img src="assets/images/tick.svg">
-        <p>
-            <b>{{LANG.bit}}</b> {{LANG.Secured_payment}}
-        </p>
-    </div>
     <div class="form-footer">
         <p>{{LANG.Copyrights}}</p>
     </div>

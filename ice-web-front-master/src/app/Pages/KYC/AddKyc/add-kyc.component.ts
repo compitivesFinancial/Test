@@ -140,13 +140,6 @@ isApproved:boolean=false;
         atob(atob(localStorage.getItem(user_data) || '{}'))
       );
     }
-    if (isNaN(this.user_data.id)) {
-      this.user_data.id = decryptAES.decryptAesCbc(
-        this.user_data.id,
-        environment.decryptionAES.key,
-        environment.decryptionAES.iv
-      );
-    }
     if (this.router.url == '/kyc-details') {
       this.type = 1;
     }
@@ -186,6 +179,7 @@ isApproved:boolean=false;
 
   ngOnInit(): void {
     this.getUserKycList();
+  
     if (this.user_data.role_type == 2) {
       this.getProfileDetails(1);
       return;
@@ -545,7 +539,6 @@ isApproved:boolean=false;
         if (res.status) {
           this.user_details = res.response;
           if (res.response.kyc_approved_status == 1) {
-            res.response.kyc_approved_status===1?this.isApproved=true:this.isApproved=false;
             this.disabled_inputs = true;
           }
         }
@@ -557,9 +550,6 @@ isApproved:boolean=false;
     this.subscriptions.push(
       this.campaign_service.getUserKycList().subscribe((res: any) => {
         this.kyc_form = res.response;
-        this.kyc_form[0].status==="1"?this.isApproved=true:this.isApproved=false;
-        console.log("this.kyc_form",this.kyc_form);
-        console.log("this.isApproved",this.isApproved);
         this.kyc_form.map((data: any) => {
           data.info_type.map((item: any) => {
             item.detail.map((fields: any) => {
@@ -951,17 +941,18 @@ isApproved:boolean=false;
     this.campaign_service.verifyCrNumber(number).subscribe((res: any) => {
       let status = res.status;
       this.verifyCR = res.response;
-      console.log("status",status);
-      console.log("this.verifyCR",this.verifyCR);
-      if (status) {
+      if (status && res.response?.message!=="No Results Found") {
         this.toast.success('verified');
         this.crname = this.verifyCR.crName;
         this.crEntityNumber = this.verifyCR.crEntityNumber;
         this.issueDate = this.verifyCR.issueDate;
         this.expiryDate = this.verifyCR.expiryDate;
         this.businessType = this.verifyCR.businessType.name;
-      } else {
-        this.toast.error('not veriied');
+      } else if (res.response.message==="No Results Found"){
+        this.toast.error('No Results Found');
+      }
+       else {
+        this.toast.error('not verified');
       }
     });
   }

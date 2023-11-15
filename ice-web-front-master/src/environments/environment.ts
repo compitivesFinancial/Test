@@ -19,6 +19,8 @@ export const environment = {
     iv:""
   },
   english_translations: {
+    password_star:"Password *",
+    borrower_Register_note:"This Registration is only for companies not for individuals",
     user_statement:"User Statement",
     investor_statement:"Investor Statement",
     id:"ID",
@@ -40,6 +42,7 @@ export const environment = {
     expected_date_of_financing_repayment:"expected date of financing repayment",
     minInvestValue:"You are not allowed to invest less than 1000 SR",
     maxInvestValue:"You are not allowed to invest over 20000 SR",
+    totalInvestValue:"You are not allowed to invest over the opportunity limit",
     Agree_To_terms:"I agree to the terms and conditions",
     Login_your_account: "Login your account",
     Please_enter_your_details_below: "Please enter your details below",
@@ -578,6 +581,8 @@ export const environment = {
   },
   //******************************************************* Start Arabic array *******************************************//
   arabic_translations: {
+    "password_star":"كلمة السر *",
+    "borrower_Register_note":"هذا التسجيل للشركات فقط وليس للأفراد",
     "user_statement":"قائمة بيانات المستخدم المالية",
     "investor_statement":"قائمة بيانات المستثمرالمالية",
     "id":"الرقم",
@@ -599,6 +604,7 @@ export const environment = {
     "expected_date_of_financing_repayment":"لتاريخ المتوقع للسداد",
     "minInvestValue":"لا يجوز لك استثمار أقل من 1000 ريال سعودي",
     "maxInvestValue":"لا يسمح لك باستثمار ما يزيد عن 20000 ريال سعودي",
+    "totalInvestValue":"لا يسمح لك بالاستثمار فوق الحد الأقصى للفرصة",
     "Agree_To_terms":"أوافق على الشروط و الأحكام",
     "Login_your_account": "تسجيل الدخول",
     "Please_enter_your_details_below": "الرجاء إدخال تفاصيل بياناتك",

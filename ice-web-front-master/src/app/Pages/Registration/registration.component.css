@@ -13,7 +13,11 @@
   margin: 0;
   width: 100%;
 }
-
+.note {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
 .login-pad{
   background-color: #ffffff;
 }
@@ -34,6 +38,7 @@
 
 .form-sec {
   padding: 50px;
+  margin: 30px auto 38px !important;
 }
 
 .form-tab ul {

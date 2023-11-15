@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   country_code: string = "+966";
   load: boolean = false;
   err: boolean = false;
-  show_password: boolean = false;
+  show_password: boolean = true;
   login_error: any = {};
   subscriptions: Subscription[] = []
   show_otp: boolean = false;
@@ -230,6 +230,7 @@ export class LoginComponent implements OnInit {
         // const user_profile={user_name:result.response.full_name,profile_image:result.response.profile_image  || "assets/images/icons/user-round.svg"}
         // this.shared.changeUserProfile(user_profile);
         this.load = false;
+        localStorage.setItem("USERNAME",result.response.name);
         this.toast.success("Login Successfull! Welcome " + result.response.name, "");
         this.router.navigate(["/dashboard"])
         // this.router.navigate(["/add-kyc"],{queryParams:{type:btoa(btoa(result.response.role_type.toString()))}})
@@ -250,6 +251,7 @@ export class LoginComponent implements OnInit {
         this.shared.changeUserStatus(true);
         this.shared.changeUserData(result.response);
         this.load = false;
+        localStorage.setItem("USERNAME",result.response.name);
         this.toast.success("Login Successfull! Welcome " + result.response.name, "");
         if (result.response.kyc_approved_status == 1) {
           this.router.navigate(["/dashboard"])

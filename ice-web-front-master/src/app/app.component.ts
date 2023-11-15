@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: any){
     if(this.stopListening===false){
-      console.log("event.key",event.key)
       this.keysPressed.push(event.key);
       if (this.keysPressed.length > 7) {
         this.keysPressed.shift();

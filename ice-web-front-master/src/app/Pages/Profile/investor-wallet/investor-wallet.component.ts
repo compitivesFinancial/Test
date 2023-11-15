@@ -43,6 +43,15 @@ export class InvestorWalletComponent implements OnInit {
     else {
         this.LANG=environment.english_translations;
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
   ngOnInit(): void {
     if(this.user_data.role_type == 2){

@@ -12,7 +12,7 @@
         }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="user_data?.role_type == 2" data-bs-toggle="tab" routerLink="/qualified-investor">
+        <a class="nav-link" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">
           {{LANG.Be_Qualified_Investor}}
         </a>
       </li>
@@ -113,8 +113,8 @@
                         <div class="skip" *ngIf="i == 0">
                             <span class="status">{{LANG.Status}}: <span class="text-success"
                                     *ngIf="disabled_inputs;else pending">{{LANG.Approved}}</span>
-                                <ng-template #pending><span class="text-warning" *ngIf="this.isApproved">{{LANG.Pending}}</span>
-                                    <span class="text-warning" style="color: #00d06b !important;" *ngIf="!this.isApproved">{{LANG.Approved}}</span>
+                                <ng-template #pending><span class="text-warning" *ngIf="!this.isApproved">{{LANG.Pending}}</span>
+                                    <span class="text-warning" style="color: #00d06b !important;" *ngIf="this.isApproved">{{LANG.Approved}}</span>
                                 </ng-template>
                             </span>
                         </div>

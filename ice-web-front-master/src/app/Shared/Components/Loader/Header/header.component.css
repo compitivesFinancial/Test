@@ -13,7 +13,42 @@ li.nav-item.dropdown span,
 li.nav-item.dropdown i {
     font-size: 18px;
 }
-
+@media screen and (min-width: 577px) {
+    .mobileSize {
+        display: flex;
+        flex-direction: row;
+    
+           /* display: flex;
+           flex-direction: column-reverse;
+           text-align: center;
+           margin: 10px 0; */
+          }
+    }
+@media screen and (max-width: 576.9px) {
+.mobileSize {
+ 
+       display: flex;
+       flex-direction: column-reverse;
+       text-align: center;
+       margin: 10px 0;
+      }
+}
+@media screen and (min-width: 577px) {
+    .mobileGap {
+         
+            /* margin: 10px 0; */
+           }
+    }
+@media screen and (max-width: 576.9px) {
+.mobileGap {
+     
+        margin: 10px 0;
+       }
+}
+.font-support {
+    font-family: 'tajawal-reg', sans-serif !important;
+    font-weight: bold !important;
+}
 .language a {
     /* text-decoration: underline; */
     cursor: pointer;

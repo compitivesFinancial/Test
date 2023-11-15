@@ -36,6 +36,7 @@ export class RegistrationComponent implements OnInit {
   LANG: any = '';
   email_disable: boolean = false;
   registrationForm: any;
+  btnReflect:string='1';
   //change the regitration with OTP variables
   show_otp: boolean = false;
   showResend: boolean = false;
@@ -94,6 +95,12 @@ export class RegistrationComponent implements OnInit {
       this.orderby = params['type'];
       // console.log(this.orderby); // price
     });
+   if( this.role_type==='2')
+   this.registration_type= { registration_type: '2' };
+  if(this.registration_type.registration_type==='2' )
+      this.btnReflect='2';
+  else
+      this.btnReflect='1';
   }
 
   changeLanguage() {

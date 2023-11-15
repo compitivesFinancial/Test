@@ -50,6 +50,19 @@ export class FooterComponent implements OnInit {
       this.logo = "assets/images/main-logo.png";
       this.logo_1 = "assets/images/main-logo1.png";
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+        this.logo = "assets/images/main-logo-ar.png";
+        this.logo_1 = "assets/images/main-logo1-ar.png";
+      }
+      else {
+        this.LANG = environment.english_translations;
+        this.logo = "assets/images/main-logo.png";
+        this.logo_1 = "assets/images/main-logo1.png";
+        
+      }
+    });
   }
 
 

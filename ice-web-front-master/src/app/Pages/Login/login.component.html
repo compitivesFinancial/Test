@@ -20,7 +20,7 @@
                 <span class="error" *ngIf="login_error.email_id_valid">{{LANG.Enter_valid_Email_Id}}</span>
             </div>
             <div class="form-group" *ngIf="show_password">
-                <input class="form-control" type="password" placeholder="Password *" name="password" [(ngModel)]="password">
+                <input class="form-control" type="password" placeholder="{{LANG.password_star}}" name="password" [(ngModel)]="password">
                 <span class="error" *ngIf="login_error.password">{{LANG.This_field_is_required}}</span>
                 <span class="error" *ngIf="login_error.password_valid">{{LANG.Password_must_be_8_characters_or_more}}</span>
                 <!-- <a href="#">Forgot?</a> -->
@@ -37,7 +37,7 @@
 
             </div>
             <!-- <p>Don’t have an account?<a href="#">Sign up</a></p> -->
-            <p class="cursor-pointer" (click)="showLoginPassword()">{{show_password ? LANG.Login_with_Email : LANG.Login_with_Password}}</p>
+            <p class="cursor-pointer" (click)="showLoginPassword()">{{!show_password ? LANG.Login_with_Password : LANG.Login_with_Email}}</p>
             <p class="cursor-pointer" (click)="forgetPassword()">{{LANG.Forget_Password}}</p>
         </ng-container>
 
@@ -88,13 +88,6 @@
             </form>
           </ng-container>
 
-    </div>
-    <div class="form-last">
-        <img src="assets/images/tick.svg">
-        <p>
-            <b>{{LANG.bit}}</b>
-            {{LANG.Secured_payment}}
-        </p>
     </div>
     <div class="form-footer">
         <p>{{LANG.Copyrights}}</p>

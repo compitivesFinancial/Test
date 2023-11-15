@@ -152,6 +152,16 @@ $("#carousel-3").owlCarousel({
         this.LANG=environment.english_translations;
         this.namechange = false
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+        this.namechange = true
+      }
+      else {
+        this.LANG = environment.english_translations;
+        this.namechange = false
+      }
+    });
   }
 
   errorHandler(){

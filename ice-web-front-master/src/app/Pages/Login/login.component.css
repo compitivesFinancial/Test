@@ -5,6 +5,10 @@
 .login-pad{
     background-color: #ffffff;
 }
+
+input[type="password"] {
+    padding: 4px 27px 0 !important;
+}
 .country-code{
     position: absolute;
     width: 20%;

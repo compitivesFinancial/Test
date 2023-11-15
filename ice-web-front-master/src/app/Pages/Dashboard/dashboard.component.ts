@@ -78,11 +78,6 @@ export class DashboardComponent implements OnInit {
         atob(atob(localStorage.getItem(user_data) || '{}'))
       );
     }
-  
-    this.amountForm = this.formBuilder.group({
-      amount: ['', [Validators.required,Validators.min(1000),Validators.max(20000)]],
-      agreement: ['', Validators.required],
-    });
 
     this.cardDetailsForm = this.formBuilder.group({
       cardNumber: ['', Validators.required],
@@ -95,6 +90,10 @@ export class DashboardComponent implements OnInit {
     );
     this.changeLanguage();
     this.getWalletInvestorSum();
+    this.amountForm = this.formBuilder.group({
+      amount: ['', [Validators.required,Validators.min(1000),Validators.max(20000)]],
+      agreement: ['', Validators.required],
+    });
   }
   async getWalletInvestorSum() {
     await this.setingservice.walletInvestorSum().subscribe((res: any) => {
@@ -217,6 +216,9 @@ export class DashboardComponent implements OnInit {
         .opertunityDetails(this.requestId)
         .subscribe((res: any) => {
           this.opertunityDetailList = res.response.campaign;
+          if(this.user_data.isQualified||this.opertunityDetailList.max_investment<20000){
+            this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.opertunityDetailList.max_investment)]);
+          }
           this.teams = res.response.campaign.team;
           this.campaign_images = res.response.campaign.campaign_images;
           this.campaignService.campaignDetail = res.response.campaign;
@@ -256,6 +258,7 @@ export class DashboardComponent implements OnInit {
           this.toast.error("you don't have enough money in your wallet");
           return;
         }
+        
       }
 
       let data = {

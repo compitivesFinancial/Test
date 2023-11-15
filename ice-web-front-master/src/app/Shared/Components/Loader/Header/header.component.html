@@ -1,7 +1,4 @@
 <header class="container-fluid header">
-    <div class="version">
-        <img src="assets/images/version.svg" alt="">
-    </div>
     <nav class="navbar navbar-expand-lg p-0">
         <a class="navbar-brand p-0" (click)="goHome()">
             <img src="{{logo}}" class="w-100" alt="" />
@@ -45,19 +42,20 @@
                 </ng-container>
 
                 <ng-template #no_logged_in>
-                    <li class="nav-item active">
-                        <a class=" btn btn-primary" (click)="goToLogin('3')">{{LANG.Register_as_Borrower}}
-                            <span class="hov-border"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class=" btn btn-primary" (click)="goToLogin('2')">{{LANG.Register_as_Investor}}
-                            <span class="hov-border"></span>
-
-                        </a>
-                    </li>
+                    <div class="mobileSize">
+                        <li class="nav-item mobileGap active">
+                            <a class=" btn btn-primary" (click)="goToLogin('3')">{{LANG.Register_as_Borrower}}
+                                <span class="hov-border"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item mobileGap">
+                            <a class=" btn btn-primary" (click)="goToLogin('2')">{{LANG.Register_as_Investor}}
+                                <span class="hov-border"></span>
+                            </a>
+                        </li>
+                    </div>
                 </ng-template>
-                <li class="dropdown">
+                <li class="dropdown mobileGap">
                     <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
                         {{selected_language}}
                     </button>
@@ -65,15 +63,15 @@
                         <a class="dropdown-item" (click)="changeLanguage()">{{optional_language}}</a>
                     </div>
                 </li>
-                <li class="nav-item" *ngIf="!logged_in;else logged_out" routerLink="/login" (click)="close()">
-                    <button [disabled]="disabledUI" class="btn login-btn hov-btn"><span><i class="fa fa-user" aria-hidden="true"></i> {{LANG.LOGIN}}</span></button>
+                <li class="nav-item mobileGap" *ngIf="!logged_in;else logged_out" routerLink="/login" (click)="close()">
+                    <button class="btn login-btn hov-btn"><span><i class="fa fa-user" aria-hidden="true"></i> {{LANG.LOGIN}}</span></button>
                 </li>
                 <ng-template #logged_out>
                     <div class=" head-button">
                         <li class="nav-item dropdown">
                             <button class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                <span class="hidden-md-down ml-10">{{user_data?.name}} &nbsp;</span>
+                                <span class="hidden-md-down ml-10 font-support">{{usernameTemp}} &nbsp;</span>
                             </button>
                             <div class="dropdown-menu animated flipInY head-drop">
                                 <!-- <button class="dropdown-item cursor-pointer" routerLink="/my-profile">My Profile</button>
