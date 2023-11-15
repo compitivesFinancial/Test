@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
     this.usernameTemp=this.user_data.name;
   else
     this.usernameTemp=localStorage.getItem("USERNAME");
-    if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
+    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") === null) {
       this.LANG = environment.arabic_translations;
       this.selected_language = "Ar";
       this.optional_language = "English";
@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
       document.documentElement.classList.remove('ar');
     }
     this.shared.getLang().subscribe(lang => {
-      if(lang=='ar'){
+      if(lang=='ar' || !lang){
         this.LANG = environment.arabic_translations;
         this.selected_language = "Ar";
         this.optional_language = "English";

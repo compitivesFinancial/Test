@@ -3,6 +3,7 @@ import { Router, NavigationStart  } from '@angular/router';
 import firebase from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { FirebaseConfigService } from './Shared/Services/firebase-config.service';
+import { SharedService } from './Shared/Services/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
   availableContent:boolean=false;
   keysPressed:any[]=[];
   stopListening:boolean=false;
-  constructor(public router: Router){
+  constructor(public router: Router,public shared:SharedService){
     
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
    
   }
   ngOnInit(): void {
-   
+    if(!localStorage.getItem("arabic"))
+    localStorage.setItem("arabic", "true");
   }
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: any){

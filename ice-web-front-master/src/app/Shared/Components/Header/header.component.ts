@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   user_data: any = {};
   subscriptions: Subscription[] = [];
   @Input() path!: string;
-  LANG = environment.english_translations;
+  LANG = environment.arabic_translations;
   selected_language: string = "";
   optional_language: string = "";
   logo: string = "assets/images/main-logo.png";
@@ -45,13 +45,12 @@ export class HeaderComponent implements OnInit {
       this.usernameTemp=localStorage.getItem("USERNAME");
     
     }
-    if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
-      this.LANG = environment.arabic_translations;
+    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
       this.shared.setLang('ar');
+      this.LANG = environment.arabic_translations;
       this.selected_language = "Ar";
       this.optional_language = "English";
       document.documentElement.classList.add('ar');
-    
     }
     else {
       this.shared.setLang('en');
@@ -59,11 +58,10 @@ export class HeaderComponent implements OnInit {
       this.selected_language = "En";
       this.optional_language = "Arabic";
       document.documentElement.classList.remove('ar');
-     
     }
    
     this.shared.getLang().subscribe(lang => {
-      if(lang=='ar'){
+      if(lang==='ar' || !lang){
         this.LANG = environment.arabic_translations;
       this.shared.setLang('ar');
       this.selected_language = "Ar";

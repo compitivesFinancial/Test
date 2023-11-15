@@ -163,7 +163,7 @@ public closedInvestedDetails:any
           this.router.navigateByUrl(`/wallet`)
         }
         changeLanguage(){
-          if(localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
+          if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
               this.LANG=environment.arabic_translations;
           }
           else {

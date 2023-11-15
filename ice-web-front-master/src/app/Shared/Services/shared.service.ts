@@ -11,7 +11,7 @@ export class SharedService {
 
     private loggedIn = new BehaviorSubject(this.isLoggedIn);
     private user_info = new BehaviorSubject(this.userInfo);
-    private lang = new BehaviorSubject('en');
+    private lang = new BehaviorSubject('ar');
     languageChange = new EventEmitter();
 
 

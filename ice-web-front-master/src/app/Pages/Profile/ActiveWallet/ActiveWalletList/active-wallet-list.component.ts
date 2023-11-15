@@ -65,7 +65,7 @@ export class ActiveWalletListComponent implements OnInit {
 
   }
   changeLanguage(){
-    if(localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
+    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
         this.LANG=environment.arabic_translations;
     }
     else {
