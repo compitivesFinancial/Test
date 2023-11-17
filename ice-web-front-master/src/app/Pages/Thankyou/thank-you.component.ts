@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-thank-you',
@@ -13,19 +13,12 @@ export class ThankYouComponent implements OnInit {
   LANG: any = ""
 
   constructor(private shared: SharedService) {
-    this.shared.languageChange.subscribe((path: any) => {
-      this.changeLanguage();
-    })
+   
     this.changeLanguage();
   }
 
   changeLanguage() {
-    if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
-      this.LANG = environment.arabic_translations;
-    }
-    else {
-      this.LANG = environment.english_translations;
-    }
+ 
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;

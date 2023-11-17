@@ -5,7 +5,7 @@ import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { StatementsService } from 'src/app/Shared/Services/statements.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   templateUrl: './campaign-list.component.html',
@@ -29,9 +29,7 @@ export class CampaignListComponent implements OnInit {
       this.user_data=JSON.parse(atob(atob(localStorage.getItem(user_data) || '{}')));
     }
    
-    this.subscriptions.push(this.shared.languageChange.subscribe((path:any)=>{
-      this.changeLanguage();
-    }))
+   
     this.changeLanguage();
   }
 
@@ -40,12 +38,7 @@ export class CampaignListComponent implements OnInit {
     this.getcampaigns();
   }
   changeLanguage(){
-    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
-        this.LANG=environment.arabic_translations;
-    }
-    else {
-        this.LANG=environment.english_translations;
-    }
+   
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;
@@ -111,8 +104,8 @@ export class CampaignListComponent implements OnInit {
     if(list!= null ){
       // console.log('iner')
       // console.log(this.router);
-
-      this.router.navigateByUrl(`/dashboard/${btoa(list.id)}`)
+    this.shared.setOpportunity(list);
+      this.router.navigateByUrl(`/dashboard/${btoa(list.id)}`);
     }
   }
 

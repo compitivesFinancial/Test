@@ -4,7 +4,7 @@ import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { DocumentService } from 'src/app/Shared/Services/document.service';
 import { DashboardService } from '../../Dashboard/dashboard.service';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { WalletService } from 'src/app/Shared/Services/wallet.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
@@ -38,11 +38,7 @@ export class InvestorWalletListComponent implements OnInit {
     }
    
     this.requestId = atob(this.route.snapshot.params['id']);
-    this.subscriptions.push(
-      this.shared.languageChange.subscribe((path: any) => {
-        this.changeLanguage();
-      })
-    );
+   
     this.subscriptions.push(
       this.walletService
         .getInvestorCampaignStatement(this.requestId)
@@ -56,13 +52,14 @@ export class InvestorWalletListComponent implements OnInit {
   ngOnInit(): void {}
   /***********************************************************************************/
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
-      this.LANG = environment.arabic_translations;
-    } else {
-      this.LANG = environment.english_translations;
-    }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
 }

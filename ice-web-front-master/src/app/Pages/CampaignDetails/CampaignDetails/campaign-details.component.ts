@@ -6,7 +6,7 @@ import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { LoginService } from 'src/app/Shared/Services/login.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 declare const $:any
 @Component({
   selector: 'app-campaign-details',
@@ -28,6 +28,7 @@ export class CampaignDetailsComponent implements OnInit {
   constructor(private route:ActivatedRoute,private campaignService:CampaignService,private loginService:LoginService,private toast:ToastrService,private router:Router,private shared:SharedService,private decryptAES:decryptAesService) {
     const user_data=btoa(btoa("user_info_web"));
     if(localStorage.getItem(user_data) != undefined){
+      this.changeLanguage();
       this.user_data=JSON.parse(atob(atob(localStorage.getItem(user_data) || '{}')));
     }
    
@@ -40,19 +41,10 @@ export class CampaignDetailsComponent implements OnInit {
           }
         }
     ))
-    this.subscriptions.push(this.shared.languageChange.subscribe((path:any)=>{
-      this.changeLanguage();
-    }))
-    this.changeLanguage();
+    
    }
    changeLanguage(){
-    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
-        this.LANG=environment.arabic_translations;
-    }
-    else {
-        this.LANG=environment.english_translations;
-    }
-    this.shared.getLang().subscribe(lang => {
+   this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;
       }

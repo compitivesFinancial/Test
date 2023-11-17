@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/Shared/Services/login.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { DashboardService } from '../Dashboard/dashboard.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 
@@ -44,14 +44,15 @@ export class SubHeaderMenueComponent implements OnInit {
   ngOnInit(): void {}
   /*****************************************************************************************/
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
-      this.LANG = environment.arabic_translations;
-    } else {
-      this.LANG = environment.english_translations;
-    }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
   /*****************************************************************************************/
   // getProfileDetails(type?: number) {

@@ -13,7 +13,7 @@ import 'firebase/storage';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LoginService } from 'src/app/Shared/Services/login.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { data } from 'jquery';
 import { findLast } from '@angular/compiler/src/directive_resolver';
@@ -152,7 +152,7 @@ isApproved:boolean=false;
     );
     this.subscriptions.push(
       this.shared.languageChange.subscribe((path: any) => {
-        this.changeLanguage();
+        
         this.getUserKycList();
         if (this.user_data.role_type == 2) {
           this.getProfileDetails(1);
@@ -161,7 +161,7 @@ isApproved:boolean=false;
         this.getProfileDetails();
       })
     );
-    this.changeLanguage();
+   
 
     this.getIdentityList();
     this.getGenderList();
@@ -179,7 +179,7 @@ isApproved:boolean=false;
 
   ngOnInit(): void {
     this.getUserKycList();
-  
+    this.changeLanguage();
     if (this.user_data.role_type == 2) {
       this.getProfileDetails(1);
       return;
@@ -260,14 +260,9 @@ isApproved:boolean=false;
   }
 
   changeLanguage() {
-    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") === null) {
-      this.LANG = environment.arabic_translations;
-    }
-    else {
-      this.LANG = environment.english_translations;
-    }
+   
     this.shared.getLang().subscribe(lang => {
-      if(lang=='ar' || !lang){
+      if(lang=='ar'){
         this.LANG = environment.arabic_translations;
       }
       else {
@@ -563,7 +558,6 @@ isApproved:boolean=false;
       this.loginService.getProfileDetails(data, type).subscribe((res: any) => {
         if (res.status) {
           this.user_details = res.response;
-          console.log("res.response",res.response);
           if (res.response.kyc_approved_status == 1) {
             this.disabled_inputs = true;
           }
@@ -1002,7 +996,6 @@ isApproved:boolean=false;
     let years = Math.floor(months / 12);
 
     let message = BOD.toDateString();
-    console.log("birthdate",birthdate);
     message += ' was ';
     message += days + ' days ';
     message += months + ' months ';

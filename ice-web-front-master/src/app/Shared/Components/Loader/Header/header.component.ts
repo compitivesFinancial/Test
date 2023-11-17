@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 declare const $: any;
 @Component({
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   user_data: any = {name:""};
   subscriptions: Subscription[] = [];
   @Input() path!: string;
-  LANG = environment.english_translations;
+  LANG:any = {};
   selected_language: string = "";
   optional_language: string = "";
   logo: string = "assets/images/main-logo.png";
@@ -38,32 +38,30 @@ export class HeaderComponent implements OnInit {
      
       this.shared.changeUserData(this.user_data)
     }
-    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") === null) {
-      this.LANG = environment.arabic_translations;
-      this.selected_language = "Ar";
-      this.optional_language = "English";
-      document.documentElement.classList.add('ar');
-    }
-    else {
-      this.LANG = environment.english_translations;
-      this.selected_language = "En";
-      this.optional_language = "Arabic"
-      document.documentElement.classList.remove('ar');
-    }
-    this.shared.getLang().subscribe(lang => {
-      if(lang=='ar' || !lang){
-        this.LANG = environment.arabic_translations;
-        this.selected_language = "Ar";
-        this.optional_language = "English";
-        document.documentElement.classList.add('ar');
-      }
-      else {
+    if(localStorage.getItem("arabic") ===null || localStorage.getItem("arabic")==="true"){
+      this.shared.setLang('ar');
+      localStorage.setItem("arabic", "true");
+      this.shared.getLang().subscribe(lang => {
+        if(lang==='ar'){
+          this.LANG = environment.arabic_translations;
+          this.selected_language = "Ar";
+          this.optional_language = "English";
+          document.documentElement.classList.add('ar');
+        }
+      }); 
+     }
+     else {
+      this.shared.setLang('en');
+      localStorage.setItem("arabic", "false");
+      this.shared.getLang().subscribe(lang => {
+      if(lang!=='ar'){
         this.LANG = environment.english_translations;
         this.selected_language = "En";
-        this.optional_language = "Arabic"
+        this.optional_language = "Arabic";
         document.documentElement.classList.remove('ar');
       }
     });
+     }
   }
 
   ngOnInit(): void {
@@ -82,22 +80,25 @@ export class HeaderComponent implements OnInit {
     if (this.optional_language == "Arabic") {
       localStorage.setItem("arabic", "true");
       this.LANG = environment.arabic_translations;
+      this.shared.setLang('ar');
       document.documentElement.classList.add('ar');
       this.selected_language = "Ar";
       this.optional_language = "English";
       this.shared.emitLanguageChange(location.pathname);
       this.logo = "assets/images/main-logo-ar.png";
       this.logo_1 = "assets/images/main-logo1-ar.png";
-      return
     }
-    localStorage.setItem("arabic", "false");
-    this.LANG = environment.english_translations;
-    document.documentElement.classList.remove('ar');
-    this.selected_language = "En";
-    this.optional_language = "Arabic";
-    this.logo = "assets/images/main-logo.png";
-    this.logo_1 = "assets/images/main-logo1.png";
-    this.shared.emitLanguageChange(location.pathname);
+    else {
+      localStorage.setItem("arabic", "false");
+      this.shared.setLang('en');
+      this.LANG = environment.english_translations;
+      document.documentElement.classList.remove('ar');
+      this.selected_language = "En";
+      this.optional_language = "Arabic";
+      this.logo = "assets/images/main-logo.png";
+      this.logo_1 = "assets/images/main-logo1.png";
+      this.shared.emitLanguageChange(location.pathname);
+    }
   }
   goHome() {
     // if(!this.logged_in){

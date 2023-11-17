@@ -72,7 +72,7 @@
                           </div>
                         </div>
                         <div *ngIf="user_data?.role_type == 2" class="col-md-9 wallet-right">
-                          <div class="wallet-right1" *ngIf="!walletInvestor.status">
+                          <!-- <div class="wallet-right1" *ngIf="!walletInvestor.status">
                             <p>{{walletBorrower.response.data}}</p>
                           </div>
                           <div class="table-responsive table-section" *ngIf="walletInvestor.status">
@@ -101,6 +101,35 @@
                                       <td>{{wallet.debit_amount}}</td>
                                       <td>{{wallet.credit_amount}}</td>
                                       <td>{{wallet.wallet_after}}</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                              </div>
+                          </div> -->
+                            <div class="table-responsive table-section" *ngIf="walletHistoryData?.status">
+                            <div class="container">
+                            <h2>{{LANG.Your_active_funds}}</h2>
+                              <table class="table table-borderless">
+                                <thead style="text-align: center;">
+                                  <tr>
+                                    <!-- <th>{{LANG.opportunity_id}}</th> -->
+                                    <th>{{LANG.investor_id}}</th>
+                                    <th>{{LANG.type}}</th>
+                                    <th>{{LANG.credit_amount}}</th>
+                                    <th>{{LANG.debit_amount}}</th>
+                                    <th>{{LANG.wallet_after}}</th>
+                                    <th>{{LANG.created_on}}</th> 
+                                  </tr>
+                                </thead>
+                                <tbody class="customTable">
+                                    <tr *ngFor="let record of walletHistoryData?.response?.data">
+                                      <!-- <td class="green" [class.red]="record.type==2">{{record.opportunity_id}}</td> -->
+                                      <td class="green" [class.red]="record.type==2">{{record.investor_id}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.type==1?LANG.credit:LANG.debit}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.credit_amount}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.debit_amount}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.wallet_after}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.created_on}}</td>
                                     </tr>
                                 </tbody>
                               </table>

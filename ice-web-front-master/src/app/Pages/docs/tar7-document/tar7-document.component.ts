@@ -4,9 +4,10 @@ import { Subscription } from 'rxjs';
 import { CampaginWithKyc } from 'src/app/Shared/Models/campagin-with-kyc';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { DocumentService } from 'src/app/Shared/Services/document.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { DashboardService } from '../../Dashboard/dashboard.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
+import { SharedService } from 'src/app/Shared/Services/shared.service';
 
 @Component({
   selector: 'app-tar7-document',
@@ -14,19 +15,20 @@ import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
   styleUrls: ['./tar7-document.component.css'],
 })
 export class Tar7DocumentComponent implements OnInit {
-  LANG = environment.english_translations;
+  LANG = environment.arabic_translations;
   campaginWithKyc!: CampaginWithKyc;
   kycStatus: any;
   subscriptions: Subscription[] = [];
   user_data: any = {};
   selectedOpportunity: any;
   requestId: any;
-
+companyName:any;
+  nationalId: any;
   constructor(
     private route: ActivatedRoute,
     private campaignService: CampaignService,
     private documentService: DocumentService,
-    public dashboardService: DashboardService,public decryptAES:decryptAesService
+    public dashboardService: DashboardService,public decryptAES:decryptAesService, private shared: SharedService
   ) {
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -51,7 +53,9 @@ export class Tar7DocumentComponent implements OnInit {
       .subscribe((res: any) => {
         this.kycStatus = res.status;
         if (res.status) {
-          this.campaginWithKyc = res.response;
+          this.companyName=res.response[0].company_name;
+          this.campaginWithKyc = res.response[1];
+          this.nationalId=res.response[2].national_id;
         }
       });
   }
@@ -67,13 +71,14 @@ export class Tar7DocumentComponent implements OnInit {
   }
   /***********************************************************************************/
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
-      this.LANG = environment.arabic_translations;
-    } else {
-      this.LANG = environment.english_translations;
-    }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
 }

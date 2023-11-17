@@ -6,7 +6,7 @@ import 'firebase/storage';
 import { Subscription } from 'rxjs';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { LkServiceService } from 'src/app/Shared/Services/lk-service.service';
 import { FundUse } from 'src/app/Shared/Models/fund-use';
@@ -35,9 +35,7 @@ export class AddCampaignComponent implements OnInit {
   fundUseList: Array<FundUse> = [];
 
   constructor(private toast: ToastrService, private campaign_service: CampaignService, private router: Router, private shared: SharedService, private lkService: LkServiceService,private loginService:LoginService) {
-    this.subscriptions.push(this.shared.languageChange.subscribe((path: any) => {
-      this.changeLanguage();
-    }))
+  
     this.changeLanguage();
     this.financingPeriod = this.lkService.getFinancingPeriod();
     this.financingType = this.lkService.getFinancingTyp();
@@ -54,12 +52,6 @@ export class AddCampaignComponent implements OnInit {
   }
 
   changeLanguage() {
-    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
-      this.LANG = environment.arabic_translations;
-    }
-    else {
-      this.LANG = environment.english_translations;
-    }
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;

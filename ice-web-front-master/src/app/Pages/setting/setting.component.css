@@ -23,7 +23,20 @@
     margin: 300px 600px;
     width: 750px;
 }
-
+.customTable {
+    background-color: transparent;
+    border-radius: 10px;
+    text-align: center;
+}
+.green{
+    color: green;
+    font-weight: 600;
+    border: solid black 1px
+    
+}
+.red{
+    color: red;
+}
 .ModalWidth{
     width: 500px;
     height: 214px

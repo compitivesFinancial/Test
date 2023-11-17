@@ -7,7 +7,7 @@ import { login_data } from 'src/app/Shared/Models/login.model';
 import { errorHandlerService } from 'src/app/Shared/Services/errorHandler.service';
 import { LoginService } from 'src/app/Shared/Services/login.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-login',
@@ -39,9 +39,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private toast: ToastrService, private loginService: LoginService, @Inject(DOCUMENT) private document: Document, private shared: SharedService, private error: errorHandlerService, private router: Router) {
-    this.subscriptions.push(this.shared.languageChange.subscribe((path: any) => {
-      this.changeLanguage();
-    }))
+   
     this.changeLanguage();
 
 
@@ -51,12 +49,7 @@ export class LoginComponent implements OnInit {
 
 
   changeLanguage() {
-    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") != null) {
-      this.LANG = environment.arabic_translations;
-    }
-    else {
-      this.LANG = environment.english_translations;
-    }
+    
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;

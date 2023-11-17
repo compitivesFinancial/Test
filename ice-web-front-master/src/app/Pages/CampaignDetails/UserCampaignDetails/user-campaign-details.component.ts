@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StatementsService } from 'src/app/Shared/Services/statements.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 
 @Component({
@@ -26,21 +26,14 @@ export class UserCampaignDetailsComponent implements OnInit {
           }
         }
     ))
-    this.subscriptions.push(this.shared.languageChange.subscribe((path:any)=>{
-      this.changeLanguage();
-    }))
+   
     this.changeLanguage();
   }
 
   ngOnInit(): void {
   }
   changeLanguage(){
-    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
-        this.LANG=environment.arabic_translations;
-    }
-    else {
-        this.LANG=environment.english_translations;
-    }
+   
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;

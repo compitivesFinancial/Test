@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { StatementsService } from 'src/app/Shared/Services/statements.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-quick-link',

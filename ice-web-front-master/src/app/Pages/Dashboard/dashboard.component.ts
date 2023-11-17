@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { LoginService } from 'src/app/Shared/Services/login.service';
 import { Subscription, timer } from 'rxjs';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { type } from 'os';
 import { DashboardService } from './dashboard.service';
 import {
@@ -38,7 +38,6 @@ export class DashboardComponent implements OnInit {
   user_data: any = {};
   dashboard_data: any = {};
   subscriptions: Subscription[] = [];
-  // LANG = environment.arabic_translations;
   LANG: any = {};
   public opertunityDetailList: any;
   requestId: any;
@@ -71,6 +70,9 @@ export class DashboardComponent implements OnInit {
   count: number = 0;
   downloadTimer: any;
   verifyClick:boolean=true;
+  opportunityData:any;
+  closeInvest:boolean=false;
+  opportunityInvestorData: any;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -98,11 +100,7 @@ export class DashboardComponent implements OnInit {
       cardNumber: ['', Validators.required],
       carddate: ['', Validators.required],
     });
-    this.subscriptions.push(
-      this.shared.languageChange.subscribe((path: any) => {
-        this.changeLanguage();
-      })
-    );
+   
     this.changeLanguage();
     this.getWalletInvestorSum();
     this.amountForm = this.formBuilder.group({
@@ -178,14 +176,15 @@ export class DashboardComponent implements OnInit {
   }
   /***********************************************************************************/
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
-      this.LANG = environment.arabic_translations;
-    } else {
-      this.LANG = environment.english_translations;
-    }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
 
   getProfileDetails(type?: number) {
@@ -212,15 +211,39 @@ export class DashboardComponent implements OnInit {
         })
     );
   }
-
+  getOpportunityData(){
+    this.shared.getOpportunity().subscribe(data=>{
+      if(!!data){
+        this.opportunityData=data; 
+        if(this.opportunityData.open_date!==null){
+          const current = new Date(this.opportunityData.open_date);
+          const openDate =new Date();
+          if(openDate>current||this.investPercentage===100){
+            this.closeInvest=true;
+          }
+        }
+        else {
+          this.closeInvest=true;
+        }
+       
+      }
+     
+    });
+  }
   getOpertunityComPercentage() {
     this.subscriptions.push(
       this.dashboardService
         .getCampaignInvestPerc(this.requestId)
         .subscribe((res: any) => {
-          // Math.round((res.response + Number.EPSILON) * 100) / 100
-          this.investPercentage = (Math.round((res.response + Number.EPSILON) * 100) / 100);
-          //console.log("this.investPercentage == "+ this.investPercentage);
+          if(res.status){
+            this.opportunityInvestorData=res.response;
+
+            // Math.round((res.response + Number.EPSILON) * 100) / 100
+            this.investPercentage = (Math.round((res.response.percent + Number.EPSILON) * 100) / 100);
+            
+            //console.log("this.investPercentage == "+ this.investPercentage);
+          }
+         
         })
     );
   }
@@ -230,6 +253,7 @@ export class DashboardComponent implements OnInit {
       this.dashboardService
         .opertunityDetails(this.requestId)
         .subscribe((res: any) => {
+          this.getOpportunityData();
           this.opertunityDetailList = res.response.campaign;
           if(this.user_data.isQualified||this.opertunityDetailList.max_investment<20000){
             this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.opertunityDetailList.max_investment)]);
@@ -287,7 +311,6 @@ export class DashboardComponent implements OnInit {
     }));
   }
   verifyOtpPhp(otp: string) {
-    console.log("verifyOtpPhp");
     const data = {
       "email": this.email,
       // "country_code": this.country_code,
@@ -305,7 +328,6 @@ export class DashboardComponent implements OnInit {
     }))
   }
   loginUser() {
-    console.log("loginUser");
       const otp = this.otp1 + this.otp2 + this.otp3 + this.otp4
       const post_data = {
         "email": this.email,
@@ -333,7 +355,6 @@ export class DashboardComponent implements OnInit {
       this.email=localStorage.getItem("emailLogin");
     }
       
-    console.log("its called");
     this.otpFromPhp(this.email);
     if (this.load) return;
     this.err = false;
@@ -520,7 +541,6 @@ export class DashboardComponent implements OnInit {
 
       if(!this.user_data.isQualified){
         const totalInvestment = Number(this.amountForm.value.amount) + Number(this.totalInvest);
-        console.log("totalInvestment",totalInvestment);
         if(this.amountForm.value.amount <1000){
           this.toast.error("You are not allowed to invest less than 1000 SR");
           return;

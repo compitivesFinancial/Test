@@ -47,11 +47,7 @@ export class QualifiedInvestorComponent implements OnInit {
       );
     }
    
-    this.subscriptions.push(
-      this.shared.languageChange.subscribe((path: any) => {
-        this.changeLanguage();
-      })
-    );
+   
     this.changeLanguage();
     this.profile();
     this.getQualifiedInvestorData();
@@ -77,14 +73,15 @@ export class QualifiedInvestorComponent implements OnInit {
   }
   /************************************************************************************/
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
-      this.LANG = environment.arabic_translations;
-    } else {
-      this.LANG = environment.english_translations;
-    }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
   /************************************************************************************/
   profile() {

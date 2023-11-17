@@ -58,5 +58,8 @@ export class SettingService {
     this.url ="wallet_borrower_sum"
     return this.api.get(this.url,"")
   }
-
+  walletHistory(user_id: any, role_type: any) {
+    this.url = `getDataTable`+'?role_type='+`${user_id}`+'&user_id='+`${role_type}`;
+    return this.api.get(this.url, '');
+  }
 }

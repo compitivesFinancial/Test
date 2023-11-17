@@ -33,13 +33,13 @@
                     <div class="col-md-4">
                         <div class="invest">
                             <p>{{LANG.Investers}}</p>
-                            <h6>{{opertunityDetailList?.investers}}</h6>
+                            <h6>{{opportunityInvestorData.numberOfInvestor}}</h6>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="invest">
                             <p>{{LANG.Raised}}</p>
-                            <h6>SAR {{opertunityDetailList?.raised}}</h6>
+                            <h6>SAR {{opportunityInvestorData.amount}}</h6>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-primary" *ngIf="user_data.role_type==2 && disabled_inputs" data-bs-toggle="modal" data-bs-target="#investmentModal"> {{LANG.investment}}</button>
+                    <button class="btn btn-primary" *ngIf="user_data.role_type==2 && disabled_inputs && !closeInvest" data-bs-toggle="modal" data-bs-target="#investmentModal"> {{LANG.investment}}</button>
                     <!-- Button trigger modal -->
                 </div>
 
@@ -74,7 +74,6 @@
                         <button type="button" #closebutton class="close" data-bs-dismiss="modal">&times;</button>
                       </div>
                       <div class="modal-body">
-                            <app-investmentagreement></app-investmentagreement>
                           <form [formGroup]="amountForm">
                             <div class="control">
                               <input type="checkbox" [(ngModel)]="checkedBtn" id="agreement" name="agreement" formControlName="agreement">

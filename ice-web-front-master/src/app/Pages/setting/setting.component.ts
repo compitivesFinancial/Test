@@ -5,7 +5,7 @@ import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { SettingService } from './setting.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 declare const $: any;
 @Component({
@@ -27,7 +27,7 @@ export class SettingComponent implements OnInit {
   LANG: any = '';
   walletInvestorSum: any;
   walletBorrowerSum: any;
-
+  walletHistoryData:any=null;
   constructor(
     private shared: SharedService,
     private campaignService: CampaignService,
@@ -42,22 +42,20 @@ export class SettingComponent implements OnInit {
       );
     }
   
-    this.subscriptions.push(
-      this.shared.languageChange.subscribe((path: any) => {
-        this.changeLanguage();
-      })
-    );
+   
     this.changeLanguage();
+    this.getwalletHistory();
   }
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
-      this.LANG = environment.arabic_translations;
-    } else {
-      this.LANG = environment.english_translations;
-    }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
   ngOnInit(): void {
     $('.chart').easyPieChart({
@@ -93,7 +91,15 @@ export class SettingComponent implements OnInit {
   getPercent(a: any, b: any) {
     return (a / b) * 100;
   }
+getwalletHistory(){
+ const id =this.decryptAES.decryptAesCbc(this.user_data.id,environment.decryptionAES.key,environment.decryptionAES.iv);
+  this.setingservice.walletHistory(this.user_data.role_type,id).subscribe((res:any)=>{
+    if(res.status){
+      this.walletHistoryData=res;
+    }
 
+  });
+}
   getDashboardDetails(type?: number) {
     const data = { user_id: this.user_data.id };
     this.campaignService.investorDashboard(data, type).subscribe((res: any) => {

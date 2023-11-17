@@ -25,7 +25,7 @@ import { SubHeaderMenueComponent } from './Pages/subHeader/sub-header-menue.comp
 import { QualifiedInvestorComponent } from './Pages/qualified-investor/qualified-investor.component';
 import { InvestorWalletListComponent } from './Pages/CampaignDetails/investor-wallet-list/investor-wallet-list.component';
 import { AngularFireModule } from '@angular/fire';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { LoaderModule } from "./Shared/Components/Loader/loader.module";
 
 @NgModule({

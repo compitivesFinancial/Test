@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { errorHandlerService } from 'src/app/Shared/Services/errorHandler.service';
@@ -31,13 +31,21 @@ export class NewHomeComponent implements OnInit {
 
   constructor(private campaignService:CampaignService,private shared:SharedService,private toast:ToastrService,private error:errorHandlerService, public router:Router) {
     this.subscriptions.push(this.shared.languageChange.subscribe((path:any)=>{
-      this.changeLanguage();
+      this.shared.getLang().subscribe(lang => {
+        if(lang=='ar'){
+          this.LANG = environment.arabic_translations;
+          this.namechange = true
+        }
+        else {
+          this.LANG = environment.english_translations;
+          this.namechange = false
+        }
+      });
       // this.getProducts();
       this.getHomeData();
       // this.getHomePage();
 
     }))
-    this.changeLanguage();
   }
 
   ngOnInit(): void {
@@ -143,15 +151,6 @@ $("#carousel-3").owlCarousel({
   public namechange:boolean=false
 
   changeLanguage(){
-    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
-
-        this.LANG=environment.arabic_translations;
-        this.namechange = true
-    }
-    else {
-        this.LANG=environment.english_translations;
-        this.namechange = false
-    }
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;

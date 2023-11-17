@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, NavigationStart  } from '@angular/router';
 import firebase from 'firebase/app';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { FirebaseConfigService } from './Shared/Services/firebase-config.service';
 import { SharedService } from './Shared/Services/shared.service';
 
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   availableContent:boolean=false;
   keysPressed:any[]=[];
   stopListening:boolean=false;
+  LANG:any={};
   constructor(public router: Router,public shared:SharedService){
     
     this.router.events.subscribe(event => {
@@ -28,8 +29,15 @@ export class AppComponent implements OnInit {
    
   }
   ngOnInit(): void {
-    if(!localStorage.getItem("arabic"))
-    localStorage.setItem("arabic", "true");
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+        
+      }
+    });
   }
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: any){

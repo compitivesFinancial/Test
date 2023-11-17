@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { CampaignService } from '../../Services/campaign.service';
 import { SharedService } from '../../Services/shared.service';
 import { StatementsService } from '../../Services/statements.service';
@@ -18,7 +18,7 @@ export class FooterComponent implements OnInit {
   logo_1: string = "assets/images/main-logo1.png";
   constructor(private footer: StatementsService, private router: Router, private shared: SharedService, public campaignService: CampaignService) {
     this.shared.languageChange.subscribe((path: any) => {
-      this.changeLanguage();
+     
       this.getPageList();
 
 
@@ -40,16 +40,7 @@ export class FooterComponent implements OnInit {
   }
 
   changeLanguage() {
-    if (localStorage.getItem("arabic") == "true" && localStorage.getItem("arabic") != null) {
-      this.LANG = environment.arabic_translations;
-      this.logo = "assets/images/main-logo-ar.png";
-      this.logo_1 = "assets/images/main-logo1-ar.png";
-    }
-    else {
-      this.LANG = environment.english_translations;
-      this.logo = "assets/images/main-logo.png";
-      this.logo_1 = "assets/images/main-logo1.png";
-    }
+ 
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;

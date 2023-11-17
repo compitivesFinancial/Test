@@ -21,7 +21,7 @@ export class apiServiceComponent {
 		this.authHeader = this.config.getAuthHeaders(url);
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			'Accept-Language': 'en',
+			'Accept-Language': 'ar',
 			'crossDomain': 'true',
 			'city_id': '4',
       'amount':data.amount,
@@ -32,8 +32,11 @@ export class apiServiceComponent {
 		if (token) {
 			headers = headers.set('Authorization', `Bearer ${token}`);
 		}
-		if (localStorage.getItem("arabic") == "true") {
+		if (localStorage.getItem("arabic") ===null || localStorage.getItem("arabic")==="true") {
 			headers = headers.set('Accept-Language', "ar");
+		}
+		else {
+			headers = headers.set('Accept-Language', "en");
 		}
 		return headers;
 	}
@@ -42,7 +45,7 @@ export class apiServiceComponent {
 		this.authHeader = this.config.getAuthHeaders(url);
 		let headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			'Accept-Language': 'en',
+			'Accept-Language': 'ar',
 			'crossDomain': 'true',
 			'city_id': '4'
       // ,'Access-Control-Allow-Origin': 'https://www.cfc.sa',
@@ -58,8 +61,12 @@ export class apiServiceComponent {
 		// 	const country_id=atob(atob(localStorage.getItem("country_id") || "0"))
 		// 	headers = headers.set('city_id', country_id);
 		// }
-		if (localStorage.getItem("arabic") == "true") {
+		
+		if (localStorage.getItem("arabic") ===null || localStorage.getItem("arabic")==="true") {
 			headers = headers.set('Accept-Language', "ar");
+		}
+		else {
+			headers = headers.set('Accept-Language', "en");
 		}
 		// const language=localStorage.getItem("arabic");
 		// if(language=="true"){

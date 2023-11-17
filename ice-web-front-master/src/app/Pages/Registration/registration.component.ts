@@ -6,7 +6,7 @@ import { errorHandlerService } from 'src/app/Shared/Services/errorHandler.servic
 import { LoginService } from 'src/app/Shared/Services/login.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 @Component({
@@ -55,11 +55,7 @@ export class RegistrationComponent implements OnInit {
     private error: errorHandlerService,
     public fb: FormBuilder
   ) {
-    this.subscriptions.push(
-      this.shared.languageChange.subscribe((path: any) => {
-        this.changeLanguage();
-      })
-    );
+   
     this.changeLanguage();
     const a: any = this.router.getCurrentNavigation()!.extras!.state;
     if (a) {
@@ -104,14 +100,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   changeLanguage() {
-    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") === null) {
-      this.LANG = environment.arabic_translations;
-    }
-    else {
-      this.LANG = environment.english_translations;
-    }
+    
     this.shared.getLang().subscribe(lang => {
-      if(lang=='ar' || !lang){
+      if(lang=='ar'){
         this.LANG = environment.arabic_translations;
       }
       else {

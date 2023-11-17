@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { StatementsService } from 'src/app/Shared/Services/statements.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   templateUrl: './quick-link.component.html',
@@ -25,9 +25,7 @@ export class QuickLinkComponent implements OnInit {
 
     }
   
-    this.shared.languageChange.subscribe((path:any)=>{
-      this.changeLanguage();
-    })
+    
     this.changeLanguage();
     this.route.queryParams
       .subscribe(
@@ -44,12 +42,7 @@ export class QuickLinkComponent implements OnInit {
   }
 
   changeLanguage(){
-    if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
-        this.LANG=environment.arabic_translations;
-    }
-    else {
-        this.LANG=environment.english_translations;
-    }
+   
     this.shared.getLang().subscribe(lang => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;
