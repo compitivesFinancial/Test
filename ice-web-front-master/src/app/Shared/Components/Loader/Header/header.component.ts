@@ -38,10 +38,6 @@ export class HeaderComponent implements OnInit {
      
       this.shared.changeUserData(this.user_data)
     }
-    if(!localStorage.getItem("USERNAME"))
-    this.usernameTemp=this.user_data.name;
-  else
-    this.usernameTemp=localStorage.getItem("USERNAME");
     if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") === null) {
       this.LANG = environment.arabic_translations;
       this.selected_language = "Ar";
@@ -73,7 +69,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('availableContent')==='1')
     this.disabledUI=false;
-    this.usernameTemp=localStorage.getItem("USERNAME");
+    this.shared.getName().subscribe(userName=>{
+      this.usernameTemp=userName; 
+    });
   }
 
   close() {

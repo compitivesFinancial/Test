@@ -26,50 +26,52 @@ import { QualifiedInvestorComponent } from './Pages/qualified-investor/qualified
 import { InvestorWalletListComponent } from './Pages/CampaignDetails/investor-wallet-list/investor-wallet-list.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { LoaderModule } from "./Shared/Components/Loader/loader.module";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent,
-    NewHomeComponent,
-    FooterComponent,
-    DashboardComponent,
-    InvestmentComponent,
-    SettingComponent,
-    DashboarddetailsComponent,
-    InvestmentagreementComponent,
-    ProgramInfoComponent,
-    Tar7DocumentComponent,
-    SubHeaderMenueComponent,
-    QualifiedInvestorComponent,
-    InvestorWalletListComponent,
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        HomeComponent,
+        NewHomeComponent,
+        FooterComponent,
+        DashboardComponent,
+        InvestmentComponent,
+        SettingComponent,
+        DashboarddetailsComponent,
+        InvestmentagreementComponent,
+        ProgramInfoComponent,
+        Tar7DocumentComponent,
+        SubHeaderMenueComponent,
+        QualifiedInvestorComponent,
+        InvestorWalletListComponent,
     ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule.forRoot(),
-    HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    NgCircleProgressModule.forRoot({
-      // set defaults here
-      outerStrokeWidth: 16,
-      innerStrokeWidth: 8,
-      outerStrokeColor: "#78C000",
-      innerStrokeColor: "#C7E596",
-      animationDuration: 300,
-
-    })
-    //  NgImageSliderModule
-  ],
-  exports: [
-    SubHeaderMenueComponent,
-],
-  providers: [DatePipe],
-  bootstrap: [AppComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+    exports: [
+        SubHeaderMenueComponent,
+    ],
+    providers: [DatePipe],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule.forRoot(),
+        HttpClientModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        NgCircleProgressModule.forRoot({
+            // set defaults here
+            outerStrokeWidth: 16,
+            innerStrokeWidth: 8,
+            outerStrokeColor: "#78C000",
+            innerStrokeColor: "#C7E596",
+            animationDuration: 300,
+        })
+        //  NgImageSliderModule
+        ,
+        LoaderModule
+    ]
 })
 export class AppModule { }

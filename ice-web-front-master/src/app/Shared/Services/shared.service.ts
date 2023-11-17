@@ -12,6 +12,7 @@ export class SharedService {
     private loggedIn = new BehaviorSubject(this.isLoggedIn);
     private user_info = new BehaviorSubject(this.userInfo);
     private lang = new BehaviorSubject('ar');
+    private name = new BehaviorSubject('');
     languageChange = new EventEmitter();
 
 
@@ -43,7 +44,12 @@ export class SharedService {
       public getLang(): Observable<string> {
         return this.lang.asObservable();
       }
-        
+      public setName(name: string) {
+        return this.name.next(name);
+      }
+      public getName(): Observable<string> {
+        return this.name.asObservable();
+      } 
 
     
 }

@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from 'src/app/Shared/Services/login.service';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
 import { environment } from 'src/environments/environment';
 import { type } from 'os';
@@ -22,7 +22,9 @@ import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { SettingService } from '../setting/setting.service';
 import { BankapiService } from 'src/app/Shared/Services/bankapi.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
+import { DOCUMENT } from '@angular/common';
 import jsPDF from 'jspdf';
+import { errorHandlerService } from 'src/app/Shared/Services/errorHandler.service';
 // import { Toast } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
@@ -55,7 +57,20 @@ export class DashboardComponent implements OnInit {
   walletInvestorSum :any;
   checkedBtn:boolean=false;
   printPage:any;
-  
+  load: boolean = false;
+  login_error: any = {};
+  otp1: string = "";
+  otp2: string = "";
+  otp3: string = "";
+  otp4: string = "";
+  email: any = "";
+  err: boolean = false;
+  password: string = "";
+  show_otp: boolean=false;
+  showResend: boolean = false;
+  count: number = 0;
+  downloadTimer: any;
+  verifyClick:boolean=true;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -68,7 +83,7 @@ export class DashboardComponent implements OnInit {
     private toast: ToastrService,
     private documentService: DocumentService,
     private bankapiService: BankapiService,
-    private shared: SharedService,public decryptAES:decryptAesService
+    private shared: SharedService,public decryptAES:decryptAesService, @Inject(DOCUMENT) private document: Document, private error: errorHandlerService
   ) {
     this.myDate = new Date();
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -227,7 +242,270 @@ export class DashboardComponent implements OnInit {
   }
 
   onPaydetails: any;
+
+  verifyOtp() {
+    if (this.load) return;
+    this.err = false;
+    this.resetError();
+    const otp = this.otp1 + this.otp2 + this.otp3 + this.otp4
+    if (otp.length != 4) {
+      this.login_error.otp = true;
+      this.err = true;
+    }
+    if (!this.err) {
+      this.load = true;
+      this.checkMobile(otp)
+    }
+  }
+  
+  checkMobile(otp?: string) {
+    this.load = true;
+    let data = { "email": this.email }
+    this.subscriptions.push(this.loginService.checkMobile(data).subscribe((result: any) => {
+      if (!result.status) {
+        this.loginUser();
+        return
+      }
+      if (!result.response.status) {
+        this.loginUser();
+        return
+      }
+      if (result.status) {
+        if (otp) {
+          this.verifyOtpPhp(otp)
+        }
+        return
+      }
+      this.toast.warning(result.response.message, "")
+    }, (respagesError: any) => {
+      this.load = false;
+      const error = this.error.getError(respagesError);
+      if (error == "Gateway timeout") {
+        return
+      }
+      this.toast.error(error, "error")
+    }));
+  }
+  verifyOtpPhp(otp: string) {
+    console.log("verifyOtpPhp");
+    const data = {
+      "email": this.email,
+      // "country_code": this.country_code,
+      "otp": otp
+    }
+    this.subscriptions.push(this.loginService.verifyOtp(data).subscribe((result: any) => {
+      if (result.status) {
+        this.load = false;
+        this.onPay();
+        return
+      }
+      this.load = false;
+      this.clearOTP();
+      this.toast.warning(result.response.message, "")
+    }))
+  }
+  loginUser() {
+    console.log("loginUser");
+      const otp = this.otp1 + this.otp2 + this.otp3 + this.otp4
+      const post_data = {
+        "email": this.email,
+        // "country_code": this.country_code,
+        "otp": otp,
+      }
+      this.loginWithOtp(post_data);
+    
+  }
+  loginWithOtp(data: any) {
+    this.subscriptions.push(this.loginService.loginWithOtp(data).subscribe((result: any) => {
+      if (result.response.token) {
+        this.onPay();
+        this.load = false;
+       
+        return
+      }
+      this.load = false;
+      this.clearOTP();
+      this.toast.warning(result.response.message, "")
+    }))
+  }
+  sendOTP() {
+    if(!!localStorage.getItem("emailLogin")){
+      this.email=localStorage.getItem("emailLogin");
+    }
+      
+    console.log("its called");
+    this.otpFromPhp(this.email);
+    if (this.load) return;
+    this.err = false;
+    this.resetError();
+    this.errorHandler();
+    if (!this.err) {
+      this.load = true;
+      // this.otpFromPhp(this.mobile_number);
+  
+    }
+  }
+  otpFromPhp(email: string, type?: number) {
+    const data = {
+      "email": email,
+      // "country_code": this.country_code
+    }
+    this.subscriptions.push(this.loginService.sendOtp(data).subscribe((result: any) => {
+      this.load = false;
+      if (result.status) {
+        this.load = false;
+        this.resetError();
+        if (type == 1) {
+          this.clearOTP()
+          this.resendOTP();
+          return
+        }
+        this.show_otp = true;
+        this.showResend = true;
+        const time = timer(1000);
+        this.subscriptions.push(time.subscribe(() => {
+          const input = this.getCodeBoxElement(1);
+          input?.focus();
+        }));
+        this.toast.success(result.response.message, "")
+
+        return
+      }
+      this.load = false;
+      this.toast.warning(result.message, "")
+    }))
+  }
+  clearOTP() {
+    this.otp1 = "";
+    this.otp2 = "";
+    this.otp3 = "";
+    this.otp4 = "";
+
+  }
+  resendOTP() {
+    let timeleft = 30;
+    this.downloadTimer = setInterval(() => {
+      if (timeleft < 0) {
+        this.document.getElementById("countdown")!.innerHTML = "";
+        clearInterval(this.downloadTimer);
+        this.showResend = true;
+      } else {
+        if (this.document.getElementById("countdown")) {
+          this.document.getElementById("countdown")!.innerHTML = `<p>Wait for ${timeleft} seconds to resend</p>`;
+        }
+      }
+      timeleft -= 1;
+    }, 1000);
+  }
+  getCodeBoxElement(index: number) {
+    if (index === 1) {
+      return this.getOtpReference("codeBox1")
+    }
+    if (index === 2) {
+      return this.getOtpReference("codeBox2")
+    }
+    if (index === 3) {
+      return this.getOtpReference("codeBox3")
+    }
+    if (index === 4) {
+      return this.getOtpReference("codeBox4")
+    }
+    if (index === 5) {
+      return this.getOtpReference("codeBox5")
+    }
+    if (index === 6) {
+      return this.getOtpReference("codeBox6")
+    }
+    return
+  }
+  resetError() {
+    this.login_error = {
+      "email": false,
+      "email_valid": false,
+      "password": false,
+      "password_valid": false,
+      "otp": false,
+    }
+  }
+  resendAgain() {
+    this.showResend = false
+    this.count += 1;
+    if (this.count <= 3) {
+      this.otpFromPhp(this.email, 1);
+    } else {
+      this.toast.warning("You exceeded maximum request attempts. Please try again after some time", "")
+    }
+  }
+  onKeyUpEvent(index: number, event: any) {
+    const eventCode = event.which || event.keyCode;
+    const id = `codeBox${index}`
+    if (this.getOtpReference(id)!.value.length === 1) {
+      if (index !== 6) {
+        const next_id = `codeBox${index + 1}`
+        this.getOtpReference(next_id)!.focus();
+      } else {
+        if (index == 6) {
+          return
+        }
+        this.getOtpReference(id)!.blur();
+      }
+    }
+    if (eventCode === 8 && index !== 1) {
+      const prev_id = `codeBox${index - 1}`
+      this.getOtpReference(prev_id).focus();
+    }
+  }
+  onFocusEvent(index: number) {
+    for (let item = 1; item < index; item++) {
+      const id = `codeBox${item}`
+      const currentElement = this.getOtpReference(id);
+      if (currentElement) {
+        currentElement.focus();
+        break;
+      }
+    }
+  }
+  keyPressed(event: any, index: number) {
+    let keycode = (event.which) ? event.which : event.keyCode;
+    if ((keycode < 48 || keycode > 57) && keycode !== 13 || keycode == 46) {
+      event.preventDefault();
+      return false;
+    }
+    if (this.getOtpReference('codeBox1').value.length === 1 && index == 1) {
+      return false;
+    }
+    if (this.getOtpReference('codeBox2').value.length === 1 && index == 2) {
+      return false;
+    }
+    if (this.getOtpReference('codeBox3').value.length === 1 && index == 3) {
+      return false;
+    }
+    if (this.getOtpReference('codeBox4').value.length === 1 && index == 4) {
+      return false;
+    }
+    return
+  }
+  errorHandler() {
+    // this.mobileErrorHandler();
+    if (this.email == "" || this.email == undefined) {
+      this.login_error.email_id = true;
+      this.err = true;
+    }
+
+    if (!this.login_error.email_id && this.checkEmail(this.email)) {
+      this.login_error.email_id_valid = true;
+      this.err = true;
+    }
+  }
+  checkEmail(email: string) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return !re.test(email)
+  }
+  getOtpReference(id: any) {
+    return this.document.getElementById(id) as HTMLInputElement
+  }
   onPay() {
+    this.verifyClick=false;
     if (this.amountForm.valid) {
       if (
         this.amountForm.value.agreement == undefined ||
@@ -242,6 +520,7 @@ export class DashboardComponent implements OnInit {
 
       if(!this.user_data.isQualified){
         const totalInvestment = Number(this.amountForm.value.amount) + Number(this.totalInvest);
+        console.log("totalInvestment",totalInvestment);
         if(this.amountForm.value.amount <1000){
           this.toast.error("You are not allowed to invest less than 1000 SR");
           return;
@@ -271,6 +550,7 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.onPay(data).subscribe((res: any) => {
         this.onPaydetails = res.response.session_id;
         this.toast.success(res.response.message);
+        this.toast.success("Paid successfully!")
         // $('#modalwindow').modal('hide');
         //console.log(this.onPaydetails);
         // this.router.navigateByUrl(`payment/${btoa(this.onPaydetails)}`)

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { apiServiceComponent } from './api.service';
+import { decryptAesService } from './decryptAES.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +10,7 @@ export class QualifiedInvestorService {
   private url: string = '';
   public campaignDetail: any;
 
-  constructor(private api: apiServiceComponent) {}
+  constructor(private api: apiServiceComponent,private decrypt:decryptAesService) {}
   /********************************************************************/
   addQualifiedInvestor(data: Object) {
     this.url = 'addQualifiedInvestorAttach';
@@ -16,7 +18,9 @@ export class QualifiedInvestorService {
   }
   /********************************************************************/
   getQualifiedInvestorData(investor_id: any) {
-    this.url = `getQualifiedInvestorAttach/${investor_id}`;
+    let id= this.decrypt.decryptAesCbc(investor_id,environment.decryptionAES.key,environment.decryptionAES.iv);
+    console.log("id",id);
+    this.url = `getQualifiedInvestorAttach/${id}`;   
     return this.api.get(this.url, '');
   }
 }

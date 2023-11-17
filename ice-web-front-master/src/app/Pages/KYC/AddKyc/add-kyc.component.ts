@@ -110,7 +110,6 @@ export class AddKycComponent implements OnInit, OnChanges {
   sexDescAr: string = '';
   idExpirationDate: string = '';
   subTribeName: string = ''; // for sudi only
-
   //change the regitration with OTP variables
   show_otp: boolean = false;
   showResend: boolean = false;
@@ -119,6 +118,7 @@ export class AddKycComponent implements OnInit, OnChanges {
   otp2: string = '';
   otp3: string = '';
   otp4: string = '';
+  procced:boolean=false
   //End add by qaysar
 isApproved:boolean=false;
   constructor(
@@ -260,14 +260,20 @@ isApproved:boolean=false;
   }
 
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
+    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") === null) {
       this.LANG = environment.arabic_translations;
-    } else {
+    }
+    else {
       this.LANG = environment.english_translations;
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar' || !lang){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+      }
+    });
   }
   //added By Qaysar For updating the page with dynamic list
   onChangeIdentity() {
@@ -331,6 +337,8 @@ isApproved:boolean=false;
   /*************************************************************************************************************/
 
   checkYaqeenService() {
+    this.yaqeenArName='';
+  this.yaqeenEnName='';
     let hasData = false;
     if (
       this.identityStr != null &&
@@ -386,6 +394,12 @@ isApproved:boolean=false;
         const monthYear =
           new Date(this.iqamaDOB).getFullYear().toString() +
           '-' + month;
+          let year =parseInt(new Date(this.iqamaDOB).getFullYear().toString());
+          let current=parseInt(new Date().getFullYear().toString());
+          if((current-year)<18){
+            alert('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age');
+            this.router.navigate(['/dashboard']);
+          }
          console.log(`the Date Of birth iqama service ${monthYear}`);
         //  alert(`the Date Of birth iqama service ${monthYear}`);
         this.getYaqeenIqamaData(monthYear);
@@ -401,6 +415,13 @@ isApproved:boolean=false;
   /*************************************************************************************************************/
   getYaqeenSaudiData() {
     let yearMonth = `${this.yearsHStr}-${this.monthStr}`;
+
+    let current=parseInt(new Date().getFullYear().toString());
+   // console.log("this.monthStr",(current-((parseInt(this.yearsHStr)*0.97)+622)+(parseInt(this.monthStr)/12)));
+    if((current-((parseInt(this.yearsHStr)*0.97)+622)+(parseInt(this.monthStr)/12))<18){
+      alert('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age');
+            this.router.navigate(['/dashboard']);
+    }
     this.subscriptions.push(
       this.yaqeenService
         .getYaqeenSaudiData(this.yaqeenIdNumber, yearMonth)
@@ -448,7 +469,9 @@ isApproved:boolean=false;
               this.yaqeenData.grandFatherNameT +
               ' ' +
               this.yaqeenData.familyNameT;
+              this.procced=true;
             this.toast.success('verified');
+            
           } else {
             this.toast.error('Not Verified ');
           }
@@ -504,7 +527,9 @@ isApproved:boolean=false;
               this.yaqeenData.grandFatherNameT +
               ' ' +
               this.yaqeenData.familyNameT;
+              this.procced=true;
             this.toast.success('Verified');
+            
           } else {
             this.toast.error('Not Verified ');
           }
@@ -538,6 +563,7 @@ isApproved:boolean=false;
       this.loginService.getProfileDetails(data, type).subscribe((res: any) => {
         if (res.status) {
           this.user_details = res.response;
+          console.log("res.response",res.response);
           if (res.response.kyc_approved_status == 1) {
             this.disabled_inputs = true;
           }
@@ -976,18 +1002,16 @@ isApproved:boolean=false;
     let years = Math.floor(months / 12);
 
     let message = BOD.toDateString();
+    console.log("birthdate",birthdate);
     message += ' was ';
     message += days + ' days ';
     message += months + ' months ';
     message += years + ' years ago \n';
-    alert(message);
-    // if (years < 18) {
-    //   if (true) {
-    //   if (confirm('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age')) {
-    //     console.log('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age');
-    //     this.router.navigate(['/dashboard']);
-    //   }
-    // }
+    if (years < 18) {
+      alert('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age');
+        this.router.navigate(['/dashboard']);
+    
+  }
     return message;
   }
 }

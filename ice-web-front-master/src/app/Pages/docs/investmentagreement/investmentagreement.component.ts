@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class InvestmentagreementComponent implements OnInit {
   @ViewChild('navContent',{static:false}) navContent!:ElementRef;
-  public pageDetail: any = {};
+  public pageDetail: any = {}; 
   subscriptions: Subscription[] = [];
   LANG = environment.english_translations;
   session_user: any = {};

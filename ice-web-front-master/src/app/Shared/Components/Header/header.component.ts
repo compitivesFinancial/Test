@@ -39,11 +39,6 @@ export class HeaderComponent implements OnInit {
 
       this.user_data = JSON.parse(atob(atob(localStorage.getItem(user_data) || '{}')));
       this.shared.changeUserData(this.user_data);
-      if(!localStorage.getItem("USERNAME"))
-      this.usernameTemp=this.user_data.name;
-    else
-      this.usernameTemp=localStorage.getItem("USERNAME");
-    
     }
     if (localStorage.getItem("arabic") == "true"  || localStorage.getItem("arabic") === null) {
       this.shared.setLang('ar');
@@ -75,7 +70,7 @@ export class HeaderComponent implements OnInit {
       this.optional_language = "Arabic";
       document.documentElement.classList.remove('ar');
       }
-    });
+    }); 
    
   }
 
@@ -83,7 +78,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('availableContent')==='1')
     this.disabledUI=false;
-    this.usernameTemp=localStorage.getItem("USERNAME");
+  this.shared.getName().subscribe(userName=>{
+    this.usernameTemp=userName; 
+  });
   }
 
   close() {

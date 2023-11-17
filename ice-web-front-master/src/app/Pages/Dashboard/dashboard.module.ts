@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 // import { DashboardPaymentComponent } from '../dashboard-payment/dashboard-payment.component';
 import { Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoaderModule } from 'src/app/Shared/Components/Loader/loader.module';
 // import { FormsModule } from '@angular/forms';
 // import { DashboardComponent } from './dashboard.component';
 
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
      FormsModule,
-     ReactiveFormsModule
+     ReactiveFormsModule,
+    LoaderModule
     // NgImageSliderModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

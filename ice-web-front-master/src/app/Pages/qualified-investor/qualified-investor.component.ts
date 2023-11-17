@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { DashboardService } from '../Dashboard/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
 import firebase from 'firebase/app';
@@ -226,7 +226,7 @@ export class QualifiedInvestorComponent implements OnInit {
   /************************************************************************************/
   addQualifiedInvestor() {
     const data: QualifiedInvestor = {
-      investor_id: this.user_data.id,
+      investor_id: this.decryptAES.decryptAesCbc(this.user_data.id,environment.decryptionAES.key,environment.decryptionAES.iv),
       min3WorkYear_url: this.min3WorkYear.image,
       certificateCME1_url: this.certificateCME1.image,
       professionalCertificate_url: this.professionalCertificate.image,

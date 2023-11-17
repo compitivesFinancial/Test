@@ -91,14 +91,71 @@
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
-                    <button type="button" *ngIf="disabled_inputs && checkedBtn" class="btn btn-primary" (click)="onPay()">{{LANG.Pay}}</button>
+                    <button type="button" *ngIf="disabled_inputs && checkedBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="#investmentModal" (click)="sendOTP()" data-bs-target="#beforePayModal">{{LANG.Pay}}</button>
                       </div>
                     </div>
                   </div>
                 </div>
-
                 <!-- Button trigger modal -->
+              <div class="modal fade" id="beforePayModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="tab-header" id="exampleModalLongTitle">OTP Verify</h5>
+                        <button type="button" #closebutton class="close" data-bs-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body modal-body-bg">
+                        <div class="text-center ">
+                          <ng-container *ngIf="show_otp && verifyClick">
+                            <div class="heading  text-center">
+                              <h2>{{LANG.Verify_OTP}}</h2>
+                            </div>
+                            <form>
+                              <div class="row">
+                                <div class="col-md-12 p-0">
+                                  <div class="otp-field">
+                                      <input type="text" name="o1" id="codeBox1" maxlength="1" [(ngModel)]="otp1" #codeBox1 (keyup)="onKeyUpEvent(1,$event)" (onfocus)="onFocusEvent(1)" (keypress)="keyPressed($event,1)" autocomplete="off">
+                                      <input type="tel" name="o2" id="codeBox2" maxlength="1" [(ngModel)]="otp2" #codeBox2 (keyup)="onKeyUpEvent(2,$event)" (onfocus)="onFocusEvent(2)" (keypress)="keyPressed($event,2)" autocomplete="off">
+                                      <input type="tel" name="o3" id="codeBox3" maxlength="1" [(ngModel)]="otp3" #codeBox3 (keyup)="onKeyUpEvent(3,$event)" (onfocus)="onFocusEvent(3)" (keypress)="keyPressed($event,3)" autocomplete="off">
+                                      <input type="tel" name="o4" id="codeBox4" maxlength="1" [(ngModel)]="otp4" #codeBox4 (keyup)="onKeyUpEvent(4,$event)" (onfocus)="onFocusEvent(4)" (keypress)="keyPressed($event,4)" autocomplete="off">
+                                  </div>
+                                  <div class="otp-error">
+                                    <span class="error" *ngIf="login_error.otp">{{LANG.Please_Enter_valid_OTP}}</span>
+                                  </div>
+                                </div>
+                                <div class="row w-100 justify-content-center mt-3">
+                                    <div class="col-md-12">
+                                        <div class="submit-button text-center">
+                                            <button class="btn w-50" [class.loading]="load" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="verifyOtp()">
+                                                <ng-container *ngIf="load;else otp_loader;">
+                                                    <loader></loader>
+                                                </ng-container>
+                                                <ng-template #otp_loader>
+                                                   {{LANG.Verify_OTP}}
+                                                </ng-template>
+                                            </button>
+                
+                                        </div>
+                                        <div class="resend mb-0 text-center">
+                                            <p id="countdown"></p>
+                                            <p *ngIf="showResend" class="cursor-pointer mt-0" (click)="resendAgain()">{{LANG.Resend_OTP}}</p>
+                
+                                          </div>
+                                    </div>
+                                </div>
+                
+                              </div>
+                            </form>
+                          </ng-container>
 
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <!-- Modal -->
                 <div class="modal fade" id="mastercardModal" tabindex="-1" role="dialog" aria-labelledby="mastercardModal" aria-hidden="true">

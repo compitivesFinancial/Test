@@ -16,7 +16,9 @@
     background: #3c0d7c;
 }
 .pointer {cursor: pointer;}
-
+.disp {
+    display: none;
+}
 .campaign-tab .nav-tabs a {
     border-radius: 0;
     font-size: 14px;

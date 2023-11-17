@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  mobile_number: string = "";
+  mobile_number: string = ""; 
   password: string = "";
   country_code: string = "+966";
   load: boolean = false;
@@ -160,6 +160,7 @@ export class LoginComponent implements OnInit {
     this.errorHandler();
     if (!this.err) {
       this.load = true;
+      localStorage.setItem("emailLogin",this.email);
       if (this.show_password) {
         this.checkMobile();
         return
@@ -231,6 +232,7 @@ export class LoginComponent implements OnInit {
         // this.shared.changeUserProfile(user_profile);
         this.load = false;
         localStorage.setItem("USERNAME",result.response.name);
+        this.shared.setName(result.response.name);
         this.toast.success("Login Successfull! Welcome " + result.response.name, "");
         this.router.navigate(["/dashboard"])
         // this.router.navigate(["/add-kyc"],{queryParams:{type:btoa(btoa(result.response.role_type.toString()))}})

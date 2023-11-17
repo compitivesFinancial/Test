@@ -44,7 +44,7 @@ export class RegistrationComponent implements OnInit {
   otp2: string = '';
   otp3: string = '';
   otp4: string = '';
-
+  checkedBtn:boolean=true;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private toast: ToastrService,
@@ -104,14 +104,20 @@ export class RegistrationComponent implements OnInit {
   }
 
   changeLanguage() {
-    if (
-      localStorage.getItem('arabic') == 'true' &&
-      localStorage.getItem('arabic') != null
-    ) {
+    if (localStorage.getItem("arabic") == "true" || localStorage.getItem("arabic") === null) {
       this.LANG = environment.arabic_translations;
-    } else {
+    }
+    else {
       this.LANG = environment.english_translations;
     }
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar' || !lang){
+        this.LANG = environment.arabic_translations;
+      }
+      else {
+        this.LANG = environment.english_translations;
+      }
+    });
   }
 
   register() {

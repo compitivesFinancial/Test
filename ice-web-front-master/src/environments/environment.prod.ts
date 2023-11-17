@@ -5,14 +5,22 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: "AIzaSyAkw7ImOFHF3I5y52W2yydQb9ANhpuR-3E",
-    authDomain: "aaaa-6d056.firebaseapp.com",
-    databaseURL: "https://aaaa-6d056-default-rtdb.firebaseio.com",
-    projectId: "aaaa-6d056",
-    storageBucket: "aaaa-6d056.appspot.com",
-    messagingSenderId: "1021417514491",
-    appId: "1:1021417514491:web:22abc3ab52fbafe486d75e",
-    measurementId: "G-GEMW853ESY"
+   // apiKey: "AIzaSyAkw7ImOFHF3I5y52W2yydQb9ANhpuR-3E",//I had to change this to not have 403 ERROR - done by rashed rabadi
+    // authDomain: "aaaa-6d056.firebaseapp.com",
+    // databaseURL: "https://aaaa-6d056-default-rtdb.firebaseio.com",
+    // projectId: "aaaa-6d056",
+    // storageBucket: "aaaa-6d056.appspot.com",
+    // messagingSenderId: "1021417514491",
+    // appId: "1:1021417514491:web:22abc3ab52fbafe486d75e",
+    // measurementId: "G-GEMW853ESY"
+    apiKey: "AIzaSyByerrz7ERmcvwgVBSbQK84E1Px-7MKS5A",
+    authDomain: "cfca-f0967.firebaseapp.com",
+    projectId: "cfca-f0967",
+    databaseURL: "https://cfca-f0967-default-rtdb.firebaseio.com",
+    storageBucket: "cfca-f0967.appspot.com",
+    messagingSenderId: "777224110856",
+    appId: "1:777224110856:web:def5f8b9cf3e93e24022bd",
+    measurementId: "G-HQ1BQYRSR3"
   },
   decryptionAES:{
     key:"3RRbqISYVxrMfp45O5+DyomwI4HwTvx3IWBzTQmErpE=",
@@ -53,6 +61,7 @@ export const environment = {
     Login_with_Email: "Login with Email",
     Login_with_Password: "Login with Password",
     Verify_OTP: "Verify OTP",
+    send_OTP:"Send OTP",
     A_verification_code_has_been_sent_to: "A verification code has been sent to",
     Please_Enter_valid_OTP: "Please Enter valid OTP",
     Resend_OTP: "Resend OTP",
@@ -108,6 +117,7 @@ export const environment = {
     Last_name: "Last name",
     Optional: "Optional",
     Email: "Email",
+    enter_valid_email:"Enter A valid Email",
     Enter_valid_Email_Id: "Enter valid Email Id",
     Mobile_Number: "Mobile Number",
     Password: "Password",
@@ -613,6 +623,7 @@ export const environment = {
     "Login_with_Email": "تسجيل الدخول بالبريد الإلكتروني",
     "Login_with_Password": "تسجيل الدخول باستخدام كلمة المرور",
     "Verify_OTP": "التحقق من  رمز التحقق",
+    "send_OTP":"أرسل كلمة مرور لمرة واحدة",
     "A_verification_code_has_been_sent_to": "تم إرسال رمز التحقق إلى",
     "Please_Enter_valid_OTP": "الرجاء إدخال رمز التحقق الصحيح",
     "Resend_OTP": "إعادة إرسال رمز التحقق",
@@ -668,6 +679,7 @@ export const environment = {
     "Last_name": "العائله(الاسم الاخير)",
     "Optional": "اختياري",
     "Email": "البريد الإلكتروني",
+    "enter_valid_email":"أدخل بريدك إلكتروني",
     "Enter_valid_Email_Id": "أدخل بريد إلكتروني صحيح",
     "Mobile_Number": "رقم الجوال",
     "Password": "كلمة المرور",

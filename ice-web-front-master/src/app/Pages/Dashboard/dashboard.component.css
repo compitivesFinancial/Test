@@ -18,7 +18,26 @@
     padding: 25px;
     border-radius: 17px;
 }
-
+.otp-field{
+    display: flex;
+    justify-content: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -webkit-box-pack: justify;
+    direction: ltr;
+}
+.modal-body-bg {
+    background-color: #ddd5d5;
+}
+.otp-field input{
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 10px;
+    text-align: center;
+    border: none;
+    padding: 0;
+}
 .personal-info .detail {
     margin-top: 20px;
     align-items: center;

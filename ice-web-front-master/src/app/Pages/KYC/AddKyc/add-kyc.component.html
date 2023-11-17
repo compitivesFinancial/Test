@@ -113,8 +113,8 @@
                         <div class="skip" *ngIf="i == 0">
                             <span class="status">{{LANG.Status}}: <span class="text-success"
                                     *ngIf="disabled_inputs;else pending">{{LANG.Approved}}</span>
-                                <ng-template #pending><span class="text-warning" *ngIf="!this.isApproved">{{LANG.Pending}}</span>
-                                    <span class="text-warning" style="color: #00d06b !important;" *ngIf="this.isApproved">{{LANG.Approved}}</span>
+                                <ng-template #pending><span class="text-warning" *ngIf="!disabled_inputs">{{LANG.Pending}}</span>
+                                    <span class="text-warning" style="color: #00d06b !important;" *ngIf="disabled_inputs">{{LANG.Approved}}</span>
                                 </ng-template>
                             </span>
                         </div>
@@ -149,7 +149,7 @@
                                     <div class="form-group col-md-6"
                                         *ngIf="fields.type == field_types.Date &&  fields.id != 136 &&  fields.id != 112 && fields.id != 113&& fields.id != 114&& fields.id != 115 && fields.id != 116 && fields.id != 135  && fields.id != 137 && fields.id != 138">
                                         <label>{{fields.title}}</label>
-                                        <input type="date" class="form-control" placeholder="{{fields.title}}"
+                                        <input id="userDate" type="date" class="form-control" placeholder="{{fields.title}}"
                                             name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value"
                                             [disabled]="disabled_inputs">
                                         <span class="error"
@@ -343,7 +343,7 @@
                                         <span class="error"
                                             *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
                                         <div class="buttons">
-                                          <button class="btn link-yaqeen pointer"  (click)="checkYaqeenService()">{{LANG.Check_Data}}</button>
+                                          <button class="btn link-yaqeen pointer" *ngIf="!disabled_inputs"  (click)="checkYaqeenService()">{{LANG.Check_Data}}</button>
                                       </div>
                                         <!-- <a style="border: ridge;background-color: #58C18E;"  (click)="checkYaqeenService()" class="pointer">{{LANG.Check_Data}}</a> -->
                                     </div>
@@ -356,20 +356,20 @@
                                         <span class="error"
                                             *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
                                         <div class="buttons">
-                                          <button class="btn link-yaqeen pointer"  (click)="checkYaqeenService()">{{LANG.Check_Data}}</button>
+                                          <button class="btn link-yaqeen pointer" *ngIf="!disabled_inputs"  (click)="checkYaqeenService()">{{LANG.Check_Data}}</button>
                                       </div>
                                         <!-- <a style="border: ridge;background-color: #58C18E;" (click)="checkYaqeenService()" class="pointer">{{LANG.Check_Data}}</a> -->
                                     </div>
                                     <div class="form-group col-md-6" *ngIf="fields.id == 137 || fields.id == 138">
                                         <label>{{fields.title}}</label>
-                                        <input type="text" *ngIf="fields.id == 137 && fields.value== null"
+                                        <input id="field1" type="text" *ngIf="fields.id == 137 && fields.value== null"
                                             class="form-control" [(ngModel)]="yaqeenArName" disabled>
-                                        <input type="text" *ngIf="fields.id == 137 && fields.value!= null"
+                                        <input id="field2" type="text" *ngIf="fields.id == 137 && fields.value!= null"
                                             class="form-control" [(ngModel)]="fields.value" disabled>
 
-                                        <input type="text" *ngIf="fields.id == 138 && fields.value== null"
+                                        <input id="field3" type="text" *ngIf="fields.id == 138 && fields.value== null"
                                             class="form-control" [(ngModel)]="yaqeenEnName" disabled>
-                                        <input type="text" *ngIf="fields.id == 138 && fields.value!= null"
+                                        <input id="field4" type="text" *ngIf="fields.id == 138 && fields.value!= null"
                                             class="form-control" [(ngModel)]="fields.value" disabled>
                                     </div>
                                     <!-- End Add By qaysar -->
@@ -498,8 +498,8 @@
 
                         <div class="buttons">
                             <button class="btn back" *ngIf="i != 0" (click)="back(i)">{{LANG.Back}}</button>
-                            <button class="btn next" (click)="next(i)"
-                                *ngIf="i != kyc_form.length-1">{{LANG.Next}}</button>
+                            <button class="btn next" [class.disp]="this.procced==false&&i==2 && !disabled_inputs" (click)="next(i)"
+                                *ngIf="i != kyc_form.length-1 ">{{LANG.Next}}</button>
                         </div>
 
                     </div>

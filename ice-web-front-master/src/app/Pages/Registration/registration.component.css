@@ -7,7 +7,9 @@
   position: absolute;
   width: 20%;
 }
-
+.radio-2{
+  display: flex;
+}
 .country-code input,
 .country-code select {
   margin: 0;
@@ -16,7 +18,8 @@
 .note {
   text-align: center;
   font-weight: bold;
-  font-size: 20px;
+  margin: 0 10px;
+  font-size: 18px;
 }
 .login-pad{
   background-color: #ffffff;
@@ -107,4 +110,8 @@ margin-right: 10px;
 text-align: center;
 border: none;
 padding: 0;
+}
+.labelSpan {
+  margin-right:0px !important;
+  font-weight: bold;
 }
