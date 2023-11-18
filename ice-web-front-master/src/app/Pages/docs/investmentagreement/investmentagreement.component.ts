@@ -68,7 +68,6 @@ export class InvestmentagreementComponent implements OnInit {
   ngOnInit(): void {
     this.requestId = atob(this.route.snapshot.params['id']);
     this.getOpertunityDetails();
-    this.username=localStorage.getItem("USERNAME")
   }
   /***********************************************************************************/
   getSukukDetails() {
@@ -86,6 +85,13 @@ export class InvestmentagreementComponent implements OnInit {
           
         }
       });
+      this.campaign_service.getUserKycList().subscribe((res: any) => {
+        localStorage.setItem("REALNAME",res.response[2].info_type[1].detail[6].value);
+        if(localStorage.getItem("REALNAME")!==null)
+        this.username=localStorage.getItem("REALNAME");
+      else
+      this.username=res.response[2].info_type[1].detail[6].value;
+      })
   }
   /***********************************************************************************/
   changeLanguage() {

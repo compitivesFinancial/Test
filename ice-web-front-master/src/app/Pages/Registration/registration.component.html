@@ -73,7 +73,7 @@
                     <label name="registration_type" for="yes">{{LANG.Individual}}</label>
                 </div>
                 <div class="radio-2">
-                    <input type="radio" [checked]="checkedBtn" class="radio-buttons" id="no" name="registration_type" value="2"
+                    <input type="radio" class="radio-buttons" id="no" name="registration_type" value="2"
                         [(ngModel)]="registration_type.registration_type" >
                     <label name="registration_type" [class.labelSpan]="role_type==='3'" for="no">{{LANG.Corporate}}</label>
                     <div *ngIf="role_type === '3'" class="note">

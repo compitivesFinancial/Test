@@ -81,7 +81,7 @@ export class SettingComponent implements OnInit {
 
     if (this.user_data.role_type == 2) {
       // this.getInvestorDEtails();
-      this.getInvestorWallet();
+     // this.getInvestorWallet();
       this.getWalletInvestorSum();
     }
 
@@ -92,8 +92,7 @@ export class SettingComponent implements OnInit {
     return (a / b) * 100;
   }
 getwalletHistory(){
- const id =this.decryptAES.decryptAesCbc(this.user_data.id,environment.decryptionAES.key,environment.decryptionAES.iv);
-  this.setingservice.walletHistory(this.user_data.role_type,id).subscribe((res:any)=>{
+  this.setingservice.walletHistory(this.user_data.role_type,this.user_data.id).subscribe((res:any)=>{
     if(res.status){
       this.walletHistoryData=res;
     }
@@ -149,18 +148,18 @@ getwalletHistory(){
     }
   }
 
-  getInvestorWallet() {
-    this.setingservice
-      .walletInvestor(this.user_data.id)
-      .subscribe((res: any) => {
-        if (res.status) {
-          this.walletInvestor = res;
-        } else {
-          this.walletInvestor = res;
-          this.toast.success(res.response.data);
-        }
-      });
-  }
+  // getInvestorWallet() {
+  //   this.setingservice
+  //     .walletInvestor(this.user_data.id)
+  //     .subscribe((res: any) => {
+  //       if (res.status) {
+  //         this.walletInvestor = res;
+  //       } else {
+  //         this.walletInvestor = res;
+  //         this.toast.success(res.response.data);
+  //       }
+  //     });
+  // }
   getInvestorDEtails() {
     this.setingservice
       .investorDetails(this.user_data.id)

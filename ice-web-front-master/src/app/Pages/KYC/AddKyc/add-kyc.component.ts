@@ -478,7 +478,7 @@ isApproved:boolean=false;
   getYaqeenIqamaData(yearMonth: any) {
     this.subscriptions.push(
       this.yaqeenService
-        .getYaqeenIqamaData(this.yaqeenIdNumber, yearMonth)
+        .getYaqeenIqamaData(this.yaqeenIdNumber, yearMonth) 
         .subscribe((res: any) => {
           if (res.status) {
             const hasData = this.getSafe(

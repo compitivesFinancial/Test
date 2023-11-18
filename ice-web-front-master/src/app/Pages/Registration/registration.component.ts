@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
   terms: boolean = false;
   number = [1, 2, 3, 4, 5, 6];
   weakness = 0;
-  registration_type: any = { registration_type: '1' };
+  registration_type: any = { registration_type: '2' };
   LANG: any = '';
   email_disable: boolean = false;
   registrationForm: any;
