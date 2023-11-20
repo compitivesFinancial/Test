@@ -18,6 +18,11 @@
     padding: 25px;
     border-radius: 17px;
 }
+
+.allocation .nav-link {
+    border: 0;
+    margin-right: 0px;
+}
 .otp-field{
     display: flex;
     justify-content: center;
@@ -148,7 +153,9 @@
   object-fit: fill;
 }
 .invest-row {
-    padding-bottom: 34px;
+    background-color: #dfdfdf;
+    padding: 20px;
+    border-radius: 16px;
 }
 
 .border-wrapper {
@@ -230,7 +237,24 @@
   display: inline-flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -225px;
-  margin-left: -73px;
   margin-bottom: 50px;
+  width: 100%;
+}
+.navigation {
+    width: 100%;
+}
+.nav-tabs{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.circles{
+    display: flex;
+    justify-content: center;
+}
+.notAllowed{
+    text-align: center;
+    color: red;
+    font-size: 16px;
+    font-weight: 600;
 }

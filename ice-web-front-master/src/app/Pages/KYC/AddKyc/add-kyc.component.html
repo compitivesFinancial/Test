@@ -38,7 +38,7 @@
           <ng-container>
             <div class="heading  text-center">
               <h2>{{LANG.Verify_OTP}}</h2>
-              <span>{{LANG.A_verification_code_has_been_sent_to}} ({{' '+this.user_data?.email?this.user_data?.email: ' you'}}) 
+              <span>{{LANG.A_verification_code_has_been_sent_to}} ({{' '+yaqeenIdNumber?yaqeenIdNumber: ' you'}}) 
               </span>
             </div>
             <form>
@@ -501,7 +501,6 @@
                             <button class="btn next" [class.disp]="this.procced==false&&i==2 && !disabled_inputs" (click)="next(i)"
                                 *ngIf="i != kyc_form.length-1 ">{{LANG.Next}}</button>
                         </div>
-
                     </div>
                 </ng-container>
                 <div class="row camp-button justify-content-center"

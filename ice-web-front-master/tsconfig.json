@@ -33,5 +33,6 @@
     "strictTemplates": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports":true,
+    "enableIvy": false,
   }
 }

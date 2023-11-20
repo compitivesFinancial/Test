@@ -49,6 +49,8 @@ export class HeaderComponent implements OnInit {
           this.selected_language = "Ar";
           this.optional_language = "English";
           document.documentElement.classList.add('ar');
+          this.logo = "assets/images/main-logo-ar.png";
+          this.logo_1 = "assets/images/main-logo1-ar.png";
         }
       }); 
      }
@@ -61,6 +63,8 @@ export class HeaderComponent implements OnInit {
         this.selected_language = "En";
         this.optional_language = "Arabic";
         document.documentElement.classList.remove('ar');
+        this.logo = "assets/images/main-logo-ar.png";
+        this.logo_1 = "assets/images/main-logo1-ar.png";
       }
     });
      }

@@ -223,7 +223,7 @@ export class QualifiedInvestorComponent implements OnInit {
   /************************************************************************************/
   addQualifiedInvestor() {
     const data: QualifiedInvestor = {
-      investor_id: this.decryptAES.decryptAesCbc(this.user_data.id,environment.decryptionAES.key,environment.decryptionAES.iv),
+      investor_id: this.user_data.id,
       min3WorkYear_url: this.min3WorkYear.image,
       certificateCME1_url: this.certificateCME1.image,
       professionalCertificate_url: this.professionalCertificate.image,

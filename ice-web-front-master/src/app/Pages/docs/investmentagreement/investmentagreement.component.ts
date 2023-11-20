@@ -81,16 +81,17 @@ export class InvestmentagreementComponent implements OnInit {
         this.kycStatus = res.status;
         if (res.status) {
           this.campaginWithKyc = res.response;
-          this.nationalId=res.response[2].national_id;
+      
           
         }
       });
       this.campaign_service.getUserKycList().subscribe((res: any) => {
-        localStorage.setItem("REALNAME",res.response[2].info_type[1].detail[6].value);
+        this.nationalId=res.response[2].info_type[1].detail.filter((obj:any)=>obj&&obj.id===135)[0].value;
+        localStorage.setItem("REALNAME",res.response[2].info_type[1].detail.filter((obj:any)=>obj&&obj.id===137)[0].value);
         if(localStorage.getItem("REALNAME")!==null)
         this.username=localStorage.getItem("REALNAME");
       else
-      this.username=res.response[2].info_type[1].detail[6].value;
+      this.username=res.response[2].info_type[1].detail.filter((obj:any)=>obj&&obj.id===137)[0].value;
       })
   }
   /***********************************************************************************/

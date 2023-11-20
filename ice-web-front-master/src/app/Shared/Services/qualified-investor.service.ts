@@ -18,8 +18,7 @@ export class QualifiedInvestorService {
   }
   /********************************************************************/
   getQualifiedInvestorData(investor_id: any) {
-    let id= this.decrypt.decryptAesCbc(investor_id,environment.decryptionAES.key,environment.decryptionAES.iv);
-    this.url = `getQualifiedInvestorAttach/${id}`;   
+    this.url = `getQualifiedInvestorAttach/${investor_id}`;   
     return this.api.get(this.url, '');
   }
 }

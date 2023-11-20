@@ -27,6 +27,10 @@ export const environment = {
     iv:""
   },
   english_translations: {
+    SAR:"SAR",
+    timeLeftForClose:"Time remaining to close opportunity",
+    timeLeftForOpen:"Time remaining to open opportunity",
+    noOpportunity:"This opportunity is closed",
     opportunity_id:"Opportunity id",
     investor_id:"Investor id",
     type:"Type",
@@ -600,6 +604,10 @@ export const environment = {
   },
   //******************************************************* Start Arabic array *******************************************//
   arabic_translations: {
+    "SAR":"ر.س",
+    "timeLeftForClose":"الوقت المتبقي لإغلاق الفرصة",
+    "timeLeftForOpen":"الوقت المتبقي لفتح الفرصة",
+    "noOpportunity":"هذه الفرصة مغلقة",
     "opportunity_id":"رقم الفرصة",
     "investor_id":"رقم المستثمر",
     "type":"نوع الحركة",
@@ -644,7 +652,7 @@ export const environment = {
     "Resend_OTP": "إعادة إرسال رمز التحقق",
     "bit": "128bit",
     "Secured_payment": "دفع آمن",
-    "Copyrights": "حقوق النشر @ التنافسية المالية |جميع الحقوق محفوظة",
+    "Copyrights": "جميع الحقوق محفوظة © لعام 2023 لدى التنافسية المالية",
     "Dashboard": "لوحة المعلومات",
     "My_Opportunities": "فرصي الاستثمارية",
     "Investments": "الاستثمارات",
@@ -941,7 +949,7 @@ export const environment = {
     "Old_Passsword": "كلمة المرور القديمة",
     "New_Password": "كلمة المرور الجديدة",
     "Save": "حفظ",
-    "CopyWrightCfC": "حقوق النشر @ التنافسية المالية |جميع الحقوق محفوظة",
+    "CopyWrightCfC": "جميع الحقوق محفوظة © لعام 2023 لدى التنافسية المالية",
     "Principle_Amount": "المبلغ المحتسب",
     "Profit_Amount": "قيمة المرابحة",
     "Total_Amount": "المبلغ الاجمالي",

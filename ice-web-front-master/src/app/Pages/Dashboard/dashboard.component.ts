@@ -25,6 +25,7 @@ import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { DOCUMENT } from '@angular/common';
 import jsPDF from 'jspdf';
 import { errorHandlerService } from 'src/app/Shared/Services/errorHandler.service';
+import { CircleProgressOptions } from 'ng-circle-progress';
 // import { Toast } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
@@ -73,6 +74,11 @@ export class DashboardComponent implements OnInit {
   opportunityData:any;
   closeInvest:boolean=false;
   opportunityInvestorData: any;
+  loading: boolean=false;
+  options = new CircleProgressOptions();
+  options1 = new CircleProgressOptions();
+  options2 = new CircleProgressOptions();
+  dontShowTime: boolean=false;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -108,6 +114,7 @@ export class DashboardComponent implements OnInit {
       agreement: ['', Validators.required],
     });
   }
+  
   async getWalletInvestorSum() {
     await this.setingservice.walletInvestorSum().subscribe((res: any) => {
       this.walletInvestorSum = res.response;
@@ -131,6 +138,47 @@ export class DashboardComponent implements OnInit {
      
     }
   ngOnInit(): void {
+    this.options.innerStrokeColor="#0d6efd99"
+    this.options.outerStrokeColor="#0d6efd"
+    this.options.showUnits=true;
+    this.options.radius=77;
+    this.options.outerStrokeWidth=10;
+    this.options.titleFontSize='37';
+    this.options.subtitleFontSize='37';
+    this.options.unitsFontSize='20';
+    this.options.showSubtitle=false;
+    this.options.subtitle="Days";
+    this.options.units="Days";
+    this.options.percent=0;
+    this.options.maxPercent=365;
+
+    this.options1.innerStrokeColor="#0d6efd99"
+    this.options1.outerStrokeColor="#0d6efd"
+    this.options1.showUnits=true;
+    this.options1.radius=77;
+    this.options1.outerStrokeWidth=10;
+    this.options1.titleFontSize='37';
+    this.options1.subtitleFontSize='37';
+    this.options1.unitsFontSize='20';
+    this.options1.showSubtitle=false;
+    this.options1.subtitle="Hours";
+    this.options1.units="Hours";
+    this.options1.percent=0;
+    this.options1.maxPercent=24;
+
+    this.options2.innerStrokeColor="#0d6efd99"
+    this.options2.outerStrokeColor="#0d6efd"
+    this.options2.showUnits=true;
+    this.options2.radius=77;
+    this.options2.outerStrokeWidth=10;
+    this.options2.titleFontSize='37';
+    this.options2.subtitleFontSize='37';
+    this.options2.unitsFontSize='20';
+    this.options2.showSubtitle=false;
+    this.options2.subtitle="Minutes";
+    this.options2.units="Minutes";
+    this.options2.percent=0;
+    this.options2.maxPercent=60;
     if (this.user_data.role_type == 2) {
       this.getProfileDetails(1);
       this.getDashboardDetails(1);
@@ -212,21 +260,46 @@ export class DashboardComponent implements OnInit {
     );
   }
   getOpportunityData(){
+    this.getOpertunityComPercentage();
     this.shared.getOpportunity().subscribe(data=>{
-      if(!!data){
-        this.opportunityData=data; 
-        if(this.opportunityData.open_date!==null){
-          const current = new Date(this.opportunityData.open_date);
-          const openDate =new Date();
-          if(openDate>current||this.investPercentage===100){
-            this.closeInvest=true;
+      console.log("data",data)
+      if(data.data.days!==null&&data.data.hours!==null&&data.data.minutes!==null){
+        this.options.percent=data.data.days;
+        this.options1.percent=data.data.hours;
+        this.options2.percent=data.data.minutes;
+      }
+      else {
+        this.dontShowTime=true;
+      }
+      this.dashboardService
+      .getCampaignInvestPerc(this.requestId)
+      .subscribe((res: any) => {
+        if(res.status){
+          // Math.round((res.response + Number.EPSILON) * 100) / 100
+          this.investPercentage = (Math.round((res.response.percent + Number.EPSILON) * 100) / 100);
+          if(!!data && !!this.investPercentage){
+            this.opportunityData=data.opp; 
+            
+            
+            
+            if(this.opportunityData.open_date!==null && !!this.investPercentage && this.opportunityData.close_date!==null&& this.opportunityData.close_date && this.opportunityData.open_date){
+              const current =new Date();
+              const openDate = new Date(this.opportunityData.open_date);
+              const closeDate = new Date(this.opportunityData.close_date);
+              if(openDate>current||this.investPercentage>100||closeDate<=current){
+                this.closeInvest=true;
+              }
+            }
+            else {
+              this.closeInvest=true;
+            }
+           
           }
-        }
-        else {
-          this.closeInvest=true;
+          //console.log("this.investPercentage == "+ this.investPercentage);
         }
        
-      }
+      })
+     
      
     });
   }

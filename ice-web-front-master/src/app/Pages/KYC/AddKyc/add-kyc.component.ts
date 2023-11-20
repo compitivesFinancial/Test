@@ -33,6 +33,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { DashboardService } from '../../Dashboard/dashboard.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { DOCUMENT } from '@angular/common';
+import { apiServiceComponent } from 'src/app/Shared/Services/api.service';
 
 @Component({
   selector: 'app-add-kyc',
@@ -121,6 +122,7 @@ export class AddKycComponent implements OnInit, OnChanges {
   procced:boolean=false
   //End add by qaysar
 isApproved:boolean=false;
+  verified:any='';
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private campaign_service: CampaignService,
@@ -132,7 +134,8 @@ isApproved:boolean=false;
     private lkservice: LkServiceService,
     private yaqeenService: YaqeenService,
     public dashBoardService: DashboardService,
-    public decryptAES: decryptAesService
+    public decryptAES: decryptAesService,
+    public api:apiServiceComponent
   ) {
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -247,9 +250,13 @@ isApproved:boolean=false;
       this.show_otp = true;
       // alert(`THE ID NUMBER IS --- ${this.yaqeenIdNumber}`);
       this.dashBoardService
-        .sendOtpKyc(this.yaqeenIdNumber)
-        .subscribe((response) => {
-          console.log(JSON.stringify(response));
+        .sendOtpKyc(this.yaqeenIdNumber,this.user_data.id)
+        .subscribe((res) => {
+          res
+          console.log(JSON.stringify(res));
+      //        this.dashBoardService.sendOTPCheck(data.crnumber).subscribe((res)=>{
+      // console.log("res",res);
+      //   })
         });
     }
   }
@@ -839,7 +846,6 @@ isApproved:boolean=false;
   }
   add() {
     const otp = this.otp1 + this.otp2 + this.otp3 + this.otp4;
-
     if (this.otp1 == null || this.otp1 == '' || this.otp1 == undefined) {
       this.toast.error('Fill OTP ');
       this.load = false;
@@ -861,7 +867,7 @@ isApproved:boolean=false;
       return;
     }
     if (otp == null || otp == '' || otp == undefined) {
-      this.toast.error('WROOOONG OTP ');
+      this.toast.error('WRONG OTP ');
       this.load = false;
       return;
     } else {
@@ -872,10 +878,15 @@ isApproved:boolean=false;
           field: this.post_data,
           crnumber: JSON.stringify(this.verifyCR),
         };
+        this.dashBoardService.sendOTPCheck(otp,this.user_data.id).subscribe((verified:any)=>{
+          this.verified=verified;
+          })
+        if(this.verified.status)
+       {
         this.subscriptions.push(
           this.campaign_service.addKyc(data).subscribe((res: any) => {
-            this.load = false;
             if (res.status) {
+              this.load = false;
               this.toast.success('Kyc added successfully!');
               if (this.user_type == '3') {
                 // this.router.navigate(["/add-campaign"]);
@@ -890,6 +901,11 @@ isApproved:boolean=false;
             this.toast.warning(res.response.message);
           })
         );
+       }
+       else {
+        this.load = false;
+        this.toast.warning(this.verified.response.message);
+       }
       }
     }
   }

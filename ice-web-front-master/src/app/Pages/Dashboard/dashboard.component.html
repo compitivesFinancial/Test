@@ -18,51 +18,53 @@
               </div>
               <span>{{investPercentage}}% Complete</span>
               <br>
-              <hr>
+             
                 <!-- <p>{{opertunityDetailList?.company_bio}}</p> -->
             </div>
 
             <div class="col-md-8 rate-right">
                 <div class="rate">
                     <div>
-                        <h4>SAR {{opertunityDetailList?.total_valuation}}</h4>
+                      <p style="font-size: 30px;">{{LANG.oppAmount}}</p>
+                        <h4>{{LANG.SAR}} {{opertunityDetailList?.total_valuation}}</h4>
                     </div>
                     <!-- <span><i class="fa fa-heart-o"></i></span> -->
                 </div>
                 <div class="row invest-row">
                     <div class="col-md-4">
                         <div class="invest">
-                            <p>{{LANG.Investers}}</p>
-                            <h6>{{opportunityInvestorData.numberOfInvestor}}</h6>
+                            <p style="font-size: 20px;">{{LANG.Investers}}</p>
+                            <h6 style="font-size: 20px;">{{opportunityInvestorData.numberOfInvestor}}</h6>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="invest">
-                            <p>{{LANG.Raised}}</p>
-                            <h6>SAR {{opportunityInvestorData.amount}}</h6>
+                            <p style="font-size: 20px;">{{LANG.Raised}}</p>
+                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opportunityInvestorData.amount}}</h6>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="invest">
-                            <p>{{LANG.Price_Per_Share}}</p>
-                            <h6>SAR {{opertunityDetailList?.share_price}}</h6>
+                            <p style="font-size: 20px;">{{LANG.Price_Per_Share}}</p>
+                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opertunityDetailList?.share_price}}</h6>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="invest">
-                            <p>{{LANG.Valuation}}</p>
-                            <h6>SAR {{opertunityDetailList?.total_valuation}}</h6>
+                            <p style="font-size: 20px;">{{LANG.Valuation}}</p>
+                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opertunityDetailList?.total_valuation}}</h6>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="invest">
-                            <p>{{LANG.Max_Investment}}</p>
-                            <h6>SAR {{opertunityDetailList?.max_investment}}</h6>
+                            <p style="font-size: 20px;">{{LANG.Max_Investment}}</p>
+                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opertunityDetailList?.max_investment}}</h6>
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-primary" *ngIf="user_data.role_type==2 && disabled_inputs && !closeInvest" data-bs-toggle="modal" data-bs-target="#investmentModal"> {{LANG.investment}}</button>
+                    <button class="btn btn-primary" *ngIf="user_data.role_type==2 && disabled_inputs && closeInvest===false" data-bs-toggle="modal" data-bs-target="#investmentModal"> {{LANG.investment}}</button>
                     <!-- Button trigger modal -->
+                    <p *ngIf="closeInvest===true" class="notAllowed">{{LANG.noOpportunity}}</p>
                 </div>
 
                 <!-- Modal -->
@@ -91,7 +93,8 @@
                       <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
                     <button type="button" *ngIf="disabled_inputs && checkedBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="#investmentModal" (click)="sendOTP()" data-bs-target="#beforePayModal">{{LANG.Pay}}</button>
-                      </div>
+                      
+                  </div>
                     </div>
                   </div>
                 </div>
@@ -174,10 +177,89 @@
                     </div>
                   </div>
                 </div>
+              <div class="circles">
+                <circle-progress *ngIf="!dontShowTime" #circleProgress [percent]="options.percent" [radius]="options.radius"
+                [subtitleFormat]="options.subtitleFormat" [space]="options.space"
+                [outerStrokeWidth]="options.outerStrokeWidth" [innerStrokeWidth]="options.innerStrokeWidth"
+                [animationDuration]="options.animationDuration" [outerStrokeColor]="options.outerStrokeColor"
+                [innerStrokeColor]="options.innerStrokeColor" [backgroundColor]="options.backgroundColor"
+                [backgroundOpacity]="options.backgroundOpacity" [class]="'center-block cursor-pointer'"
+                [animation]="options.animation" [animateTitle]="options.animateTitle"
+                [backgroundStroke]="options.backgroundStroke" [backgroundStrokeWidth]="options.backgroundStrokeWidth"
+                [backgroundPadding]="options.backgroundPadding" [unitsFontSize]="options.unitsFontSize"
+                [unitsFontWeight]="options.unitsFontWeight" [unitsColor]="options.unitsColor"
+                [titleColor]="options.titleColor" [titleFontSize]="options.titleFontSize"
+                [titleFontWeight]="options.titleFontWeight" [subtitleColor]="options.subtitleColor"
+                [subtitleFontSize]="options.subtitleFontSize" [subtitleFontWeight]="options.subtitleFontWeight"
+                [showTitle]="options.showTitle" [showSubtitle]="options.showSubtitle" [showUnits]="options.showUnits"
+                [units]="options.units" [unitsFontSize]="options.unitsFontSize"
+                [subtitleFontSize]="options.subtitleFontSize" [outerStrokeLinecap]="options.outerStrokeLinecap"
+                [showBackground]="options.showBackground" [showInnerStroke]="options.showInnerStroke"
+                [maxPercent]="options.maxPercent" [toFixed]="options.toFixed" [clockwise]="options.clockwise"
+                [title]="options.title" [subTitle]="options.subtitle" [showImage]="options.showImage" [imageSrc]="options.imageSrc"
+                [imageHeight]="options.imageHeight" [imageWidth]="options.imageWidth" [responsive]="options.responsive"
+                [startFromZero]="options.startFromZero" [showZeroOuterStroke]="options.showZeroOuterStroke"
+                [backgroundGradient]="options.backgroundGradient" [outerStrokeGradient]="options.outerStrokeGradient"
+                [backgroundGradientStopColor]="options.backgroundGradientStopColor"
+                [outerStrokeGradientStopColor]="options.outerStrokeGradientStopColor" [lazy]="options.lazy">
+              </circle-progress>
+              <circle-progress *ngIf="!dontShowTime" #circleProgress [percent]="options1.percent" [radius]="options1.radius"
+              [subtitleFormat]="options1.subtitleFormat" [space]="options1.space"
+              [outerStrokeWidth]="options1.outerStrokeWidth" [innerStrokeWidth]="options1.innerStrokeWidth"
+              [animationDuration]="options1.animationDuration" [outerStrokeColor]="options1.outerStrokeColor"
+              [innerStrokeColor]="options1.innerStrokeColor" [backgroundColor]="options1.backgroundColor"
+              [backgroundOpacity]="options1.backgroundOpacity" [class]="'center-block cursor-pointer'"
+              [animation]="options1.animation" [animateTitle]="options1.animateTitle"
+              [backgroundStroke]="options1.backgroundStroke" [backgroundStrokeWidth]="options1.backgroundStrokeWidth"
+              [backgroundPadding]="options1.backgroundPadding" [unitsFontSize]="options1.unitsFontSize"
+              [unitsFontWeight]="options1.unitsFontWeight" [unitsColor]="options1.unitsColor"
+              [titleColor]="options1.titleColor" [titleFontSize]="options1.titleFontSize"
+              [titleFontWeight]="options1.titleFontWeight" [subtitleColor]="options1.subtitleColor"
+              [subtitleFontSize]="options1.subtitleFontSize" [subtitleFontWeight]="options1.subtitleFontWeight"
+              [showTitle]="options1.showTitle" [showSubtitle]="options1.showSubtitle" [showUnits]="options1.showUnits"
+              [units]="options1.units" [unitsFontSize]="options1.unitsFontSize"
+              [subtitleFontSize]="options1.subtitleFontSize" [outerStrokeLinecap]="options1.outerStrokeLinecap"
+              [showBackground]="options1.showBackground" [showInnerStroke]="options1.showInnerStroke"
+              [maxPercent]="options1.maxPercent" [toFixed]="options1.toFixed" [clockwise]="options1.clockwise"
+              [title]="options1.title" [subTitle]="options1.subtitle" [showImage]="options1.showImage" [imageSrc]="options1.imageSrc"
+              [imageHeight]="options1.imageHeight" [imageWidth]="options1.imageWidth" [responsive]="options1.responsive"
+              [startFromZero]="options1.startFromZero" [showZeroOuterStroke]="options1.showZeroOuterStroke"
+              [backgroundGradient]="options1.backgroundGradient" [outerStrokeGradient]="options1.outerStrokeGradient"
+              [backgroundGradientStopColor]="options1.backgroundGradientStopColor"
+              [outerStrokeGradientStopColor]="options1.outerStrokeGradientStopColor" [lazy]="options1.lazy">
+            </circle-progress>
+            <circle-progress *ngIf="!dontShowTime" #circleProgress [percent]="options2.percent" [radius]="options2.radius"
+            [subtitleFormat]="options2.subtitleFormat" [space]="options2.space"
+            [outerStrokeWidth]="options2.outerStrokeWidth" [innerStrokeWidth]="options2.innerStrokeWidth"
+            [animationDuration]="options2.animationDuration" [outerStrokeColor]="options2.outerStrokeColor"
+            [innerStrokeColor]="options2.innerStrokeColor" [backgroundColor]="options2.backgroundColor"
+            [backgroundOpacity]="options2.backgroundOpacity" [class]="'center-block cursor-pointer'"
+            [animation]="options2.animation" [animateTitle]="options2.animateTitle"
+            [backgroundStroke]="options2.backgroundStroke" [backgroundStrokeWidth]="options2.backgroundStrokeWidth"
+            [backgroundPadding]="options2.backgroundPadding" [unitsFontSize]="options2.unitsFontSize"
+            [unitsFontWeight]="options2.unitsFontWeight" [unitsColor]="options2.unitsColor"
+            [titleColor]="options2.titleColor" [titleFontSize]="options2.titleFontSize"
+            [titleFontWeight]="options2.titleFontWeight" [subtitleColor]="options2.subtitleColor"
+            [subtitleFontSize]="options2.subtitleFontSize" [subtitleFontWeight]="options2.subtitleFontWeight"
+            [showTitle]="options2.showTitle" [showSubtitle]="options2.showSubtitle" [showUnits]="options2.showUnits"
+            [units]="options2.units" [unitsFontSize]="options2.unitsFontSize"
+            [subtitleFontSize]="options2.subtitleFontSize" [outerStrokeLinecap]="options2.outerStrokeLinecap"
+            [showBackground]="options2.showBackground" [showInnerStroke]="options2.showInnerStroke"
+            [maxPercent]="options2.maxPercent" [toFixed]="options2.toFixed" [clockwise]="options2.clockwise"
+            [title]="options2.title" [subTitle]="options2.subtitle" [showImage]="options2.showImage" [imageSrc]="options2.imageSrc"
+            [imageHeight]="options2.imageHeight" [imageWidth]="options2.imageWidth" [responsive]="options2.responsive"
+            [startFromZero]="options2.startFromZero" [showZeroOuterStroke]="options2.showZeroOuterStroke"
+            [backgroundGradient]="options2.backgroundGradient" [outerStrokeGradient]="options2.outerStrokeGradient"
+            [backgroundGradientStopColor]="options2.backgroundGradientStopColor"
+            [outerStrokeGradientStopColor]="options2.outerStrokeGradientStopColor" [lazy]="options2.lazy">
+          </circle-progress>
+              </div>
             </div>
+           
         </div>
+        <hr>
         <div class="row-menue allocation">
-          <nav>
+          <nav class="navigation">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-team-tab" data-bs-toggle="tab" href="#nav-team" role="tab" aria-controls="nav-team" aria-selected="true">{{LANG.Team}}</a>
               <a class="nav-item nav-link" id="nav-campainAttach-tab" data-bs-toggle="tab" href="#nav-campainAttach" role="tab" aria-controls="nav-campainAttach" aria-selected="false">{{LANG.Campaign_Attachements}}</a>

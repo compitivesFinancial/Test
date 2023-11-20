@@ -23,7 +23,8 @@ export class Tar7DocumentComponent implements OnInit {
   selectedOpportunity: any;
   requestId: any;
 companyName:any;
-  nationalId: any;
+  crEntityNumber: any;
+  commercialNumber: any;
   constructor(
     private route: ActivatedRoute,
     private campaignService: CampaignService,
@@ -55,7 +56,9 @@ companyName:any;
         if (res.status) {
           this.companyName=res.response[0].company_name;
           this.campaginWithKyc = res.response[1];
-          this.nationalId=res.response[2].national_id;
+          //this.nationalId=res.response[2].national_id;
+          this.crEntityNumber=res.response[2].crEntityNumber; 
+        //  this.commercialNumber=res.response[3].commercialNumber; 
         }
       });
   }

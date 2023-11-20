@@ -13,7 +13,7 @@ export class SharedService {
     private user_info = new BehaviorSubject(this.userInfo);
     private lang = new BehaviorSubject('ar');
     private name = new BehaviorSubject('');
-    private opportunity = new BehaviorSubject('');
+    private opportunity = new BehaviorSubject({opp:null,data:null});
     languageChange = new EventEmitter();
 
 
@@ -46,8 +46,8 @@ export class SharedService {
       public getName(): Observable<string> {
         return this.name.asObservable();
       } 
-      public setOpportunity(opportunity: any) {
-        return this.opportunity.next(opportunity);
+      public setOpportunity(opportunity: any,dateData:any) {
+        return this.opportunity.next({opp:opportunity,data:dateData});
       }
       public getOpportunity(): Observable<any> {
         return this.opportunity.asObservable();

@@ -14,14 +14,17 @@ export class DashboardService {
   constructor(public api:apiServiceComponent, public http:HttpClient) { }
 
 
-  sendOtpKyc(nationality: string) {
-    return this.api.getAbsherOTP(nationality);
+  sendOtpKyc(nationality: string,user_id:any) {
+    return this.api.getAbsherOTP(nationality,user_id);
   }
   opertunityDetails(id:any){
     this.url="opportunity_detail/"+id;
     return this.api.get(this.url,"")
   }
-
+  sendOTPCheck(otp:string,user_id:any){
+    this.url="checkOtpAbsher?otp="+otp+"&user_id="+user_id;
+    return this.api.post(this.url,"")
+  }
   onPay(data:any){
     this.url ="invest"
     return this.api.postPayInves(this.url,data)

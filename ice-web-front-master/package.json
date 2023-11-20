@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
     "@types/crypto-js": "^4.1.2",
+    "angular-circle-counter": "^1.1.0",
     "angular-responsive-carousel": "^2.1.2",
     "angularjs-slider": "^7.1.0",
     "crypto-js": "^4.1.1",

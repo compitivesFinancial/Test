@@ -27,7 +27,6 @@ import { InvestorWalletListComponent } from './Pages/CampaignDetails/investor-wa
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment.prod';
 import { LoaderModule } from "./Shared/Components/Loader/loader.module";
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -71,7 +70,7 @@ import { LoaderModule } from "./Shared/Components/Loader/loader.module";
         })
         //  NgImageSliderModule
         ,
-        LoaderModule
+        LoaderModule,
     ]
 })
 export class AppModule { }

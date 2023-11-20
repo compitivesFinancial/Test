@@ -88,9 +88,9 @@ export class apiServiceComponent {
 			.pipe(map((response: Object) => response),
 				catchError(this._errorHandler));
 	}
-  getAbsherOTP(nationality:string) {
+  getAbsherOTP(nationality:string,user_id:any) {
 		this.type = "POST";
-    let url = `https://api.cfc.sa/api/sendOtpAbsher?nationality=${nationality}`;
+    let url = `https://api.cfc.sa/api/sendOtpAbsher?nationality=${nationality}&user_id=${user_id}`;
 		let headers = this.getHeaders(url);
 		return this.http.post(url, { headers: headers, withCredentials: true })
 			.pipe(map((response: Object) => response),
