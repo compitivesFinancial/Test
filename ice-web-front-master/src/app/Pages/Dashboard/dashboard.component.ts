@@ -74,11 +74,13 @@ export class DashboardComponent implements OnInit {
   opportunityData:any;
   closeInvest:boolean=false;
   opportunityInvestorData: any;
-  loading: boolean=false;
+  loading: boolean=true;
   options = new CircleProgressOptions();
   options1 = new CircleProgressOptions();
   options2 = new CircleProgressOptions();
   dontShowTime: boolean=false;
+  loading2: boolean=true;
+  netAmount:any=0;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -224,7 +226,7 @@ export class DashboardComponent implements OnInit {
   }
   /***********************************************************************************/
   changeLanguage() {
-    this.shared.getLang().subscribe(lang => {
+    this.shared.getLang().subscribe((lang:any) => {
       if(lang=='ar'){
         this.LANG = environment.arabic_translations;
       }
@@ -261,12 +263,12 @@ export class DashboardComponent implements OnInit {
   }
   getOpportunityData(){
     this.getOpertunityComPercentage();
-    this.shared.getOpportunity().subscribe(data=>{
-      console.log("data",data)
+    this.shared.getOpportunity().subscribe((data:any)=>{
       if(data.data.days!==null&&data.data.hours!==null&&data.data.minutes!==null){
         this.options.percent=data.data.days;
         this.options1.percent=data.data.hours;
         this.options2.percent=data.data.minutes;
+        this.loading2=false;
       }
       else {
         this.dontShowTime=true;
@@ -309,6 +311,7 @@ export class DashboardComponent implements OnInit {
         .getCampaignInvestPerc(this.requestId)
         .subscribe((res: any) => {
           if(res.status){
+            this.loading=false;
             this.opportunityInvestorData=res.response;
 
             // Math.round((res.response + Number.EPSILON) * 100) / 100
@@ -328,9 +331,32 @@ export class DashboardComponent implements OnInit {
         .subscribe((res: any) => {
           this.getOpportunityData();
           this.opertunityDetailList = res.response.campaign;
-          if(this.user_data.isQualified||this.opertunityDetailList.max_investment<20000){
-            this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.opertunityDetailList.max_investment)]);
-          }
+         
+          
+          
+            this.dashboardService
+            .getCampaignInvestPerc(this.requestId)
+            .subscribe((res: any) => {
+              if(res.status){
+                this.loading=false;
+                this.opportunityInvestorData=res.response;
+                
+                this.netAmount=this.opertunityDetailList.total_valuation-this.opportunityInvestorData.amount;
+                if(this.user_data.isQualified){
+                  this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.netAmount)]);
+              }
+              else if(this.netAmount>=this.opertunityDetailList.max_investment && !this.user_data.isQualified){
+                this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.opertunityDetailList.max_investment)]);
+              }
+              else {
+                this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.netAmount)]);
+              }
+            }
+            })
+            
+          
+
+          
           this.teams = res.response.campaign.team;
           this.campaign_images = res.response.campaign.campaign_images;
           this.campaignService.campaignDetail = res.response.campaign;

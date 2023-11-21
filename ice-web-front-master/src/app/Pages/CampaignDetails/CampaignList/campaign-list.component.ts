@@ -38,9 +38,8 @@ export class CampaignListComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
 
     this.getcampaigns();
-    this.intervalSubscription=interval(60000).subscribe(() => {
-      this.timeDiff=this.calculateTimeDifference(this.timeDiff);
-    });
+    this.timeDiff=this.calculateTimeDifference(this.timeDiff);
+    
   }
   changeLanguage(){
    
@@ -63,16 +62,22 @@ export class CampaignListComponent implements OnInit,OnDestroy {
         this.startDate=new Date();
         for(let i=0;i<this.campaign_list.length;i++){
           if(this.campaign_list[i].open_date!==null&&this.campaign_list[i].close_date&&this.campaign_list[i].close_date!==null&&this.campaign_list[i].open_date){
+            
             let closeDate = new Date(this.campaign_list[i].close_date);
             let openDate = new Date(this.campaign_list[i].open_date);
-            if(closeDate>this.startDate && openDate < this.startDate){
-              this.timeDiff.push({type:"closedDate",firstDate:closeDate.getTime()});
-            }
-            else if(openDate>this.startDate && closeDate>this.startDate){
-              this.timeDiff.push({type:"openedDate",firstDate:openDate.getTime()});
+            if(openDate.getTime()<closeDate.getTime()){
+              if(closeDate>this.startDate && openDate < this.startDate){
+                this.timeDiff.push({type:"closedDate",firstDate:closeDate.getTime()});
+              }
+              else if(openDate>this.startDate && closeDate>this.startDate){
+                this.timeDiff.push({type:"openedDate",firstDate:openDate.getTime()});
+              }
+              else {
+                this.timeDiff.push({type:"outDated",firstDate:"This opprotunity is Closed"});
+              }
             }
             else {
-              this.timeDiff.push({type:"outDated",firstDate:"This opprotunity is Closed"});
+              this.timeDiff.push({type:"nullTime",firstDate:null});
             }
           }
           else {
@@ -95,7 +100,8 @@ export class CampaignListComponent implements OnInit,OnDestroy {
       times[i].minutes=minutes;
       times[i].timeString="";
     }
-    else if(times[i].firstDate==="This opprotunity is Closed"){
+    else if(times[i].firstDate==="This opprotunity is Closed")
+    {
       times[i].timeString="This opprotunity is Closed";
     }
     else {
@@ -154,6 +160,5 @@ export class CampaignListComponent implements OnInit,OnDestroy {
     }
   }
   ngOnDestroy() {
-    this.intervalSubscription.unsubscribe();
   }
 }

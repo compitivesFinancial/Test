@@ -47,11 +47,12 @@
                                                     <p style="font-size: 16px;">{{LANG.Annual_return_rate}} : {{list.APR}}%</p>
                                                     <p style="font-size: 16px;">{{LANG.Open_Date}}      : {{list.open_date != null ? list.open_date:'Not Entered yet'}}</p>
                                                     <p style="font-size: 16px;">{{LANG.Close_Date}}     : {{list.close_date != null ? list.close_date:'Not Entered yet'}}</p>
-                                                    <p *ngIf="timeDiff[i]?.timeString===''" style="font-size: 16px;" [(ngModel)]="timeDiff[i]">{{timeDiff[i].type==='closedDate'?LANG.timeLeftForClose:LANG.timeLeftForOpen}}: {{timeDiff[i].days}} {{LANG.days}}, {{timeDiff[i].hours}} {{LANG.hours}}, {{timeDiff[i].minutes}} {{LANG.minutes}}</p>
-                                                    <p *ngIf="timeDiff[i]?.timeString!==''" style="font-size: 16px;">{{timeDiff[i].timeString}}</p>
+                                                    <p *ngIf="timeDiff[i]?.timeString===''&&timeDiff[i]?.type!=='outDated'" style="font-size: 16px;" [(ngModel)]="timeDiff[i]">{{timeDiff[i].type==='closedDate'?LANG.timeLeftForClose:LANG.timeLeftForOpen}}: {{timeDiff[i].days}} {{LANG.days}}, {{timeDiff[i].hours}} {{LANG.hours}}, {{timeDiff[i].minutes}} {{LANG.minutes}}</p>
+                                                    <p *ngIf="timeDiff[i]?.type==='outDated'" style="font-size: 16px;">{{timeDiff[i]?.firstDate}}</p>
+                                                    <p *ngIf="timeDiff[i]?.timeString!==''&&timeDiff[i]?.type!=='outDated'" style="font-size: 16px;">{{timeDiff[i].timeString}}</p>
                                                 </div>
                                                 <div class="fund-investers">
-                                                    <button class="btn btn-primary custom" (click)="navTo(list,timeDiff[i])" *ngIf="user_data?.role_type == 2 && user_data?.kyc_approved_status == 1">{{LANG.View_Details}}</button>
+                                                    <button class="btn btn-primary custom"  (click)="navTo(list,timeDiff[i])" *ngIf="user_data?.role_type == 2 && user_data?.kyc_approved_status == 1 && timeDiff[i]?.timeString===''&&timeDiff[i]?.type!=='outDated'">{{LANG.View_Details}}</button>
                                                 </div>
                                             </div>
                                           </div>
