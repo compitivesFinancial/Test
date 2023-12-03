@@ -81,6 +81,7 @@ export class DashboardComponent implements OnInit {
   dontShowTime: boolean=false;
   loading2: boolean=true;
   netAmount:any=0;
+  emailaddon: any;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -331,8 +332,6 @@ export class DashboardComponent implements OnInit {
         .subscribe((res: any) => {
           this.getOpportunityData();
           this.opertunityDetailList = res.response.campaign;
-         
-          
           
             this.dashboardService
             .getCampaignInvestPerc(this.requestId)
@@ -452,8 +451,9 @@ export class DashboardComponent implements OnInit {
   sendOTP() {
     if(!!localStorage.getItem("emailLogin")){
       this.email=localStorage.getItem("emailLogin");
+      this.emailaddon=this.email;
     }
-      
+    this.emailaddon=this.email; 
     this.otpFromPhp(this.email);
     if (this.load) return;
     this.err = false;
@@ -488,7 +488,6 @@ export class DashboardComponent implements OnInit {
           input?.focus();
         }));
         this.toast.success(result.response.message, "")
-
         return
       }
       this.load = false;
@@ -666,16 +665,21 @@ export class DashboardComponent implements OnInit {
       };
       this.errors.amount = false;
       this.closebutton.nativeElement.click();
-      this.dashboardService.onPay(data).subscribe((res: any) => {
-        this.onPaydetails = res.response.session_id;
-        this.toast.success(res.response.message);
-        this.toast.success("Paid successfully!")
+      this.dashboardService.onPay(data).subscribe((res: any) => { 
+         if(res.response.status){
+          this.onPaydetails = res.response.session_id;
+          this.toast.success(res.response.message);
+        }
+        else {
+          this.toast.warning(res.response.message);
+        }
+        
         // $('#modalwindow').modal('hide');
         //console.log(this.onPaydetails);
         // this.router.navigateByUrl(`payment/${btoa(this.onPaydetails)}`)
         // this.isAmountValid = false;
       });
-
+      this.getOpertunityDetails();
       this.bankapiService.payment(this.amountForm.value.amount).subscribe((res: any) => {
         // console.log(`id = ${res.response.id}`);
         // console.log(`sequenceNumber = ${res.response.sequenceNumber}`);

@@ -45,6 +45,7 @@ export class RegistrationComponent implements OnInit {
   otp3: string = '';
   otp4: string = '';
   checkedBtn:boolean=true;
+  emailaddon: any='';
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private toast: ToastrService,
@@ -163,6 +164,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   sendOtpRegestration() {
+    localStorage.setItem("EMAILADDON",this.email);
     const data = {
       email: this.email,
     };
@@ -171,6 +173,7 @@ export class RegistrationComponent implements OnInit {
         this.load = false;
         if (result.status) {
           this.load = false;
+          this.emailaddon=localStorage.getItem("EMAILADDON");
           this.resetError();
           this.toast.success(result.response.message, '');
 

@@ -21,6 +21,14 @@ export class DashboardService {
     this.url="opportunity_detail/"+id;
     return this.api.get(this.url,"")
   }
+  programInfo(id:any){
+    this.url="index_prog?campgin_id="+id;
+    return this.api.post(this.url,"")
+  }
+  programInfoInvestor(id:any){
+    this.url="index_psd?campgin_id="+id;
+    return this.api.post(this.url,"")
+  }
   sendOTPCheck(otp:string,user_id:any){
     this.url="checkOtpAbsher?otp="+otp+"&user_id="+user_id;
     return this.api.post(this.url,"")

@@ -82,7 +82,7 @@
                               <label style="margin-left: 10px;">{{LANG.Agree_To_terms}}</label>
                             </div>
                             <span class="error" *ngIf="errors?.agreement">{{LANG.This_field_is_required}}</span>
-                            <input type="text" *ngIf="!user_data.isQualified && netAmount>=this.opertunityDetailList.max_investment" class="form-control" [min]="1000" required [max]="opertunityDetailList.max_investment" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
+                            <input type="text"  *ngIf="!user_data.isQualified && netAmount>=this.opertunityDetailList.max_investment" class="form-control" [min]="1000" required [max]="opertunityDetailList.max_investment" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
                             <input type="text" *ngIf="user_data.isQualified||(!user_data.isQualified && netAmount<this.opertunityDetailList.max_investment)" class="form-control" [min]="1000" required [max]="netAmount" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
                             <span class="error" *ngIf="amountForm.controls['amount'].hasError('required') && amountForm.controls['amount'].touched">{{LANG.This_field_is_required}}</span>
                             <span class="error" *ngIf="amountForm.controls['amount'].hasError('min')">{{LANG.minInvestValue}}</span>
@@ -92,7 +92,7 @@
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
-                    <button type="button" *ngIf="disabled_inputs && checkedBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="#investmentModal" (click)="sendOTP()" data-bs-target="#beforePayModal">{{LANG.Pay}}</button>
+                    <button type="button" *ngIf="disabled_inputs && checkedBtn &&!(amountForm.controls['amount'].hasError('max') && !user_data.isQualified && netAmount>=this.opertunityDetailList.max_investment)&&!(amountForm.controls['amount'].hasError('max') && user_data.isQualified||(!user_data.isQualified && netAmount<this.opertunityDetailList.max_investment))&&!(amountForm.controls['amount'].hasError('min'))&&!(amountForm.controls['amount'].hasError('required'))" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="#investmentModal" (click)="sendOTP()" data-bs-target="#beforePayModal">{{LANG.Pay}}</button>
                       
                   </div>
                     </div>
@@ -103,7 +103,7 @@
                   <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="tab-header" id="exampleModalLongTitle">OTP Verify</h5>
+                        <h5 class="tab-header" id="exampleModalLongTitle">{{LANG.A_verification_code_has_been_sent_to}} ({{emailaddon}})</h5>
                         <button type="button" #closebutton class="close" data-bs-dismiss="modal">&times;</button>
                       </div>
                       <div class="modal-body modal-body-bg">
@@ -125,10 +125,10 @@
                                     <span class="error" *ngIf="login_error.otp">{{LANG.Please_Enter_valid_OTP}}</span>
                                   </div>
                                 </div>
-                                <div class="row w-100 justify-content-center mt-3">
+                                <div class="row w-100 justify-content-center mt-3" style="margin: 0 auto !important;width: 100%!important;">
                                     <div class="col-md-12">
                                         <div class="submit-button text-center">
-                                            <button class="btn w-50" [class.loading]="load" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="verifyOtp()">
+                                            <button class="btn w-50" style="margin-right: 10px;margin-top: 20px;"  [class.loading]="load" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="verifyOtp()">
                                                 <ng-container *ngIf="load;else otp_loader;">
                                                     <loader></loader>
                                                 </ng-container>

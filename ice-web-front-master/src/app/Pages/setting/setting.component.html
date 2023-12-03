@@ -37,7 +37,7 @@
                                 <!-- <button class="btn add-amount" data-bs-toggle="modal" data-bs-target="#addmoney">{{LANG.add-amount}}</button> -->
                             </div>
                         </div>
-                        <div *ngIf="user_data.role_type==3" class="col-md-9 wallet-right">
+                        <div *ngIf="user_data.role_type==3 && walletBorrower" class="col-md-9 wallet-right">
                           <div class="wallet-right1" *ngIf="!walletBorrower.status">
                             <p>{{walletBorrower.response.data}}</p>
                           </div>

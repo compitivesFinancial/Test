@@ -1,6 +1,6 @@
 
 {{selectedOpportunity?.tagline}}
-<table class="table table-hover table-bordered">
+<table *ngIf="!loading" class="table table-hover table-bordered">
   <thead>
     <tr>
       <th scope="col">#</th>

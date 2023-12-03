@@ -56,6 +56,7 @@ export class CampaignListComponent implements OnInit,OnDestroy {
   getcampaigns(user_id?:number){
     this.subscriptions.push(this.campaignService.getCampaignList(user_id).subscribe((res:any)=>{
       if(res){
+        
         this.campaign_list=res.response;
         this.data_loaded=true;
         this.campaign_list_image= res.response.campaign_image;

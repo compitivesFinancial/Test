@@ -279,7 +279,7 @@ export class AddCampaignComponent implements OnInit {
       this.load = false;
       if (res.status) {
         this.toast.success("Campaign added successfully!");
-        this.router.navigate(["/thank-you"]);
+        this.router.navigate(["/dashboard"]);
         return
       }
       this.toast.warning(res.response.message);

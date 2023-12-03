@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   LANG: any = {};
   email: string = "";
   isSignedInFirebase: boolean = false;
+  emailaddon: any="";
 
 
   constructor(private toast: ToastrService, private loginService: LoginService, @Inject(DOCUMENT) private document: Document, private shared: SharedService, private error: errorHandlerService, private router: Router) {
@@ -154,6 +155,10 @@ export class LoginComponent implements OnInit {
     if (!this.err) {
       this.load = true;
       localStorage.setItem("emailLogin",this.email);
+      if(!!localStorage.getItem("emailLogin")){
+        this.emailaddon=this.email;
+      }
+      this.emailaddon=this.email;
       if (this.show_password) {
         this.checkMobile();
         return
@@ -175,7 +180,7 @@ export class LoginComponent implements OnInit {
         this.resetError();
         if (type == 1) {
           this.clearOTP()
-          this.resendOTP();
+          this.resendOTP(); 
           return
         }
         this.show_otp = true;

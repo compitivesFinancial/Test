@@ -9,6 +9,7 @@ import 'firebase/storage';
 import { QualifiedInvestor } from 'src/app/Shared/Models/qualified-investor';
 import { QualifiedInvestorService } from 'src/app/Shared/Services/qualified-investor.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qualified-investor',
@@ -38,7 +39,7 @@ export class QualifiedInvestorComponent implements OnInit {
     private toast: ToastrService,
     private shared: SharedService,
     public dashBoardService: DashboardService,
-    public qualifiedInvestorService: QualifiedInvestorService,public decryptAES:decryptAesService
+    public qualifiedInvestorService: QualifiedInvestorService,public decryptAES:decryptAesService, private router: Router
   ) {
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -237,6 +238,7 @@ export class QualifiedInvestorComponent implements OnInit {
           this.load = false;
           if (res.status) {
             this.toast.success('Application added successfully!');
+            this.router.navigate(["/dashboard"]);
             return;
           }
           this.toast.warning(res.response.message);

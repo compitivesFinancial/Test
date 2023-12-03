@@ -8,3 +8,8 @@
     height: 99px;
     border-radius: 50%;
 }
+input[type="radio"]:checked, input[type="radio"]:not(:checked) {
+    position: absolute;
+    left:unset !important;
+    visibility: hidden !important;
+}

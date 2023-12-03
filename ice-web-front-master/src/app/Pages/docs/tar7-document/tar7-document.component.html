@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="!loading">
   <div class="text-center">
     <h3>
-    {{LANG.tar7_document_note_title_1_a}}
+    {{LANG.tar7_document_note_title_1_a}} {{campaginWithKyc.program_number}} - {{campaginWithKyc.version_number}}
     </h3>
     <h4>{{LANG.tar7_document_note_title_1_b}}</h4>
     <br />

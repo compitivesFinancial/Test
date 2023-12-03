@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Console } from 'console';
 import { Subscription } from 'rxjs';
@@ -22,7 +22,7 @@ export class ProgramInfoComponent implements OnInit {
   kycStatus: any;
   subscriptions: Subscription[] = [];
   requestId: any;
-
+  loading: boolean=true;
   constructor(private route: ActivatedRoute,private dashboardService: DashboardService,public decryptAES:decryptAesService, private shared: SharedService) {
     this.changeLanguage();
     const user_data = btoa(btoa('user_info_web'));
@@ -48,13 +48,30 @@ export class ProgramInfoComponent implements OnInit {
         this.LANG = environment.english_translations;
         
       }
-    });
+    }); 
   }
   getOpertunityDetails() {
     this.dashboardService
       .opertunityDetails(this.requestId)
       .subscribe((res: any) => {
-        this.selectedOpportunity = res.response.campaign;
+        if(!!res){
+          this.selectedOpportunity = res.response.campaign;
+          this.dashboardService.programInfoInvestor(this.selectedOpportunity.id).subscribe((investorInfo:any)=>{
+            if(investorInfo){
+              this.dashboardService.programInfo(this.selectedOpportunity.id).subscribe((opportunityInfo:any)=>{
+                if(opportunityInfo){
+                  this.loading=false;
+                  console.log("investorInfo",investorInfo);
+                  console.log("opportunityInfo",opportunityInfo);
+                }
+              });
+            }
+           
+          })
+          
+        }
+        
+        console.log("selectedOpportunity",this.selectedOpportunity);
       });
   }
 }

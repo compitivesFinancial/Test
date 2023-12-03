@@ -44,7 +44,7 @@
         <ng-container *ngIf="show_otp">
             <div class="heading  text-center">
               <h2>{{LANG.Verify_OTP}}</h2>
-              <span>{{LANG.A_verification_code_has_been_sent_to}}
+              <span>{{LANG.A_verification_code_has_been_sent_to}} ({{emailaddon}})
                 <p *ngIf="mobile_number" class="mt-0 mb-2">{{country_code}} {{mobile_number}}</p>
               </span>
             </div>

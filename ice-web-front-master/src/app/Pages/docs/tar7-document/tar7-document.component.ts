@@ -25,6 +25,7 @@ export class Tar7DocumentComponent implements OnInit {
 companyName:any;
   crEntityNumber: any;
   commercialNumber: any;
+  loading:boolean=true;
   constructor(
     private route: ActivatedRoute,
     private campaignService: CampaignService,
@@ -54,13 +55,22 @@ companyName:any;
       .subscribe((res: any) => {
         this.kycStatus = res.status;
         if (res.status) {
-          this.companyName=res.response[0].company_name;
-          this.campaginWithKyc = res.response[1];
-          //this.nationalId=res.response[2].national_id;
-          this.crEntityNumber=res.response[2].crEntityNumber; 
-        //  this.commercialNumber=res.response[3].commercialNumber; 
+          this.companyName=res.response.filter((obj:any)=>obj.company_name)[0].company_name;
+          this.campaginWithKyc = res.response.filter((obj:any)=>obj.id)[0];
+          this.crEntityNumber=res.response.filter((obj:any)=>obj.crEntityNumber)[0].crEntityNumber; 
+        this.loading=false;
         }
       });
+
+
+      // this.campaign_service.getUserKycList().subscribe((res: any) => {
+      //   this.nationalId=res.response[2].info_type[1].detail.filter((obj:any)=>obj&&obj.id===135)[0].value; 
+      //   localStorage.setItem("REALNAME",res.response[2].info_type[1].detail.filter((obj:any)=>obj&&obj.id===137)[0].value);
+      //   if(localStorage.getItem("REALNAME")!==null)
+      //   this.username=localStorage.getItem("REALNAME");
+      // else
+      // this.username=res.response[2].info_type[1].detail.filter((obj:any)=>obj&&obj.id===137)[0].value;
+      // })
   }
   /***********************************************************************************/
 
