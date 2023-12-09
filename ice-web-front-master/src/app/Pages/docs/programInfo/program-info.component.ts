@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 import { DashboardService } from '../../Dashboard/dashboard.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-program-info',
@@ -23,7 +24,8 @@ export class ProgramInfoComponent implements OnInit {
   subscriptions: Subscription[] = [];
   requestId: any;
   loading: boolean=true;
-  constructor(private route: ActivatedRoute,private dashboardService: DashboardService,public decryptAES:decryptAesService, private shared: SharedService) {
+  opportunityData:any;
+  constructor(private route: ActivatedRoute,private dashboardService: DashboardService,public decryptAES:decryptAesService, private shared: SharedService,private toast: ToastrService) {
     this.changeLanguage();
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -56,22 +58,20 @@ export class ProgramInfoComponent implements OnInit {
       .subscribe((res: any) => {
         if(!!res){
           this.selectedOpportunity = res.response.campaign;
-          this.dashboardService.programInfoInvestor(this.selectedOpportunity.id).subscribe((investorInfo:any)=>{
-            if(investorInfo){
-              this.dashboardService.programInfo(this.selectedOpportunity.id).subscribe((opportunityInfo:any)=>{
-                if(opportunityInfo){
-                  this.loading=false;
-                  console.log("investorInfo",investorInfo);
-                  console.log("opportunityInfo",opportunityInfo);
-                }
-              });
+          this.dashboardService.programInfo(this.selectedOpportunity.id).subscribe((opportunityInfo:any)=>{
+            if(opportunityInfo.status && opportunityInfo?.response?.message==="success"){
+              this.loading=false;
+              this.opportunityData=opportunityInfo;
+              console.log("opportunityInfo",opportunityInfo);
             }
-           
-          })
+            else {
+              this.loading=false;
+              this.toast.warning(opportunityInfo?.response?.message);
+            }
+          });
           
         }
         
-        console.log("selectedOpportunity",this.selectedOpportunity);
       });
   }
 }

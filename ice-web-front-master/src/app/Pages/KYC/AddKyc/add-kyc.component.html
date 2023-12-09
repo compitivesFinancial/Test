@@ -2,28 +2,28 @@
   <div class="campaign-tab">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" routerLink="/add-kyc">{{
+        <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-kyc">{{
           LANG.Kyc_Details
         }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" routerLink="/my-profile">{{
+        <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/my-profile">{{
           LANG.Edit_Profile
         }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">
+        <a class="nav-link" style="font-family: 'tajawal-reg' !important;" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">
           {{LANG.Be_Qualified_Investor}}
         </a>
       </li>
       <li class="nav-item" *ngIf="user_data?.role_type == 2">
-        <a class="nav-link" data-bs-toggle="tab" routerLink="/campaign-list">{{
+        <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/campaign-list">{{
           LANG.View_Opportunity
         }}</a>
       </li>
       <li class="nav-item" *ngIf="user_data?.role_type == 3">
         <a
-          class="nav-link"
+          class="nav-link" style="font-family: 'tajawal-reg' !important;"
           data-bs-toggle="tab"
           routerLink="/add-campaign"
           *ngIf="profileDetails.kyc_approved_status == 1"
@@ -90,7 +90,7 @@
             <ul class="nav nav-tabs justify-content-center" role="tablist">
                 <ng-container *ngFor="let data of kyc_form;let i=index;">
                     <li class="nav-item">
-                        <a class="nav-link step verified" [class.active]="tab_index == i">
+                        <a class="nav-link step verified" style="font-family: 'tajawal-reg' !important;" [class.active]="tab_index == i">
                             <span>{{i+1}}</span>
                             <p>{{data.title}}</p>
                             <!-- <p *ngIf="tab_index=="></p> -->

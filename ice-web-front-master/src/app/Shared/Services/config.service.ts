@@ -4,8 +4,8 @@ import SHA1 from 'sha1';
 @Injectable({providedIn: 'root'})
 export class configServiceComponent{
 
-   //HOST : string = "http://127.0.0.1:8000/api/";
-    //ADMIN_HOST : string = "http://127.0.0.1:8888/api/";
+  // HOST : string = "http://127.0.0.1:8000/api/";
+   // ADMIN_HOST : string = "http://127.0.0.1:8888/api/";
     //HOST : string = "http://localhost/cfc/admin_laravel/web_api/public/api/";
     //ADMIN_HOST : string = "http://localhost/cfc/admin_laravel/admin/public/api/";
     //HOST : string = "http://www.atam-mena.com/web_api/public/api/";

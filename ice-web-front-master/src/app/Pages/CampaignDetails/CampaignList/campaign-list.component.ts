@@ -152,10 +152,7 @@ export class CampaignListComponent implements OnInit,OnDestroy {
   }
 
   navTo(list:any,counterData:any){
-    // console.log('outer')
     if(list!= null ){
-      // console.log('iner')
-      // console.log(this.router);
     this.shared.setOpportunity(list,counterData);
       this.router.navigateByUrl(`/dashboard/${btoa(list.id)}`);
     }

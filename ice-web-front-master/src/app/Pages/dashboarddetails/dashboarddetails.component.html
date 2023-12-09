@@ -7,16 +7,16 @@
         <div class="campaign-tab">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
+                  <a class="nav-link" style="font-family: 'tajawal-reg' !important;" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
               </li>
                 <li class="nav-item" *ngIf="user_data?.role_type == 3">
-                    <a class="nav-link" data-bs-toggle="tab" routerLink="/add-campaign"
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-campaign"
                         *ngIf="profileDetails.kyc_approved_status==1"> {{LANG.Add_Opportunity}}</a>
                 </li>
             </ul>
@@ -82,9 +82,9 @@
                             <!-- <i class='bx bxs-cart-download cart four'></i> -->
                         </div>
                     </div>
-                    <div>
+                    <div class="flex">
                         <div>&nbsp;</div>
-                        <button class="btn add-opportunity" routerLink="/add-campaign"
+                        <button class="btn add-opportunity pulse" routerLink="/add-campaign"
                             *ngIf="profileDetails.kyc_approved_status==1">إضافة فرصة</button>
                     </div>
                 </div>
@@ -107,9 +107,7 @@
                                     <!-- <img src="../../../assets/images/banner.png" alt="" class="img-size"> -->
                                     <img src="../../../assets/images/bank_img.jpg" alt="" class="img-size">
                                 </div>
-                                <div class="box-topic">رقم الحساب</div>
-                                <div class="number">{{profileDetails.account_number!= null ?
-                                    profileDetails.account_number:LANG.Please_Fill_your_information}}</div>
+                             
                                 <!-- <div class="indicator">
                   <i class='bx bx-up-arrow-alt'></i>
                   <span class="text">Up from yesterday</span>
@@ -127,13 +125,26 @@
                             <div class="profile-right">
                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
 
-                                <div class="right-side">
+                                <div class="right-side spacer">
                                     <div class="box-topic">
-                                        الاسم:{{profileDetails?.first_name}}{{profileDetails?.last_name}}</div>
-                                    <div class="box-topic box-topic-i"><i class="fa fa-envelope-o"
-                                            aria-hidden="true"></i>البريد الالكتروني:{{profileDetails?.email}}</div>
-                                    <div class="box-topic box-topic-i"><i class="fa fa-phone"
-                                            aria-hidden="true"></i>رقم التلفون:{{profileDetails?.mobile_number}}
+                                        <div class="inner-topic">
+                                        <span class="noWrap" style="font-weight: bold !important;">{{LANG.Name}}</span>
+                                        <span class="noWrap">{{profileDetails?.first_name}} {{profileDetails?.last_name}}</span>
+                                        </div>
+                                        
+                                        </div>
+                                    <div class="box-topic box-topic-i">
+                                         <div class="inner-topic">
+                                            <span class="noWrap" style="font-weight: bold !important;">{{LANG.Email_ID}}</span>
+                                            <span class="noWrap">{{profileDetails?.email}}</span>
+                                         </div>
+                                        </div>
+                                    <div class="box-topic box-topic-i">
+                                            <div class="inner-topic">
+                                                <span class="noWrap" style="font-weight: bold !important;">{{LANG.Contact_Number}}</span>
+                                                <span class="noWrap">{{profileDetails?.mobile_number}}</span>
+                                            </div>
+                                            
                                     </div>
 
                                     <!-- <div class="indicator">
@@ -166,16 +177,16 @@
         <div class="campaign-tab">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
                 </li>
                 <li class="nav-item" *ngIf="disabled_inputs">
-                  <a class="nav-link" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
+                  <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
               </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" routerLink="/campaign-list">{{LANG.View_Opportunity}}</a>
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/campaign-list">{{LANG.View_Opportunity}}</a>
                 </li>
             </ul>
         </div>
@@ -263,9 +274,12 @@
                                 </div>
                                 <!-- Account_Number -->
                                 <!-- <div class="box-topic">رقم الحساب</div> -->
-                                <div class="box-topic">{{LANG.Account_Number}}</div>
-                                <div class="number">{{profileDetails?.account_number != null ?
-                                    profileDetails?.account_number:0}}</div>
+                                <div>
+                                    <div class="box-topic">{{LANG.Account_Number}}</div>
+                                    <div class="number">{{profileDetails?.account_number != null ?
+                                        profileDetails?.account_number:0}}</div>
+                                </div>
+                 
                                 <!-- <div class="indicator">
                     <i class='bx bx-up-arrow-alt'></i>
                     <span class="text">Up from yesterday</span>
@@ -281,14 +295,31 @@
                             <div class="box-topic">{{LANG.Profile_Info}}</div>
                             <!-- <div class="box-topic">البيانات الشخصية</div> -->
                             <div class="profile-right">
-                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                <div class="right-side">
-                                    <div class="box-topic">{{LANG.Name}}
-                                        :{{profileDetails?.first_name}}{{profileDetails?.last_name}}</div>
-                                    <div class="box-topic box-topic-i"><i class="fa fa-envelope-o"
-                                            aria-hidden="true"></i>{{LANG.Email_ID}}:{{profileDetails?.email}}</div>
-                                    <div class="box-topic  box-topic-i"><i class="fa fa-phone"
-                                            aria-hidden="true"></i>{{LANG.Contact_Number}}:{{profileDetails?.mobile_number}}</div>
+                                <div class="right-side spacer">
+                                    <div class="box-topic">
+                                        <div class="inner-topic">
+                                            <span class="noWrap" style="font-weight: bold !important;">{{LANG.Name}}</span>
+                                            <span class="noWrap">{{profileDetails?.first_name}}{{profileDetails?.last_name}}</span>
+                                        </div>
+                                        </div>
+                                    <div class="box-topic box-topic-i">
+                                            <div class="box-topic">
+                                                <div class="inner-topic">
+                                                    <span class="noWrap" style="font-weight: bold !important;">{{LANG.Email_ID}}</span>
+                                                    <span class="noWrap">{{profileDetails?.email}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                    <div class="box-topic  box-topic-i">
+                                            <div class="box-topic">
+                                                <div class="inner-topic">
+                                                    <span class="noWrap" style="font-weight: bold !important;">{{LANG.Contact_Number}}</span>
+                                                    <span class="noWrap">{{profileDetails?.mobile_number}}</span>
+                                                </div>
+                                           
+                                            </div>
+                                            </div>
 
                                     <!-- <div class="indicator">
                       <i class='bx bx-up-arrow-alt'></i>

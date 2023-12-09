@@ -27,6 +27,7 @@ export const environment = {
     iv:""
   },
   english_translations: {
+    saveToPDF:"Save as PDF",
     due_date:"Due Date",
     principle_expected:"Expected principal amount",
     fees_expected:"Fees expected",
@@ -52,6 +53,7 @@ export const environment = {
     timeLeftForClose:"Time remaining to close opportunity",
     timeLeftForOpen:"Time remaining to open opportunity",
     noOpportunity:"This opportunity is closed",
+    reachedOpportunities:"You can invest in a maximum of two opportunities.",
     opportunity_id:"Opportunity id",
     investor_id:"Investor id",
     type:"Type",
@@ -624,7 +626,7 @@ export const environment = {
   },
   //******************************************************* Start Arabic array *******************************************//
   arabic_translations: {
-    
+    "saveToPDF":"تحميل المستند",
     "due_date":"تاريخ الاستحقاق",
     "principle_expected":"المبلغ الرئيسي المتوقع",
     "fees_expected":"الرسوم المتوقعة",
@@ -650,6 +652,7 @@ export const environment = {
     "timeLeftForClose":"الوقت المتبقي لإغلاق الفرصة",
     "timeLeftForOpen":"الوقت المتبقي لفتح الفرصة",
     "noOpportunity":"هذه الفرصة مغلقة",
+    "reachedOpportunities":"يمكنك الاستثمار في فرصتين كحد أقصى.",
     "opportunity_id":"رقم الفرصة",
     "investor_id":"رقم المستثمر",
     "type":"نوع الحركة",

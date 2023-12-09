@@ -22,18 +22,18 @@
         </div>
         <ul class="nav nav-tabs wallet-tab" *ngIf="user_data.role_type==3">
             <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#history">{{LANG.Transaction_History}}</a>
+                <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#history">{{LANG.Transaction_History}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Upcoming_Payments}}</a>
+                <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Upcoming_Payments}}</a>
             </li>
         </ul>
         <ul class="nav nav-tabs wallet-tab" *ngIf="user_data.role_type==2">
             <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#history">{{LANG.Debit_History}}</a>
+                <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#history">{{LANG.Debit_History}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Credit_History}}</a>
+                <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#payments" (click)="upcoming()">{{LANG.Credit_History}}</a>
             </li>
         </ul>
     </div>

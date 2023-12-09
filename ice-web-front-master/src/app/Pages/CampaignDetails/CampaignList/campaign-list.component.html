@@ -4,18 +4,18 @@
         <div class="investor-tab">
             <ul class="nav nav-tabs" *ngIf="user_data.role_type == 2">
                 <li class="nav-item" (click)="changeTabs(1)">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
+                    <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
                 </li>
                 <li class="nav-item" (click)="changeTabs(2)">
-                    <a class="nav-link" data-bs-toggle="tab" href="#trending">{{LANG.My_Opportunities}}</a>
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#trending">{{LANG.My_Opportunities}}</a>
                 </li>
                 <li class="nav-item" (click)="changeTabs(3)">
-                    <a class="nav-link" data-bs-toggle="tab" href="#returns">{{LANG.Closed_Opportunities}}</a>
+                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#returns">{{LANG.Closed_Opportunities}}</a>
                 </li>
             </ul>
             <ul class="nav nav-tabs" *ngIf="user_data.role_type == 3">
                 <li class="nav-item" (click)="changeTabs(1)">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
+                    <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
                     <!-- <a class="nav-link active" data-bs-toggle="tab" href="#newest">Active Opportunities</a> -->
                 </li>
                  <!--<li class="nav-item" (click)="changeTabs(3)">
@@ -27,6 +27,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane col-md-12 active" id="newest">
+                    <h5 class="headList">{{LANG.reachedOpportunities}}</h5>
                     <div class="row investor-row">
                         <div class="col-md-4" style="max-width: 410px;" *ngFor="let list of campaign_list;let i=index">
                             <div class="owl-carousel owl-theme " id="carousel-1"  class="item">

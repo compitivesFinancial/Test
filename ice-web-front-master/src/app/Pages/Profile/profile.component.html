@@ -1,19 +1,19 @@
 <div><div class="campaign-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
+            <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
+            <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
+          <a class="nav-link" style="font-family: 'tajawal-reg' !important;" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
       </li>
         <li class="nav-item" *ngIf="user_data?.role_type == 2">
-          <a class="nav-link" data-bs-toggle="tab" routerLink="/campaign-list">{{LANG.View_Opportunity}}</a>
+          <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/campaign-list">{{LANG.View_Opportunity}}</a>
       </li>
     <li class="nav-item" *ngIf="user_data?.role_type == 3">
-      <a class="nav-link" data-bs-toggle="tab" routerLink="/add-campaign"
+      <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-campaign"
           *ngIf="profileDetails.kyc_approved_status==1"> {{LANG.Add_Opportunity}}</a>
   </li>
     </ul>
@@ -30,7 +30,7 @@
                 <div class="col-md-4 company-fund"> -->
 
 
-                            <a class="nav-link" routerLink="/my-profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="tab1-tab" data-bs-toggle="tab" role="tab" aria-controls="tab1" aria-selected="true">
+                            <a class="nav-link" style="font-family: 'tajawal-reg' !important;" routerLink="/my-profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="tab1-tab" data-bs-toggle="tab" role="tab" aria-controls="tab1" aria-selected="true">
 
                     </a>
 

@@ -1,6 +1,6 @@
 
 {{selectedOpportunity?.tagline}}
-<table *ngIf="!loading" class="table table-hover table-bordered">
+<table *ngIf="!loading && opportunityData.status===true" class="table table-hover table-bordered">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -12,23 +12,23 @@
     <tr>
       <th scope="row">1</th>
       <td class="col-title">{{LANG.prog_info_mansha2a_private}}</td>
-      <td>Otto</td>
+      <td>{{opportunityData.response.data[0].SPV_Directors}}</td><!--this should be SPV only-->
     </tr>
     <tr>
       <th scope="row">2</th>
       <td class="col-title">{{LANG.prog_info_Allowance}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Licensing}}</td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td class="col-title">{{LANG.prog_info_Reason_Allowance}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Licensing_Purpose}}</td>
     </tr>
 
     <tr>
       <th scope="row">4</th>
       <td class="col-title">{{LANG.prog_info_Provider_Name}}</td>
-      <td>شركة التنافسية المالية</td>
+      <td>{{opportunityData.response.data[0].SPV_trustee}}</td>
     </tr>
     <tr>
       <th scope="row">5</th>
@@ -39,15 +39,10 @@
               <th scope="col">{{LANG.prog_info_Member_relation}}</th>
               <th scope="col">{{LANG.prog_info_Nationality}}</th>
             </tr>
-            <tr>
-              <td>قيصر عبدالله ابوسرحان</td>
-              <td>شــريك</td>
-              <td>سعودي</td>
-            </tr>
-            <tr>
-              <td> أحمد يوسف الخطيب</td>
-              <td>شــريك</td>
-              <td>سعودي</td>
+            <tr *ngFor="let user of opportunityData.response.data[0].program__s_p_v__director">
+              <td>{{user.psd_director_name}}</td>
+              <td>{{user.psd_director_relation}}</td>
+              <td>{{user.psd_director_nationality}}</td>
             </tr>
           </table>
         </td>
@@ -55,172 +50,173 @@
     <tr>
       <th scope="row">6</th>
       <td class="col-title">{{LANG.prog_info_Sukuk_Form}}</td>
-      <td>صكوك المرابحه</td>
+      <td>{{opportunityData.response.data[0].Sukuk_products}}</td>
     </tr>
     <tr>
       <th scope="row">7</th>
       <td class="col-title">{{LANG.prog_info_Sukuk_Paid_Agent}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Issuer_Paying_Agent}}</td>
     </tr>
     <tr>
       <th scope="row">8</th>
       <td class="col-title">{{LANG.prog_info_Portal_Admin}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Platform_Admin}}</td>
     </tr>
     <tr>
       <th scope="row">9</th>
       <td class="col-title">{{LANG.prog_info_Sukuk}} </td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].sukuk}}</td>
     </tr>
     <tr>
       <th scope="row">10</th>
       <td class="col-title">{{LANG.prog_info_value_of_instrument}}</td>
-      <td> 1000 ريال سعودي</td>
+      <td>{{opportunityData.response.data[0].sukk_face_value}}</td>
     </tr>
     <tr>
       <th scope="row">11</th>
       <td class="col-title">{{LANG.prog_info_total_instrument_prog_value}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].program_tot_face_value}}</td>
     </tr>
     <tr>
       <th scope="row">12</th>
       <td class="col-title">{{LANG.prog_info_m7slat_tar7_uses}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].offering_proceeds_use}}</td>
     </tr>
     <tr>
       <th scope="row">13</th>
       <td class="col-title">{{LANG.prog_info_Investor_Applied_Condition}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].conditions_inv_services}}</td>
     </tr>
     <tr>
       <th scope="row">14</th>
       <td class="col-title">{{LANG.prog_info_borrowing_reason}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].funding_purpose}}</td>
     </tr>
     <tr>
       <th scope="row">15</th>
       <td class="col-title">{{LANG.prog_info_shepherd}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].sponsor}}</td>
     </tr>
     <tr>
       <th scope="row">16</th>
       <td class="col-title">{{LANG.prog_info_shepherd_responsibility}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].sponsor_Role_desc}}</td>
     </tr>
     <tr>
       <th scope="row">17</th>
       <td class="col-title">{{LANG.prog_info_shepherd_Comitment}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Sponsor_commitment}}</td><!--this should have _ between words-->
     </tr>
     <tr>
       <th scope="row">18</th>
       <td class="col-title">{{LANG.prog_info_shepherd_representative}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].sponsor_repres}}</td>
     </tr>
     <tr>
       <th scope="row">19</th>
       <td class="col-title">{{LANG.prog_info_Company_Beneficiary}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Beneficiary}}</td>
     </tr>
     <tr>
       <th scope="row">20</th>
       <td class="col-title">{{LANG.prog_info_Beneficiary_Legal_Entity}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].entity_beneficiary_Legal}}</td>
     </tr>
     <tr>
       <th scope="row">21</th>
       <td class="col-title">{{LANG.prog_info_Beneficiary_Activity}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Beneficiary_activities}}</td>
     </tr>
     <tr>
       <th scope="row">22</th>
       <td class="col-title">{{LANG.prog_info_Beneficiary_Capital}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Beneficiary_capital}}</td>
     </tr>
     <tr>
       <th scope="row">23</th>
       <td class="col-title">{{LANG.prog_info_Company_Owners}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].company_owners}}</td>
     </tr>
     <tr>
       <th scope="row">24</th>
       <td class="col-title">{{LANG.prog_info_Ektetab_Type}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Subscription_method}}</td>
     </tr>
     <tr>
       <th scope="row">25</th>
       <td class="col-title">{{LANG.prog_info_Min_Max_Ektetab}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].min_max_subscription}}</td>
     </tr>
     <tr>
       <th scope="row">26</th>
       <td class="col-title">{{LANG.prog_info_Allocation_Subtraction_Limitations}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Alloc_Offering_restricts}}</td>
     </tr>
     <tr>
       <th scope="row">27</th>
       <td class="col-title">{{LANG.prog_info_early_refund_right}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].early_redemption}}</td>
     </tr>
     <tr>
       <th scope="row">28</th>
       <td class="col-title">{{LANG.prog_info_terminate_sukuk_date}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].sukuk_extinguishing}}</td>
     </tr>
     <tr>
       <th scope="row">29</th>
       <td class="col-title">{{LANG.prog_info_Periodic_destribution_amount}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Periodic_distrib_amount}}</td>
     </tr>
     <tr>
       <th scope="row">30</th>
       <td class="col-title">{{LANG.prog_info_desc_role_custodian}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].role_custodian_Desc}}</td>
     </tr>
     <tr>
       <th scope="row">31</th>
       <td class="col-title">{{LANG.prog_info_restriction_sukuk}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Sukuk_Restrictions}}</td>
     </tr>
     <tr>
       <th scope="row">32</th>
       <td class="col-title">{{LANG.prog_info_sukuk_assets}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Sukuk_assets}}</td>
     </tr>
     <tr>
       <th scope="row">33</th>
       <td class="col-title">{{LANG.prog_info_murabaha_contract}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Murabaha_contract}}</td>
     </tr>
     <tr>
       <th scope="row">34</th>
       <td class="col-title">{{LANG.prog_info_sanad_owners_beneficiary}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].property_Promissory_note}}</td>
     </tr>
     <tr>
       <th scope="row">35</th>
       <td class="col-title">{{LANG.prog_info_bond_order_beneficiary_owner}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].beneficiary_promissory_note}}</td>
     </tr>
     <tr>
       <th scope="row">36</th>
       <td class="col-title">{{LANG.prog_info_instrument_doc}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].sukk_document}}</td> <!--this should have _ between words-->
     </tr>
     <tr>
       <th scope="row">37</th>
       <td class="col-title">{{LANG.prog_info_regime}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].ruling_regime}}</td>
     </tr>
     <tr>
       <th scope="row">38</th>
       <td class="col-title">{{LANG.prog_info_Refund_Muktatbeen}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].subs_mony_Retur}}</td>
     </tr>
     <tr>
       <th scope="row">39</th>
       <td class="col-title">{{LANG.prog_info_risk_factor}}</td>
-      <td></td>
+      <td>{{opportunityData.response.data[0].Risk_factors}}</td>
     </tr>
   </tbody>
 </table>
+<h1 *ngIf="!loading && opportunityData.status===false">No data to show</h1>

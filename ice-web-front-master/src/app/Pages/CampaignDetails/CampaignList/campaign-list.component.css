@@ -98,7 +98,10 @@
 .fund-rate p {
     font-size: 12px;
 }
-
+.headList{
+    text-align: center;
+    margin-bottom:40px
+}
 .fund-investers p {
     color: #0D0D0D;
     font-family: 'maison-bold';

@@ -82,6 +82,7 @@ export class DashboardComponent implements OnInit {
   loading2: boolean=true;
   netAmount:any=0;
   emailaddon: any;
+  investorAllowance:boolean=false;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -298,7 +299,6 @@ export class DashboardComponent implements OnInit {
             }
            
           }
-          //console.log("this.investPercentage == "+ this.investPercentage);
         }
        
       })
@@ -315,10 +315,8 @@ export class DashboardComponent implements OnInit {
             this.loading=false;
             this.opportunityInvestorData=res.response;
 
-            // Math.round((res.response + Number.EPSILON) * 100) / 100
             this.investPercentage = (Math.round((res.response.percent + Number.EPSILON) * 100) / 100);
             
-            //console.log("this.investPercentage == "+ this.investPercentage);
           }
          
         })
@@ -339,7 +337,12 @@ export class DashboardComponent implements OnInit {
               if(res.status){
                 this.loading=false;
                 this.opportunityInvestorData=res.response;
-                
+                this.dashboardService.investmentsCount().subscribe((res:any)=>{
+                  if(res){
+                    this.investorAllowance=res.status;
+                   
+                  } 
+                });
                 this.netAmount=this.opertunityDetailList.total_valuation-this.opportunityInvestorData.amount;
                 if(this.user_data.isQualified){
                   this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.netAmount)]);
@@ -352,10 +355,6 @@ export class DashboardComponent implements OnInit {
               }
             }
             })
-            
-          
-
-          
           this.teams = res.response.campaign.team;
           this.campaign_images = res.response.campaign.campaign_images;
           this.campaignService.campaignDetail = res.response.campaign;
@@ -674,23 +673,13 @@ export class DashboardComponent implements OnInit {
           this.toast.warning(res.response.message);
         }
         
-        // $('#modalwindow').modal('hide');
-        //console.log(this.onPaydetails);
-        // this.router.navigateByUrl(`payment/${btoa(this.onPaydetails)}`)
-        // this.isAmountValid = false;
       });
       this.getOpertunityDetails();
       this.bankapiService.payment(this.amountForm.value.amount).subscribe((res: any) => {
-        // console.log(`id = ${res.response.id}`);
-        // console.log(`sequenceNumber = ${res.response.sequenceNumber}`);
-        // console.log(`transactionReferenceNumber = ${res.response.transactionReferenceNumber}`);
-        // console.log(`status = ${res.response.status}`);
+
       });
       this.amountForm.value.amount = '';
     } else {
-      // console.log(
-      //   '*********************please fill the form data*********************'
-      // );
       if (
         this.amountForm.value.agreement == undefined ||
         this.amountForm.value.agreement == false
@@ -713,7 +702,6 @@ export class DashboardComponent implements OnInit {
 
   public PaymentSession: any;
   pay() {
-    // UPDATE THE SESSION WITH THE INPUT FROM HOSTED FIELDS
     this.PaymentSession.updateSessionFromForm('card');
   }
 
@@ -721,7 +709,6 @@ export class DashboardComponent implements OnInit {
     this.PaymentSession.configure({
       session: this.onPaydetails,
       fields: {
-        // ATTACH HOSTED FIELDS TO YOUR PAYMENT PAGE FOR A CREDIT CARD
         card: {
           number: '#card-number',
           securityCode: '#security-code',
@@ -730,56 +717,10 @@ export class DashboardComponent implements OnInit {
           nameOnCard: '#cardholder-name',
         },
       },
-      //SPECIFY YOUR MITIGATION OPTION HERE
       frameEmbeddingMitigation: ['javascript'],
       callbacks: {
-        initialized: (response: any) => {
-          // HANDLE INITIALIZATION RESPONSE
-        },
-        formSessionUpdate: function (response: any) {
-          // HANDLE RESPONSE FOR UPDATE SESSION
-          if (response.status) {
-            if ('ok' == response.status) {
-              // console.log('Session updated with data: ' + response.session.id);
-
-              //check if the security code was provided by the user
-              if (response.sourceOfFunds.provided.card.securityCode) {
-                // console.log('Security code was provided.');
-              }
-
-              //check if the user entered a Mastercard credit card
-              if (response.sourceOfFunds.provided.card.scheme == 'MASTERCARD') {
-                // console.log('The user entered a Mastercard credit card.');
-              }
-            } else if ('fields_in_error' == response.status) {
-              // console.log('Session update failed with field errors.');
-              if (response.errors.cardNumber) {
-                // console.log('Card number invalid or missing.');
-              }
-              if (response.errors.expiryYear) {
-                // console.log('Expiry year invalid or missing.');
-              }
-              if (response.errors.expiryMonth) {
-                // console.log('Expiry month invalid or missing.');
-              }
-              if (response.errors.securityCode) {
-                // console.log('Security code invalid.');
-              }
-            } else if ('request_timeout' == response.status) {
-              // console.log(
-              //   'Session update failed with request timeout: ' +
-              //     response.errors.message
-              // );
-            } else if ('system_error' == response.status) {
-              // console.log(
-              //   'Session update failed with system error: ' +
-              //     response.errors.message
-              // );
-            }
-          } else {
-            // console.log('Session update failed: ' + response);
-          }
-        },
+     
+        
       },
       interaction: {
         displayControl: {

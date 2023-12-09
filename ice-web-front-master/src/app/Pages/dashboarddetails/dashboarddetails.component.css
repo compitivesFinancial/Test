@@ -244,25 +244,25 @@ nav .profile-details i {
     /* width: calc(100% / 4 - 15px); */
     background: #fff;
     padding: 30px 14px;
-    border-left: 4px solid #81d3b2;
-    border-right: 4px solid #676f96;
-    border-radius: 0 25px;
+    border-left: 3px solid #00c48a;
+    border-right: 3px solid #3c0d7c;
+    border-radius: 25px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .overview-boxes .box-topic {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     text-align: center;
     padding-bottom: 10px;
+    font-family: 'tajawal-reg';
 }
 
 .home-content .box .number {
     display: inline-block;
     font-size: 35px;
-    margin-top: -6px;
-    font-weight: 500;
-    font-weight: 500;
+    margin-top: 0;
+    font-weight: 600;
     word-break: break-all;
     text-align: center;
 }
@@ -537,10 +537,10 @@ nav .profile-details i {
 .img-size {
     border-radius: 50%;
     /* padding: 5px; */
-    width: 60px;
     height: 60px;
     object-fit: cover;
     border: 1px solid #ddd;
+    width: 100% !important;
 }
 
 .campaign-tab {
@@ -587,9 +587,10 @@ nav .profile-details i {
 }
 
 .home-sec-profile .box-topic {
-    text-align: right;
-    font-weight: 500;
+   
+    font-weight: 600;
     word-break: break-all;
+    font-family: 'tajawal-reg';
 }
 
 .profile-right {
@@ -604,25 +605,31 @@ nav .profile-details i {
 .profile-right {
     display: flex;
     flex-direction: row-reverse;
-    grid-column-gap: 30px;
+    justify-content: space-evenly;
+    align-items: flex-end;
     padding-top: 10px;
 }
 
 .profile-right i {
     font-size: 63px;
-    color: #257a9a;
+    color: #3c0d7c;
 }
 
 .profile-right .right-side .box-topic {
     font-size: 16px;
-    font-weight: 500;
-    color: #257a9a;
+    font-weight: 600;
+    color: #3c0d7c;
+    font-family: 'tajawal-reg';
 }
-
+.right-side{
+    display: flex;
+    justify-content: space-between;
+}
 .box-topic-i {
     display: flex;
     grid-column-gap: 10px;
     direction: rtl;
+    
 }
 
 .box-topic-i i {
@@ -645,20 +652,23 @@ nav .profile-details i {
 .first-sec-logo .box-topic,
 .first-sec-logo {
     text-align: center;
+    font-family: 'tajawal-reg';
 }
 
 .home-content .box.first-sec-logo .number {
     font-size: 26px;
-    color: #257a9a;
+    color: #3c0d7c;
     font-weight: 600;
 }
 
 .add-opportunity {
-    background: #faba0e;
+    background: #3c0d7c;
+    color: white;
+    font-family: 'tajawal-reg';
     padding: 12px 20px;
     font-size: 15px;
-    font-weight: 500;
-    border-radius: 34px 0;
+    font-weight: 600;
+    border-radius: 9px;
 }
 .nav nav-tabs{
   justify-content: center;
@@ -676,3 +686,58 @@ nav .profile-details i {
   padding: 20px 31px;
   font-weight: bold;
 }
+.flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+}
+.inner-topic{
+    display: flex;
+    flex-direction: column;
+}
+.noWrap{
+    text-wrap: nowrap;
+}
+.spacer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.pulse {
+    margin:10px;
+    display: block;
+   
+    background: #3c0d7c;
+    cursor: pointer;
+    box-shadow: 0 0 0 #9a50ff;
+    animation: pulse 2s infinite;
+  }
+  .pulse:hover {
+    animation: none;
+  }
+  
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-box-shadow: 0 0 0 0 #9a50ff;
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+  }
+  @keyframes pulse {
+    0% {
+      -moz-box-shadow: 0 0 0 0 #9a50ff;
+      box-shadow: 0 0 0 0 #9a50ff;
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+        box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+  }
