@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit {
   netAmount:any=0;
   emailaddon: any;
   investorAllowance:boolean=false;
+  profileDetails: any;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -95,7 +96,7 @@ export class DashboardComponent implements OnInit {
     private toast: ToastrService,
     private documentService: DocumentService,
     private bankapiService: BankapiService,
-    private shared: SharedService,public decryptAES:decryptAesService, @Inject(DOCUMENT) private document: Document, private error: errorHandlerService
+    private shared: SharedService,public decryptAES:decryptAesService, @Inject(DOCUMENT) private document: Document, private error: errorHandlerService,public dashBoardService: DashboardService
   ) {
     this.myDate = new Date();
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -622,6 +623,7 @@ export class DashboardComponent implements OnInit {
   getOtpReference(id: any) {
     return this.document.getElementById(id) as HTMLInputElement
   }
+  
   onPay() {
     this.verifyClick=false;
     if (this.amountForm.valid) {
@@ -675,9 +677,18 @@ export class DashboardComponent implements OnInit {
         
       });
       this.getOpertunityDetails();
-      this.bankapiService.payment(this.amountForm.value.amount).subscribe((res: any) => {
+      this.dashBoardService.profileDetails(data).subscribe((res: any) => {
+        this.profileDetails = res.response;
+        
+        this.profileAcountNumber();
+        //must be an encryption code
+        //console.log("this.profileDetails", this.profileDetails);
+        this.bankapiService.payment(this.amountForm.value.amount,this.profileDetails.account_number,creditAccount,this.requestId).subscribe((res: any) => {
 
-      });
+        });
+      })
+      
+      
       this.amountForm.value.amount = '';
     } else {
       if (
@@ -699,7 +710,11 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-
+  profileAcountNumber() {
+    this.dashBoardService.getBankAccountNumber().subscribe((res: any) => {
+      this.profileDetails.account_number = res.response.account_number;
+    })
+  }
   public PaymentSession: any;
   pay() {
     this.PaymentSession.updateSessionFromForm('card');

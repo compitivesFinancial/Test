@@ -53,21 +53,28 @@ export class ProgramInfoComponent implements OnInit {
     }); 
   }
   getOpertunityDetails() {
+    this.loading=true;
     this.dashboardService
       .opertunityDetails(this.requestId)
       .subscribe((res: any) => {
         if(!!res){
           this.selectedOpportunity = res.response.campaign;
           this.dashboardService.programInfo(this.selectedOpportunity.id).subscribe((opportunityInfo:any)=>{
-            if(opportunityInfo.status && opportunityInfo?.response?.message==="success"){
-              this.loading=false;
-              this.opportunityData=opportunityInfo;
-              console.log("opportunityInfo",opportunityInfo);
+            if(!!opportunityInfo?.response && !!opportunityInfo.status){
+              if(opportunityInfo.status && opportunityInfo?.response?.message==="success"){
+                this.opportunityData=opportunityInfo;
+                console.log("opportunityInfo",opportunityInfo);
+                this.loading=false;
+              }
+              else {
+                this.toast.warning(opportunityInfo?.response?.message);
+              }
             }
             else {
-              this.loading=false;
-              this.toast.warning(opportunityInfo?.response?.message);
+              this.loading=true;
+              this.toast.warning("NO DATA");
             }
+          
           });
           
         }

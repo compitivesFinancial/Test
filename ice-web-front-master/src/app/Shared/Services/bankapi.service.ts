@@ -8,8 +8,8 @@ export class BankapiService {
   private fullUrl=``;
   constructor(private api: apiServiceComponent) {}
 
-  payment(amount: any) {
-    this.url = `payment?amount=${amount}`;
+  payment(amount: any,debitAccount:any,creditAccount:any,campgain_id:any) {
+    this.url = `payment?amount=${amount}`+`&debitAccount=${debitAccount}`+`&creditAccount=${creditAccount}`+`&campgain_id=${campgain_id}`;
     return this.api.post(this.url, '');
   }
 
