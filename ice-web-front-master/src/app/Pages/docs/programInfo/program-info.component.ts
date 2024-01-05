@@ -63,7 +63,6 @@ export class ProgramInfoComponent implements OnInit {
             if(!!opportunityInfo?.response && !!opportunityInfo.status){
               if(opportunityInfo.status && opportunityInfo?.response?.message==="success"){
                 this.opportunityData=opportunityInfo;
-                console.log("opportunityInfo",opportunityInfo);
                 this.loading=false;
               }
               else {

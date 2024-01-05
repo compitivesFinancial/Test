@@ -98,8 +98,8 @@
                 <div class="col-md-6 sec4-left">
                     <p [innerHTML]="data.description" class="text-justify"></p>
                 </div>
-                <div class="col-md-5">
-                    <img src="{{data.image}}" class="w-100" alt="">
+                <div class="col-md-5 pic2">
+                    <img src="{{data.image}}" class="w-100 pic" alt="">
                 </div>
             </div>
 
@@ -251,152 +251,44 @@
         <p>{{LANG.Open_and_ongoing_popular_croudfungings_for_you_to_choose_from}}</p>
     </div>
     <div class="row center">
-    <div class="col-md-2" *ngFor="let list of investmentOppertunityList">
-    <div  >
-        <div class="owl-carousel owl-theme " id="carousel-1"  class="item">
-            <div>
-                <div class="carousel-content" >
-                    <div class="caro-img carousel-slide">
-                        <img  src="assets/images/main-logo1-ar.png" class="w-100" alt="" >
-                        <!-- <span>2 days left</span> -->
-                    </div>
-                    <div class="pad-carousel">
-                        <h6 >{{list.tagline}}</h6>
-                        <p>{{list.reason_to_invest}}</p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [style.width.%]="percantageInvestment(list.raised,list.total_valuation)">
-                                <span class="sr-only">{{percantageInvestment(list.raised,list.total_valuation)}}% Complete</span>
+        <div class="row investor-row">
+            <div class="col-md-4" style="max-width: 410px;" *ngFor="let list of investmentOppertunityList;let i=index">
+                <div class="owl-carousel owl-theme " id="carousel-1"  class="item">
+                    <div>
+                        <div class="carousel-content" >
+                            <div class="caro-img carousel-slide">
+                                <!-- <img  src="{{list.campaign_images[0].image}}" class="w-100" alt="" > -->
+                                <img  src="assets/images/main-logo1-ar.png" class="w-100" alt="" >
+                                <!-- <span>2 days left</span> -->
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-between ">
-                            <div class="fund-rate">
-                                <h5>SAR {{list.raised}} </h5>
-                                <p>{{LANG.Pledged_Of_SAR}} {{list.total_valuation}} {{LANG.Goal}}</p>
-                                <h5>{{LANG.Close_Date}}</h5>
-                                <p>{{list.close_date != null ? list.close_date:'----'}}</p>
-                            </div>
-                            <div class="fund-investers">
-                                <!-- <h4>{{LANG.Investers}}</h4>
-                                <p>{{list.investers}}</p> -->
-                                <button class="btn btn-primary custom" (click)="navTo(list)">{{LANG.View_Details}}</button>
-                            </div>
+                            <div class="pad-carousel">
+                                <h6 style="font-size: 20px; font-weight: bold;">{{list.tagline}}</h6>
+                                <p  style="font-size: 16px; font-weight: 600;">{{LANG.Sukuk_Murabaha}} - <strong>{{list.program_number}} -{{list.version_number}}</strong></p>
+                                <div>
+                                    <div class="fund-rate">
+                                        <!-- <h6>{{list.raised}} </h6><br/> -->
+                                        <p style="font-size: 16px;">{{LANG.Pledged_Of_SAR}} : {{list.total_valuation}}</p>
+                                        <p style="font-size: 16px;">{{LANG.Annual_return_rate}} : {{list.APR}}%</p>
+                                        <p style="font-size: 16px;">{{LANG.Close_Date}}     : {{list.close_date != null ? list.close_date:'----'}}</p>
+                                    </div>
+                                    <div class="fund-investers">
+                                        <button class="btn btn1 btn-primary custom"  (click)="navTo(list)">{{LANG.View_Details}}</button>
+                                    </div>
+                                </div>
+                              </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="item">
-                <div class="carousel-content">
-                    <div class="caro-img">
-                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
-                        <span>2 days left</span>
-                    </div>
-                    <div class="pad-carousel">
-                        <h6>WeatherFlow-Tempest, Inc.</h6>
-                        <p>Controlling The Cost Of Weather</p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                <span class="sr-only">70% Complete</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="fund-rate">
-                                <h5>SAR 6550 <span>75% Funded</span></h5>
-                                <p>Pledged Of SAR 9,500 Goal</p>
-                            </div>
-                            <div class="fund-investers">
-                                <h4>Investers</h4>
-                                <p>123</p>
-                            </div>
-                        </div>
-                    </div>
+            <ng-container *ngIf="investmentOppertunityList.length == 0 && data_loaded">
+                <div class="col-md-12 pb-5 pl-3">
+                    <h3>{{LANG.Sorry_No_data_to_display}}</h3>
                 </div>
-            </div>
-            <div class="item">
-                <div class="carousel-content">
-                    <div class="caro-img">
-                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
-                        <span>2 days left</span>
-                    </div>
-                    <div class="pad-carousel">
-                        <h6>WeatherFlow-Tempest, Inc.</h6>
-                        <p>Controlling The Cost Of Weather</p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                <span class="sr-only">70% Complete</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="fund-rate">
-                                <h5>SAR 6550 <span>75% Funded</span></h5>
-                                <p>Pledged Of SAR 9,500 Goal</p>
-                            </div>
-                            <div class="fund-investers">
-                                <h4>Investers</h4>
-                                <p>123</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="carousel-content">
-                    <div class="caro-img">
-                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
-                        <span>2 days left</span>
-                    </div>
-                    <div class="pad-carousel">
-                        <h6>WeatherFlow-Tempest, Inc.</h6>
-                        <p>Controlling The Cost Of Weather</p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                <span class="sr-only">70% Complete</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="fund-rate">
-                                <h5>SAR 6550 <span>75% Funded</span></h5>
-                                <p>Pledged Of SAR 9,500 Goal</p>
-                            </div>
-                            <div class="fund-investers">
-                                <h4>Investers</h4>
-                                <p>123</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="item">
-                <div class="carousel-content">
-                    <div class="caro-img">
-                        <img src="assets/images/caro-slide.png" class="w-100" alt="">
-                        <span>2 days left</span>
-                    </div>
-                    <div class="pad-carousel">
-                        <h6>WeatherFlow-Tempest, Inc.</h6>
-                        <p>Controlling The Cost Of Weather</p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                <span class="sr-only">70% Complete</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="fund-rate">
-                                <h5>SAR 6550 <span>75% Funded</span></h5>
-                                <p>Pledged Of SAR 9,500 Goal</p>
-                            </div>
-                            <div class="fund-investers">
-                                <h4>Investers</h4>
-                                <p>123</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+            </ng-container>
         </div>
-    </div>
+    
 </div>
-</div>
-    <button class="btn explore hov-btn" routerLink="/campaign-list"><span>{{LANG.EXPLORE_ALL}}</span></button>
+    <button class="btn explore1 hov-btn" routerLink="/campaign-list"><span>{{LANG.EXPLORE_ALL}}</span></button>
 </section>
 <section class="container-fluid carousel bg-caro">
     <div class="carousel-first ">
@@ -543,7 +435,7 @@
             </div> -->
         </div>
     </div>
-    <button class="btn explore hov-btn" routerLink="/campaign-list"><span>{{LANG.EXPLORE_ALL}}</span></button>
+    <button class="btn explore1 hov-btn" routerLink="/campaign-list"><span>{{LANG.EXPLORE_ALL}}</span></button>
 </section>
 <!--<section class="container-fluid carousel  third-craousel">
     <div class="carousel-first ">

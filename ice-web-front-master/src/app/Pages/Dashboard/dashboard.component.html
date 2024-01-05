@@ -264,20 +264,21 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-team-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-team" role="tab" aria-controls="nav-team" aria-selected="true">{{LANG.Team}}</a>
               <a class="nav-item nav-link" id="nav-campainAttach-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-campainAttach" role="tab" aria-controls="nav-campainAttach" aria-selected="false">{{LANG.Campaign_Attachements}}</a>
-              <a class="nav-item nav-link" id="nav-mustanad-tarh-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-mustanad-tarh" role="tab" aria-controls="nav-mustanad-tarh" aria-selected="false">{{LANG.MustanadAltarh}}</a>
-              <a class="nav-item nav-link" id="nav-invest_agree-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-invest_agree" role="tab" aria-controls="nav-invest_agree" aria-selected="false">{{LANG.Investment_Agreement}}</a>
-              <a class="nav-item nav-link" id="nav-prog-info-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-prog-info" role="tab" aria-controls="nav-prog-info" aria-selected="false">{{LANG.Program_Information}}</a>
-              <a class="nav-item nav-link" id="nav-invest_wallet-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-invest_wallet" role="tab" aria-controls="nav-invest_wallet" aria-selected="false">{{LANG.investor_statement}}</a>
+             
+              <a *ngIf="invsted" class="nav-item nav-link" id="nav-mustanad-tarh-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-mustanad-tarh" role="tab" aria-controls="nav-mustanad-tarh" aria-selected="false">{{LANG.MustanadAltarh}}</a>
+              <a *ngIf="invsted" class="nav-item nav-link" id="nav-invest_agree-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-invest_agree" role="tab" aria-controls="nav-invest_agree" aria-selected="false">{{LANG.Investment_Agreement}}</a>
+              <a *ngIf="invsted" class="nav-item nav-link" id="nav-prog-info-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-prog-info" role="tab" aria-controls="nav-prog-info" aria-selected="false">{{LANG.Program_Information}}</a>
+              <a *ngIf="invsted" class="nav-item nav-link" id="nav-invest_wallet-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-invest_wallet" role="tab" aria-controls="nav-invest_wallet" aria-selected="false">{{LANG.investor_statement}}</a>
             </div>
           </nav>
         </div>
         <br/>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade" id="nav-invest_agree" role="tabpanel" aria-labelledby="nav-invest_agree-tab">
+          <div *ngIf="invsted" class="tab-pane fade" id="nav-invest_agree" role="tabpanel" aria-labelledby="nav-invest_agree-tab">
             <app-investmentagreement id="investmentagreement"></app-investmentagreement>
             <button id="saveToPdf" class="btn-bluish" (click)="makePdf('investmentagreement')">{{LANG.saveToPDF}}</button>
           </div>
-          <div class="tab-pane fade" id="nav-prog-info" role="tabpanel" aria-labelledby="nav-prog-info-tab">
+          <div *ngIf="invsted" class="tab-pane fade" id="nav-prog-info" role="tabpanel" aria-labelledby="nav-prog-info-tab">
             <p class="tab-header">{{LANG.Program_Information}}</p>
             <app-program-info id="program-info"></app-program-info>
             <button id="saveToPdf" class="btn-bluish" (click)="makePdf('program-info')">{{LANG.saveToPDF}}</button>
@@ -320,12 +321,6 @@
             </div>
             <button id="saveToPdf" class="btn-bluish" (click)="makePdf('team-section')">{{LANG.saveToPDF}}</button>
           </div>
-     <!-- <div class="tab-pane fade" id="nav-updates" role="tabpanel" aria-labelledby="nav-updates-tab">
-            <p>Updates Tab content here .</p>
-          </div>
-          <div class="tab-pane fade" id="nav-terms" role="tabpanel" aria-labelledby="nav-terms-tab">
-            <p>Terms Tab content here .</p>
-          </div> -->
           <div class="tab-pane fade" id="nav-campainAttach" role="tabpanel" aria-labelledby="nav-campainAttach-tab">
               <div class="table-responsive table-section" id="campainAttach">
                     <table class="table table-striped">
@@ -369,11 +364,11 @@
                 </div>
                 <button *ngIf="campaignAttachements.length>0" id="saveToPdf" class="btn-bluish" (click)="makePdf('team-section')">{{LANG.saveToPDF}}</button>
           </div>
-          <div class="tab-pane fade" id="nav-mustanad-tarh" role="tabpanel" aria-labelledby="nav-mustanad-tarh-tab">
+          <div *ngIf="invsted" class="tab-pane fade" id="nav-mustanad-tarh" role="tabpanel" aria-labelledby="nav-mustanad-tarh-tab">
            <app-tar7-document id="tar7"></app-tar7-document>
            <button id="saveToPdf" class="btn-bluish" (click)="makePdf('tar7')">{{LANG.saveToPDF}}</button>
           </div>
-          <div class="tab-pane fade" id="nav-invest_wallet" role="tabpanel" aria-labelledby="nav-invest_wallet-tab">
+          <div *ngIf="invsted" class="tab-pane fade" id="nav-invest_wallet" role="tabpanel" aria-labelledby="nav-invest_wallet-tab">
             <app-investor-wallet-list id="investor-wallet"></app-investor-wallet-list>
             <button id="saveToPdf" class="btn-bluish" (click)="makePdf('investor-wallet')">{{LANG.saveToPDF}}</button>
            </div>

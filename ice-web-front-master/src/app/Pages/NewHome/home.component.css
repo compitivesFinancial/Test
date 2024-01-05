@@ -149,7 +149,7 @@ button:hover:disabled {
     color: white;
 }
 
-.explore {
+.explore1 {
     display: block;
     margin: 48px auto 0;
     border: 1px solid #130132;
@@ -348,4 +348,133 @@ button:hover:disabled {
 .pad-carousel button {
     padding: 10px;
     font-size: 13px;
+}
+.pledged-rate{
+    border-right: 0;
+}
+
+.fund-investers p {
+  margin-top: 15px;
+    color: #0D0D0D;
+    font-family: 'maison-bold';
+}
+.investor{
+    margin-top: 124px;
+}
+.owl-carousel{
+    margin: 20px;
+    padding: 20px;
+}
+
+.carousel-content {
+    border-radius: 32px; 
+    background: rgb(227, 227, 227);
+
+}
+.caro-img {
+    position: relative;
+}
+
+.caro-img span {
+    position: absolute;
+    background: #D7B8FA;
+    border-radius: 6px 0 0 6px;
+    color: #160034;
+    font-size: 12px;
+    font-family: 'maison-med';
+    padding: 7px 10px;
+    right: 0;
+    bottom: 0;
+}
+.container-fluid{
+    margin-bottom: 50px;
+}
+.caro-img img {
+    height: 100px;
+    object-fit: fill;
+}
+.carousel-slide img {
+    border-radius: 32px;
+}
+.pad-carousel h6 {
+    font-size: 15px;
+}
+.pad-carousel {
+    padding: 10px 15px;
+}
+.pad-carousel p {
+    font-size: 10px;
+}
+.pad-carousel button {
+    padding: 10px;
+    font-size: 13px;
+}
+.fund-rate h5 {
+    font-size: 11px;
+}
+.fund-rate h5 span {
+    font-size: 9px;
+    margin-left: 8px;
+}
+.fund-rate p {
+    font-size: 8px;
+}
+.fund-rate {
+    padding-right: 36px;
+    border-right: 1px solid #707070;
+}
+.fund-rate h5 {
+    font-size: 16px;
+    color: #0D0D0D;
+    font-family: 'maison-bold';
+    display: flex;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.fund-rate h5 span {
+    font-size: 12px;
+    color: #525252;
+    font-family: 'maison-book';
+    margin-left: 4px;
+}
+
+.fund-rate {
+    margin-bottom: 7px;
+    border-right: 0px solid #707070;
+    padding-right: 7px;
+    margin-right: 7px;
+}
+
+.fund-rate p {
+    font-size: 12px;
+}
+.headList{
+    text-align: center;
+    margin-bottom:40px
+}
+.fund-investers p {
+    color: #0D0D0D;
+    font-family: 'maison-bold';
+}
+.btn1 {
+  width: 100%;
+  font-weight: 400;
+  margin-bottom:5px;
+  white-space: pre-line;
+  vertical-align: inherit;
+  -webkit-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 0.5;
+  border-radius: 3.25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.pic {
+    border-radius: 35px;
+}    
+.pic2 {
+    margin:0 54px;
 }

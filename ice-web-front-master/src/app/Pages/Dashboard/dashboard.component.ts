@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit {
   emailaddon: any;
   investorAllowance:boolean=false;
   profileDetails: any;
+  invsted:boolean=false;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -143,6 +144,7 @@ export class DashboardComponent implements OnInit {
      
     }
   ngOnInit(): void {
+    
     this.options.innerStrokeColor="#0d6efd99"
     this.options.outerStrokeColor="#0d6efd"
     this.options.showUnits=true;
@@ -184,6 +186,18 @@ export class DashboardComponent implements OnInit {
     this.options2.units="Minutes";
     this.options2.percent=0;
     this.options2.maxPercent=60;
+    this.requestId = atob(this.route.snapshot.params['id']);
+    this.dashBoardService.campgainSubscribe(this.requestId).subscribe((res:any)=>{
+  
+      if(res){
+        if(res.response.status==="true"){
+          this.invsted=true;
+        }
+        else {
+          this.invsted=false;
+        }
+      }
+    })
     if (this.user_data.role_type == 2) {
       this.getProfileDetails(1);
       this.getDashboardDetails(1);
@@ -200,15 +214,17 @@ export class DashboardComponent implements OnInit {
     this.getDashboardDetails();
 
     this.requestId = atob(this.route.snapshot.params['id']);
+  
     if (this.requestId != null) {
       this.getOpertunityDetails();
     }
     this.getCheckInvestorRole();
     this.getCampaignAttachments();
     this.getOpertunityComPercentage();
+
   }
   /***********************************************************************************/
-
+ 
   getSukukDetails() {
     if (this.opertunityDetailList == undefined) {
       this.getOpertunityDetails();
@@ -325,6 +341,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getOpertunityDetails(type?: number) {
+
     this.subscriptions.push(
       this.dashboardService
         .opertunityDetails(this.requestId)
@@ -379,7 +396,7 @@ export class DashboardComponent implements OnInit {
       this.checkMobile(otp)
     }
   }
-  
+
   checkMobile(otp?: string) {
     this.load = true;
     let data = { "email": this.email }
@@ -669,25 +686,41 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.onPay(data).subscribe((res: any) => { 
          if(res.response.status){
           this.onPaydetails = res.response.session_id;
-          this.toast.success(res.response.message);
+          this.getOpertunityDetails();
+          this.dashBoardService.profileDetails(data).subscribe((resOpp: any) => {
+            if(res.response){
+            this.profileDetails = resOpp.response;
+            
+            this.profileAcountNumber();
+            //must be an encryption code
+            //console.log("this.profileDetails", this.profileDetails);
+            this.dashBoardService.getCampaignById(this.requestId).subscribe((oppRes:any)=>{
+             if(oppRes.status){
+              const creditAccount =oppRes.response.bank.filter((acc:any)=> acc.type===3)[0].account_number;
+              this.bankapiService.payment(this.amountForm.value.amount,this.profileDetails.account_number,creditAccount,this.requestId).subscribe((paymentRes: any) => {
+                if(paymentRes.status){
+                  this.toast.success(res.response.message);
+                }else {
+                  this.toast.warning(res.response.message);
+                }
+                
+              });
+             }else {
+              this.toast.warning(res.response.message);
+            }
+            })
+           
+          }else {
+            this.toast.warning(res.response.message);
+          }
+        })
+
         }
         else {
           this.toast.warning(res.response.message);
         }
         
       });
-      this.getOpertunityDetails();
-      this.dashBoardService.profileDetails(data).subscribe((res: any) => {
-        this.profileDetails = res.response;
-        
-        this.profileAcountNumber();
-        //must be an encryption code
-        //console.log("this.profileDetails", this.profileDetails);
-        this.bankapiService.payment(this.amountForm.value.amount,this.profileDetails.account_number,creditAccount,this.requestId).subscribe((res: any) => {
-
-        });
-      })
-      
       
       this.amountForm.value.amount = '';
     } else {

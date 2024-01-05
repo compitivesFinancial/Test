@@ -28,19 +28,10 @@ export class NewHomeComponent implements OnInit {
   home_page:any={};
   investmentOppertunityList:any
   public upcomingInvestmentOppertunityList:any
-
+  data_loaded:boolean=false;
   constructor(private campaignService:CampaignService,private shared:SharedService,private toast:ToastrService,private error:errorHandlerService, public router:Router) {
     this.subscriptions.push(this.shared.languageChange.subscribe((path:any)=>{
-      this.shared.getLang().subscribe(lang => {
-        if(lang=='ar'){
-          this.LANG = environment.arabic_translations;
-          this.namechange = true
-        }
-        else {
-          this.LANG = environment.english_translations;
-          this.namechange = false
-        }
-      });
+
       // this.getProducts();
       this.getHomeData();
       // this.getHomePage();
@@ -49,6 +40,16 @@ export class NewHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.shared.getLang().subscribe(lang => {
+      if(lang=='ar'){
+        this.LANG = environment.arabic_translations;
+        this.namechange = true
+      }
+      else {
+        this.LANG = environment.english_translations;
+        this.namechange = false
+      }
+    });
     // this.getProducts();
     this.getHomeData();
     new WOW().init();
@@ -269,27 +270,21 @@ $("#carousel-3").owlCarousel({
   }
 
   investMentOppertunity(){
+    this.data_loaded=false;
     this.campaignService.investmentOppertunityQaysar().subscribe((res:any)=>{
-      this.investmentOppertunityList =res.response
-      // console.log(this.investmentOppertunityList);
+      if(res){
+        this.investmentOppertunityList =res.response;
+        this.data_loaded=true;
+      }
+    
 
     })
   }
 
-  // upcomingInvestmentOppertunity(){
-  //   this.campaignService.upcomingInvesmentOppertunity().subscribe((res:any)=>{
-  //     this.upcomingInvestmentOppertunityList = res.response
-  //     // console.log(this.upcomingInvestmentOppertunityList);
-
-
-  //   })
-  // }
+ 
 
   navTo(list:any){
-    // console.log('outer')
     if(list!= null ){
-      // console.log('iner')
-      // console.log(this.router);
 
       this.router.navigateByUrl(`/dashboard/${btoa(list.id)}`)
     }

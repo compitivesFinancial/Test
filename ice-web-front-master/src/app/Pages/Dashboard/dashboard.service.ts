@@ -77,4 +77,12 @@ getCampaignInvestPerc(id:any){
   this.url= `campaignInvestPerc/${id}`
   return this.api.get(this.url,'')
 }
+getCampaignById(id:any){
+  this.url= `get_campaign_by_id/${id}`
+  return this.api.get(this.url,'')
+}
+campgainSubscribe(id:any){
+  this.url= `campgain_subscribe?campgain_id=${id}`
+  return this.api.get(this.url,'')
+}
 }
