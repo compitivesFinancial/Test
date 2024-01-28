@@ -61,6 +61,12 @@
                             <h6 style="font-size: 20px;">{{LANG.SAR}} {{opertunityDetailList?.max_investment}}</h6>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="invest">
+                          <p style="font-size: 20px;">{{LANG.Sukuk_Quantity}}</p>
+                          <h6 style="font-size: 20px;">{{(opertunityDetailList?.total_valuation/opertunityDetailList?.share_price)}}</h6>
+                      </div>
+                  </div>
                     <br>
                     <button class="btn btn-primary pulse" *ngIf="user_data.role_type==2 && disabled_inputs && closeInvest===false && investorAllowance===true" data-bs-toggle="modal" data-bs-target="#investmentModal"> {{LANG.investment}}</button>
                     <!-- Button trigger modal -->

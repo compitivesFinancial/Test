@@ -176,11 +176,13 @@ export class RegistrationComponent implements OnInit {
           this.emailaddon=localStorage.getItem("EMAILADDON");
           this.resetError();
           this.toast.success(result.response.message, '');
-
+          this.router.navigate(["/login"]);
           return;
         }
+        else {
+          this.toast.warning(result.response.message, '');
+        }
         this.load = false;
-        this.toast.warning(result.message, '');
       })
     );
   }
@@ -224,12 +226,13 @@ export class RegistrationComponent implements OnInit {
                 ''
               );
               // this.toast.success(result.response.message,"")
-              this.router.navigate(['/add-kyc']);
-
+              //this.router.navigate(['/add-kyc']);
+              this.router.navigate(["/login"]);
               // this.router.navigate(["/add-kyc"],{queryParams:{type:btoa(btoa(result.response.role_type.toString()))}})
 
               return;
             }
+            console.log("result.response.message",result)
             this.toast.warning(result.response.message, '');
           },
           (respagesError) => {
