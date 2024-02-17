@@ -4,6 +4,8 @@ import {
   OnChanges,
   SimpleChanges,
   Inject,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CampaignService } from 'src/app/Shared/Services/campaign.service';
@@ -64,11 +66,8 @@ export class AddKycComponent implements OnInit, OnChanges {
   businessType: any;
   crEntityNumber: any;
   public profileDetails: any = '';
-  //added By Qaysar For updating the page with dynamic list
   public yaqeenArName: any = '';
   public yaqeenEnName: any = '';
-  // yaqeenArName: Subject<string> = new BehaviorSubject<string>(``);
-  // yaqeenEnName: Subject<string> = new BehaviorSubject<string>(``);
   identityList: Identity[] = [];
   genderList: Gender[] = [];
   banksList: Bank[] = [];
@@ -94,7 +93,6 @@ export class AddKycComponent implements OnInit, OnChanges {
   yaqeenIdNumber: any = '';
   public yaqeenRes: any;
   yaqeenData?: YaqeenData;
-  // yageenRes: any;
   iqamaDOB: any | undefined;
 
   status: boolean = false;
@@ -107,11 +105,10 @@ export class AddKycComponent implements OnInit, OnChanges {
   firstNameT: string = '';
   grandFatherName: string = '';
   grandFatherNameT: string = '';
-  nationalityDescAr: string = ''; // for iqama only
+  nationalityDescAr: string = '';
   sexDescAr: string = '';
   idExpirationDate: string = '';
-  subTribeName: string = ''; // for sudi only
-  //change the regitration with OTP variables
+  subTribeName: string = ''; 
   show_otp: boolean = false;
   showResend: boolean = false;
   otp_error: any = {};
@@ -119,10 +116,15 @@ export class AddKycComponent implements OnInit, OnChanges {
   otp2: string = '';
   otp3: string = '';
   otp4: string = '';
-  procced:boolean=false
-  //End add by qaysar
-isApproved:boolean=false;
-  verified:any='';
+  procced: boolean = false;
+  isApproved: boolean = false;
+  verified: any = '';
+  data: any = {};
+  @ViewChild('field1') field1Input: ElementRef | null = null;
+  @ViewChild('field2') field2Input: ElementRef | null = null;
+  @ViewChild('field3') field3Input: ElementRef | null = null;
+  @ViewChild('field4') field4Input: ElementRef | null = null;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private campaign_service: CampaignService,
@@ -135,7 +137,7 @@ isApproved:boolean=false;
     private yaqeenService: YaqeenService,
     public dashBoardService: DashboardService,
     public decryptAES: decryptAesService,
-    public api:apiServiceComponent
+    public api: apiServiceComponent
   ) {
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -155,7 +157,6 @@ isApproved:boolean=false;
     );
     this.subscriptions.push(
       this.shared.languageChange.subscribe((path: any) => {
-        
         this.getUserKycList();
         if (this.user_data.role_type == 2) {
           this.getProfileDetails(1);
@@ -164,7 +165,6 @@ isApproved:boolean=false;
         this.getProfileDetails();
       })
     );
-   
 
     this.getIdentityList();
     this.getGenderList();
@@ -248,36 +248,27 @@ isApproved:boolean=false;
     if (!this.err) {
       this.load = false;
       this.show_otp = true;
-      // alert(`THE ID NUMBER IS --- ${this.yaqeenIdNumber}`);
       this.dashBoardService
-        .sendOtpKyc(this.yaqeenIdNumber,this.user_data.id)
+        .sendOtpKyc(this.yaqeenIdNumber, this.user_data.id)
         .subscribe((res) => {
-          res
-          console.log(JSON.stringify(res));
-      //        this.dashBoardService.sendOTPCheck(data.crnumber).subscribe((res)=>{
-      // console.log("res",res);
-      //   })
+          res;
+         
         });
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // changes.prop contains the old and the new value...
-    // console.log('Changes detected');
   }
 
   changeLanguage() {
-   
-    this.shared.getLang().subscribe(lang => {
-      if(lang=='ar'){
+    this.shared.getLang().subscribe((lang) => {
+      if (lang == 'ar') {
         this.LANG = environment.arabic_translations;
-      }
-      else {
+      } else {
         this.LANG = environment.english_translations;
       }
     });
   }
-  //added By Qaysar For updating the page with dynamic list
   onChangeIdentity() {
     this.yaqeenArName = '';
     this.yaqeenEnName = '';
@@ -286,6 +277,7 @@ isApproved:boolean=false;
     this.dayStr = '';
     this.yaqeenIdNumber = '';
     this.iqamaDOB = '';
+    this.procced = false;
   }
   resetYaqeenData() {
     this.status = false;
@@ -298,10 +290,10 @@ isApproved:boolean=false;
     this.firstNameT = '';
     this.grandFatherName = '';
     this.grandFatherNameT = '';
-    this.nationalityDescAr = ''; // for iqama only
+    this.nationalityDescAr = ''; 
     this.sexDescAr = '';
     this.idExpirationDate = '';
-    this.subTribeName = ''; // for sudi only
+    this.subTribeName = ''; 
   }
   getIdentityList() {
     this.identityList = this.lkservice.getIdentityList();
@@ -339,8 +331,8 @@ isApproved:boolean=false;
   /*************************************************************************************************************/
 
   checkYaqeenService() {
-    this.yaqeenArName='';
-  this.yaqeenEnName='';
+    this.procced = false;
+  
     let hasData = false;
     if (
       this.identityStr != null &&
@@ -349,6 +341,7 @@ isApproved:boolean=false;
     ) {
       if (this.identityStr == '1') {
         if (
+        
           this.yaqeenIdNumber == null ||
           this.yaqeenIdNumber == '' ||
           this.yaqeenIdNumber.length < 10 ||
@@ -366,7 +359,6 @@ isApproved:boolean=false;
           alert(
             'please fill Identity Type and the ID number and birthdate in Hijri to retrieve tha data'
           );
-          //   console.log(`the error says ${this.err}`);
           if (this.err) return;
         } else {
           this.getYaqeenSaudiData();
@@ -384,26 +376,24 @@ isApproved:boolean=false;
         alert(
           'please fill Identity Type and the ID number and birthdate to retrieve tha data'
         );
-        // console.log(`the error says ${this.err}`);
         if (this.err) return;
       } else {
-        // console.log(`the Date Of birth iqama service ${this.iqamaDOB}`);
-        let month = (new Date(this.iqamaDOB).getMonth() + 1).toString().slice(-2);
-        if(parseInt(month) < 10){
-          month = `0${month}`
+        let month = (new Date(this.iqamaDOB).getMonth() + 1)
+          .toString()
+          .slice(-2);
+        if (parseInt(month) < 10) {
+          month = `0${month}`;
         }
-        // alert(`the month Of birth iqama service ${month}`);
         const monthYear =
-          new Date(this.iqamaDOB).getFullYear().toString() +
-          '-' + month;
-          let year =parseInt(new Date(this.iqamaDOB).getFullYear().toString());
-          let current=parseInt(new Date().getFullYear().toString());
-          if((current-year)<18){
-            alert('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age');
-            this.router.navigate(['/dashboard']);
-          }
-         console.log(`the Date Of birth iqama service ${monthYear}`);
-        //  alert(`the Date Of birth iqama service ${monthYear}`);
+          new Date(this.iqamaDOB).getFullYear().toString() + '-' + month;
+        let year = parseInt(new Date(this.iqamaDOB).getFullYear().toString());
+        let current = parseInt(new Date().getFullYear().toString());
+        if (current - year < 18) {
+          alert(
+            'You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age'
+          );
+          this.router.navigate(['/dashboard']);
+        }
         this.getYaqeenIqamaData(monthYear);
         hasData = true;
       }
@@ -414,16 +404,22 @@ isApproved:boolean=false;
     }
   }
 
-  /*************************************************************************************************************/
   getYaqeenSaudiData() {
     let yearMonth = `${this.yearsHStr}-${this.monthStr}`;
 
-    let current=parseInt(new Date().getFullYear().toString());
-   // console.log("this.monthStr",(current-((parseInt(this.yearsHStr)*0.97)+622)+(parseInt(this.monthStr)/12)));
-    if((current-((parseInt(this.yearsHStr)*0.97)+622)+(parseInt(this.monthStr)/12))<18){
-      alert('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age');
-            this.router.navigate(['/dashboard']);
+    let current = parseInt(new Date().getFullYear().toString());
+    if (
+      current -
+        (parseInt(this.yearsHStr) * 0.97 + 622) +
+        parseInt(this.monthStr) / 12 <
+      18
+    ) {
+      alert(
+        'You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age'
+      );
+      this.router.navigate(['/dashboard']);
     }
+    this.load = true;
     this.subscriptions.push(
       this.yaqeenService
         .getYaqeenSaudiData(this.yaqeenIdNumber, yearMonth)
@@ -433,7 +429,6 @@ isApproved:boolean=false;
             const hasData = this.getSafe(
               () => res.response.personBasicInfo.birthDateG
             );
-            //   console.log(`THE VLUE NOT EXIST ${hasData}`);
             if (hasData === 'undefined') {
               this.toast.error('The Id number not exist ');
               return;
@@ -471,27 +466,60 @@ isApproved:boolean=false;
               this.yaqeenData.grandFatherNameT +
               ' ' +
               this.yaqeenData.familyNameT;
-              this.procced=true;
+            this.load = false;
+            if (!this.load) {
+              if (this.field1Input?.nativeElement) {
+                this.field1Input.nativeElement.value =
+                  this.yaqeenArName ?? null;
+                this.yaqeenArName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+
+              if (this.field2Input?.nativeElement) {
+                this.field2Input.nativeElement.value =
+                  this.yaqeenArName ?? null;
+                this.yaqeenArName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+              if (this.field3Input?.nativeElement) {
+                this.field3Input.nativeElement.value =
+                  this.yaqeenEnName ?? null;
+                this.yaqeenEnName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+
+              if (this.field4Input?.nativeElement) {
+                this.field4Input.nativeElement.value =
+                  this.yaqeenEnName ?? null;
+                this.yaqeenEnName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+            }
+
             this.toast.success('verified');
-            
           } else {
-            this.toast.error('Not Verified ');
+            this.procced = false;
+            this.load = false;
+            this.toast.error(res.response.message);
           }
         })
     );
   }
 
-  /*************************************************************************************************************/
   getYaqeenIqamaData(yearMonth: any) {
+    this.load = true;
     this.subscriptions.push(
       this.yaqeenService
-        .getYaqeenIqamaData(this.yaqeenIdNumber, yearMonth) 
+        .getYaqeenIqamaData(this.yaqeenIdNumber, yearMonth)
         .subscribe((res: any) => {
           if (res.status) {
             const hasData = this.getSafe(
               () => res.response.personBasicInfo.birthDateG
             );
-            //     console.log(`THE VLUE NOT EXIST ${hasData}`);
             if (hasData === 'undefined') {
               this.toast.error('The Id number not exist ');
               return;
@@ -529,11 +557,45 @@ isApproved:boolean=false;
               this.yaqeenData.grandFatherNameT +
               ' ' +
               this.yaqeenData.familyNameT;
-              this.procced=true;
+
+            this.load = false;
+            if (!this.load) {
+              if (this.field1Input?.nativeElement) {
+                this.field1Input.nativeElement.value =
+                  this.yaqeenArName ?? null;
+                this.yaqeenArName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+
+              if (this.field2Input?.nativeElement) {
+                this.field2Input.nativeElement.value =
+                  this.yaqeenArName ?? null;
+                this.yaqeenArName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+              if (this.field3Input?.nativeElement) {
+                this.field3Input.nativeElement.value =
+                  this.yaqeenEnName ?? null;
+                this.yaqeenEnName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+
+              if (this.field4Input?.nativeElement) {
+                this.field4Input.nativeElement.value =
+                  this.yaqeenEnName ?? null;
+                this.yaqeenEnName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+            }
+
             this.toast.success('Verified');
-            
           } else {
-            this.toast.error('Not Verified ');
+            this.procced = false;
+            this.toast.error(res.response.message);
           }
         })
     );
@@ -554,10 +616,8 @@ isApproved:boolean=false;
     };
     this.dashBoardService.profileDetails(data).subscribe((res: any) => {
       this.profileDetails = res.response;
-      // console.log(this.profileDetails);
     });
   }
-  //end add By Qaysar For updating the page with dynamic list
 
   getProfileDetails(type?: number) {
     const data = { id: this.user_data.id };
@@ -566,6 +626,7 @@ isApproved:boolean=false;
         if (res.status) {
           this.user_details = res.response;
           if (res.response.kyc_approved_status == 1) {
+            console.log("res.response.kyc_approved_status")
             this.disabled_inputs = true;
           }
         }
@@ -589,7 +650,6 @@ isApproved:boolean=false;
               if (fields.id == 100) {
                 fields.value = this.user_data?.name;
               }
-              //start add by qaysar 04-05
               if (fields.id == 131) {
                 this.identityStr = fields.value;
               }
@@ -608,7 +668,18 @@ isApproved:boolean=false;
               if (fields.id == 136) {
                 this.iqamaDOB = fields.value;
               }
-              //end add by qaysar 04-05
+              if (fields.id == 137) {
+                this.yaqeenArName = fields.value;
+                this.yaqeenArName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
+              if (fields.id == 138) {
+                this.yaqeenEnName = fields.value;
+                this.yaqeenEnName
+                  ? (this.procced = true)
+                  : (this.procced = false);
+              }
             });
           });
         });
@@ -648,7 +719,6 @@ isApproved:boolean=false;
         } else {
           data.ext = ext;
         }
-        // this.uploadImage(data)
       };
       reader.readAsDataURL(file);
     }
@@ -706,18 +776,15 @@ isApproved:boolean=false;
   }
 
   next(index: number) {
-    // if(this.verifyCR== null && this.verifyCR == ''){
-    //   this.toast.warning("Verify CR Number")
-    //   return
-    //   }
-    if (this.disabled_inputs) {
+   
+    // if (this.disabled_inputs) {
       this.tab_index = index + 1;
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
       return;
-    }
+    // }
 
     this.addKYCDetails(index);
   }
@@ -734,45 +801,40 @@ isApproved:boolean=false;
     if (this.yaqeenData?.firstName != '' || this.yaqeenData != null) {
       this.kyc_form[index].info_type.map((data: any) => {
         data.detail.map((fields: any) => {
-          // console.log(fields.id);
-          //Added By Qaysar For Yaqeen Service Data
-          if (fields.id == 131 && fields.value == null) {
+         
+          if (fields.id == 131 ) {
             fields.value = this.identityStr;
           }
-          if (fields.id == 132 && fields.value == null) {
+          if (fields.id == 132 ) {
             fields.value = this.yearsHStr;
           }
-          if (fields.id == 133 && fields.value == null) {
+          if (fields.id == 133 ) {
             fields.value = this.monthStr;
           }
 
-          if (fields.id == 134 && fields.value == null) {
+          if (fields.id == 134 ) {
             fields.value = this.dayStr;
           }
 
           if (fields.id == 135 && fields.value == null) {
             fields.value = this.yaqeenIdNumber;
           }
-          if (fields.id == 136 && fields.value == null) {
+          if (fields.id == 136) {
             fields.value = this.iqamaDOB;
           }
-
-          if (fields.id == 137 && fields.value == null) {
+          if (fields.id == 137) {
             fields.value = this.yaqeenArName;
           }
-          if (fields.id == 138 && fields.value == null) {
+          if (fields.id == 138) {
             fields.value = this.yaqeenEnName;
           }
-          // console.log(
-          //   `the value for sield ID is ${fields.id} and the fields value is ${fields.value}`
-          // );
         });
       });
     }
 
     this.kyc_form[index].info_type.map((data: any) => {
       data.detail.map((fields: any) => {
-        // console.log(fields.id);
+       
 
         if (fields.id == 112 && fields.value == null) {
           fields.value = this.crname;
@@ -796,7 +858,7 @@ isApproved:boolean=false;
     if (this.tab_index == this.kyc_form.length - 1) {
       this.kyc_form[index].info_type.map((data: any) => {
         data.detail.map((fields: any) => {
-          // console.log(fields.id);
+       
 
           if (fields.id == 112 && fields.value == null) {
             fields.value = this.crname;
@@ -874,38 +936,36 @@ isApproved:boolean=false;
       if (this.verifyCR == null && this.verifyCR == '') {
         return;
       } else {
-        const data = {
-          field: this.post_data,
-          crnumber: JSON.stringify(this.verifyCR),
-        };
-        this.dashBoardService.sendOTPCheck(otp,this.user_data.id).subscribe((verified:any)=>{
-          this.verified=verified;
-          })
-        if(this.verified.status)
-       {
-        this.subscriptions.push(
-          this.campaign_service.addKyc(data).subscribe((res: any) => {
-            if (res.status) {
-              this.load = false;
-              this.toast.success('Kyc added successfully!');
-              if (this.user_type == '3') {
-                // this.router.navigate(["/add-campaign"]);
-                this.router.navigate(['/dashboard']);
-                return;
+        this.dashBoardService
+          .sendOTPCheck(otp, this.user_data.id)
+          .subscribe((verified: any) => {
+            this.verified = verified;
+            if (verified) {
+              if (this.verified.status) {
+                const data = {
+                  field: this.post_data,
+                  crnumber: JSON.stringify(this.verifyCR),
+                };
+                this.campaign_service.addKyc(data).subscribe((res: any) => {
+                  if (res.status) {
+                    this.load = false;
+                    this.toast.success('Kyc added successfully!');
+                    if (this.user_type == '3') {
+                      this.router.navigate(['/dashboard']);
+                      return;
+                    }
+                    this.router.navigate(['/dashboard']);
+          
+                    return;
+                  }
+                  this.toast.warning(res.response.message);
+                });
+              } else {
+                this.load = false;
+                this.toast.warning(this.verified.response.message);
               }
-              this.router.navigate(['/dashboard']);
-
-              // this.router.navigate(["/thank-you"]);
-              return;
             }
-            this.toast.warning(res.response.message);
-          })
-        );
-       }
-       else {
-        this.load = false;
-        this.toast.warning(this.verified.response.message);
-       }
+          });
       }
     }
   }
@@ -914,7 +974,7 @@ isApproved:boolean=false;
     this.err = false;
     this.kyc_form[index].info_type.map((data: any) => {
       data.detail.map((fields: any) => {
-        // console.log(data.detail.length);
+       
 
         if (fields.mandatory == 1 && !fields.value) {
           fields.required = true;
@@ -958,7 +1018,6 @@ isApproved:boolean=false;
             fields.error_message = '';
           }
         }
-        // console.log(fields.id);
       });
       if (!this.err) {
         this.post_data.push.apply(this.post_data, data.detail);
@@ -973,37 +1032,34 @@ isApproved:boolean=false;
   }
   public verifyCR: any;
   verfyimg: boolean = false;
-  verifyCrNumber(number: any) {
-    this.campaign_service.verifyCrNumber(number).subscribe((res: any) => {
-      let status = res.status;
-      this.verifyCR = res.response;
-      if (status && res.response?.message!=="No Results Found") {
-        this.toast.success('verified');
-        this.crname = this.verifyCR.crName;
-        this.crEntityNumber = this.verifyCR.crEntityNumber;
-        this.issueDate = this.verifyCR.issueDate;
-        this.expiryDate = this.verifyCR.expiryDate;
-        this.businessType = this.verifyCR.businessType.name;
-      } else if (res.response.message==="No Results Found"){
-        this.toast.error('No Results Found');
-      }
-       else {
-        this.toast.error('not verified');
-      }
-    });
-  }
-  change(event: any) {
-    let crName = event.target.value;
-    if (crName.length === 10) {
-      //  console.log(`the value from user is ${event.target.value}`);
-      this.verifyCrNumber(crName);
-    }
-  }
+  // verifyCrNumber(number: any) {
+  //   this.campaign_service.verifyCrNumber(number).subscribe((res: any) => {
+  //     let status = res.status;
+  //     this.verifyCR = res.response;
+  //     if (status && res.response?.message !== 'No Results Found') {
+  //       this.toast.success('verified');
+  //       this.crname = this.verifyCR.crName;
+  //       this.crEntityNumber = this.verifyCR.crEntityNumber;
+  //       this.issueDate = this.verifyCR.issueDate;
+  //       this.expiryDate = this.verifyCR.expiryDate;
+  //       this.businessType = this.verifyCR.businessType.name;
+  //     } else if (res.response.message === 'No Results Found') {
+  //       this.toast.error('No Results Found');
+  //     } else {
+  //       this.toast.error(res.response.message);
+  //     }
+  //   });
+  // }
+  // change(event: any) {
+  //   let crName = event.target.value;
+  //   if (crName.length === 10) {
+  //     this.verifyCrNumber(crName);
+  //   }
+  // }
 
   calculateDate(birthdate: Date) {
     let today = new Date();
     let BOD = new Date(birthdate);
-    // let past = new Date(2010,05,01) // remember this is equivalent to 06 01 2010
     let diff = Math.floor(today.getTime() - BOD.getTime());
     let day = 1000 * 60 * 60 * 24;
 
@@ -1017,10 +1073,11 @@ isApproved:boolean=false;
     message += months + ' months ';
     message += years + ' years ago \n';
     if (years < 18) {
-      alert('You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age');
-        this.router.navigate(['/dashboard']);
-    
-  }
+      alert(
+        'You are under 18 year old and we sorry you cannot go thrugh with our investement before you complete the preffered age'
+      );
+      this.router.navigate(['/dashboard']);
+    }
     return message;
   }
 }

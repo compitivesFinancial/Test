@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: '', loadChildren: () => import('./Pages/setting/setting.module').then(m => m.SettingModule),canActivate:[authGuard]},
   { path: '', loadChildren: () => import('./Pages/KYC/AddKyc/add-kyc.module').then(m => m.AddKYCModule), canActivate:[authGuard]},
   { path: '', loadChildren: () => import('./Pages/CampaignDetails/AddCampaign/add-campaign.module').then(m => m.AddCampaignModule), canActivate:[authGuard]},
-  { path: '', loadChildren: () => import('./Pages/CampaignDetails/CampaignList/campaign-list.module').then(m => m.CampiagnListModule), },
+  { path: '', loadChildren: () => import('./Pages/CampaignDetails/CampaignList/campaign-list.module').then(m => m.CampiagnListModule),canActivate:[authGuard] },
   { path: '', loadChildren: () => import('./Pages/Thankyou/thank-you.module').then(m => m.ThankYouModule), },
   { path: '', loadChildren: () => import('./Pages/CampaignDetails/CampaignDetails/campaign-details.module').then(m => m.CampaignDetailsModule),},
   { path: '', loadChildren: () => import('./Pages/Statements/statements.module').then(m => m.StatementsModule), },

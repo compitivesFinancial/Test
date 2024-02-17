@@ -33,8 +33,8 @@ export class DashboardService {
     this.url="checkOtpAbsher?otp="+otp+"&user_id="+user_id;
     return this.api.post(this.url,"")
   }
-  investmentsCount(){
-    this.url="userInvestorCount";
+  investmentsCount(id:any){
+    this.url="userInvestorCount/id="+id;
     return this.api.get(this.url,"")
   }
   onPay(data:any){

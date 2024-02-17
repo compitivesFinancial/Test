@@ -16,4 +16,8 @@ export class WalletService {
       this.url = `investor_campaign_statment/${campaign_id}`;
       return this.api.get(this.url, '');
     }
+    getInvestorNearestDate(){
+      this.url = `nearestDate`;
+      return this.api.get(this.url, '');
+    }
 }

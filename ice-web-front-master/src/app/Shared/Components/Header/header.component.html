@@ -67,17 +67,17 @@
                 <li class="nav-item mobileGap" *ngIf="!logged_in;else logged_out" routerLink="/login" (click)="close()">
                     <button class="btn login-btn hov-btn"><span><i class="fa fa-user" aria-hidden="true"></i> {{LANG.LOGIN}}</span></button>
                 </li>
-                <ng-template #logged_out>
-                    <div class=" head-button">
+                <ng-template #logged_out >
+                    <div class=" head-button" >
                         <li class="nav-item dropdown">
-                            <button (click)="toggleMenu()" class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button (click)="toggleMenu()"  class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                 <span class="hidden-md-down ml-3 font-support">{{usernameTemp}} &nbsp;</span>
                             </button>
                             <div class="headMenu animated flipInY head-drop" [class.menuAppear]="menuToggle== false">
                                 <!-- <button class="dropdown-item cursor-pointer" routerLink="/my-profile">My Profile</button>
                                 <button class="dropdown-item cursor-pointer" (click)="logout()">{{LANG.LOGOUT}}</button> -->
-                                <div class="row drop-row">
+                                <div class="row drop-row" >
                                     <div class="col-md-6">
                                         <h5>{{LANG.My_Opportunities}}</h5>
                                         <a routerLink="/campaign-list">{{LANG.Opportunity_List}}</a>
@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h5>{{LANG.MyProfile}}</h5>
-                                        <a routerLink="/my-profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{LANG.Edit_Profile}}</a>
+                                        <a (blur)="toggleMenu()" routerLink="/my-profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{LANG.Edit_Profile}}</a>
                                         <!-- <a href="#">Bank Details</a> -->
                                         <a routerLink="/kyc-details" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{LANG.Kyc_Details}}</a>
                                     </div>

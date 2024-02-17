@@ -1,3 +1,5 @@
+<div class="overlay" *ngIf="load"></div>
+<div class="loading" *ngIf="load"></div>
 <div>
   <div class="campaign-tab">
     <ul class="nav nav-tabs">
@@ -139,7 +141,8 @@
                                             name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value"
                                             (keypress)="onlyNumbers($event,fields)"
                                             [maxLength]="fields.type == field_types.Mobile ? '10' : '50'"
-                                            [disabled]="disabled_inputs || fields.id == 6 || fields.id == 8 || fields.id == 100">
+                                            [disabled]="disabled_inputs">
+                                            <!-- || fields.id == 6 || fields.id == 8 || fields.id == 100 -->
                                         <span class="error"
                                             *ngIf="fields.required && fields.id !='112' && fields.id !='114' && fields.id !=138 && fields.id !=137">{{LANG.This_field_is_required}}</span>
                                         <span class="error"
@@ -161,12 +164,14 @@
                                         <label>{{fields.title}}</label>
                                         <input type="text" class="form-control" placeholder="{{fields.title}}"
                                             name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value"
-                                            (input)="change($event)" [disabled]="disabled_inputs"
-                                            (keyup.enter)="verifyCrNumber(fields.value)">
+                                             [disabled]="disabled_inputs"
+                                            >
+                                            <!-- (input)="change($event)" -->
+                                            <!-- (keyup.enter)="verifyCrNumber(fields.value)" -->
                                         <span class="error"
                                             *ngIf="fields.required">{{LANG.This_field_is_required}}</span>
-                                        <a (click)="verifyCrNumber(fields.value)" class="pointer"
-                                            hidden>{{LANG.verify}}</a>
+                                        <!-- <a (click)="verifyCrNumber(fields.value)" class="pointer"
+                                            hidden>{{LANG.verify}}</a> -->
                                     </div>
 
                                     <div class="form-group col-md-6"
@@ -185,30 +190,35 @@
                                         *ngIf="fields.id == 112 || fields.id == 113 ||fields.id == 114 ||fields.id == 115 ||fields.id == 116">
                                         <label>{{fields.title}}</label>
                                         <input type="text" *ngIf="fields.id == 112 && fields.value== null"
-                                            class="form-control" [(ngModel)]="crname" disabled>
+                                            class="form-control" [(ngModel)]="crname" [disabled]="disabled_inputs">
+                                            <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 112 && fields.value!= null"
-                                            class="form-control" [(ngModel)]="fields.value" disabled>
-
+                                            class="form-control" [(ngModel)]="fields.value" [disabled]="disabled_inputs">
+                                            <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 113 && fields.value== null"
-                                            class="form-control" [(ngModel)]="crEntityNumber" disabled>
+                                            class="form-control" [(ngModel)]="crEntityNumber" [disabled]="disabled_inputs">
+                                            <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 113 && fields.value!= null"
-                                            class="form-control" [(ngModel)]="fields.value" disabled>
-
+                                            class="form-control" [(ngModel)]="fields.value"[disabled]="disabled_inputs">
+                                            <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 114 && fields.value== null"
-                                            class="form-control" [(ngModel)]="businessType" disabled>
+                                            class="form-control" [(ngModel)]="businessType" [disabled]="disabled_inputs">
+                                                                                        <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 114 && fields.value!= null"
-                                            class="form-control" [(ngModel)]="fields.value" disabled>
-
+                                            class="form-control" [(ngModel)]="fields.value"[disabled]="disabled_inputs" >
+                                            <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 115 && fields.value== null"
-                                            class="form-control" [(ngModel)]="issueDate" disabled>
+                                            class="form-control" [(ngModel)]="issueDate"[disabled]="disabled_inputs" >
+                                                                                        <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 115 && fields.value!= null"
-                                            class="form-control" [(ngModel)]="fields.value" disabled>
-
+                                            class="form-control" [(ngModel)]="fields.value"[disabled]="disabled_inputs" >
+                                            <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 116 && fields.value== null"
-                                            class="form-control" [(ngModel)]="expiryDate" disabled>
+                                            class="form-control" [(ngModel)]="expiryDate" [disabled]="disabled_inputs">
+                                                                                        <!-- disabled -->
                                         <input type="text" *ngIf="fields.id == 116 && fields.value!= null"
-                                            class="form-control" [(ngModel)]="fields.value" disabled>
-
+                                            class="form-control" [(ngModel)]="fields.value"[disabled]="disabled_inputs" >
+                                            <!-- disabled -->
 
                                     </div>
                                     <!-- addedd By qaysar for new list of items -->
@@ -360,17 +370,17 @@
                                       </div>
                                         <!-- <a style="border: ridge;background-color: #58C18E;" (click)="checkYaqeenService()" class="pointer">{{LANG.Check_Data}}</a> -->
                                     </div>
-                                    <div class="form-group col-md-6" *ngIf="fields.id == 137 || fields.id == 138">
+                                    <div class="form-group col-md-6" *ngIf="(fields.id == 137 || fields.id == 138)">
                                         <label>{{fields.title}}</label>
-                                        <input id="field1" type="text" *ngIf="fields.id == 137 && fields.value== null"
+                                        <input #field1 type="text" *ngIf="fields.id == 137 && fields.value== null"
                                             class="form-control" [(ngModel)]="yaqeenArName" disabled>
-                                        <input id="field2" type="text" *ngIf="fields.id == 137 && fields.value!= null"
-                                            class="form-control" [(ngModel)]="fields.value" disabled>
+                                        <input #field2 type="text" *ngIf="fields.id == 137 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="yaqeenArName" disabled>
 
-                                        <input id="field3" type="text" *ngIf="fields.id == 138 && fields.value== null"
+                                        <input #field3 type="text" *ngIf="fields.id == 138 && fields.value== null"
                                             class="form-control" [(ngModel)]="yaqeenEnName" disabled>
-                                        <input id="field4" type="text" *ngIf="fields.id == 138 && fields.value!= null"
-                                            class="form-control" [(ngModel)]="fields.value" disabled>
+                                        <input #field4 type="text" *ngIf="fields.id == 138 && fields.value!= null"
+                                            class="form-control" [(ngModel)]="yaqeenEnName" disabled>
                                     </div>
                                     <!-- End Add By qaysar -->
 
@@ -498,7 +508,7 @@
 
                         <div class="buttons">
                             <button class="btn back" *ngIf="i != 0" (click)="back(i)">{{LANG.Back}}</button>
-                            <button class="btn next" [class.disp]="this.procced==false&&i==2 && !disabled_inputs" (click)="next(i)"
+                            <button class="btn next" [class.disp]="!this.procced&&i==2 && !disabled_inputs" (click)="next(i)"
                                 *ngIf="i != kyc_form.length-1 ">{{LANG.Next}}</button>
                         </div>
                     </div>
@@ -506,7 +516,6 @@
                 <div class="row camp-button justify-content-center"
                     *ngIf="data_loaded && !disabled_inputs && tab_index == kyc_form.length-1">
                     <div class="col-md-6 submit-button text-center">
-                        <!-- <button class="btn" [class.loading]="load" (click)="addKYCDetails(kyc_form.length-1)"> -->
                           <button class="btn" [class.loading]="load" (click)="sendOTP()">
                             <ng-container *ngIf="load;else noLoader;">
                                 <loader></loader>

@@ -1,387 +1,914 @@
-<section class="container-fluid weather sec6 bg-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 rate-left">
-                <div class="campaign-blue ">
-                    <div>
-                        <h2>{{opertunityDetailList?.tagline}}</h2>
-                    </div>
-                </div>
-                <div class="col-9">
-                <img   src="{{opertunityDetailList?.campaign_images[0].image}}" class="w-100 add-img-wrapper" alt="" />
-                  <!-- <img   src="assets/images/add-img.png" class="w-100 add-img-wrapper" alt="" /> -->
-                </div>
-                <br>
-                <div class="progress">
-                  <div class="progress-bar progress-easy" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" [style.width]=" investPercentage + '%'">
-                  </div>
-              </div>
-              <span>{{investPercentage}}% Complete</span>
-              <br>
-             
-                <!-- <p>{{opertunityDetailList?.company_bio}}</p> -->
+<div class="overlay" *ngIf="paymentloading"></div>
+<div class="loading" *ngIf="paymentloading"></div>
+<section *ngIf="!paymentloading" class="container-fluid weather sec6 bg-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 rate-left">
+        <div class="campaign-blue">
+          <div>
+            <h2>{{ opertunityDetailList?.tagline }}</h2>
+          </div>
+        </div>
+        <div class="col-9">
+          <img
+            src="{{ opertunityDetailList?.campaign_images[0].image }}"
+            class="w-100 add-img-wrapper"
+            alt=""
+          />
+          <!-- <img   src="assets/images/add-img.png" class="w-100 add-img-wrapper" alt="" /> -->
+        </div>
+        <br />
+        <div class="progress">
+          <div
+            class="progress-bar progress-easy"
+            role="progressbar"
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [style.width]="investPercentage + '%'"
+          ></div>
+        </div>
+        <span>{{ investPercentage }}% Complete</span>
+        <br />
+
+        <!-- <p>{{opertunityDetailList?.company_bio}}</p> -->
+      </div>
+
+      <div *ngIf="loading === false" class="col-md-8 rate-right">
+        <div class="rate">
+          <div>
+            <p style="font-size: 30px">{{ LANG.oppAmount }}</p>
+            <h4>{{ LANG.SAR }} {{ opertunityDetailList?.total_valuation }}</h4>
+          </div>
+          <!-- <span><i class="fa fa-heart-o"></i></span> -->
+        </div>
+        <div class="row invest-row">
+          <div class="col-md-4">
+            <div class="invest">
+              <p style="font-size: 20px">{{ LANG.Investers }}</p>
+              <h6 style="font-size: 20px">
+                {{ opportunityInvestorData.numberOfInvestor }}
+              </h6>
             </div>
+          </div>
+          <div class="col-md-4">
+            <div class="invest">
+              <p style="font-size: 20px">{{ LANG.Raised }}</p>
+              <h6 style="font-size: 20px">
+                {{ LANG.SAR }} {{ opportunityInvestorData.amount }}
+              </h6>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="invest">
+              <p style="font-size: 20px">{{ LANG.Price_Per_Share }}</p>
+              <h6 style="font-size: 20px">
+                {{ LANG.SAR }} {{ opertunityDetailList?.share_price }}
+              </h6>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="invest">
+              <p style="font-size: 20px">{{ LANG.Valuation }}</p>
+              <h6 style="font-size: 20px">
+                {{ LANG.SAR }} {{ opertunityDetailList?.total_valuation }}
+              </h6>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="invest">
+              <p style="font-size: 20px">{{ LANG.Max_Investment }}</p>
+              <h6 style="font-size: 20px">
+                {{ LANG.SAR }} {{ opertunityDetailList?.max_investment }}
+              </h6>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="invest">
+              <p style="font-size: 20px">{{ LANG.Sukuk_Quantity }}</p>
+              <h6 style="font-size: 20px">
+                {{
+                  opertunityDetailList?.total_valuation /
+                    opertunityDetailList?.share_price
+                }}
+              </h6>
+            </div>
+          </div>
+          <br />
+          <button
+            class="btn btn-primary pulse"
+            *ngIf="
+              walletInvestorSum.walletBalance > 1000 &&
+              user_data.role_type == 2 &&
+              disabled_inputs &&
+              closeInvest === false &&
+              investorAllowance === true
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#investmentModal"
+          >
+            {{ LANG.investment }}
+          </button>
+          <!-- Button trigger modal -->
+          <p *ngIf="closeInvest === true" class="notAllowed">
+            {{ LANG.noOpportunity }}
+          </p>
+          <p *ngIf="investorAllowance === false" class="notAllowed">
+            {{ LANG.reachedOpportunities }}
+          </p>
+          <p *ngIf="walletInvestorSum.walletBalance <= 1000 " class="notAllowed">
+            {{ LANG.noMoney }}
+          </p>
+          
+        </div>
 
-            <div *ngIf="loading===false" class="col-md-8 rate-right">
-                <div class="rate">
-                    <div>
-                      <p style="font-size: 30px;">{{LANG.oppAmount}}</p>
-                        <h4>{{LANG.SAR}} {{opertunityDetailList?.total_valuation}}</h4>
-                    </div>
-                    <!-- <span><i class="fa fa-heart-o"></i></span> -->
-                </div>
-                <div class="row invest-row">
-                    <div class="col-md-4">
-                        <div class="invest">
-                            <p style="font-size: 20px;">{{LANG.Investers}}</p>
-                            <h6 style="font-size: 20px;">{{opportunityInvestorData.numberOfInvestor}}</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="invest">
-                            <p style="font-size: 20px;">{{LANG.Raised}}</p>
-                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opportunityInvestorData.amount}}</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="invest">
-                            <p style="font-size: 20px;">{{LANG.Price_Per_Share}}</p>
-                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opertunityDetailList?.share_price}}</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="invest">
-                            <p style="font-size: 20px;">{{LANG.Valuation}}</p>
-                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opertunityDetailList?.total_valuation}}</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="invest">
-                            <p style="font-size: 20px;">{{LANG.Max_Investment}}</p>
-                            <h6 style="font-size: 20px;">{{LANG.SAR}} {{opertunityDetailList?.max_investment}}</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="invest">
-                          <p style="font-size: 20px;">{{LANG.Sukuk_Quantity}}</p>
-                          <h6 style="font-size: 20px;">{{(opertunityDetailList?.total_valuation/opertunityDetailList?.share_price)}}</h6>
-                      </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="investmentModal"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="tab-header" id="exampleModalLongTitle">
+                  {{ LANG.Modal_title }}
+                </h5>
+                <button
+                  type="button"
+                  #closebutton
+                  class="close"
+                  data-bs-dismiss="modal"
+                >
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="amountForm">
+                  <div class="control">
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="checkedBtn"
+                      id="agreement"
+                      name="agreement"
+                      formControlName="agreement"
+                    />
+                    <label style="margin-left: 10px">{{
+                      LANG.Agree_To_terms
+                    }}</label>
                   </div>
-                    <br>
-                    <button class="btn btn-primary pulse" *ngIf="user_data.role_type==2 && disabled_inputs && closeInvest===false && investorAllowance===true" data-bs-toggle="modal" data-bs-target="#investmentModal"> {{LANG.investment}}</button>
-                    <!-- Button trigger modal -->
-                    <p *ngIf="closeInvest===true" class="notAllowed">{{LANG.noOpportunity}}</p>
-                    <p *ngIf="investorAllowance===false" class="notAllowed">{{LANG.reachedOpportunities}}</p>
-                </div>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="investmentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="tab-header" id="exampleModalLongTitle">{{LANG.Modal_title}}</h5>
-                        <button type="button" #closebutton class="close" data-bs-dismiss="modal">&times;</button>
-                      </div>
-                      <div class="modal-body">
-                          <form [formGroup]="amountForm">
-                            <div class="control">
-                              <input type="checkbox" [(ngModel)]="checkedBtn" id="agreement" name="agreement" formControlName="agreement">
-                              <label style="margin-left: 10px;">{{LANG.Agree_To_terms}}</label>
+                  <span class="error" *ngIf="errors?.agreement">{{
+                    LANG.This_field_is_required
+                  }}</span>
+                  <input
+                    type="text"
+                    *ngIf="
+                      !user_data.isQualified &&
+                      netAmount >= this.opertunityDetailList.max_investment
+                    "
+                    class="form-control"
+                    [min]="1000"
+                    required
+                    [max]="opertunityDetailList.max_investment"
+                    placeholder="{{ LANG.Enter_the_Amount }}"
+                    name="amount"
+                    formControlName="amount"
+                    (keypress)="onlyNumbers($event)"
+                  />
+                  <input
+                    type="text"
+                    *ngIf="
+                      user_data.isQualified ||
+                      (!user_data.isQualified &&
+                        netAmount < this.opertunityDetailList.max_investment)
+                    "
+                    class="form-control"
+                    [min]="1000"
+                    required
+                    [max]="netAmount"
+                    placeholder="{{ LANG.Enter_the_Amount }}"
+                    name="amount"
+                    formControlName="amount"
+                    (keypress)="onlyNumbers($event)"
+                    appMultipleOf1000
+                  />
+                  <span
+                    class="error"
+                    *ngIf="
+                      amountForm.controls['amount'].hasError('required') &&
+                      amountForm.controls['amount'].touched
+                    "
+                    >{{ LANG.This_field_is_required }}</span
+                  >
+                  <span
+                    class="error"
+                    *ngIf="amountForm.controls['amount'].hasError('min')"
+                    >{{ LANG.minInvestValue }}</span
+                  >
+                  <span
+                    class="error"
+                    *ngIf="
+                      (amountForm.controls['amount'].hasError('max') &&
+                        user_data.isQualified) ||
+                      (!user_data.isQualified &&
+                        netAmount < this.opertunityDetailList.max_investment)
+                    "
+                    >{{ LANG.totalInvestValue }}{{ netAmount }} SAR</span
+                  >
+                  <span  class="error" *ngIf="amountForm.get('amount')?.hasError('multipleOf1000')">
+                    {{LANG.multiple_of_1000}}
+                  </span>
+                  <span
+                    class="error"
+                    *ngIf="
+                      amountForm.controls['amount'].hasError('max') &&
+                      !user_data.isQualified &&
+                      netAmount >= this.opertunityDetailList.max_investment
+                    "
+                    >{{ LANG.totalInvestValue
+                    }}{{ this.opertunityDetailList.max_investment }} SAR</span
+                  >
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  {{ LANG.Close }}
+                </button>
+                <button
+                  type="button"
+                  *ngIf="
+                    disabled_inputs &&
+                    checkedBtn &&
+                    !(
+                      amountForm.controls['amount'].hasError('max') &&
+                      !user_data.isQualified &&
+                      netAmount >= this.opertunityDetailList.max_investment
+                    ) &&
+                    !(
+                      (amountForm.controls['amount'].hasError('max') &&
+                        user_data.isQualified) ||
+                      (!user_data.isQualified &&
+                        netAmount < this.opertunityDetailList.max_investment)
+                    ) &&
+                    !amountForm.controls['amount'].hasError('min') &&
+                    !amountForm.controls['amount'].hasError('required')&&!amountForm.get('amount')?.hasError('multipleOf1000')
+                  "
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-dismiss="#investmentModal"
+                  (click)="sendOTP()"
+                  data-bs-target="#beforePayModal"
+                >
+                  {{ LANG.Pay }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Button trigger modal -->
+        <div
+          class="modal fade"
+          id="beforePayModal"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="tab-header" id="exampleModalLongTitle">
+                  {{ LANG.A_verification_code_has_been_sent_to }} ({{
+                    emailaddon
+                  }})
+                </h5>
+                <button
+                  type="button"
+                  #closebutton
+                  class="close"
+                  data-bs-dismiss="modal"
+                >
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body modal-body-bg">
+                <div class="text-center">
+                  <ng-container *ngIf="show_otp && verifyClick">
+                    <div class="heading text-center">
+                      <h2>{{ LANG.Verify_OTP }}</h2>
+                    </div>
+                    <form>
+                      <div class="row">
+                        <div class="col-md-12 p-0">
+                          <div class="otp-field">
+                            <input
+                              type="text"
+                              name="o1"
+                              id="codeBox1"
+                              maxlength="1"
+                              [(ngModel)]="otp1"
+                              #codeBox1
+                              (keyup)="onKeyUpEvent(1, $event)"
+                              (onfocus)="onFocusEvent(1)"
+                              (keypress)="keyPressed($event, 1)"
+                              autocomplete="off"
+                            />
+                            <input
+                              type="tel"
+                              name="o2"
+                              id="codeBox2"
+                              maxlength="1"
+                              [(ngModel)]="otp2"
+                              #codeBox2
+                              (keyup)="onKeyUpEvent(2, $event)"
+                              (onfocus)="onFocusEvent(2)"
+                              (keypress)="keyPressed($event, 2)"
+                              autocomplete="off"
+                            />
+                            <input
+                              type="tel"
+                              name="o3"
+                              id="codeBox3"
+                              maxlength="1"
+                              [(ngModel)]="otp3"
+                              #codeBox3
+                              (keyup)="onKeyUpEvent(3, $event)"
+                              (onfocus)="onFocusEvent(3)"
+                              (keypress)="keyPressed($event, 3)"
+                              autocomplete="off"
+                            />
+                            <input
+                              type="tel"
+                              name="o4"
+                              id="codeBox4"
+                              maxlength="1"
+                              [(ngModel)]="otp4"
+                              #codeBox4
+                              (keyup)="onKeyUpEvent(4, $event)"
+                              (onfocus)="onFocusEvent(4)"
+                              (keypress)="keyPressed($event, 4)"
+                              autocomplete="off"
+                            />
+                          </div>
+                          <div class="otp-error">
+                            <span class="error" *ngIf="login_error.otp">{{
+                              LANG.Please_Enter_valid_OTP
+                            }}</span>
+                          </div>
+                        </div>
+                        <div
+                          class="row w-100 justify-content-center mt-3"
+                          style="
+                            margin: 0 auto !important;
+                            width: 100% !important;
+                          "
+                        >
+                          <div class="col-md-12">
+                            <div class="submit-button text-center">
+                              <button
+                                class="btn w-50"
+                                style="margin-right: 10px; margin-top: 20px"
+                                [class.loading]="load"
+                                data-bs-toggle="modal"
+                                data-bs-dismiss="modal"
+                                (click)="verifyOtp()"
+                              >
+                                <ng-container *ngIf="load; else otp_loader">
+                                  <loader></loader>
+                                </ng-container>
+                                <ng-template #otp_loader>
+                                  {{ LANG.Verify_OTP }}
+                                </ng-template>
+                              </button>
                             </div>
-                            <span class="error" *ngIf="errors?.agreement">{{LANG.This_field_is_required}}</span>
-                            <input type="text"  *ngIf="!user_data.isQualified && netAmount>=this.opertunityDetailList.max_investment" class="form-control" [min]="1000" required [max]="opertunityDetailList.max_investment" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
-                            <input type="text" *ngIf="user_data.isQualified||(!user_data.isQualified && netAmount<this.opertunityDetailList.max_investment)" class="form-control" [min]="1000" required [max]="netAmount" placeholder="{{LANG.Enter_the_Amount}}" name="amount" formControlName="amount"  (keypress)="onlyNumbers($event)">
-                            <span class="error" *ngIf="amountForm.controls['amount'].hasError('required') && amountForm.controls['amount'].touched">{{LANG.This_field_is_required}}</span>
-                            <span class="error" *ngIf="amountForm.controls['amount'].hasError('min')">{{LANG.minInvestValue}}</span>
-                            <span class="error" *ngIf="amountForm.controls['amount'].hasError('max') && user_data.isQualified||(!user_data.isQualified && netAmount<this.opertunityDetailList.max_investment)">{{LANG.totalInvestValue}}{{netAmount}} SAR</span>
-                            <span class="error" *ngIf="amountForm.controls['amount'].hasError('max') && !user_data.isQualified && netAmount>=this.opertunityDetailList.max_investment">{{LANG.totalInvestValue}}{{this.opertunityDetailList.max_investment}} SAR</span>
-                          </form>
-                      </div>
-                      <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
-                    <button type="button" *ngIf="disabled_inputs && checkedBtn &&!(amountForm.controls['amount'].hasError('max') && !user_data.isQualified && netAmount>=this.opertunityDetailList.max_investment)&&!(amountForm.controls['amount'].hasError('max') && user_data.isQualified||(!user_data.isQualified && netAmount<this.opertunityDetailList.max_investment))&&!(amountForm.controls['amount'].hasError('min'))&&!(amountForm.controls['amount'].hasError('required'))" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="#investmentModal" (click)="sendOTP()" data-bs-target="#beforePayModal">{{LANG.Pay}}</button>
-                      
-                  </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Button trigger modal -->
-              <div class="modal fade" id="beforePayModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="tab-header" id="exampleModalLongTitle">{{LANG.A_verification_code_has_been_sent_to}} ({{emailaddon}})</h5>
-                        <button type="button" #closebutton class="close" data-bs-dismiss="modal">&times;</button>
-                      </div>
-                      <div class="modal-body modal-body-bg">
-                        <div class="text-center ">
-                          <ng-container *ngIf="show_otp && verifyClick">
-                            <div class="heading  text-center">
-                              <h2>{{LANG.Verify_OTP}}</h2>
+                            <div class="resend mb-0 text-center">
+                              <p id="countdown"></p>
+                              <p
+                                *ngIf="showResend"
+                                class="cursor-pointer mt-0"
+                                (click)="resendAgain()"
+                              >
+                                {{ LANG.Resend_OTP }}
+                              </p>
                             </div>
-                            <form>
-                              <div class="row">
-                                <div class="col-md-12 p-0">
-                                  <div class="otp-field">
-                                      <input type="text" name="o1" id="codeBox1" maxlength="1" [(ngModel)]="otp1" #codeBox1 (keyup)="onKeyUpEvent(1,$event)" (onfocus)="onFocusEvent(1)" (keypress)="keyPressed($event,1)" autocomplete="off">
-                                      <input type="tel" name="o2" id="codeBox2" maxlength="1" [(ngModel)]="otp2" #codeBox2 (keyup)="onKeyUpEvent(2,$event)" (onfocus)="onFocusEvent(2)" (keypress)="keyPressed($event,2)" autocomplete="off">
-                                      <input type="tel" name="o3" id="codeBox3" maxlength="1" [(ngModel)]="otp3" #codeBox3 (keyup)="onKeyUpEvent(3,$event)" (onfocus)="onFocusEvent(3)" (keypress)="keyPressed($event,3)" autocomplete="off">
-                                      <input type="tel" name="o4" id="codeBox4" maxlength="1" [(ngModel)]="otp4" #codeBox4 (keyup)="onKeyUpEvent(4,$event)" (onfocus)="onFocusEvent(4)" (keypress)="keyPressed($event,4)" autocomplete="off">
-                                  </div>
-                                  <div class="otp-error">
-                                    <span class="error" *ngIf="login_error.otp">{{LANG.Please_Enter_valid_OTP}}</span>
-                                  </div>
-                                </div>
-                                <div class="row w-100 justify-content-center mt-3" style="margin: 0 auto !important;width: 100%!important;">
-                                    <div class="col-md-12">
-                                        <div class="submit-button text-center">
-                                            <button class="btn w-50" style="margin-right: 10px;margin-top: 20px;"  [class.loading]="load" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="verifyOtp()">
-                                                <ng-container *ngIf="load;else otp_loader;">
-                                                    <loader></loader>
-                                                </ng-container>
-                                                <ng-template #otp_loader>
-                                                   {{LANG.Verify_OTP}}
-                                                </ng-template>
-                                            </button>
-                
-                                        </div>
-                                        <div class="resend mb-0 text-center">
-                                            <p id="countdown"></p>
-                                            <p *ngIf="showResend" class="cursor-pointer mt-0" (click)="resendAgain()">{{LANG.Resend_OTP}}</p>
-                
-                                          </div>
-                                    </div>
-                                </div>
-                
-                              </div>
-                            </form>
-                          </ng-container>
-
+                          </div>
                         </div>
                       </div>
-                      <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
-                      </div>
-                    </div>
-                  </div>
+                    </form>
+                  </ng-container>
                 </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  {{ LANG.Close }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="mastercardModal" tabindex="-1" role="dialog" aria-labelledby="mastercardModal" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="mastercardModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="mastercardModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+                <button
+                  type="button"
+                  class="close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
 
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{LANG.Close}}</button>
-                        <button type="button" class="btn btn-primary" >{{LANG.Save_changes}}</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <div *ngIf="loading2===false" class="circles">
-                <circle-progress *ngIf="!dontShowTime" #circleProgress [percent]="options.percent" [radius]="options.radius"
-                [subtitleFormat]="options.subtitleFormat" [space]="options.space"
-                [outerStrokeWidth]="options.outerStrokeWidth" [innerStrokeWidth]="options.innerStrokeWidth"
-                [animationDuration]="options.animationDuration" [outerStrokeColor]="options.outerStrokeColor"
-                [innerStrokeColor]="options.innerStrokeColor" [backgroundColor]="options.backgroundColor"
-                [backgroundOpacity]="options.backgroundOpacity" [class]="'center-block cursor-pointer'"
-                [animation]="options.animation" [animateTitle]="options.animateTitle"
-                [backgroundStroke]="options.backgroundStroke" [backgroundStrokeWidth]="options.backgroundStrokeWidth"
-                [backgroundPadding]="options.backgroundPadding" [unitsFontSize]="options.unitsFontSize"
-                [unitsFontWeight]="options.unitsFontWeight" [unitsColor]="options.unitsColor"
-                [titleColor]="options.titleColor" [titleFontSize]="options.titleFontSize"
-                [titleFontWeight]="options.titleFontWeight" [subtitleColor]="options.subtitleColor"
-                [subtitleFontSize]="options.subtitleFontSize" [subtitleFontWeight]="options.subtitleFontWeight"
-                [showTitle]="options.showTitle" [showSubtitle]="options.showSubtitle" [showUnits]="options.showUnits"
-                [units]="options.units" [unitsFontSize]="options.unitsFontSize"
-                [subtitleFontSize]="options.subtitleFontSize" [outerStrokeLinecap]="options.outerStrokeLinecap"
-                [showBackground]="options.showBackground" [showInnerStroke]="options.showInnerStroke"
-                [maxPercent]="options.maxPercent" [toFixed]="options.toFixed" [clockwise]="options.clockwise"
-                [title]="options.title" [subTitle]="options.subtitle" [showImage]="options.showImage" [imageSrc]="options.imageSrc"
-                [imageHeight]="options.imageHeight" [imageWidth]="options.imageWidth" [responsive]="options.responsive"
-                [startFromZero]="options.startFromZero" [showZeroOuterStroke]="options.showZeroOuterStroke"
-                [backgroundGradient]="options.backgroundGradient" [outerStrokeGradient]="options.outerStrokeGradient"
-                [backgroundGradientStopColor]="options.backgroundGradientStopColor"
-                [outerStrokeGradientStopColor]="options.outerStrokeGradientStopColor" [lazy]="options.lazy">
-              </circle-progress>
-              <circle-progress *ngIf="!dontShowTime" #circleProgress [percent]="options1.percent" [radius]="options1.radius"
-              [subtitleFormat]="options1.subtitleFormat" [space]="options1.space"
-              [outerStrokeWidth]="options1.outerStrokeWidth" [innerStrokeWidth]="options1.innerStrokeWidth"
-              [animationDuration]="options1.animationDuration" [outerStrokeColor]="options1.outerStrokeColor"
-              [innerStrokeColor]="options1.innerStrokeColor" [backgroundColor]="options1.backgroundColor"
-              [backgroundOpacity]="options1.backgroundOpacity" [class]="'center-block cursor-pointer'"
-              [animation]="options1.animation" [animateTitle]="options1.animateTitle"
-              [backgroundStroke]="options1.backgroundStroke" [backgroundStrokeWidth]="options1.backgroundStrokeWidth"
-              [backgroundPadding]="options1.backgroundPadding" [unitsFontSize]="options1.unitsFontSize"
-              [unitsFontWeight]="options1.unitsFontWeight" [unitsColor]="options1.unitsColor"
-              [titleColor]="options1.titleColor" [titleFontSize]="options1.titleFontSize"
-              [titleFontWeight]="options1.titleFontWeight" [subtitleColor]="options1.subtitleColor"
-              [subtitleFontSize]="options1.subtitleFontSize" [subtitleFontWeight]="options1.subtitleFontWeight"
-              [showTitle]="options1.showTitle" [showSubtitle]="options1.showSubtitle" [showUnits]="options1.showUnits"
-              [units]="options1.units" [unitsFontSize]="options1.unitsFontSize"
-              [subtitleFontSize]="options1.subtitleFontSize" [outerStrokeLinecap]="options1.outerStrokeLinecap"
-              [showBackground]="options1.showBackground" [showInnerStroke]="options1.showInnerStroke"
-              [maxPercent]="options1.maxPercent" [toFixed]="options1.toFixed" [clockwise]="options1.clockwise"
-              [title]="options1.title" [subTitle]="options1.subtitle" [showImage]="options1.showImage" [imageSrc]="options1.imageSrc"
-              [imageHeight]="options1.imageHeight" [imageWidth]="options1.imageWidth" [responsive]="options1.responsive"
-              [startFromZero]="options1.startFromZero" [showZeroOuterStroke]="options1.showZeroOuterStroke"
-              [backgroundGradient]="options1.backgroundGradient" [outerStrokeGradient]="options1.outerStrokeGradient"
-              [backgroundGradientStopColor]="options1.backgroundGradientStopColor"
-              [outerStrokeGradientStopColor]="options1.outerStrokeGradientStopColor" [lazy]="options1.lazy">
-            </circle-progress>
-            <circle-progress *ngIf="!dontShowTime" #circleProgress [percent]="options2.percent" [radius]="options2.radius"
-            [subtitleFormat]="options2.subtitleFormat" [space]="options2.space"
-            [outerStrokeWidth]="options2.outerStrokeWidth" [innerStrokeWidth]="options2.innerStrokeWidth"
-            [animationDuration]="options2.animationDuration" [outerStrokeColor]="options2.outerStrokeColor"
-            [innerStrokeColor]="options2.innerStrokeColor" [backgroundColor]="options2.backgroundColor"
-            [backgroundOpacity]="options2.backgroundOpacity" [class]="'center-block cursor-pointer'"
-            [animation]="options2.animation" [animateTitle]="options2.animateTitle"
-            [backgroundStroke]="options2.backgroundStroke" [backgroundStrokeWidth]="options2.backgroundStrokeWidth"
-            [backgroundPadding]="options2.backgroundPadding" [unitsFontSize]="options2.unitsFontSize"
-            [unitsFontWeight]="options2.unitsFontWeight" [unitsColor]="options2.unitsColor"
-            [titleColor]="options2.titleColor" [titleFontSize]="options2.titleFontSize"
-            [titleFontWeight]="options2.titleFontWeight" [subtitleColor]="options2.subtitleColor"
-            [subtitleFontSize]="options2.subtitleFontSize" [subtitleFontWeight]="options2.subtitleFontWeight"
-            [showTitle]="options2.showTitle" [showSubtitle]="options2.showSubtitle" [showUnits]="options2.showUnits"
-            [units]="options2.units" [unitsFontSize]="options2.unitsFontSize"
-            [subtitleFontSize]="options2.subtitleFontSize" [outerStrokeLinecap]="options2.outerStrokeLinecap"
-            [showBackground]="options2.showBackground" [showInnerStroke]="options2.showInnerStroke"
-            [maxPercent]="options2.maxPercent" [toFixed]="options2.toFixed" [clockwise]="options2.clockwise"
-            [title]="options2.title" [subTitle]="options2.subtitle" [showImage]="options2.showImage" [imageSrc]="options2.imageSrc"
-            [imageHeight]="options2.imageHeight" [imageWidth]="options2.imageWidth" [responsive]="options2.responsive"
-            [startFromZero]="options2.startFromZero" [showZeroOuterStroke]="options2.showZeroOuterStroke"
-            [backgroundGradient]="options2.backgroundGradient" [outerStrokeGradient]="options2.outerStrokeGradient"
-            [backgroundGradientStopColor]="options2.backgroundGradientStopColor"
-            [outerStrokeGradientStopColor]="options2.outerStrokeGradientStopColor" [lazy]="options2.lazy">
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  {{ LANG.Close }}
+                </button>
+                <button type="button" class="btn btn-primary">
+                  {{ LANG.Save_changes }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="loading2 === false" class="circles">
+          <circle-progress
+          *ngIf="!dontShowTime"
+          #circleProgress
+          [percent]="options2.percent"
+          [radius]="options2.radius"
+          [subtitleFormat]="options2.subtitleFormat"
+          [space]="options2.space"
+          [outerStrokeWidth]="options2.outerStrokeWidth"
+          [innerStrokeWidth]="options2.innerStrokeWidth"
+          [animationDuration]="options2.animationDuration"
+          [outerStrokeColor]="options2.outerStrokeColor"
+          [innerStrokeColor]="options2.innerStrokeColor"
+          [backgroundColor]="options2.backgroundColor"
+          [backgroundOpacity]="options2.backgroundOpacity"
+          [class]="'center-block cursor-pointer'"
+          [animation]="options2.animation"
+          [animateTitle]="options2.animateTitle"
+          [backgroundStroke]="options2.backgroundStroke"
+          [backgroundStrokeWidth]="options2.backgroundStrokeWidth"
+          [backgroundPadding]="options2.backgroundPadding"
+          [unitsFontSize]="options2.unitsFontSize"
+          [unitsFontWeight]="options2.unitsFontWeight"
+          [unitsColor]="options2.unitsColor"
+          [titleColor]="options2.titleColor"
+          [titleFontSize]="options2.titleFontSize"
+          [titleFontWeight]="options2.titleFontWeight"
+          [subtitleColor]="options2.subtitleColor"
+          [subtitleFontSize]="options2.subtitleFontSize"
+          [subtitleFontWeight]="options2.subtitleFontWeight"
+          [showTitle]="options2.showTitle"
+          [showSubtitle]="options2.showSubtitle"
+          [showUnits]="options2.showUnits"
+          [units]="options2.units"
+          [unitsFontSize]="options2.unitsFontSize"
+          [subtitleFontSize]="options2.subtitleFontSize"
+          [outerStrokeLinecap]="options2.outerStrokeLinecap"
+          [showBackground]="options2.showBackground"
+          [showInnerStroke]="options2.showInnerStroke"
+          [maxPercent]="options2.maxPercent"
+          [toFixed]="options2.toFixed"
+          [clockwise]="options2.clockwise"
+          [title]="options2.title"
+          [subTitle]="options2.subtitle"
+          [showImage]="options2.showImage"
+          [imageSrc]="options2.imageSrc"
+          [imageHeight]="options2.imageHeight"
+          [imageWidth]="options2.imageWidth"
+          [responsive]="options2.responsive"
+          [startFromZero]="options2.startFromZero"
+          [showZeroOuterStroke]="options2.showZeroOuterStroke"
+          [backgroundGradient]="options2.backgroundGradient"
+          [outerStrokeGradient]="options2.outerStrokeGradient"
+          [backgroundGradientStopColor]="options2.backgroundGradientStopColor"
+          [outerStrokeGradientStopColor]="
+            options2.outerStrokeGradientStopColor
+          "
+          [lazy]="options2.lazy"
+        >
+        </circle-progress>
+          <circle-progress
+            *ngIf="!dontShowTime"
+            #circleProgress
+            [percent]="options.percent"
+            [radius]="options.radius"
+            [subtitleFormat]="options.subtitleFormat"
+            [space]="options.space"
+            [outerStrokeWidth]="options.outerStrokeWidth"
+            [innerStrokeWidth]="options.innerStrokeWidth"
+            [animationDuration]="options.animationDuration"
+            [outerStrokeColor]="options.outerStrokeColor"
+            [innerStrokeColor]="options.innerStrokeColor"
+            [backgroundColor]="options.backgroundColor"
+            [backgroundOpacity]="options.backgroundOpacity"
+            [class]="'center-block cursor-pointer'"
+            [animation]="options.animation"
+            [animateTitle]="options.animateTitle"
+            [backgroundStroke]="options.backgroundStroke"
+            [backgroundStrokeWidth]="options.backgroundStrokeWidth"
+            [backgroundPadding]="options.backgroundPadding"
+            [unitsFontSize]="options.unitsFontSize"
+            [unitsFontWeight]="options.unitsFontWeight"
+            [unitsColor]="options.unitsColor"
+            [titleColor]="options.titleColor"
+            [titleFontSize]="options.titleFontSize"
+            [titleFontWeight]="options.titleFontWeight"
+            [subtitleColor]="options.subtitleColor"
+            [subtitleFontSize]="options.subtitleFontSize"
+            [subtitleFontWeight]="options.subtitleFontWeight"
+            [showTitle]="options.showTitle"
+            [showSubtitle]="options.showSubtitle"
+            [showUnits]="options.showUnits"
+            [units]="options.units"
+            [unitsFontSize]="options.unitsFontSize"
+            [subtitleFontSize]="options.subtitleFontSize"
+            [outerStrokeLinecap]="options.outerStrokeLinecap"
+            [showBackground]="options.showBackground"
+            [showInnerStroke]="options.showInnerStroke"
+            [maxPercent]="options.maxPercent"
+            [toFixed]="options.toFixed"
+            [clockwise]="options.clockwise"
+            [title]="options.title"
+            [subTitle]="options.subtitle"
+            [showImage]="options.showImage"
+            [imageSrc]="options.imageSrc"
+            [imageHeight]="options.imageHeight"
+            [imageWidth]="options.imageWidth"
+            [responsive]="options.responsive"
+            [startFromZero]="options.startFromZero"
+            [showZeroOuterStroke]="options.showZeroOuterStroke"
+            [backgroundGradient]="options.backgroundGradient"
+            [outerStrokeGradient]="options.outerStrokeGradient"
+            [backgroundGradientStopColor]="options.backgroundGradientStopColor"
+            [outerStrokeGradientStopColor]="
+              options.outerStrokeGradientStopColor
+            "
+            [lazy]="options.lazy"
+          >
           </circle-progress>
-              </div>
-            </div>
-           
+          <circle-progress
+            *ngIf="!dontShowTime"
+            #circleProgress
+            [percent]="options1.percent"
+            [radius]="options1.radius"
+            [subtitleFormat]="options1.subtitleFormat"
+            [space]="options1.space"
+            [outerStrokeWidth]="options1.outerStrokeWidth"
+            [innerStrokeWidth]="options1.innerStrokeWidth"
+            [animationDuration]="options1.animationDuration"
+            [outerStrokeColor]="options1.outerStrokeColor"
+            [innerStrokeColor]="options1.innerStrokeColor"
+            [backgroundColor]="options1.backgroundColor"
+            [backgroundOpacity]="options1.backgroundOpacity"
+            [class]="'center-block cursor-pointer'"
+            [animation]="options1.animation"
+            [animateTitle]="options1.animateTitle"
+            [backgroundStroke]="options1.backgroundStroke"
+            [backgroundStrokeWidth]="options1.backgroundStrokeWidth"
+            [backgroundPadding]="options1.backgroundPadding"
+            [unitsFontSize]="options1.unitsFontSize"
+            [unitsFontWeight]="options1.unitsFontWeight"
+            [unitsColor]="options1.unitsColor"
+            [titleColor]="options1.titleColor"
+            [titleFontSize]="options1.titleFontSize"
+            [titleFontWeight]="options1.titleFontWeight"
+            [subtitleColor]="options1.subtitleColor"
+            [subtitleFontSize]="options1.subtitleFontSize"
+            [subtitleFontWeight]="options1.subtitleFontWeight"
+            [showTitle]="options1.showTitle"
+            [showSubtitle]="options1.showSubtitle"
+            [showUnits]="options1.showUnits"
+            [units]="options1.units"
+            [unitsFontSize]="options1.unitsFontSize"
+            [subtitleFontSize]="options1.subtitleFontSize"
+            [outerStrokeLinecap]="options1.outerStrokeLinecap"
+            [showBackground]="options1.showBackground"
+            [showInnerStroke]="options1.showInnerStroke"
+            [maxPercent]="options1.maxPercent"
+            [toFixed]="options1.toFixed"
+            [clockwise]="options1.clockwise"
+            [title]="options1.title"
+            [subTitle]="options1.subtitle"
+            [showImage]="options1.showImage"
+            [imageSrc]="options1.imageSrc"
+            [imageHeight]="options1.imageHeight"
+            [imageWidth]="options1.imageWidth"
+            [responsive]="options1.responsive"
+            [startFromZero]="options1.startFromZero"
+            [showZeroOuterStroke]="options1.showZeroOuterStroke"
+            [backgroundGradient]="options1.backgroundGradient"
+            [outerStrokeGradient]="options1.outerStrokeGradient"
+            [backgroundGradientStopColor]="options1.backgroundGradientStopColor"
+            [outerStrokeGradientStopColor]="
+              options1.outerStrokeGradientStopColor
+            "
+            [lazy]="options1.lazy"
+          >
+          </circle-progress>
+        
         </div>
-        <hr>
-        <div class="row-menue allocation">
-          <nav class="navigation">
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-team-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-team" role="tab" aria-controls="nav-team" aria-selected="true">{{LANG.Team}}</a>
-              <a class="nav-item nav-link" id="nav-campainAttach-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-campainAttach" role="tab" aria-controls="nav-campainAttach" aria-selected="false">{{LANG.Campaign_Attachements}}</a>
-             
-              <a *ngIf="invsted" class="nav-item nav-link" id="nav-mustanad-tarh-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-mustanad-tarh" role="tab" aria-controls="nav-mustanad-tarh" aria-selected="false">{{LANG.MustanadAltarh}}</a>
-              <a *ngIf="invsted" class="nav-item nav-link" id="nav-invest_agree-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-invest_agree" role="tab" aria-controls="nav-invest_agree" aria-selected="false">{{LANG.Investment_Agreement}}</a>
-              <a *ngIf="invsted" class="nav-item nav-link" id="nav-prog-info-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-prog-info" role="tab" aria-controls="nav-prog-info" aria-selected="false">{{LANG.Program_Information}}</a>
-              <a *ngIf="invsted" class="nav-item nav-link" id="nav-invest_wallet-tab" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#nav-invest_wallet" role="tab" aria-controls="nav-invest_wallet" aria-selected="false">{{LANG.investor_statement}}</a>
-            </div>
-          </nav>
-        </div>
-        <br/>
-        <div class="tab-content" id="nav-tabContent">
-          <div *ngIf="invsted" class="tab-pane fade" id="nav-invest_agree" role="tabpanel" aria-labelledby="nav-invest_agree-tab">
-            <app-investmentagreement id="investmentagreement"></app-investmentagreement>
-            <button id="saveToPdf" class="btn-bluish" (click)="makePdf('investmentagreement')">{{LANG.saveToPDF}}</button>
-          </div>
-          <div *ngIf="invsted" class="tab-pane fade" id="nav-prog-info" role="tabpanel" aria-labelledby="nav-prog-info-tab">
-            <p class="tab-header">{{LANG.Program_Information}}</p>
-            <app-program-info id="program-info"></app-program-info>
-            <button id="saveToPdf" class="btn-bluish" (click)="makePdf('program-info')">{{LANG.saveToPDF}}</button>
-          </div>
-          <div class="tab-pane fade show active" id="nav-team" role="tabpanel" aria-labelledby="nav-team-tab">
-              <p class="tab-header">{{LANG.Team}}</p>
-              <div class="table-responsive table-section" id="team-section">
-                <table class="table table-striped">
-                    <tbody>
-                        <tr *ngFor="let team of teams">
-                            <td>
-                              <div class="date-name">
-                                <span>{{LANG.ID}}</span>
-                              </div>
-                                   {{team.id}}
-                            </td>
-                            <td>
-                              <div class="date-name">
-                                <span>{{LANG.Name}}</span>
-                              </div>
-                                {{team.name}}
-                          </td>
-                          <td>
-                            <div class="detail-name">
-                              <span>{{LANG.Designation}}</span>
-                            </div>
-                              {{team.designation}}
-                          </td>
-                          <td>
-                            <span>{{LANG.Attachment}}</span>
-                            <div class="detail-name">
-                              <a href="{{team.image}}" target="_blank">
-                                  <img src="assets/images/flower-1.png">
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button id="saveToPdf" class="btn-bluish" (click)="makePdf('team-section')">{{LANG.saveToPDF}}</button>
-          </div>
-          <div class="tab-pane fade" id="nav-campainAttach" role="tabpanel" aria-labelledby="nav-campainAttach-tab">
-              <div class="table-responsive table-section" id="campainAttach">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr *ngFor="let attach of campaignAttachements">
-                                <td>
-                                  <div class="date-name">
-                                    <span>{{LANG.ID}}</span>
-                                   </div>
-                                      {{attach.id}}
-                                </td>
-                                <td>
-                                  <div class="date-name">
-                                    <span>Compaign</span>
-                                  </div>
-                                    {{attach.campaign_id}} - {{opertunityDetailList?.tagline}}
-                              </td>
-                              <td>
-                                <div class="date-name">
-                                  <span>{{LANG.Status}}</span>
-                                </div>
-                                {{attach.status == 'A'?LANG.Approved:LANG.Pending}}
-                              </td>
-                              <td>
-                                <div class="date-name">
-                                <span>{{LANG.Attachment}}</span>
-                                </div>
-                                  <a href="{{attach.attachment}}" target="_blank">
-                                      <!-- <img src="../../../../assets/images/open_file.png" alt="Open File"> -->
-                                      <img src="assets/images/flower-1.png" class="" *ngIf="attach.ext != 'pdf' && attach.ext != 'docx'">
-                                      <img src="assets/images/pdf-logoS.png" class="" *ngIf="attach.ext == 'pdf'">
-                                      <img src="assets/images/flower-1.png" class="" *ngIf="attach.ext == 'docx'">
-                                  </a>
-                              </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table-first">
-                  <h4>{{campaignAttachements.message}}</h4>
-                </div>
-                <button *ngIf="campaignAttachements.length>0" id="saveToPdf" class="btn-bluish" (click)="makePdf('team-section')">{{LANG.saveToPDF}}</button>
-          </div>
-          <div *ngIf="invsted" class="tab-pane fade" id="nav-mustanad-tarh" role="tabpanel" aria-labelledby="nav-mustanad-tarh-tab">
-           <app-tar7-document id="tar7"></app-tar7-document>
-           <button id="saveToPdf" class="btn-bluish" (click)="makePdf('tar7')">{{LANG.saveToPDF}}</button>
-          </div>
-          <div *ngIf="invsted" class="tab-pane fade" id="nav-invest_wallet" role="tabpanel" aria-labelledby="nav-invest_wallet-tab">
-            <app-investor-wallet-list id="investor-wallet"></app-investor-wallet-list>
-            <button id="saveToPdf" class="btn-bluish" (click)="makePdf('investor-wallet')">{{LANG.saveToPDF}}</button>
-           </div>
-        </div>
+      </div>
     </div>
+    <hr />
+    <div class="row-menue allocation">
+      <nav class="navigation">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a
+            class="nav-item nav-link active"
+            id="nav-team-tab"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            href="#nav-team"
+            role="tab"
+            aria-controls="nav-team"
+            aria-selected="true"
+            >{{ LANG.Team }}</a
+          >
+          <a
+            class="nav-item nav-link"
+            id="nav-campainAttach-tab"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            href="#nav-campainAttach"
+            role="tab"
+            aria-controls="nav-campainAttach"
+            aria-selected="false"
+            >{{ LANG.Campaign_Attachements }}</a
+          >
+
+          <a
+            *ngIf="invsted"
+            class="nav-item nav-link"
+            id="nav-mustanad-tarh-tab"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            href="#nav-mustanad-tarh"
+            role="tab"
+            aria-controls="nav-mustanad-tarh"
+            aria-selected="false"
+            >{{ LANG.MustanadAltarh }}</a
+          >
+          <a
+            *ngIf="invsted"
+            class="nav-item nav-link"
+            id="nav-invest_agree-tab"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            href="#nav-invest_agree"
+            role="tab"
+            aria-controls="nav-invest_agree"
+            aria-selected="false"
+            >{{ LANG.Investment_Agreement }}</a
+          >
+          <a
+            *ngIf="invsted"
+            class="nav-item nav-link"
+            id="nav-prog-info-tab"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            href="#nav-prog-info"
+            role="tab"
+            aria-controls="nav-prog-info"
+            aria-selected="false"
+            >{{ LANG.Program_Information }}</a
+          >
+          <a
+            *ngIf="invsted"
+            class="nav-item nav-link"
+            id="nav-invest_wallet-tab"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            href="#nav-invest_wallet"
+            role="tab"
+            aria-controls="nav-invest_wallet"
+            aria-selected="false"
+            >{{ LANG.investor_statement }}</a
+          >
+        </div>
+      </nav>
+    </div>
+    <br />
+    <div class="tab-content" id="nav-tabContent">
+      <div
+        *ngIf="invsted"
+        class="tab-pane fade"
+        id="nav-invest_agree"
+        role="tabpanel"
+        aria-labelledby="nav-invest_agree-tab"
+      >
+        <app-investmentagreement
+          id="investmentagreement"
+        ></app-investmentagreement>
+        <button
+          id="saveToPdf"
+          class="btn-bluish"
+          (click)="makePdf('investmentagreement')"
+        >
+          {{ LANG.saveToPDF }}
+        </button>
+      </div>
+      <div
+        *ngIf="invsted"
+        class="tab-pane fade"
+        id="nav-prog-info"
+        role="tabpanel"
+        aria-labelledby="nav-prog-info-tab"
+      >
+        <p class="tab-header">{{ LANG.Program_Information }}</p>
+        <app-program-info id="program-info"></app-program-info>
+        <button
+          id="saveToPdf"
+          class="btn-bluish"
+          (click)="makePdf('program-info')"
+        >
+          {{ LANG.saveToPDF }}
+        </button>
+      </div>
+      <div
+        class="tab-pane fade show active"
+        id="nav-team"
+        role="tabpanel"
+        aria-labelledby="nav-team-tab"
+      >
+        <p class="tab-header">{{ LANG.Team }}</p>
+        <div class="table-responsive table-section" id="team-section">
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngFor="let team of teams">
+                <td>
+                  <div class="date-name">
+                    <span>{{ LANG.ID }}</span>
+                  </div>
+                  {{ team.id }}
+                </td>
+                <td>
+                  <div class="date-name">
+                    <span>{{ LANG.Name }}</span>
+                  </div>
+                  {{ team.name }}
+                </td>
+                <td>
+                  <div class="detail-name">
+                    <span>{{ LANG.Designation }}</span>
+                  </div>
+                  {{ team.designation }}
+                </td>
+                <td>
+                  <span>{{ LANG.Attachment }}</span>
+                  <div class="detail-name">
+                    <a href="{{ team.image }}" target="_blank">
+                      <img src="assets/images/flower-1.png" />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button
+          id="saveToPdf"
+          class="btn-bluish"
+          (click)="makePdf('team-section')"
+        >
+          {{ LANG.saveToPDF }}
+        </button>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="nav-campainAttach"
+        role="tabpanel"
+        aria-labelledby="nav-campainAttach-tab"
+      >
+        <div class="table-responsive table-section" id="campainAttach">
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngFor="let attach of campaignAttachements">
+                <td>
+                  <div class="date-name">
+                    <span>{{ LANG.ID }}</span>
+                  </div>
+                  {{ attach.id }}
+                </td>
+                <td>
+                  <div class="date-name">
+                    <span>Compaign</span>
+                  </div>
+                  {{ attach.campaign_id }} - {{ opertunityDetailList?.tagline }}
+                </td>
+                <td>
+                  <div class="date-name">
+                    <span>{{ LANG.Status }}</span>
+                  </div>
+                  {{ attach.status == "A" ? LANG.Approved : LANG.Pending }}
+                </td>
+                <td>
+                  <div class="date-name">
+                    <span>{{ LANG.Attachment }}</span>
+                  </div>
+                  <a href="{{ attach.attachment }}" target="_blank">
+                    <!-- <img src="../../../../assets/images/open_file.png" alt="Open File"> -->
+                    <img
+                      src="assets/images/flower-1.png"
+                      class=""
+                      *ngIf="attach.ext != 'pdf' && attach.ext != 'docx'"
+                    />
+                    <img
+                      src="assets/images/pdf-logoS.png"
+                      class=""
+                      *ngIf="attach.ext == 'pdf'"
+                    />
+                    <img
+                      src="assets/images/flower-1.png"
+                      class=""
+                      *ngIf="attach.ext == 'docx'"
+                    />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-first">
+          <h4>{{ campaignAttachements.message }}</h4>
+        </div>
+        <button
+          *ngIf="campaignAttachements.length > 0"
+          id="saveToPdf"
+          class="btn-bluish"
+          (click)="makePdf('team-section')"
+        >
+          {{ LANG.saveToPDF }}
+        </button>
+      </div>
+      <div
+        *ngIf="invsted"
+        class="tab-pane fade"
+        id="nav-mustanad-tarh"
+        role="tabpanel"
+        aria-labelledby="nav-mustanad-tarh-tab"
+      >
+        <app-tar7-document id="tar7"></app-tar7-document>
+        <button id="saveToPdf" class="btn-bluish" (click)="makePdf('tar7')">
+          {{ LANG.saveToPDF }}
+        </button>
+      </div>
+      <div
+        *ngIf="invsted"
+        class="tab-pane fade"
+        id="nav-invest_wallet"
+        role="tabpanel"
+        aria-labelledby="nav-invest_wallet-tab"
+      >
+        <app-investor-wallet-list
+          id="investor-wallet"
+        ></app-investor-wallet-list>
+        <button
+          id="saveToPdf"
+          class="btn-bluish"
+          (click)="makePdf('investor-wallet')"
+        >
+          {{ LANG.saveToPDF }}
+        </button>
+      </div>
+    </div>
+  </div>
 </section>
-<br/>
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
+<br />

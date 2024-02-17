@@ -1,4 +1,6 @@
-<section class="container-fluid investor bg-white">
+<div class="overlay" *ngIf="!data_loaded"></div>
+<div class="loading" *ngIf="!data_loaded"></div>
+<section  class="container-fluid investor bg-white">
     <div class="col-md-8 mx-auto">
         <!-- <h2 class="text-center" *ngIf="user_data.role_type == 2">Find a company. Become its next investor.</h2> -->
         <div class="investor-tab">
@@ -15,7 +17,7 @@
             </ul>
             <ul class="nav nav-tabs" *ngIf="user_data.role_type == 3">
                 <li class="nav-item" (click)="changeTabs(1)">
-                    <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#newest">{{LANG.All_Opportunities}}</a>
+                    <a class="nav-link active" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" href="#newest">{{LANG.My_Opportunities}}</a>
                     <!-- <a class="nav-link active" data-bs-toggle="tab" href="#newest">Active Opportunities</a> -->
                 </li>
                  <!--<li class="nav-item" (click)="changeTabs(3)">
@@ -25,11 +27,11 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#returns">Rejected Opportunities</a>
                 </li> -->
             </ul>
-            <div class="tab-content">
-                <div class="tab-pane col-md-12 active" id="newest">
+            <div class="tab-content" *ngIf="data_loaded">
+                <div class="tab-pane col-md-12 active" id="newest" *ngIf="data_loaded">
                     <h5 class="headList">{{LANG.reachedOpportunities}}</h5>
                     <div class="row investor-row">
-                        <div class="col-md-4" style="max-width: 410px;" *ngFor="let list of campaign_list;let i=index">
+                        <div class="col-md-4" style="max-width: 410px;" *ngFor="let list of campaign_list">
                             <div class="owl-carousel owl-theme " id="carousel-1"  class="item">
                                 <div>
                                     <div class="carousel-content" >
@@ -40,20 +42,25 @@
                                         </div>
                                         <div class="pad-carousel">
                                             <h6 style="font-size: 20px; font-weight: bold;">{{list.tagline}}</h6>
-                                            <p  style="font-size: 16px; font-weight: 600;">{{LANG.Sukuk_Murabaha}} - <strong>{{list.program_number}} -{{list.version_number}}</strong></p>
+                                            <div style="display: flex;justify-content: space-between;">
+                                                <p  style="font-size: 16px; font-weight: 600;">{{LANG.Sukuk_Murabaha}} - <strong>{{list.program_number}} -{{list.version_number}}</strong></p>
+                                                <p *ngIf="isUserOpportunites"  style="font-size: 16px; font-weight: 600;">{{LANG.Sukuk_Quantity}}:{{list?.sukukVal}}</p>
+                                             
+                                            </div>
+                                           
                                             <div>
                                                 <div class="fund-rate">
                                                     <!-- <h6>{{list.raised}} </h6><br/> -->
                                                     <p style="font-size: 16px;">{{LANG.Pledged_Of_SAR}} : {{list.total_valuation}}</p>
                                                     <p style="font-size: 16px;">{{LANG.Annual_return_rate}} : {{list.APR}}%</p>
-                                                    <p style="font-size: 16px;">{{LANG.Open_Date}}      : {{list.open_date != null ? list.open_date:'Not Entered yet'}}</p>
-                                                    <p style="font-size: 16px;">{{LANG.Close_Date}}     : {{list.close_date != null ? list.close_date:'Not Entered yet'}}</p>
-                                                    <p *ngIf="timeDiff[i]?.timeString===''&&timeDiff[i]?.type!=='outDated'" style="font-size: 16px;" [(ngModel)]="timeDiff[i]">{{timeDiff[i].type==='closedDate'?LANG.timeLeftForClose:LANG.timeLeftForOpen}}: {{timeDiff[i].days}} {{LANG.days}}, {{timeDiff[i].hours}} {{LANG.hours}}, {{timeDiff[i].minutes}} {{LANG.minutes}}</p>
-                                                    <p *ngIf="timeDiff[i]?.type==='outDated'" style="font-size: 16px;">{{timeDiff[i]?.firstDate}}</p>
-                                                    <p *ngIf="timeDiff[i]?.timeString!==''&&timeDiff[i]?.type!=='outDated'" style="font-size: 16px;">{{timeDiff[i].timeString}}</p>
+                                                    <p style="font-size: 16px;">{{LANG.Open_Date}}      : {{list.open_date != null ? list.open_date:LANG.not_entered_yet}}</p>
+                                                    <p style="font-size: 16px;">{{LANG.Close_Date}}     : {{list.close_date != null ? list.close_date:LANG.not_entered_yet}}</p>
+                                                    <p *ngIf="list.time?.timeString===''&&list.time?.type!=='outDated'" style="font-size: 16px;">{{list.time.type==='closedDate'?LANG.timeLeftForClose:LANG.timeLeftForOpen}}: {{list.time.days}} {{LANG.days}}, {{list.time.hours}} {{LANG.hours}}, {{list.time.minutes}} {{LANG.minutes}}</p>
+                                                    <p *ngIf="list.time?.type==='outDated'" style="font-size: 16px;">{{list.time?.firstDate}}</p>
+                                                    <p *ngIf="list.time?.timeString!==''&&list.time?.type!=='outDated'" style="font-size: 16px;">{{list.time.timeString}}</p>
                                                 </div>
                                                 <div class="fund-investers">
-                                                    <button class="btn btn-primary custom"  (click)="navTo(list,timeDiff[i])" *ngIf="user_data?.role_type == 2 && user_data?.kyc_approved_status == 1 && timeDiff[i]?.timeString===''&&timeDiff[i]?.type!=='outDated'">{{LANG.View_Details}}</button>
+                                                    <button class="btn btn-primary custom" *ngIf="(user_data?.role_type == 2 && user_data?.kyc_approved_status == 1 && list.time?.timeString==''&&list.time?.type!='outDated')||(isUserOpportunites&&user_data.role_type==2)" (click)="navTo(list,list.time)" >{{LANG.View_Details}}</button>
                                                 </div>
                                             </div>
                                           </div>

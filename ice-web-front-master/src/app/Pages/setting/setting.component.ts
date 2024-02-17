@@ -27,13 +27,16 @@ export class SettingComponent implements OnInit {
   LANG: any = '';
   walletInvestorSum: any;
   walletBorrowerSum: any;
-  walletHistoryData:any=null;
+  walletHistoryData: any = null;
+  loading: boolean=false;
+  status: any;
   constructor(
     private shared: SharedService,
     private campaignService: CampaignService,
     public setingservice: SettingService,
     public router: Router,
-    public toast: ToastrService,public decryptAES:decryptAesService
+    public toast: ToastrService,
+    public decryptAES: decryptAesService
   ) {
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -41,19 +44,16 @@ export class SettingComponent implements OnInit {
         atob(atob(localStorage.getItem(user_data) || '{}'))
       );
     }
-  
-   
+
     this.changeLanguage();
     this.getwalletHistory();
   }
   changeLanguage() {
-    this.shared.getLang().subscribe(lang => {
-      if(lang=='ar'){
+    this.shared.getLang().subscribe((lang) => {
+      if (lang == 'ar') {
         this.LANG = environment.arabic_translations;
-      }
-      else {
+      } else {
         this.LANG = environment.english_translations;
-        
       }
     });
   }
@@ -81,7 +81,7 @@ export class SettingComponent implements OnInit {
 
     if (this.user_data.role_type == 2) {
       // this.getInvestorDEtails();
-     // this.getInvestorWallet();
+      // this.getInvestorWallet();
       this.getWalletInvestorSum();
     }
 
@@ -91,14 +91,26 @@ export class SettingComponent implements OnInit {
   getPercent(a: any, b: any) {
     return (a / b) * 100;
   }
-getwalletHistory(){
-  this.setingservice.walletHistory(this.user_data.role_type,this.user_data.id).subscribe((res:any)=>{
-    if(res.status){
-      this.walletHistoryData=res;
-    }
-
-  });
-}
+  getwalletHistory() {
+    this.loading=true;
+    this.setingservice
+      .walletHistory(this.user_data.role_type, this.user_data.id)
+      .subscribe((res: any) => {
+        if (res.status) {
+          this.status=res.status
+          this.walletHistoryData = res.response.data.wallet_data;
+          this.walletHistoryData.map((transaction: any) => {
+            res.response.data.campgain_name.forEach((campagin: any) => {
+              if (campagin.id == transaction.opportunity_id) {
+                transaction.opportunity_name = campagin.tagline?campagin.tagline:'';
+            
+              }
+            });
+          });
+          this.loading=false;
+        }
+      });
+  }
   getDashboardDetails(type?: number) {
     const data = { user_id: this.user_data.id };
     this.campaignService.investorDashboard(data, type).subscribe((res: any) => {
@@ -106,7 +118,7 @@ getwalletHistory(){
     });
   }
 
-   async getWalletBorrower() {
+  async getWalletBorrower() {
     await this.setingservice
       .walletBorrower(this.user_data.id)
       .subscribe((res: any) => {
@@ -124,7 +136,7 @@ getwalletHistory(){
       .subscribe((res: any) => {
         this.totalDetails = res.response.active_funds;
         this.walletFundBorower = res.response;
-      //  console.log(this.totalDetails);
+        //  console.log(this.totalDetails);
       });
   }
   public roundof: any;
@@ -180,8 +192,8 @@ getwalletHistory(){
       this.ngOnInit();
     });
   }
- async getWallerBorrowerSum() {
-   await this.setingservice.walletBorrowerSum().subscribe((res: any) => {
+  async getWallerBorrowerSum() {
+    await this.setingservice.walletBorrowerSum().subscribe((res: any) => {
       this.walletBorrowerSum = res.response;
     });
   }

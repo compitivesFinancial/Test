@@ -26,6 +26,7 @@ import { DOCUMENT } from '@angular/common';
 import jsPDF from 'jspdf';
 import { errorHandlerService } from 'src/app/Shared/Services/errorHandler.service';
 import { CircleProgressOptions } from 'ng-circle-progress';
+import { multipleOf1000Validator } from './multiple-of-1000.directive';
 // import { Toast } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
   myDate: any;
   disabled_inputs: boolean = false;
   investPercentage: any;
-  walletInvestorSum :any;
+  walletInvestorSum :any=0;
   checkedBtn:boolean=false;
   printPage:any;
   load: boolean = false;
@@ -85,6 +86,7 @@ export class DashboardComponent implements OnInit {
   investorAllowance:boolean=false;
   profileDetails: any;
   invsted:boolean=false;
+  paymentloading: boolean=true;
   constructor(
     public setingservice: SettingService,
     private datePipe: DatePipe,
@@ -114,9 +116,9 @@ export class DashboardComponent implements OnInit {
     });
    
     this.changeLanguage();
-    this.getWalletInvestorSum();
+   
     this.amountForm = this.formBuilder.group({
-      amount: ['', [Validators.required,Validators.min(1000),Validators.max(20000)]],
+      amount: ['', [Validators.required,multipleOf1000Validator(),Validators.min(1000),Validators.max(20000)]],
       agreement: ['', Validators.required],
     });
   }
@@ -144,7 +146,6 @@ export class DashboardComponent implements OnInit {
      
     }
   ngOnInit(): void {
-    
     this.options.innerStrokeColor="#0d6efd99"
     this.options.outerStrokeColor="#0d6efd"
     this.options.showUnits=true;
@@ -187,6 +188,7 @@ export class DashboardComponent implements OnInit {
     this.options2.percent=0;
     this.options2.maxPercent=60;
     this.requestId = atob(this.route.snapshot.params['id']);
+    this.getWalletInvestorSum();
     this.dashBoardService.campgainSubscribe(this.requestId).subscribe((res:any)=>{
   
       if(res){
@@ -283,6 +285,7 @@ export class DashboardComponent implements OnInit {
   getOpportunityData(){
     this.getOpertunityComPercentage();
     this.shared.getOpportunity().subscribe((data:any)=>{
+      console.log("this.opportunityInvestorData",data)
       if(data.data.days!==null&&data.data.hours!==null&&data.data.minutes!==null){
         this.options.percent=data.data.days;
         this.options1.percent=data.data.hours;
@@ -296,7 +299,6 @@ export class DashboardComponent implements OnInit {
       .getCampaignInvestPerc(this.requestId)
       .subscribe((res: any) => {
         if(res.status){
-          // Math.round((res.response + Number.EPSILON) * 100) / 100
           this.investPercentage = (Math.round((res.response.percent + Number.EPSILON) * 100) / 100);
           if(!!data && !!this.investPercentage){
             this.opportunityData=data.opp; 
@@ -331,7 +333,7 @@ export class DashboardComponent implements OnInit {
           if(res.status){
             this.loading=false;
             this.opportunityInvestorData=res.response;
-
+            this.paymentloading=false;
             this.investPercentage = (Math.round((res.response.percent + Number.EPSILON) * 100) / 100);
             
           }
@@ -355,7 +357,10 @@ export class DashboardComponent implements OnInit {
               if(res.status){
                 this.loading=false;
                 this.opportunityInvestorData=res.response;
-                this.dashboardService.investmentsCount().subscribe((res:any)=>{
+                
+                this.paymentloading=false;
+                
+                this.dashboardService.investmentsCount(this.opportunityData.id).subscribe((res:any)=>{
                   if(res){
                     this.investorAllowance=res.status;
                    
@@ -363,13 +368,13 @@ export class DashboardComponent implements OnInit {
                 });
                 this.netAmount=this.opertunityDetailList.total_valuation-this.opportunityInvestorData.amount;
                 if(this.user_data.isQualified){
-                  this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.netAmount)]);
+                  this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.netAmount),multipleOf1000Validator()]);
               }
               else if(this.netAmount>=this.opertunityDetailList.max_investment && !this.user_data.isQualified){
-                this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.opertunityDetailList.max_investment)]);
+                this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.opertunityDetailList.max_investment),multipleOf1000Validator()]);
               }
               else {
-                this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.netAmount)]);
+                this.amountForm.get('amount')?.setValidators([Validators.required,Validators.min(1000),Validators.max(this.netAmount),multipleOf1000Validator()]);
               }
             }
             })
@@ -453,7 +458,7 @@ export class DashboardComponent implements OnInit {
     
   }
   loginWithOtp(data: any) {
-    this.subscriptions.push(this.loginService.loginWithOtp(data).subscribe((result: any) => {
+   this.loginService.loginWithOtp(data).subscribe((result: any) => {
       if (result.response.token) {
         this.onPay();
         this.load = false;
@@ -463,7 +468,7 @@ export class DashboardComponent implements OnInit {
       this.load = false;
       this.clearOTP();
       this.toast.warning(result.response.message, "")
-    }))
+    })
   }
   sendOTP() {
     if(!!localStorage.getItem("emailLogin")){
@@ -505,6 +510,41 @@ export class DashboardComponent implements OnInit {
           input?.focus();
         }));
         this.toast.success(result.response.message, "")
+        this.getWalletInvestorSum();
+        this.dashBoardService.campgainSubscribe(this.requestId).subscribe((res:any)=>{
+      
+          if(res){
+            if(res.response.status==="true"){
+              this.invsted=true;
+            }
+            else {
+              this.invsted=false;
+            }
+          }
+        })
+        if (this.user_data.role_type == 2) {
+          this.getProfileDetails(1);
+          this.getDashboardDetails(1);
+          this.requestId = atob(this.route.snapshot.params['id']);
+          if (this.requestId != null) {
+            this.getOpertunityDetails(1);
+            this.getCampaignAttachments();
+          }
+          this.getCheckInvestorRole();
+          this.getOpertunityComPercentage();
+          return;
+        }
+        this.getProfileDetails();
+        this.getDashboardDetails();
+    
+        this.requestId = atob(this.route.snapshot.params['id']);
+      
+        if (this.requestId != null) {
+          this.getOpertunityDetails();
+        }
+        this.getCheckInvestorRole();
+        this.getCampaignAttachments();
+        this.getOpertunityComPercentage();
         return
       }
       this.load = false;
@@ -643,6 +683,7 @@ export class DashboardComponent implements OnInit {
   
   onPay() {
     this.verifyClick=false;
+   
     if (this.amountForm.valid) {
       if (
         this.amountForm.value.agreement == undefined ||
@@ -673,7 +714,10 @@ export class DashboardComponent implements OnInit {
           this.toast.error("you don't have enough money in your wallet");
           return;
         }
-        
+        if(this.walletInvestorSum.walletBalance<1000){
+          this.toast.error("you don't have enough money in your wallet");
+          return;
+        }
       }
 
       let data = {
@@ -686,6 +730,7 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.onPay(data).subscribe((res: any) => { 
          if(res.response.status){
           this.onPaydetails = res.response.session_id;
+          this.paymentloading=true;
           this.getOpertunityDetails();
           this.dashBoardService.profileDetails(data).subscribe((resOpp: any) => {
             if(res.response){
@@ -703,7 +748,7 @@ export class DashboardComponent implements OnInit {
                 }else {
                   this.toast.warning(res.response.message);
                 }
-                
+                this.getOpertunityDetails();
               });
              }else {
               this.toast.warning(res.response.message);

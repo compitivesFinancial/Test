@@ -39,23 +39,23 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: any){
-    if(this.stopListening===false){
-      this.keysPressed.push(event.key);
-      if (this.keysPressed.length > 7) {
-        this.keysPressed.shift();
-      }
-      if (this.keysPressed[0] === 'o' && this.keysPressed[1] === 'p' && 
-          this.keysPressed[2] === 'e' && this.keysPressed[3] === 'n' && 
-          this.keysPressed[4] === 'd' && this.keysPressed[5] === 'e' && 
-          this.keysPressed[6] === 'v') {
-            this.availableContent=true;
-            localStorage.setItem('availableContent','1');
-            this.stopListening=true;
-      }
-    }
+  // @HostListener('window:keydown', ['$event'])
+  // onKeyDown(event: any){
+  //   if(this.stopListening===false){
+  //     this.keysPressed.push(event.key);
+  //     if (this.keysPressed.length > 7) {
+  //       this.keysPressed.shift();
+  //     }
+  //     if (this.keysPressed[0] === 'o' && this.keysPressed[1] === 'p' && 
+  //         this.keysPressed[2] === 'e' && this.keysPressed[3] === 'n' && 
+  //         this.keysPressed[4] === 'd' && this.keysPressed[5] === 'e' && 
+  //         this.keysPressed[6] === 'v') {
+  //           this.availableContent=true;
+  //           localStorage.setItem('availableContent','1');
+  //           this.stopListening=true;
+  //     }
+  //   }
  
-  }
+  // }
 }
 

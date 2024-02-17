@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { registration_data } from 'src/app/Shared/Models/registration.model';
 import { errorHandlerService } from 'src/app/Shared/Services/errorHandler.service';
@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
   LANG: any = '';
   email_disable: boolean = false;
   registrationForm: any;
-  btnReflect:string='1';
+  btnReflect: string = '1';
   //change the regitration with OTP variables
   show_otp: boolean = false;
   showResend: boolean = false;
@@ -44,8 +44,9 @@ export class RegistrationComponent implements OnInit {
   otp2: string = '';
   otp3: string = '';
   otp4: string = '';
-  checkedBtn:boolean=true;
-  emailaddon: any='';
+  checkedBtn: boolean = true;
+  emailaddon: any = '';
+  showNote = false;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private toast: ToastrService,
@@ -56,7 +57,6 @@ export class RegistrationComponent implements OnInit {
     private error: errorHandlerService,
     public fb: FormBuilder
   ) {
-   
     this.changeLanguage();
     const a: any = this.router.getCurrentNavigation()!.extras!.state;
     if (a) {
@@ -92,21 +92,30 @@ export class RegistrationComponent implements OnInit {
       this.orderby = params['type'];
       // console.log(this.orderby); // price
     });
-   if( this.role_type==='2')
-   this.registration_type= { registration_type: '2' };
-  if(this.registration_type.registration_type==='2' )
-      this.btnReflect='2';
-  else
-      this.btnReflect='1';
+    if (this.role_type === '2') {
+      this.btnReflect = '1';
+    } else if (this.role_type === '3') {
+      this.btnReflect = '2';
+    }
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // NavigationEnd event occurs when the navigation is complete
+        // Add your logic to handle URL changes here
+        if (this.role_type === '2') {
+          this.btnReflect = '1';
+        } else if (this.role_type === '3') {
+          this.btnReflect = '2';
+        }
+      }
+    });
+
   }
 
   changeLanguage() {
-    
-    this.shared.getLang().subscribe(lang => {
-      if(lang=='ar'){
+    this.shared.getLang().subscribe((lang) => {
+      if (lang == 'ar') {
         this.LANG = environment.arabic_translations;
-      }
-      else {
+      } else {
         this.LANG = environment.english_translations;
       }
     });
@@ -164,7 +173,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   sendOtpRegestration() {
-    localStorage.setItem("EMAILADDON",this.email);
+    this.showNote = true;
+    localStorage.setItem('EMAILADDON', this.email);
     const data = {
       email: this.email,
     };
@@ -173,13 +183,11 @@ export class RegistrationComponent implements OnInit {
         this.load = false;
         if (result.status) {
           this.load = false;
-          this.emailaddon=localStorage.getItem("EMAILADDON");
+          this.emailaddon = localStorage.getItem('EMAILADDON');
           this.resetError();
           this.toast.success(result.response.message, '');
-          this.router.navigate(["/login"]);
           return;
-        }
-        else {
+        } else {
           this.toast.warning(result.response.message, '');
         }
         this.load = false;
@@ -192,7 +200,7 @@ export class RegistrationComponent implements OnInit {
     // alert(otp);
 
     if (otp == null || otp == '' || otp == undefined) {
-      this.toast.error('WROOOONG OTP ');
+      this.toast.error('WRONG OTP !');
       return;
     } else {
       const data: registration_data = {
@@ -206,7 +214,7 @@ export class RegistrationComponent implements OnInit {
         password: this.loginService.encryptPassword(this.password),
         // "password": this.password,
         role_type: this.role_type,
-        registration_type: this.registration_type.registration_type
+        registration_type: this.registration_type.registration_type,
       };
       this.subscriptions.push(
         this.loginService.register(data).subscribe(
@@ -214,26 +222,35 @@ export class RegistrationComponent implements OnInit {
             this.load = false;
             if (result.status) {
               localStorage.setItem('logged_in', btoa('1'));
-              localStorage.setItem('token', result?.response?.token);
+              localStorage.setItem('token', result.response.token);
               localStorage.setItem(
                 btoa(btoa('user_info_web')),
-                btoa(btoa(JSON.stringify(result.response)))
+                btoa(
+                  btoa(
+                    unescape(
+                      encodeURIComponent(JSON.stringify(result.response))
+                    )
+                  )
+                )
               );
               this.shared.changeUserStatus(true);
               this.shared.changeUserData(result.response);
+              // const user_profile={user_name:result.response.full_name,profile_image:result.response.profile_image  || "assets/images/icons/user-round.svg"}
+              // this.shared.changeUserProfile(user_profile);
+              this.load = false;
+              localStorage.setItem('USERNAME', result.response.name);
+              this.shared.setName(result.response.name);
               this.toast.success(
                 'Registration Successfull! Welcome ' + result.response.name,
                 ''
               );
-              // this.toast.success(result.response.message,"")
-              //this.router.navigate(['/add-kyc']);
-              this.router.navigate(["/login"]);
+              this.router.navigate(['/dashboard']);
               // this.router.navigate(["/add-kyc"],{queryParams:{type:btoa(btoa(result.response.role_type.toString()))}})
 
               return;
+            } else {
+              this.toast.warning(result.response.message, '');
             }
-            console.log("result.response.message",result)
-            this.toast.warning(result.response.message, '');
           },
           (respagesError) => {
             this.load = false;
@@ -426,9 +443,30 @@ export class RegistrationComponent implements OnInit {
 
     this.registration_error.password_valid = true;
 
+   
+
     if (
-      this.password.length > 7 &&
-      this.password.length < 12 &&
+      this.password.length >= 14 &&
+      !this.registration_error.password_special &&
+      !this.registration_error.password_number &&
+      !this.registration_error.password_upper_case &&
+      !this.registration_error.password_lower_case
+    ) {
+      this.weakness = 6;
+    }
+    if (
+      this.password.length >= 10 &&
+      this.password.length < 14 &&
+      !this.registration_error.password_special &&
+      !this.registration_error.password_number &&
+      !this.registration_error.password_upper_case &&
+      !this.registration_error.password_lower_case
+    ) {
+      this.weakness = 5;
+    }
+    if (
+      this.password.length >= 8 &&
+      this.password.length < 10 &&
       !this.registration_error.password_special &&
       !this.registration_error.password_number &&
       !this.registration_error.password_upper_case &&
@@ -437,21 +475,21 @@ export class RegistrationComponent implements OnInit {
       this.weakness = 4;
       this.registration_error.password_valid = false;
     }
-
     if (
-      this.password.length > 12 &&
-      !this.registration_error.password_special &&
-      !this.registration_error.password_number &&
+      this.password.length >= 7 &&
+      this.password.length < 12 &&
+      this.registration_error.password_special &&
+      this.registration_error.password_number &&
       !this.registration_error.password_upper_case &&
       !this.registration_error.password_lower_case
     ) {
-      this.weakness = 6;
+      this.weakness = 3;
+      this.registration_error.password_valid = false;
     }
-
-    if (this.password.length > 2 && this.password.length < 4) {
+    if (this.password.length >= 5 && this.password.length < 7) {
       this.weakness = 2;
     }
-    if (this.password.length > 0 && this.password.length < 2) {
+    if (this.password.length > 0 && this.password.length < 5) {
       this.weakness = 1;
     }
     if (this.password.length == 0) {

@@ -36,6 +36,11 @@
         </div>
       </form>
     </ng-container>
+    
+  </div>
+  <div *ngIf="showNote" class="error-msg">
+    <i class="fa fa-warning"></i>
+   {{LANG.check_jnk}}
   </div>
   <div class="form-sec step2-1" *ngIf="!show_otp">
         <!-- <p>{{LANG.I_am_a}}</p> -->
@@ -68,13 +73,13 @@
         <div class="row campaign-row">
             <div class="form-check">
                 <div class="radio-1" *ngIf="role_type === '2'">
-                    <input type="radio" class="radio-buttons" id="yes" name="registration_type" value="1"
-                        [(ngModel)]="registration_type.registration_type">
+                    <input type="radio" class="radio-buttons" #individual id="yes" name="registration_type" value="1"
+                        [(ngModel)]="btnReflect">
                     <label name="registration_type" for="yes">{{LANG.Individual}}</label>
                 </div>
                 <div class="radio-2">
                     <input type="radio" class="radio-buttons" id="no" name="registration_type" value="2"
-                        [(ngModel)]="registration_type.registration_type" >
+                        [(ngModel)]="btnReflect" >
                     <label name="registration_type" [class.labelSpan]="role_type==='3'" for="no">{{LANG.Corporate}}</label>
                     <div *ngIf="role_type === '3'" class="note">
                         {{LANG.borrower_Register_note}}
@@ -124,7 +129,7 @@
 
 
         <div class="form-group">
-            <input type="password" id="password" class="form-control" placeholder="{{LANG.Password}}" name="password"
+            <input style="padding: 4px 43px 0;" type="password" id="password" class="form-control" placeholder="{{LANG.Password}}" name="password"
                 (input)="checkPasswordValidation()" [(ngModel)]="password">
             <a class="show-pwd" (click)="passwordVisibility('password','eye1')"><i class="fa fa-eye" id="eye1"
                     aria-hidden="true"></i></a>
@@ -133,12 +138,14 @@
         <ng-container *ngIf="registration_error.password || password">
             <div class="password-detail">
                 <p class="pwd-txt-left">{{LANG.Password_Must_contain}}</p>
-                <p>{{LANG.Weak}}</p>
+                <p *ngIf="weakness<3">{{LANG.Weak}}</p>
+                <p *ngIf="3<=weakness&&weakness<5">{{LANG.medium}}</p>
+                <p *ngIf="5<=weakness&&weakness<=6">{{LANG.strong}}</p>
             </div>
             <div class="password-detail password-gap">
                 <div class="pwd-val">
                     <p [class.text-danger]="registration_error.password_length"
-                        [class.text-success]="!registration_error.password_length">- {{LANG.At_Least_Character}}</p>
+                        [class.text-success]="!registration_error.password_length">- {{LANG.At_Least_Characters}}</p>
                     <p [class.text-danger]="registration_error.password_upper_case"
                         [class.text-success]="!registration_error.password_upper_case">- {{LANG.A_capital_letter}}</p>
                     <p [class.text-danger]="registration_error.password_lower_case"
@@ -156,29 +163,14 @@
             </div>
         </ng-container>
         <div class="form-group">
-            <input type="password" id="confirm_password" class="form-control" placeholder="{{LANG.Confirm_Password}}"
+            <input type="password" style="padding: 4px 43px 0 !important" id="confirm_password" class="form-control" placeholder="{{LANG.Confirm_Password}}"
                 name="confirm_password" [(ngModel)]="confirm_password">
             <a class="show-pwd" (click)="passwordVisibility('confirm_password','eye2')"><i class="fa fa-eye" id="eye2"
                     aria-hidden="true"></i></a>
             <span class="error" *ngIf="registration_error.confirm_password">{{LANG.This_field_is_required}}</span>
             <span class="error" *ngIf="registration_error.password_match">{{LANG.Password_doesnt_matched}}</span>
         </div>
-        <!-- <div class="form-group"> -->
-        <!-- <select class="form-control" name="registration_type" [(ngModel)]="registration_type">
-                <option value="">{{LANG.select_registration_type}}</option>
-                <option value="1">{{LANG.Individual}}</option>
-                <option value="2">{{LANG.Corporate}}</option>
-            </select> -->
-        <!-- <form [formGroup]="registrationForm">
-            <input class="form-check-input" type="radio" [(ngModel)]="registration_type"  name="reportInjury" id='check1' value="yes"  (onchange)="onItemchange($event)" formControlName="reportInjury"/>
-            <label for="check1" class="radio-inline">{{LANG.Individual}} </label>
-              <input class="form-check-input" type="radio" [(ngModel)]="registration_type" name="reportInjury" id='check2' value="no" (onchange)="onItemchange($event)" formControlName="reportInjury"/>
-              <label for="check2" class="radio-inline">{{LANG.Corporate}} </label>
-            </form> -->
-
-
-
-        <!-- </div> -->
+      
         <div class="form-group checkbox-wrapper">
             <input type="checkbox" id="terms" name="terms" [(ngModel)]="terms">
             <label data-bs-toggle="modal" data-bs-target="#termsModal" (click)="termsConditionOutside()"> {{LANG.I_accept_all}}
@@ -210,7 +202,7 @@
             </div>
         </div>
         <div class="submit-button text-center">
-            <button class="btn" [class.loading]="load" (click)="register()" [disabled]="!terms ">
+            <button class="btn" [class.loading]="load" (click)="register()" [disabled]="!terms||weakness<4 ">
                 {{LANG.CREATE_ACCOUNT}}
                 <ng-container *ngIf="load;else no_loader;">
                     <loader></loader>
@@ -224,9 +216,10 @@
             <button class="btn btn-danger">Back</button>
             <button class="btn btn-success">Next</button>
         </div> -->
+      
     </div>
 
     <div class="form-footer">
-        <p>{{LANG.Copyrights}}</p>
+        <p style="font-weight: 800;">{{LANG.Copyrights}}</p>
     </div>
 </section>

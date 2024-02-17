@@ -156,12 +156,13 @@ export class LkServiceService {
   getMaritalStatus() {
     if (this.maritalStatusList.length === 0) {
       this.maritalStatusList.push(
-        new MaritalStatus('1', 'Single', 'غير مرتبط', '1')
+        new MaritalStatus('1', 'Married', 'متزوج', '1')
       );
       this.maritalStatusList.push(
-        new MaritalStatus('2', 'Married', 'مرتبط', '1')
+        new MaritalStatus('2', 'Single', 'اعزب', '1')
       );
-      this.maritalStatusList.push(new MaritalStatus('3', 'Other', 'اخرى', '1'));
+      this.maritalStatusList.push(new MaritalStatus('3', 'Divorced', 'مطلق', '1'));
+      this.maritalStatusList.push(new MaritalStatus('4', 'Widower', 'أرمل', '1'));
     }
     return this.maritalStatusList;
   }
@@ -187,6 +188,10 @@ export class LkServiceService {
         new JobStatus('2', 'Unemployed', 'غير موظف', '1')
       );
       this.jobStatusList.push(new JobStatus('3', 'Student', 'طالب علم', '1'));
+      this.jobStatusList.push(
+        new JobStatus('4', 'لآusinessman', 'رجل أعمال', '1')
+      );
+      this.jobStatusList.push(new JobStatus('5', 'Retired و', 'متقاعد', '1'));
     }
     return this.jobStatusList;
   }

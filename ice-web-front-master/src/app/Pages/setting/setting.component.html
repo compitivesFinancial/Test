@@ -23,17 +23,17 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="wallet-left" *ngIf="user_data?.role_type==3">
-                                <i class="fa fa-film" aria-hidden="true"></i>
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <h6>{{LANG.amountYetToPay}}</h6>
                                 <!-- <h1>SR {{roundOF(walletFundBorower?.wallet_amount)}}</h1> -->
-                                <h1>{{walletBorrowerSum?.walletBalance}} SR</h1>
+                                <h1>{{walletBorrowerSum?.walletBalance.toFixed(2)}} SR</h1>
                                 <!-- <button class="btn add-amount">ADD AMOUNT</button> -->
                             </div>
                             <div class="wallet-left" *ngIf="user_data?.role_type==2">
-                                <i class="fa fa-film" aria-hidden="true"></i>
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 <h6>{{LANG.amountYetToPay}}</h6>
                                 <!-- <h6>{{LANG.Available_cash_in_your_CFC_wallet}}</h6> -->
-                                <h1>{{walletInvestorSum?.walletBalance}} SR</h1>
+                                <h1>{{walletInvestorSum?.walletBalance.toFixed(2)}} SR</h1>
                                 <!-- <button class="btn add-amount" data-bs-toggle="modal" data-bs-target="#addmoney">{{LANG.add-amount}}</button> -->
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                               </table>
                               </div>
                           </div> -->
-                            <div class="table-responsive table-section" *ngIf="walletHistoryData?.status">
+                            <div class="table-responsive table-section" *ngIf="status && !loading">
                             <div class="container">
                             <h2>{{LANG.Your_active_funds}}</h2>
                               <table class="table table-borderless">
@@ -119,10 +119,13 @@
                                     <th>{{LANG.debit_amount}}</th>
                                     <th>{{LANG.wallet_after}}</th>
                                     <th>{{LANG.created_on}}</th> 
+                                    <th>{{LANG.ref_num}}</th> 
+                                    <th>{{LANG.opportunity_id}}</th> 
+                                    <th>{{LANG.opportunity_name}}</th> 
                                   </tr>
                                 </thead>
                                 <tbody class="customTable">
-                                    <tr *ngFor="let record of walletHistoryData?.response?.data">
+                                    <tr *ngFor="let record of walletHistoryData">
                                       <!-- <td class="green" [class.red]="record.type==2">{{record.opportunity_id}}</td> -->
                                       <td class="green" [class.red]="record.type==2">{{record.investor_id}}</td>
                                       <td class="green" [class.red]="record.type==2">{{record.type==1?LANG.credit:LANG.debit}}</td>
@@ -130,6 +133,9 @@
                                       <td class="green" [class.red]="record.type==2">{{record.debit_amount}}</td>
                                       <td class="green" [class.red]="record.type==2">{{record.wallet_after}}</td>
                                       <td class="green" [class.red]="record.type==2">{{record.created_at}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.refNum}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.opportunity_id==0?'-':record.opportunity_id}}</td>
+                                      <td class="green" [class.red]="record.type==2">{{record.opportunity_id==0?'-':record.opportunity_name}}</td>
                                     </tr>
                                 </tbody>
                               </table>

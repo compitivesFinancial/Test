@@ -58,6 +58,7 @@ export class ProgramInfoComponent implements OnInit {
       .opertunityDetails(this.requestId)
       .subscribe((res: any) => {
         if(!!res){
+         
           this.selectedOpportunity = res.response.campaign;
           this.dashboardService.programInfo(this.selectedOpportunity.id).subscribe((opportunityInfo:any)=>{
             if(!!opportunityInfo?.response && !!opportunityInfo.status){

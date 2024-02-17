@@ -4,9 +4,10 @@ import { DashboardService } from '../Dashboard/dashboard.service';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import { environment } from 'src/environments/environment.prod';
 import { Subscription } from 'rxjs';
-import * as CryptoJS from 'crypto-js';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { LoginService } from 'src/app/Shared/Services/login.service';
+import { ActivatedRoute } from '@angular/router';
+import { WalletService } from 'src/app/Shared/Services/wallet.service';
 
 @Component({
   selector: 'app-dashboarddetails',
@@ -21,9 +22,12 @@ export class DashboarddetailsComponent implements OnInit {
   public profileDetails: any = ''
   public invesorDashDetails: any = ''
   disabled_inputs: boolean=false;
+  selectedOpportunity: any;
+  investmentStatement: any[]=[];
 
-
-  constructor(public dashBoardService: DashboardService, private shared: SharedService,public decryptAES:decryptAesService,  private loginService: LoginService) {
+  constructor(public dashBoardService: DashboardService, private shared: SharedService,public decryptAES:decryptAesService,  private loginService: LoginService ,
+    public dashboardService: DashboardService,
+    private walletService: WalletService,) {
     const user_data = btoa(btoa("user_info_web"));
     // console.log("btoa('user_info_web')",btoa(btoa("user_info_web")))
     if (localStorage.getItem(user_data) != undefined) {
@@ -32,6 +36,13 @@ export class DashboarddetailsComponent implements OnInit {
     }
    
    
+    this.subscriptions.push(
+      this.walletService
+        .getInvestorNearestDate()
+        .subscribe((res: any) => {
+          this.investmentStatement.push(res.response.message)
+        })
+    );
     this.changeLanguage();
   }
   changeLanguage() {
@@ -73,6 +84,7 @@ export class DashboarddetailsComponent implements OnInit {
     }
     this.dashBoardService.dashDEtails(data).subscribe((res: any) => {
       this.dashDetailsList = res.response.data
+      console.log("")
     })
   }
   roundOF(a: any) {

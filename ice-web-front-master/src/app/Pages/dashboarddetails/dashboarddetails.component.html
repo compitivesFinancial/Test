@@ -1,31 +1,53 @@
-<div *ngIf="user_data.role_type==3" class="dashboard-body">
-
-
-
-    <section class="home-section full-width">
-
-        <div class="campaign-tab">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" style="font-family: 'tajawal-reg' !important;" *ngIf="user_data?.role_type == 2 && disabled_inputs" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
-              </li>
-                <li class="nav-item" *ngIf="user_data?.role_type == 3">
-                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-campaign"
-                        *ngIf="profileDetails.kyc_approved_status==1"> {{LANG.Add_Opportunity}}</a>
-                </li>
-            </ul>
-        </div>
-        <div class="container">
-            <div class="home-content ">
-                <div class="overview-boxes row row-10 align-items-center">
-                    <!-- <div class="box"> -->
-                    <!-- <div class="right-side">
+<div *ngIf="user_data.role_type == 3" class="dashboard-body">
+  <section class="home-section full-width">
+    <div class="campaign-tab">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            routerLink="/add-kyc"
+            >{{ LANG.Kyc_Details }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            routerLink="/my-profile"
+            >{{ LANG.Edit_Profile }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            *ngIf="user_data?.role_type == 2 && disabled_inputs"
+            data-bs-toggle="tab"
+            routerLink="/qualified-investor"
+            >{{ LANG.Be_Qualified_Investor }}</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="user_data?.role_type == 3">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            routerLink="/add-campaign"
+            *ngIf="profileDetails.kyc_approved_status == 1"
+          >
+            {{ LANG.Add_Opportunity }}</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <div class="home-content">
+        <div class="overview-boxes row row-10 align-items-center">
+          <!-- <div class="box"> -->
+          <!-- <div class="right-side">
             <div class="box-topic">Number Of Oppertunity</div>
             <div class="number">40,876</div>
             <div class="indicator">
@@ -33,169 +55,225 @@
               <span class="text">Up from yesterday</span>
             </div>
           </div> -->
-                    <!-- <i class='bx bx-cart-alt cart'></i>
+          <!-- <i class='bx bx-cart-alt cart'></i>
         </div> -->
-                    <div class="col-md-3">
-                        <!-- <div class="box-topic">Number_of_Oppertunity</div> -->
-                        <div class="box-topic">عدد الفرص</div>
+          <div class="col-md-3">
+            <!-- <div class="box-topic">Number_of_Oppertunity</div> -->
+            <div class="box-topic">عدد الفرص</div>
 
-                        <div class="box">
-
-                            <div class="right-side">
-                                <div class="number">{{dashDetailsList.active_opportunity!= null?
-                                    dashDetailsList.active_opportunity:0}}</div>
-                                <!-- <div class="indicator">
+            <div class="box">
+              <div class="right-side">
+                <div class="number">
+                  {{
+                    dashDetailsList.no_of_opportunity != null
+                      ? dashDetailsList.no_of_opportunity
+                      : 0
+                  }}
+                </div>
+                <!-- <div class="indicator">
               <i class='bx bx-up-arrow-alt'></i>
               <span class="text">Up from yesterday</span>
             </div> -->
-                            </div>
-                            <!-- <i class='bx bxs-cart-add cart two'></i> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <!-- <div class="box-topic">Total_Amount_Raised</div> -->
-                        <div class="box-topic">اجمالي التمويل</div>
-                        <div class="box">
-                            <div class="right-side">
-                                <div class="number">{{roundOF(dashDetailsList.total_amount_raised != null ?
-                                    dashDetailsList.total_amount_raised:0)}}</div>
-                                <!-- <div class="indicator">
+              </div>
+              <!-- <i class='bx bxs-cart-add cart two'></i> -->
+            </div>
+          </div>
+          <div class="col-md-3">
+            <!-- <div class="box-topic">Total_Amount_Raised</div> -->
+            <div class="box-topic">اجمالي التمويل</div>
+            <div class="box">
+              <div class="right-side">
+                <div class="number">
+                  {{
+                    roundOF(
+                      dashDetailsList.total_amount_raised != null
+                        ? dashDetailsList.total_amount_raised
+                        : 0
+                    )
+                  }}
+                </div>
+                <!-- <div class="indicator">
               <i class='bx bx-up-arrow-alt'></i>
               <span class="text">Up from yesterday</span>
             </div> -->
-                            </div>
-                            <!-- <i class='bx bx-cart cart three'></i> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <!-- <div class="box-topic">Total_Repayment</div> -->
-                        <div class="box-topic">اجمالي السداد</div>
-                        <div class="box">
-                            <div class="right-side">
-                                <div class="number">{{roundOF(dashDetailsList.amount_repayment != null ?
-                                    dashDetailsList.amount_repayment:0)}}</div>
-                                <!-- <div class="indicator">
+              </div>
+              <!-- <i class='bx bx-cart cart three'></i> -->
+            </div>
+          </div>
+          <div class="col-md-3">
+            <!-- <div class="box-topic">Total_Repayment</div> -->
+            <div class="box-topic">اجمالي السداد</div>
+            <div class="box">
+              <div class="right-side">
+                <div class="number">
+                  {{
+                    roundOF(
+                      dashDetailsList.amount_repayment != null
+                        ? dashDetailsList.amount_repayment
+                        : 0
+                    )
+                  }}
+                </div>
+                <!-- <div class="indicator">
               <i class='bx bx-down-arrow-alt down'></i>
               <span class="text">Down From Today</span>
             </div> -->
-                            </div>
-                            <!-- <i class='bx bxs-cart-download cart four'></i> -->
-                        </div>
-                    </div>
-                    <div class="flex">
-                        <div>&nbsp;</div>
-                        <button class="btn add-opportunity pulse" routerLink="/add-campaign"
-                            *ngIf="profileDetails.kyc_approved_status==1">إضافة فرصة</button>
-                    </div>
-                </div>
-
-
+              </div>
+              <!-- <i class='bx bxs-cart-download cart four'></i> -->
             </div>
+          </div>
+          <div class="flex">
+            <div>&nbsp;</div>
+            <button
+              class="btn add-opportunity pulse"
+              routerLink="/add-campaign"
+              *ngIf="profileDetails.kyc_approved_status == 1"
+            >
+              إضافة فرصة
+            </button>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section class="home-section-2 home-sec-profile full-width-2">
-
-        <div class="container">
-            <div class="home-content ">
-                <div class="overview-boxes row">
-                    <div class="col-md-6">
-                        <div class="box first-sec-logo">
-
-                            <div class="right-side">
-                                <div class="img-logo">
-                                    <!-- <img src="../../../assets/images/banner.png" alt="" class="img-size"> -->
-                                    <img src="../../../assets/images/bank_img.jpg" alt="" class="img-size">
-                                </div>
-                             
-                                <!-- <div class="indicator">
+  <section class="home-section-2 home-sec-profile full-width-2">
+    <div class="container">
+      <div class="home-content">
+        <div class="overview-boxes row">
+          <div class="col-md-6">
+            <div class="box first-sec-logo">
+              <div class="right-side">
+                <div class="img-logo">
+                  <!-- <img src="../../../assets/images/banner.png" alt="" class="img-size"> -->
+                  <img
+                    src="../../../assets/images/bank_img.jpg"
+                    alt=""
+                    class="img-size"
+                  />
+                </div>
+                <div>
+                  <div class="box-topic">{{ LANG.Account_Number }}</div>
+                  <div class="number">
+                    {{
+                      profileDetails?.account_number != null
+                        ? profileDetails?.account_number
+                        : 0
+                    }}
+                  </div>
+                </div>
+                <!-- <div class="indicator">
                   <i class='bx bx-up-arrow-alt'></i>
                   <span class="text">Up from yesterday</span>
                 </div> -->
-                            </div>
-                        </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="box">
+              <div class="box-topic">{{ LANG.Profile_Info }}</div>
+              <!-- <div class="box-topic">البيانات الشخصية</div> -->
+              <div class="profile-right">
+                <div class="right-side spacer">
+                  <div class="box-topic">
+                    <div class="inner-topic">
+                      <span
+                        class="noWrap"
+                        style="font-weight: bold !important"
+                        >{{ LANG.Name }}</span
+                      >
+                      <span
+                        >{{ profileDetails?.first_name }}
+                        {{ profileDetails?.last_name }}</span
+                      >
                     </div>
-                    <div class="col-md-6">
+                  </div>
+                  <div class="box-topic box-topic-i">
+                    <div class="inner-topic">
+                      <span
+                        class="noWrap"
+                        style="font-weight: bold !important"
+                        >{{ LANG.Email_ID }}</span
+                      >
+                      <span class="noWrap">{{ profileDetails?.email }}</span>
+                    </div>
+                  </div>
+                  <div class="box-topic box-topic-i">
+                    <div class="inner-topic">
+                      <span
+                        class="noWrap"
+                        style="font-weight: bold !important"
+                        >{{ LANG.Contact_Number }}</span
+                      >
+                      <span class="noWrap">{{
+                        profileDetails?.mobile_number
+                      }}</span>
+                    </div>
+                  </div>
 
-
-
-                        <div class="box">
-                            <div class="box-topic">{{LANG.Profile_Info}}</div>
-                            <!-- <div class="box-topic">البيانات الشخصية</div> -->
-                            <div class="profile-right">
-                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-
-                                <div class="right-side spacer">
-                                    <div class="box-topic">
-                                        <div class="inner-topic">
-                                        <span class="noWrap" style="font-weight: bold !important;">{{LANG.Name}}</span>
-                                        <span class="noWrap">{{profileDetails?.first_name}} {{profileDetails?.last_name}}</span>
-                                        </div>
-                                        
-                                        </div>
-                                    <div class="box-topic box-topic-i">
-                                         <div class="inner-topic">
-                                            <span class="noWrap" style="font-weight: bold !important;">{{LANG.Email_ID}}</span>
-                                            <span class="noWrap">{{profileDetails?.email}}</span>
-                                         </div>
-                                        </div>
-                                    <div class="box-topic box-topic-i">
-                                            <div class="inner-topic">
-                                                <span class="noWrap" style="font-weight: bold !important;">{{LANG.Contact_Number}}</span>
-                                                <span class="noWrap">{{profileDetails?.mobile_number}}</span>
-                                            </div>
-                                            
-                                    </div>
-
-                                    <!-- <div class="indicator">
+                  <!-- <div class="indicator">
                     <i class='bx bx-up-arrow-alt'></i>
                     <span class="text">Up from yesterday</span>
                   </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-
-    </section>
-
-
-
-
-
-
+      </div>
+    </div>
+  </section>
 </div>
 
-<div *ngIf="user_data.role_type==2">
-
-
-
-    <section class="home-section full-width">
-        <!-- <div class="campaign-tab"> -->
-        <div class="campaign-tab">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/add-kyc">{{LANG.Kyc_Details}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/my-profile">{{LANG.Edit_Profile}}</a>
-                </li>
-                <li class="nav-item" *ngIf="disabled_inputs">
-                  <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/qualified-investor">{{LANG.Be_Qualified_Investor}}</a>
-              </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="font-family: 'tajawal-reg' !important;" data-bs-toggle="tab" routerLink="/campaign-list">{{LANG.View_Opportunity}}</a>
-                </li>
-            </ul>
-        </div>
-        <!-- </div> -->
-        <div class="container">
-            <div class="home-content ">
-                <div class="overview-boxes row row-10">
-                    <!-- <div class="box"> -->
-                    <!-- <div class="right-side">
+<div *ngIf="user_data.role_type == 2">
+  <section class="home-section full-width">
+    <!-- <div class="campaign-tab"> -->
+    <div class="campaign-tab">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            routerLink="/add-kyc"
+            >{{ LANG.Kyc_Details }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            routerLink="/my-profile"
+            >{{ LANG.Edit_Profile }}</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="disabled_inputs">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            routerLink="/qualified-investor"
+            >{{ LANG.Be_Qualified_Investor }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            style="font-family: 'tajawal-reg' !important"
+            data-bs-toggle="tab"
+            routerLink="/campaign-list"
+            >{{ LANG.View_Opportunity }}</a
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- </div> -->
+    <div class="container">
+      <div class="home-content">
+        <div class="overview-boxes row row-10">
+          <!-- <div class="box"> -->
+          <!-- <div class="right-side">
               <div class="box-topic">Number Of Oppertunity</div>
               <div class="number">40,876</div>
               <div class="indicator">
@@ -203,141 +281,215 @@
                 <span class="text">Up from yesterday</span>
               </div>
             </div> -->
-                    <!-- <i class='bx bx-cart-alt cart'></i>
+          <!-- <i class='bx bx-cart-alt cart'></i>
           </div> -->
-                    <div class="col-md-3">
-                        <!-- Number_of_Investment -->
-                        <!-- <div class="box-topic">عدد الاستثمارات</div> -->
-                        <div class="box-topic">{{LANG.Number_of_Investment}}</div>
-                        <div class="box">
-                            <div class="right-side">
-                                <div class="number">{{invesorDashDetails?.number_of_investment != null ?
-                                    invesorDashDetails?.number_of_investment:0}}</div>
-                                <!-- <div class="indicator">
+          <div class="col-md-3">
+            <!-- Number_of_Investment -->
+            <!-- <div class="box-topic">عدد الاستثمارات</div> -->
+            <div class="box-topic">{{ LANG.Number_of_Investment }}</div>
+            <div class="box">
+              <div class="right-side">
+                <div class="number">
+                  {{
+                    invesorDashDetails?.number_of_investment != null
+                      ? invesorDashDetails?.number_of_investment
+                      : 0
+                  }}
+                </div>
+                <!-- <div class="indicator">
                 <i class='bx bx-up-arrow-alt'></i>
                 <span class="text">Up from yesterday</span>
               </div> -->
-                            </div>
-                            <!-- <i class='bx bxs-cart-add cart two'></i> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <!-- Total_Amount_Invested -->
-                        <!-- <div class="box-topic">إجمالي مبالغ الاستثمار</div> -->
-                        <div class="box-topic">{{LANG.Total_Amount_Invested}}</div>
-                        <div class="box">
-                            <div class="right-side">
-                                <div class="number">{{roundOF(invesorDashDetails?.total_investment !=null ?
-                                    invesorDashDetails?.total_investment :0)}}</div>
-                                <!-- <div class="indicator">
+              </div>
+              <!-- <i class='bx bxs-cart-add cart two'></i> -->
+            </div>
+          </div>
+          <div class="col-md-3">
+            <!-- Total_Amount_Invested -->
+            <!-- <div class="box-topic">إجمالي مبالغ الاستثمار</div> -->
+            <div class="box-topic">{{ LANG.Total_Amount_Invested }}</div>
+            <div class="box">
+              <div class="right-side">
+                <div class="number">
+                  {{
+                    roundOF(
+                      invesorDashDetails?.total_investment != null
+                        ? invesorDashDetails?.total_investment
+                        : 0
+                    )
+                  }}
+                </div>
+                <!-- <div class="indicator">
                 <i class='bx bx-up-arrow-alt'></i>
                 <span class="text">Up from yesterday</span>
               </div> -->
-                            </div>
-                            <!-- <i class='bx bx-cart cart three'></i> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="box-topic">{{LANG.Total_Profit}}</div>
+              </div>
+              <!-- <i class='bx bx-cart cart three'></i> -->
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="box-topic">{{ LANG.Total_Profit }}</div>
 
-                        <div class="box">
-                            <div class="right-side">
-                                <div class="number">{{roundOF(invesorDashDetails?.total_profit != null ?
-                                    invesorDashDetails?.total_profit:0)}}</div>
-                                <!-- <div class="indicator">
+            <div class="box">
+              <div class="right-side">
+                <div class="number">
+                  {{
+                    roundOF(
+                      invesorDashDetails?.total_profit != null
+                        ? invesorDashDetails?.total_profit
+                        : 0
+                    )
+                  }}
+                </div>
+                <!-- <div class="indicator">
                 <i class='bx bx-down-arrow-alt down'></i>
                 <span class="text">Down From Today</span>
               </div> -->
-                            </div>
-                            <!-- <i class='bx bxs-cart-download cart four'></i> -->
-                        </div>
-                    </div>
+              </div>
+              <!-- <i class='bx bxs-cart-download cart four'></i> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section-2 home-sec-profile full-width-2">
+    <div class="container">
+      <div class="home-content">
+        <div class="overview-boxes row">
+          <div class="col-md-6">
+            <div class="box first-sec-logo">
+              <div class="right-side">
+                <div class="img-logo">
+                  <!-- <img src="../../../assets/images/banner.png" alt="" class="img-size"> -->
+                  <img
+                    src="../../../assets/images/bank_img.jpg"
+                    alt=""
+                    class="img-size"
+                  />
+                </div>
+                <!-- Account_Number -->
+                <!-- <div class="box-topic">رقم الحساب</div> -->
+                <div>
+                  <div class="box-topic">{{ LANG.Account_Number }}</div>
+                  <div class="number">
+                    {{
+                      profileDetails?.account_number != null
+                        ? profileDetails?.account_number
+                        : 0
+                    }}
+                  </div>
                 </div>
 
-
-            </div>
-        </div>
-    </section>
-
-    <section class="home-section-2 home-sec-profile full-width-2">
-        <div class="container">
-
-            <div class="home-content ">
-                <div class="overview-boxes row">
-                    <div class="col-md-6">
-                        <div class="box first-sec-logo">
-
-                            <div class="right-side">
-                                <div class="img-logo">
-                                    <!-- <img src="../../../assets/images/banner.png" alt="" class="img-size"> -->
-                                    <img src="../../../assets/images/bank_img.jpg" alt="" class="img-size">
-                                </div>
-                                <!-- Account_Number -->
-                                <!-- <div class="box-topic">رقم الحساب</div> -->
-                                <div>
-                                    <div class="box-topic">{{LANG.Account_Number}}</div>
-                                    <div class="number">{{profileDetails?.account_number != null ?
-                                        profileDetails?.account_number:0}}</div>
-                                </div>
-                 
-                                <!-- <div class="indicator">
+                <!-- <div class="indicator">
                     <i class='bx bx-up-arrow-alt'></i>
                     <span class="text">Up from yesterday</span>
                   </div> -->
-                            </div>
-                        </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="box">
+              <div class="box-topic">{{ LANG.Profile_Info }}</div>
+              <!-- <div class="box-topic">البيانات الشخصية</div> -->
+              <div class="profile-right">
+                <div class="right-side spacer">
+                  <div class="box-topic">
+                    <div class="inner-topic">
+                      <span
+                        class="noWrap"
+                        style="font-weight: bold !important"
+                        >{{ LANG.Name }}</span
+                      >
+                      <span class="noWrap"
+                        >{{ profileDetails?.first_name
+                        }}{{ profileDetails?.last_name }}</span
+                      >
                     </div>
-                    <div class="col-md-6">
+                  </div>
+                  <div class="box-topic box-topic-i">
+                    <div class="box-topic">
+                      <div class="inner-topic">
+                        <span
+                          class="noWrap"
+                          style="font-weight: bold !important"
+                          >{{ LANG.Email_ID }}</span
+                        >
+                        <span class="noWrap">{{ profileDetails?.email }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-topic box-topic-i">
+                    <div class="box-topic">
+                      <div class="inner-topic">
+                        <span
+                          class="noWrap"
+                          style="font-weight: bold !important"
+                          >{{ LANG.Contact_Number }}</span
+                        >
+                        <span class="noWrap">{{
+                          profileDetails?.mobile_number
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
 
-
-
-                        <div class="box">
-                            <div class="box-topic">{{LANG.Profile_Info}}</div>
-                            <!-- <div class="box-topic">البيانات الشخصية</div> -->
-                            <div class="profile-right">
-                                <div class="right-side spacer">
-                                    <div class="box-topic">
-                                        <div class="inner-topic">
-                                            <span class="noWrap" style="font-weight: bold !important;">{{LANG.Name}}</span>
-                                            <span class="noWrap">{{profileDetails?.first_name}}{{profileDetails?.last_name}}</span>
-                                        </div>
-                                        </div>
-                                    <div class="box-topic box-topic-i">
-                                            <div class="box-topic">
-                                                <div class="inner-topic">
-                                                    <span class="noWrap" style="font-weight: bold !important;">{{LANG.Email_ID}}</span>
-                                                    <span class="noWrap">{{profileDetails?.email}}</span>
-                                                </div>
-                                            
-                                            </div>
-                                            </div>
-                                    <div class="box-topic  box-topic-i">
-                                            <div class="box-topic">
-                                                <div class="inner-topic">
-                                                    <span class="noWrap" style="font-weight: bold !important;">{{LANG.Contact_Number}}</span>
-                                                    <span class="noWrap">{{profileDetails?.mobile_number}}</span>
-                                                </div>
-                                           
-                                            </div>
-                                            </div>
-
-                                    <!-- <div class="indicator">
+                  <!-- <div class="indicator">
                       <i class='bx bx-up-arrow-alt'></i>
                       <span class="text">Up from yesterday</span>
                     </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-
-    </section>
-
-
-
-
-
-
+      </div>
+    </div>
+  </section>
+  <section class="home-section-2 home-sec-profile full-width-2">
+    <div class="container">
+      <div class="home-content">
+        <h2>{{ LANG.upcoming_dividends }}</h2>
+        <br />
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>{{ LANG.id }}</th>
+              <th>{{ LANG.campaign_id }}</th>
+              <th>{{ LANG.invester_id }}</th>
+              <th>{{ LANG.date }}</th>
+              <th>{{ LANG.principle }}</th>
+              <th>{{ LANG.profit }}</th>
+              <th>{{ LANG.tax }}</th>
+              <th>{{ LANG.fees }}</th>
+              <th>{{ LANG.total }}</th>
+              <th>{{ LANG.updated_at }}</th>
+              <th>{{ LANG.created_at }}</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="investmentStatement.length > 0">
+            <tr *ngFor="let data of investmentStatement">
+              <td>{{ data.id ? data.id : "-" }}</td>
+              <td>{{ data.campaign_id ? data.campaign_id : "-" }}</td>
+              <td>{{ data.invester_id ? data.invester_id : "-" }}</td>
+              <td>{{ data.date ? data.date : "-" }}</td>
+              <td>{{ data.principle ? data.principle : "-" }}</td>
+              <td>{{ data.profit ? data.profit : "-" }}</td>
+              <td>{{ data.tax ? data.tax : "-" }}</td>
+              <td>{{ data.fees ? data.fees : "-" }}</td>
+              <td>{{ data.total ? data.total : "-" }}</td>
+              <td>{{ data.updated_at ? data.updated_at : "-" }}</td>
+              <td>{{ data.created_at ? data.created_at : "-" }}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="investmentStatement.length == 0">
+            <td colspan="11" class="empty-table-cell">
+              <div>{{ LANG.no_upcoming_dividends }}</div>
+            </td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 </div>

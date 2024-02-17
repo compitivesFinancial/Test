@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Campaign Investment Statement</h2>
+  <h2>{{LANG.campaign_investment_statement}}</h2>
   <br/>
   <table class="table table-hover">
     <thead>
@@ -18,18 +18,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of investmentStatement">
-        <td>{{data.id}}</td>
-        <td>{{data.campaign_id}}</td>
-        <td>{{data.invester_id}}</td>
-        <td>{{data.date}}</td>
-        <td>{{data.principle}}</td>
-        <td>{{data.profit}}</td>
-        <td>{{data.tax}}</td>
-        <td>{{data.fees}}</td>
-        <td>{{data.total}}</td>
-        <td>{{data.updated_at}}</td>
-        <td>{{data.created_at}}</td>
+      <tr  *ngFor="let data of investmentStatement">
+        <td>{{data.id?data.id:'-'}}</td>
+        <td>{{data.campaign_id?data.campaign_id:'-'}}</td>
+        <td>{{data.invester_id?data.invester_id:'-'}}</td>
+        <td>{{data.date?data.date:'-'}}</td>
+        <td>{{data.principle?data.principle:'-'}}</td>
+        <td>{{data.profit?data.profit:'-'}}</td>
+        <td>{{data.tax?data.tax:'-'}}</td>
+        <td>{{data.fees?data.fees:'-'}}</td>
+        <td>{{data.total?data.total:'-'}}</td>
+        <td>{{data.updated_at?data.updated_at:'-'}}</td>
+        <td>{{data.created_at?data.created_at:'-'}}</td>
       </tr>
     </tbody>
   </table>

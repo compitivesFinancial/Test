@@ -83,7 +83,9 @@ export class HeaderComponent implements OnInit {
     $(".navbar-collapse").removeClass("show");
   }
   toggleMenu() {
+
     this.menuToggle = !this.menuToggle;
+  
   }
   togglePhoneMenu(){
     this.phoneMenuToggle= !this.phoneMenuToggle;

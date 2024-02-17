@@ -272,8 +272,9 @@ $("#carousel-3").owlCarousel({
   investMentOppertunity(){
     this.data_loaded=false;
     this.campaignService.investmentOppertunityQaysar().subscribe((res:any)=>{
-      if(res){
-        this.investmentOppertunityList =res.response;
+      if(res.status){
+        this.investmentOppertunityList =res.response.filter((opp:any)=>opp.status==1);
+
         this.data_loaded=true;
       }
     
