@@ -36,7 +36,10 @@ import { DashboardService } from '../../Dashboard/dashboard.service';
 import { decryptAesService } from 'src/app/Shared/Services/decryptAES.service';
 import { DOCUMENT } from '@angular/common';
 import { apiServiceComponent } from 'src/app/Shared/Services/api.service';
-
+import { Cities } from 'src/app/Shared/Models/cities';
+import * as moment from 'moment-hijri';
+import { DateConversionService } from './convertHijriToGregorian.service';
+import { toHijri, toGregorian } from "hijri-converter";
 @Component({
   selector: 'app-add-kyc',
   templateUrl: './add-kyc.component.html',
@@ -79,13 +82,14 @@ export class AddKycComponent implements OnInit, OnChanges {
   monthsHijri: string[] = [];
   days: number[] = [];
   grossIncomeList: string[] = [];
-
+  citiesList: Cities[] = [];
   identityStr: string = '';
   genderStr: string = '';
   banksStr: string = '';
   fundUseStr: string = '';
   maritalStatusStr: string = '';
   educationStr: string = '';
+  citiesStr: string = '';
   jobStatusStr: string = '';
   yearsHStr: string = '';
   monthStr: string = '';
@@ -108,7 +112,7 @@ export class AddKycComponent implements OnInit, OnChanges {
   nationalityDescAr: string = '';
   sexDescAr: string = '';
   idExpirationDate: string = '';
-  subTribeName: string = ''; 
+  subTribeName: string = '';
   show_otp: boolean = false;
   showResend: boolean = false;
   otp_error: any = {};
@@ -124,6 +128,7 @@ export class AddKycComponent implements OnInit, OnChanges {
   @ViewChild('field2') field2Input: ElementRef | null = null;
   @ViewChild('field3') field3Input: ElementRef | null = null;
   @ViewChild('field4') field4Input: ElementRef | null = null;
+  underProcess: boolean=false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -137,7 +142,8 @@ export class AddKycComponent implements OnInit, OnChanges {
     private yaqeenService: YaqeenService,
     public dashBoardService: DashboardService,
     public decryptAES: decryptAesService,
-    public api: apiServiceComponent
+    public api: apiServiceComponent,
+    private dateConversionService: DateConversionService
   ) {
     const user_data = btoa(btoa('user_info_web'));
     if (localStorage.getItem(user_data) != undefined) {
@@ -172,6 +178,7 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.getFundList();
     this.getMaritalStatusList();
     this.getEducationList();
+    this.getCitiesList();
     this.getJobStatusList();
     this.getYearsHijri();
     this.getMonthsHijri();
@@ -252,13 +259,11 @@ export class AddKycComponent implements OnInit, OnChanges {
         .sendOtpKyc(this.yaqeenIdNumber, this.user_data.id)
         .subscribe((res) => {
           res;
-         
         });
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-  }
+  ngOnChanges(changes: SimpleChanges) {}
 
   changeLanguage() {
     this.shared.getLang().subscribe((lang) => {
@@ -290,10 +295,10 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.firstNameT = '';
     this.grandFatherName = '';
     this.grandFatherNameT = '';
-    this.nationalityDescAr = ''; 
+    this.nationalityDescAr = '';
     this.sexDescAr = '';
     this.idExpirationDate = '';
-    this.subTribeName = ''; 
+    this.subTribeName = '';
   }
   getIdentityList() {
     this.identityList = this.lkservice.getIdentityList();
@@ -312,6 +317,9 @@ export class AddKycComponent implements OnInit, OnChanges {
   }
   getEducationList() {
     this.educationList = this.lkservice.getEducationList();
+  }
+  getCitiesList() {
+    this.citiesList = this.lkservice.getCitiesList();
   }
   getJobStatusList() {
     this.jobStatusList = this.lkservice.getJobStatusList();
@@ -332,7 +340,7 @@ export class AddKycComponent implements OnInit, OnChanges {
 
   checkYaqeenService() {
     this.procced = false;
-  
+
     let hasData = false;
     if (
       this.identityStr != null &&
@@ -341,7 +349,6 @@ export class AddKycComponent implements OnInit, OnChanges {
     ) {
       if (this.identityStr == '1') {
         if (
-        
           this.yaqeenIdNumber == null ||
           this.yaqeenIdNumber == '' ||
           this.yaqeenIdNumber.length < 10 ||
@@ -368,9 +375,15 @@ export class AddKycComponent implements OnInit, OnChanges {
         this.yaqeenIdNumber == null ||
         this.yaqeenIdNumber == '' ||
         this.yaqeenIdNumber.length < 10 ||
-        this.iqamaDOB == null ||
-        this.iqamaDOB == '' ||
-        this.iqamaDOB == undefined
+        this.yearsHStr == null ||
+        this.yearsHStr == '' ||
+        this.yearsHStr == undefined ||
+        this.monthStr == null ||
+        this.monthStr == '' ||
+        this.monthStr == undefined ||
+        this.dayStr == null ||
+        this.dayStr == '' ||
+        this.dayStr == undefined
       ) {
         this.errorHandler(1);
         alert(
@@ -378,7 +391,10 @@ export class AddKycComponent implements OnInit, OnChanges {
         );
         if (this.err) return;
       } else {
-        let month = (new Date(this.iqamaDOB).getMonth() + 1)
+      
+        let fullGORDate = toGregorian(parseInt(this.yearsHStr),parseInt(this.monthStr),parseInt(this.dayStr));
+        this.iqamaDOB=fullGORDate.gy+'-'+fullGORDate.gm;
+        let month = (new Date().getMonth())
           .toString()
           .slice(-2);
         if (parseInt(month) < 10) {
@@ -403,7 +419,6 @@ export class AddKycComponent implements OnInit, OnChanges {
       );
     }
   }
-
   getYaqeenSaudiData() {
     let yearMonth = `${this.yearsHStr}-${this.monthStr}`;
 
@@ -430,6 +445,7 @@ export class AddKycComponent implements OnInit, OnChanges {
               () => res.response.personBasicInfo.birthDateG
             );
             if (hasData === 'undefined') {
+              this.load = false;
               this.toast.error('The Id number not exist ');
               return;
             }
@@ -521,6 +537,7 @@ export class AddKycComponent implements OnInit, OnChanges {
               () => res.response.personBasicInfo.birthDateG
             );
             if (hasData === 'undefined') {
+              this.load = false;
               this.toast.error('The Id number not exist ');
               return;
             }
@@ -591,9 +608,10 @@ export class AddKycComponent implements OnInit, OnChanges {
                   : (this.procced = false);
               }
             }
-
+            this.load = false;
             this.toast.success('Verified');
           } else {
+            this.load = false;
             this.procced = false;
             this.toast.error(res.response.message);
           }
@@ -625,8 +643,8 @@ export class AddKycComponent implements OnInit, OnChanges {
       this.loginService.getProfileDetails(data, type).subscribe((res: any) => {
         if (res.status) {
           this.user_details = res.response;
+
           if (res.response.kyc_approved_status == 1) {
-            console.log("res.response.kyc_approved_status")
             this.disabled_inputs = true;
           }
         }
@@ -635,12 +653,26 @@ export class AddKycComponent implements OnInit, OnChanges {
   }
 
   getUserKycList() {
+    
+
     this.subscriptions.push(
       this.campaign_service.getUserKycList().subscribe((res: any) => {
         this.kyc_form = res.response;
+        this.data_loaded = true;
+      if(this.profileDetails.role_type==3){
+        this.campaign_service.getWatheqData(this.user_data.id).subscribe((res:any)=>{
+          if(res.status){
+            res.response.verfired=="1"?this.underProcess=false:this.underProcess=true;
+          }
+          else {
+            this.underProcess=false;
+          }
+        })
+      }
         this.kyc_form.map((data: any) => {
           data.info_type.map((item: any) => {
             item.detail.map((fields: any) => {
+            
               if (fields.id == 6) {
                 fields.value = this.user_data?.email;
               }
@@ -654,7 +686,7 @@ export class AddKycComponent implements OnInit, OnChanges {
                 this.identityStr = fields.value;
               }
               if (fields.id == 132) {
-                this.yearsHStr = fields.value;
+                this.yearsHStr = fields.value;//---------------------------------------------------------------------------------------------------------
               }
               if (fields.id == 133) {
                 this.monthStr = fields.value;
@@ -666,7 +698,15 @@ export class AddKycComponent implements OnInit, OnChanges {
                 this.yaqeenIdNumber = fields.value;
               }
               if (fields.id == 136) {
-                this.iqamaDOB = fields.value;
+              
+                 [this.yearsHStr, this.monthStr, this.dayStr] = fields.value.split('-').map(Number);
+
+              let hijriUpdate=  toHijri(parseInt(this.yearsHStr),parseInt(this.monthStr),parseInt(this.dayStr));
+            
+              this.yearsHStr=hijriUpdate.hy.toString();
+              this.monthStr=hijriUpdate.hm.toString();
+              this.dayStr=hijriUpdate.hd.toString();
+              this.iqamaDOB=hijriUpdate.hy+'-'+hijriUpdate.hm+hijriUpdate.hd;
               }
               if (fields.id == 137) {
                 this.yaqeenArName = fields.value;
@@ -683,7 +723,7 @@ export class AddKycComponent implements OnInit, OnChanges {
             });
           });
         });
-        this.data_loaded = true;
+    
       })
     );
   }
@@ -733,7 +773,6 @@ export class AddKycComponent implements OnInit, OnChanges {
         var fileName = data.file.name;
         var path = fileName + n;
         const filePath = `Kyc/${path}`;
-        this.load = true;
         const uploadTask = firebase
           .storage()
           .ref()
@@ -776,14 +815,13 @@ export class AddKycComponent implements OnInit, OnChanges {
   }
 
   next(index: number) {
-   
     // if (this.disabled_inputs) {
-      this.tab_index = index + 1;
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-      return;
+    this.tab_index = index + 1;
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    // return;
     // }
 
     this.addKYCDetails(index);
@@ -801,18 +839,17 @@ export class AddKycComponent implements OnInit, OnChanges {
     if (this.yaqeenData?.firstName != '' || this.yaqeenData != null) {
       this.kyc_form[index].info_type.map((data: any) => {
         data.detail.map((fields: any) => {
-         
-          if (fields.id == 131 ) {
+          if (fields.id == 131) {
             fields.value = this.identityStr;
           }
-          if (fields.id == 132 ) {
+          if (fields.id == 132) {
             fields.value = this.yearsHStr;
           }
-          if (fields.id == 133 ) {
+          if (fields.id == 133) {
             fields.value = this.monthStr;
           }
 
-          if (fields.id == 134 ) {
+          if (fields.id == 134) {
             fields.value = this.dayStr;
           }
 
@@ -834,8 +871,6 @@ export class AddKycComponent implements OnInit, OnChanges {
 
     this.kyc_form[index].info_type.map((data: any) => {
       data.detail.map((fields: any) => {
-       
-
         if (fields.id == 112 && fields.value == null) {
           fields.value = this.crname;
         }
@@ -858,8 +893,6 @@ export class AddKycComponent implements OnInit, OnChanges {
     if (this.tab_index == this.kyc_form.length - 1) {
       this.kyc_form[index].info_type.map((data: any) => {
         data.detail.map((fields: any) => {
-       
-
           if (fields.id == 112 && fields.value == null) {
             fields.value = this.crname;
           }
@@ -883,7 +916,6 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.errorHandler(index);
     if (this.err) return;
     if (this.tab_index == this.kyc_form.length - 1) {
-      this.load = true;
       this.kyc_form.map((data: any) => {
         data.info_type.map((item: any) => {
           item.detail.map((fields: any) => {
@@ -906,25 +938,37 @@ export class AddKycComponent implements OnInit, OnChanges {
       });
     }
   }
+  getValueById(data: any[], id: any): any | undefined {
+    for (const obj of data) {
+      for (const infoType of obj.info_type) {
+        for (const detail of infoType.detail) {
+          if (detail.id === id) {
+            return detail.value;
+          }
+        }
+      }
+    }
+    return undefined;
+  }
   add() {
     const otp = this.otp1 + this.otp2 + this.otp3 + this.otp4;
     if (this.otp1 == null || this.otp1 == '' || this.otp1 == undefined) {
-      this.toast.error('Fill OTP ');
+    //  this.toast.error('Fill OTP ');
       this.load = false;
       return;
     }
     if (this.otp2 == null || this.otp2 == '' || this.otp2 == undefined) {
-      this.toast.error('Fill OTP ');
+     // this.toast.error('Fill OTP ');
       this.load = false;
       return;
     }
     if (this.otp3 == null || this.otp3 == '' || this.otp3 == undefined) {
-      this.toast.error('Fill OTP ');
+    //  this.toast.error('Fill OTP ');
       this.load = false;
       return;
     }
     if (this.otp4 == null || this.otp4 == '' || this.otp4 == undefined) {
-      this.toast.error('Fill the OTP ');
+     // this.toast.error('Fill the OTP ');
       this.load = false;
       return;
     }
@@ -946,6 +990,21 @@ export class AddKycComponent implements OnInit, OnChanges {
                   field: this.post_data,
                   crnumber: JSON.stringify(this.verifyCR),
                 };
+                let watheqData: any;
+
+                watheqData = {
+                  commerical_regestration: this.getValueById(this.kyc_form, 74),
+                  company_name: this.getValueById(this.kyc_form, 112),
+                  ceEntityNumber: this.getValueById(this.kyc_form, 113),
+                  job_type: this.getValueById(this.kyc_form, 114),
+                  release_date: this.getValueById(this.kyc_form, 115),
+                  expire_date: this.getValueById(this.kyc_form, 116),
+                  email: this.getValueById(this.kyc_form, 18),
+                  phone_number: this.getValueById(this.kyc_form, 21),
+                  company_address: this.getValueById(this.kyc_form, 19),
+                };
+                this.watheqStore(watheqData);
+
                 this.campaign_service.addKyc(data).subscribe((res: any) => {
                   if (res.status) {
                     this.load = false;
@@ -955,7 +1014,7 @@ export class AddKycComponent implements OnInit, OnChanges {
                       return;
                     }
                     this.router.navigate(['/dashboard']);
-          
+
                     return;
                   }
                   this.toast.warning(res.response.message);
@@ -974,8 +1033,6 @@ export class AddKycComponent implements OnInit, OnChanges {
     this.err = false;
     this.kyc_form[index].info_type.map((data: any) => {
       data.detail.map((fields: any) => {
-       
-
         if (fields.mandatory == 1 && !fields.value) {
           fields.required = true;
           this.err = true;
@@ -1020,7 +1077,18 @@ export class AddKycComponent implements OnInit, OnChanges {
         }
       });
       if (!this.err) {
-        this.post_data.push.apply(this.post_data, data.detail);
+        const hasIds = data.detail.some(
+          (item: any) =>
+            item.id == 74 ||
+            item.id == 112 ||
+            item.id == 113 ||
+            item.id == 114 ||
+            item.id == 115 ||
+            item.id == 116
+        );
+        if (!hasIds) {
+          this.post_data.push.apply(this.post_data, data.detail);
+        }
       }
     });
   }
@@ -1032,31 +1100,13 @@ export class AddKycComponent implements OnInit, OnChanges {
   }
   public verifyCR: any;
   verfyimg: boolean = false;
-  // verifyCrNumber(number: any) {
-  //   this.campaign_service.verifyCrNumber(number).subscribe((res: any) => {
-  //     let status = res.status;
-  //     this.verifyCR = res.response;
-  //     if (status && res.response?.message !== 'No Results Found') {
-  //       this.toast.success('verified');
-  //       this.crname = this.verifyCR.crName;
-  //       this.crEntityNumber = this.verifyCR.crEntityNumber;
-  //       this.issueDate = this.verifyCR.issueDate;
-  //       this.expiryDate = this.verifyCR.expiryDate;
-  //       this.businessType = this.verifyCR.businessType.name;
-  //     } else if (res.response.message === 'No Results Found') {
-  //       this.toast.error('No Results Found');
-  //     } else {
-  //       this.toast.error(res.response.message);
-  //     }
-  //   });
-  // }
-  // change(event: any) {
-  //   let crName = event.target.value;
-  //   if (crName.length === 10) {
-  //     this.verifyCrNumber(crName);
-  //   }
-  // }
 
+  watheqStore(data: any) {
+    // this.watheqData.
+    this.campaign_service.watheqStore(data).subscribe((res: any) => {
+      if (res) console.log('data sent');
+    });
+  }
   calculateDate(birthdate: Date) {
     let today = new Date();
     let BOD = new Date(birthdate);

@@ -84,7 +84,6 @@ export class DashboarddetailsComponent implements OnInit {
     }
     this.dashBoardService.dashDEtails(data).subscribe((res: any) => {
       this.dashDetailsList = res.response.data
-      console.log("")
     })
   }
   roundOF(a: any) {

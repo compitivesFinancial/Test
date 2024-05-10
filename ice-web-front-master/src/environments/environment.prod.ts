@@ -632,7 +632,8 @@ export const environment = {
      qualified:"Qualified",
      // "user_statement":"قائمة بيانات المستخدم المالية",
      Investor_statement:"Investor Statement",
-     multiple_of_1000:"Please enter only multiples of 1000 SAR"
+     multiple_of_1000:"Please enter only multiples of 1000 SAR",
+     watheq_check:"Commercial registry data under review"
      //"ID" :"الرقم",
         //End Add by Qaysar
   },
@@ -1238,6 +1239,7 @@ export const environment = {
      "upcoming_dividends":"اقرب التوزيعات",
      "no_upcoming_dividends":"لا توجد توزيعات في الوقت الحالي",
      "not_entered_yet":"لم يدخل بعد",
+     "watheq_check":"بيانات السجلات التجارية قيد المراجعة"
      //"ID" :"الرقم",
     //End Add by Qaysar
 

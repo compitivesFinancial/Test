@@ -218,12 +218,13 @@ video {
 }
 
 .header .dropdown-toggle:before {
-    content: "\f107";
+    content: "\f0d7";
     right: -10px;
     top: 50%;
     position: absolute;
-    font: normal normal normal 14px/1 FontAwesome;
+    font: normal normal normal 30px/1 FontAwesome;
     transform: translateY(-50%);
+    color: #3c0d7c;
 }
 
 .header .dropdown-item:before {

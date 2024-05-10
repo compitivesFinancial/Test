@@ -63,7 +63,7 @@ export class CampaignListComponent implements OnInit, OnDestroy {
     });
   }
   getcampaigns(user_id?: any, type?: any, opportunitiesArr?: any,role_type?:any) {
-    console.log("role_type",role_type )
+
     this.timeDiff = [];
     this.campaign_list = [];
     this.closedOpportunites = [];
@@ -139,7 +139,6 @@ export class CampaignListComponent implements OnInit, OnDestroy {
           if (type == 1) {
             this.campaign_list = res.response;
             
-            console.log("this.campaign_list",this.campaign_list)
            
           } else if (type == 2) {
             this.campaign_list = opportunitiesArr;

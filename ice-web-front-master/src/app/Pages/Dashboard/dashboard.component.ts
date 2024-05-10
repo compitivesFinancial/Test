@@ -285,7 +285,6 @@ export class DashboardComponent implements OnInit {
   getOpportunityData(){
     this.getOpertunityComPercentage();
     this.shared.getOpportunity().subscribe((data:any)=>{
-      console.log("this.opportunityInvestorData",data)
       if(data.data.days!==null&&data.data.hours!==null&&data.data.minutes!==null){
         this.options.percent=data.data.days;
         this.options1.percent=data.data.hours;

@@ -6,6 +6,7 @@ import { FundUse } from '../Models/fund-use';
 import { Education } from '../Models/education';
 import { MaritalStatus } from '../Models/marital-status';
 import { JobStatus } from '../Models/job-status';
+import { Cities } from '../Models/cities';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class LkServiceService {
   grossIncome: Array<string> = [];
   financingType: Map<string, string> = new Map<string, string>();
   financingPeriod: Map<number, number> = new Map<number, number>();
+  citiesList: Array<Cities> = [];
 
   constructor() {}
   /*************************************************************************/
@@ -179,6 +181,25 @@ export class LkServiceService {
       this.educationList.push(new Education('6', 'others', 'اخرى', '1'));
     }
     return this.educationList;
+  }
+  /*************************************************************************/
+  getCitiesList() {
+    if (this.citiesList.length === 0) {
+      this.citiesList.push(new Cities('1', 'Al Riyadh', 'الرياض', '1'));
+      this.citiesList.push(new Cities('2', 'Eastern Region', 'المنطقة الشرقية', '1'));
+      this.citiesList.push(new Cities('3', 'Mecca Al Mokarama', 'مكة المكرمة', '1'));
+      this.citiesList.push(new Cities('8', 'Al Madina Al Moawra', 'المدينة المنورة', '1'));
+      this.citiesList.push(new Cities('9', 'Al Qassim', 'القصيم', '1'));
+      this.citiesList.push(new Cities('10', 'Assir', 'عسير', '1'));
+      this.citiesList.push(new Cities('11', 'Tabouk', 'تبوك', '1'));
+      this.citiesList.push(new Cities('12', 'Hail', 'حائل', '1'));
+      this.citiesList.push(new Cities('13', 'Northern Borders', 'الحدود الشمالية', '1'));
+      this.citiesList.push(new Cities('14', 'Jazan', 'جازان', '1'));
+      this.citiesList.push(new Cities('15', 'Najran', 'نجران', '1'));
+      this.citiesList.push(new Cities('16', 'Al Baha', 'الباحة', '1'));
+      this.citiesList.push(new Cities('17', 'Al Jouf', 'الجوف', '1'));
+    }
+    return this.citiesList;
   }
   /*************************************************************************/
   getJobStatusList() {

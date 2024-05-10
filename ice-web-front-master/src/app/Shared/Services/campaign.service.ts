@@ -17,7 +17,10 @@ public campaignDetail:any;
     this.url = 'show_userkyc';
     return this.api.get(this.url, '');
   }
-
+  getWatheqData(id:any) {
+    this.url = "watheqData";
+    return this.api.post(this.url, id);
+  }
   addKyc(data: Object) {
     this.url = 'modify_userkyc';
     return this.api.post(this.url, data);
@@ -89,6 +92,10 @@ public campaignDetail:any;
   verifyCrNumber(id: any) {
     this.url = `commercialregistration/${id}`;
     return this.api.get(this.url, '');
+  }
+  watheqStore(data: any){
+    this.url = 'watheqStore';
+    return this.api.post(this.url, data);
   }
   // old one edited by qaysar
   // verifyCrNumber(id:any){
